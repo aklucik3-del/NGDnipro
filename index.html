@@ -687,42 +687,84 @@
             observer.observe(el);
         });
 
+        // Вспомогательная функция получения даты с учетом часового пояса Киева (Europe/Kyiv)
+        function getKyivTimeComponents(date) {
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Europe/Kyiv',
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                weekday: 'short',
+                hour12: false
+            });
+
+            const parts = formatter.formatToParts(date);
+            const map = {};
+            parts.forEach(p => map[p.type] = p.value);
+
+            const weekdays = { 'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6 };
+
+            return {
+                year: parseInt(map.year, 10),
+                month: parseInt(map.month, 10) - 1,
+                day: parseInt(map.day, 10),
+                hour: parseInt(map.hour, 10) % 24,
+                minute: parseInt(map.minute, 10),
+                second: parseInt(map.second, 10),
+                dayOfWeek: weekdays[map.weekday]
+            };
+        }
+
+        function getKyivOffsetMs(date) {
+            const utcTime = date.getTime();
+            const k = getKyivTimeComponents(date);
+            const kyivAsUtc = Date.UTC(k.year, k.month, k.day, k.hour, k.minute, k.second);
+            return kyivAsUtc - utcTime;
+        }
+
         function updateCountdown() {
             const now = new Date();
-            const resultDate = new Date(now);
-            
-            const dayOfWeek = now.getDay();
-            const hour = now.getHours();
-            const minute = now.getMinutes();
-            const second = now.getSeconds();
-            
+            const kNow = getKyivTimeComponents(now);
+
             let daysUntilSunday = 0;
-            
-            if (dayOfWeek === 0) {
-                if (hour > 10 || (hour === 10 && minute > 0) || (hour === 10 && minute === 0 && second > 0)) {
+            if (kNow.dayOfWeek === 0) {
+                if (kNow.hour > 10 || (kNow.hour === 10 && (kNow.minute > 0 || kNow.second > 0))) {
                     daysUntilSunday = 7;
                 } else {
                     daysUntilSunday = 0;
                 }
             } else {
-                daysUntilSunday = 7 - dayOfWeek;
+                daysUntilSunday = 7 - kNow.dayOfWeek;
             }
-            
-            resultDate.setDate(now.getDate() + daysUntilSunday);
-            resultDate.setHours(10, 0, 0, 0);
-            
-            let diff = resultDate - now;
-            
+
+            // Формируем целевое воскресенье в 10:00 по Киеву
+            const targetYear = kNow.year;
+            const targetMonth = kNow.month;
+            const targetDay = kNow.day + daysUntilSunday;
+
+            let targetKyivTimestamp = Date.UTC(targetYear, targetMonth, targetDay, 10, 0, 0, 0);
+
+            // Корректируем смещение UTC к моменту целевой даты (с учетом переходов летнее/зимнее время)
+            const approxTargetDate = new Date(targetKyivTimestamp);
+            const targetOffset = getKyivOffsetMs(approxTargetDate);
+            const targetUtcTimestamp = targetKyivTimestamp - targetOffset;
+
+            let diff = targetUtcTimestamp - now.getTime();
+
             if (diff < 0) {
-                resultDate.setDate(resultDate.getDate() + 7);
-                diff = resultDate - now;
+                const nextSundayTimestamp = Date.UTC(targetYear, targetMonth, targetDay + 7, 10, 0, 0, 0);
+                const nextTargetOffset = getKyivOffsetMs(new Date(nextSundayTimestamp));
+                diff = (nextSundayTimestamp - nextTargetOffset) - now.getTime();
             }
-            
+
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60)) / (1000 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
+
             document.getElementById('days').innerText = String(days).padStart(2, '0');
             document.getElementById('hours').innerText = String(hours).padStart(2, '0');
             document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');

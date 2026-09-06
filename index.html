@@ -687,77 +687,75 @@
             observer.observe(el);
         });
 
-        // Вспомогательная функция получения даты с учетом часового пояса Киева (Europe/Kyiv)
-        function getKyivTimeComponents(date) {
+        // Функция получения целевой даты ближайшего воскресенья в 10:00 (Europe/Kyiv)
+        function getNextKyivSunday(now) {
+            // Рассчитываем дату в часовом поясе Europe/Kyiv
             const formatter = new Intl.DateTimeFormat('en-US', {
                 timeZone: 'Europe/Kyiv',
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                weekday: 'short',
-                hour12: false
+                weekday: 'short'
             });
 
-            const parts = formatter.formatToParts(date);
+            const parts = formatter.formatToParts(now);
             const map = {};
             parts.forEach(p => map[p.type] = p.value);
 
             const weekdays = { 'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6 };
+            const currentDayOfWeek = weekdays[map.weekday];
 
-            return {
-                year: parseInt(map.year, 10),
-                month: parseInt(map.month, 10) - 1,
-                day: parseInt(map.day, 10),
-                hour: parseInt(map.hour, 10) % 24,
-                minute: parseInt(map.minute, 10),
-                second: parseInt(map.second, 10),
-                dayOfWeek: weekdays[map.weekday]
-            };
+            let daysToAdd = (7 - currentDayOfWeek) % 7;
+
+            // Формируем ISO дату для Киева
+            const year = parseInt(map.year, 10);
+            const month = String(map.month).padStart(2, '0');
+            const day = String(map.day).padStart(2, '0');
+
+            // Текущее воскресенье 10:00 в киевском времени
+            let targetDate = new Date(`${year}-${month}-${day}T10:00:00`);
+            
+            // Если сегодня не воскресенье или воскресенье уже позже 10:00, переносим целевую дату
+            if (daysToAdd > 0) {
+                targetDate.setDate(targetDate.getDate() + daysToAdd);
+            } else if (now >= targetDate) {
+                targetDate.setDate(targetDate.getDate() + 7);
+            }
+
+            // Получаем точный метку времени targetTime
+            const kyivTargetStr = targetDate.getFullYear() + '-' +
+                String(targetDate.getMonth() + 1).padStart(2, '0') + '-' +
+                String(targetDate.getDate()).padStart(2, '0') + 'T10:00:00';
+
+            // Возвращаем объект Date с учётом локального смещения киевского времени
+            return getKyivTimestamp(kyivTargetStr);
         }
 
-        function getKyivOffsetMs(date) {
-            const utcTime = date.getTime();
-            const k = getKyivTimeComponents(date);
-            const kyivAsUtc = Date.UTC(k.year, k.month, k.day, k.hour, k.minute, k.second);
-            return kyivAsUtc - utcTime;
+        // Преобразование строки времени в часовом поясе Europe/Kyiv в точные миллисекунды UTC
+        function getKyivTimestamp(isoStr) {
+            const dateWithoutZone = new Date(isoStr + 'Z');
+            const kyivFormatted = new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Europe/Kyiv',
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            }).format(dateWithoutZone);
+
+            const [m, d, y, h, min, s] = kyivFormatted.match(/\d+/g);
+            const localAsKyiv = new Date(Date.UTC(y, m - 1, d, h, min, s));
+            const offset = localAsKyiv.getTime() - dateWithoutZone.getTime();
+
+            return new Date(dateWithoutZone.getTime() - offset);
         }
 
         function updateCountdown() {
-            const now = new Date();
-            const kNow = getKyivTimeComponents(now);
+            const currentTime = new Date(); // Получаем прямо сейчас
+            const targetTime = getNextKyivSunday(currentTime); // Получаем воскресенье 10:00 по Киеву
 
-            let daysUntilSunday = 0;
-            if (kNow.dayOfWeek === 0) {
-                if (kNow.hour > 10 || (kNow.hour === 10 && (kNow.minute > 0 || kNow.second > 0))) {
-                    daysUntilSunday = 7;
-                } else {
-                    daysUntilSunday = 0;
-                }
-            } else {
-                daysUntilSunday = 7 - kNow.dayOfWeek;
-            }
+            let diff = targetTime.getTime() - currentTime.getTime();
 
-            // Формируем целевое воскресенье в 10:00 по Киеву
-            const targetYear = kNow.year;
-            const targetMonth = kNow.month;
-            const targetDay = kNow.day + daysUntilSunday;
-
-            let targetKyivTimestamp = Date.UTC(targetYear, targetMonth, targetDay, 10, 0, 0, 0);
-
-            // Корректируем смещение UTC к моменту целевой даты (с учетом переходов летнее/зимнее время)
-            const approxTargetDate = new Date(targetKyivTimestamp);
-            const targetOffset = getKyivOffsetMs(approxTargetDate);
-            const targetUtcTimestamp = targetKyivTimestamp - targetOffset;
-
-            let diff = targetUtcTimestamp - now.getTime();
-
-            if (diff < 0) {
-                const nextSundayTimestamp = Date.UTC(targetYear, targetMonth, targetDay + 7, 10, 0, 0, 0);
-                const nextTargetOffset = getKyivOffsetMs(new Date(nextSundayTimestamp));
-                diff = (nextSundayTimestamp - nextTargetOffset) - now.getTime();
+            if (diff <= 0) {
+                diff = 0;
             }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));

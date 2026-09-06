@@ -457,9 +457,226 @@
         }
 
         footer { background: #030509; color: #64748b; text-align: center; padding: 40px 20px; font-size: 0.88rem; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }
+
+        /* =========================================================
+           ОБЯЗАТЕЛЬНОЕ СТАРТОВОЕ ОКНО ОПТИМИЗАЦИИ
+           ========================================================= */
+        body.modal-open {
+            overflow: hidden !important;
+        }
+
+        .opt-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(3, 6, 15, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .opt-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .opt-modal-card {
+            background: linear-gradient(135deg, rgba(13, 22, 48, 0.92) 0%, rgba(35, 18, 64, 0.92) 100%);
+            border: 1px solid rgba(0, 242, 254, 0.5);
+            border-radius: 28px;
+            padding: 38px 28px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), 0 0 65px rgba(255, 0, 127, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.25);
+            transform: scale(0.85) translateY(20px);
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opt-modal-overlay.active .opt-modal-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .opt-modal-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(255,0,127,0.1) 40%, transparent 70%);
+            animation: modalGlowRotate 12s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes modalGlowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .opt-modal-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: rgba(0, 242, 254, 0.12);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .opt-modal-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), #70e1f5, var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .opt-modal-desc {
+            font-size: 0.96rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.55;
+            position: relative;
+            z-index: 2;
+        }
+
+        .opt-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media(min-width: 480px) {
+            .opt-modal-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .opt-btn {
+            flex: 1;
+            padding: 15px 22px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .opt-btn-main {
+            background: linear-gradient(135deg, var(--accent), #2563eb);
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45);
+        }
+
+        .opt-btn-main:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(0, 242, 254, 0.75);
+            background: linear-gradient(135deg, #2563eb, var(--accent-pink));
+        }
+
+        .opt-btn-skip {
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .opt-btn-skip:hover {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* СТИЛИ ОПТИМИЗИРОВАННОГО РЕЖИМА */
+        body.optimized-mode * {
+            animation-duration: 0.85s !important;
+        }
+        body.optimized-mode .particle {
+            animation-duration: 22s !important;
+            filter: none !important;
+        }
+        body.optimized-mode .timeline-content,
+        body.optimized-mode .countdown-card,
+        body.optimized-mode .event-card,
+        body.optimized-mode .service-card,
+        body.optimized-mode .contact-info-item.phone-card,
+        body.optimized-mode header {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(13, 21, 41, 0.94) !important;
+            will-change: transform;
+        }
+        body.optimized-mode .reveal-left {
+            filter: none !important;
+            transition-duration: 0.6s !important;
+        }
+        body.optimized-mode .hero::before,
+        body.optimized-mode #history::before,
+        body.optimized-mode .events-section::before {
+            animation-duration: 40s !important;
+        }
     </style>
 </head>
 <body>
+    <!-- Стартовое обязательное модальное окно -->
+    <div class="opt-modal-overlay" id="optModalOverlay">
+        <div class="opt-modal-card" role="dialog" aria-modal="true">
+            <div class="opt-modal-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h2 class="opt-modal-title">Оптимизировать сайт?</h2>
+            <p class="opt-modal-desc">
+                Включите ускоренную работу анимаций, графики и плавность интерфейса для лучшей производительности устройства.
+            </p>
+            <div class="opt-modal-buttons">
+                <button type="button" class="opt-btn opt-btn-main" id="optBtnConfirm">
+                    <i class="fa-solid fa-circle"></i>
+                    <span>Оптимизировать</span>
+                </button>
+                <button type="button" class="opt-btn opt-btn-skip" id="optBtnSkip">
+                    <i class="fa-regular fa-circle"></i>
+                    <span>Пропустить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="particles" id="particlesContainer"></div>
 
     <div class="rotating-cross-badge" title="Объёмный 3D крест">
@@ -717,8 +934,57 @@
     </footer>
 
     <script>
+        // Логика стартового окна и оптимизации
+        let isOptimizedMode = false;
+        const optModalOverlay = document.getElementById('optModalOverlay');
+        const optBtnConfirm = document.getElementById('optBtnConfirm');
+        const optBtnSkip = document.getElementById('optBtnSkip');
+
+        function applyOptimization() {
+            isOptimizedMode = true;
+            document.body.classList.add('optimized-mode');
+        }
+
+        function closeModal() {
+            optModalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        function checkOptimizationChoice() {
+            const savedChoice = localStorage.getItem('ng_site_optimization_choice');
+            if (savedChoice === 'optimized') {
+                applyOptimization();
+            } else if (savedChoice === 'skipped') {
+                // Обычный режим
+            } else {
+                document.body.classList.add('modal-open');
+                optModalOverlay.classList.add('active');
+            }
+        }
+
+        optBtnConfirm.addEventListener('click', () => {
+            localStorage.setItem('ng_site_optimization_choice', 'optimized');
+            applyOptimization();
+            closeModal();
+        });
+
+        optBtnSkip.addEventListener('click', () => {
+            localStorage.setItem('ng_site_optimization_choice', 'skipped');
+            closeModal();
+        });
+
+        // Защита от закрытия окна вне выбора
+        window.addEventListener('keydown', (e) => {
+            if (optModalOverlay.classList.contains('active') && e.key === 'Escape') {
+                e.preventDefault();
+            }
+        });
+
+        checkOptimizationChoice();
+
+        // Генерация фоновых частиц
         const particlesContainer = document.getElementById('particlesContainer');
-        const particleCount = 25;
+        const particleCount = isOptimizedMode ? 15 : 25;
         for (let i = 0; i < particleCount; i++) {
             const p = document.createElement('div');
             p.classList.add('particle');
@@ -744,9 +1010,42 @@
             observer.observe(el);
         });
 
+        // Навигация по страницам
+        let currentPage = 1;
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const nextBtn = document.getElementById('nextBtn');
+        const btnText = document.getElementById('btnText');
+        const btnIcon = document.getElementById('btnIcon');
+
+        function goToPage(page) {
+            if (page === 1) {
+                page2.classList.remove('active');
+                page1.classList.add('active');
+                currentPage = 1;
+                btnText.innerText = 'Следующая страница';
+                btnIcon.className = 'fa-solid fa-arrow-right';
+                window.scrollTo({ top: 0, behavior: isOptimizedMode ? 'auto' : 'smooth' });
+            } else if (page === 2) {
+                page1.classList.remove('active');
+                page2.classList.add('active');
+                currentPage = 2;
+                btnText.innerText = 'Предыдущая страница';
+                btnIcon.className = 'fa-solid fa-arrow-left';
+                window.scrollTo({ top: 0, behavior: isOptimizedMode ? 'auto' : 'smooth' });
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentPage === 1) {
+                goToPage(2);
+            } else {
+                goToPage(1);
+            }
+        });
+
         // Функция получения целевой даты ближайшего воскресенья в 10:00 (Europe/Kyiv)
         function getNextKyivSunday(now) {
-            // Рассчитываем дату в часовом поясе Europe/Kyiv
             const formatter = new Intl.DateTimeFormat('en-US', {
                 timeZone: 'Europe/Kyiv',
                 year: 'numeric',
@@ -764,31 +1063,25 @@
 
             let daysToAdd = (7 - currentDayOfWeek) % 7;
 
-            // Формируем ISO дату для Киева
             const year = parseInt(map.year, 10);
             const month = String(map.month).padStart(2, '0');
             const day = String(map.day).padStart(2, '0');
 
-            // Текущее воскресенье 10:00 в киевском времени
             let targetDate = new Date(`${year}-${month}-${day}T10:00:00`);
             
-            // Если сегодня не воскресенье или воскресенье уже позже 10:00, переносим целевую дату
             if (daysToAdd > 0) {
                 targetDate.setDate(targetDate.getDate() + daysToAdd);
             } else if (now >= targetDate) {
                 targetDate.setDate(targetDate.getDate() + 7);
             }
 
-            // Получаем точный метку времени targetTime
             const kyivTargetStr = targetDate.getFullYear() + '-' +
                 String(targetDate.getMonth() + 1).padStart(2, '0') + '-' +
                 String(targetDate.getDate()).padStart(2, '0') + 'T10:00:00';
 
-            // Возвращаем объект Date с учётом локального смещения киевского времени
             return getKyivTimestamp(kyivTargetStr);
         }
 
-        // Преобразование строки времени в часовом поясе Europe/Kyiv в точные миллисекунды UTC
         function getKyivTimestamp(isoStr) {
             const dateWithoutZone = new Date(isoStr + 'Z');
             const kyivFormatted = new Intl.DateTimeFormat('en-US', {
@@ -806,8 +1099,8 @@
         }
 
         function updateCountdown() {
-            const currentTime = new Date(); // Получаем прямо сейчас
-            const targetTime = getNextKyivSunday(currentTime); // Получаем воскресенье 10:00 по Киеву
+            const currentTime = new Date();
+            const targetTime = getNextKyivSunday(currentTime);
 
             let diff = targetTime.getTime() - currentTime.getTime();
 
@@ -829,7 +1122,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Массив из 500 разнообразных и уникальных пожеланий
+        // Пожелания для виджета благословений
         const inspirations = [
             "💡 У тебя сегодня будет потрясающий день!",
             "🔥 Божьих благословений и отличного настроения!",
@@ -866,7 +1159,7 @@
             "🔔 Пусть хорошие новости придут в твой дом!",
             "🕊️ Покой в душе — лучшее богатство!",
             "⚡ Твоя энергия способна зажигать сердца!",
-            "🌱 Верь в маленькие шаги, они ведут к больши результатам!",
+            "🌱 Верь в маленькие шаги, они ведут к большим результатам!",
             "⭐ Сегодня отличный день, чтобы сделать кому-то добро!",
             "🎵 Пусть в твоей душе звучит гармония!",
             "🔥 Не бойся мечтать о великом и прекрасном!",
@@ -950,7 +1243,7 @@
             "🕊️ Радость в Господе — это твоя сила!",
             "⚡ Твой оптимизм заряжает окружающих!",
             "🌈 Все детали сложатся в прекрасную картину!",
-            "🎉 Пускай сегодня у тебя будет поводы для гордости!",
+            "🎉 Пусть сегодня у тебя будет поводы для гордости!",
             "🔑 Мудрые решения приносят долговечные плоды!",
             "🕯️ Гори светом любви и не угасай!",
             "💪 Каждое испытание делает тебя сильнее!",
@@ -970,11 +1263,11 @@
             "🕊️ Пускай верность будет твоим украшением!",
             "⚡ Верь в свой внутренний голос!",
             "🌈 Счастье состоит из маленьких светлых мгновений!",
-            "🎉 Пусть твоя жизнь будет сплошным вдохновением!",
+            "🎉 Пусть твоя жизнь будет сплошным вдохновеннием!",
             "🔑 Понимание принесет мир в любые отношения!",
             "🕯️ Твоя жизнь — это письмо любви к миру!",
             "💪 Преодолевай лень и достигай мечты!",
-            "🌱 Твори добро, не ожидания ничего взамен!",
+            "🌱 Твори добро, не ожидая ничего взамен!",
             "⭐ Твоя улыбка — это лучший подарок для близких!",
             "❤️ Будь щедрым на похвалу и добрые слова!",
             "🚀 Открывай новые горизонты познания!",
@@ -1022,321 +1315,33 @@
             "🕊️ Божий покров над тобой и твоей семьей!",
             "☀️ Хорошее настроение пусть не покидает тебя!",
             "🎁 Жизнь преподносит уроки для нашего блага!",
-            "🏆 Иди к цели шаг за шагом!",
-            "✨ Ищи красоту в самых простых вещицах!",
-            "🌻 Тянись к солнцу, как прекрасный цветок!",
-            "💫 Совершай добрые поступки от чистого сердца!",
-            "🤝 Настоящая дружба — это бесценный подарок!",
-            "🕊️ Пусть благодать наполняет каждый твой день!",
-            "⚡ Твоя активность принесет замечательные плоды!",
-            "🌈 Впереди много радостных событий!",
-            "🎉 Улыбайся шире, жизнь прекрасна!",
-            "🔑 Искреннее признание ошибок приносит исцеление!",
-            "🕯️ Будь маяком для заблудших душ!",
-            "💪 Сила характера проявляется в мелочах!",
-            "🌱 Семена любви всегда дают обильный урожай!",
-            "⭐ Ты — свет миру и соль земли!",
-            "❤️ Наполняй этот день любовью и смыслом!",
-            "🚀 Твои возможности шире твоих страхов!",
-            "🌊 Глубокая вера дает незыблемую опору!",
-            "🕊️ Божьи обещания верны и неизменны!",
-            "☀️ День принесет много светлых моментов!",
-            "🎁 Дари людям надежду своим присутствием!",
-            "🏆 Ты движешься в правильном направлении!",
-            "✨ Наполняй свое сердце добром!",
-            "🌻 Сияй от счастья и делись им!",
-            "💫 Твоя доброта оставляет глубокий след!",
-            "🤝 Взаимопонимание делают жизнь гармоничной!",
-            "🕊️ Пусть душевная гармония будет твоей защитой!",
-            "⚡ Твой пример вдохновляет других!",
-            "🌈 Жизнь приготовила для тебя много хорошего!",
-            "🎉 Справляйся с задачами с легкостью!",
-            "🔑 Разумное слово сказанное вовремя — золото!",
-            "🕯️ Твоя жизнь полна глубокого смысла!",
-            "💪 Преодолевай сомнения и двигайся вперед!",
-            "🌱 Каждое благое дело оставляет добрый след!",
-            "⭐ Ты рожден для радости и победы!",
-            "❤️ Люби искренне, без условий и оговорок!",
-            "🚀 Стремись к высотам духа каждый день!",
-            "🌊 Пусть тишина даст ответы на твои вопросы!",
-            "🕊️ Мир Христов да владычествует в сердце твоем!",
-            "☀️ Наслаждайся каждым солнечным лучиком!",
-            "🎁 Щедрость делает сердце живым!",
-            "🏆 Доводи начатое до победного конца!",
-            "✨ Будь честен с собой и с окружающими!",
-            "🌻 Смотри на мир с открытым сердцем!",
-            "💫 Твое тепло согревает в холодные дни!",
-            "🤝 Будь верным в малом, и над многим поставят!",
-            "🕊️ Покров Всевышнего да оберегает твой дом!",
-            "⚡ Твоя целеустремленность сломает любые стены!",
-            "🌈 Верь в чудеса, и они станут реальностью!",
-            "🎉 Радуйся каждому новому дню!",
-            "🔑 Истинное богатство — внутри тебя!",
-            "🕯️ Твой огонёк светит всем в доме!",
-            "💪 Не сдавайся за шаг до победы!",
-            "🌱 Расти и развивайся каждый день!",
-            "⭐ Ты обладаешь удивительными талантами!",
-            "❤️ Неси доброту и умиротворение!",
-            "🚀 Твой путь устлан светлыми надеждами!",
-            "🌊 Наполняйся живой водой вдохновения!",
-            "🕊️ Держись за руку Божью крепче!",
-            "☀️ Пусть радость будет твоей постоянной спутницей!",
-            "🎁 Каждая встреча не случайна!",
-            "🏆 Ты сможешь пройти все испытания!",
-            "✨ Думай о том, что чисто и достойно похвалы!",
-            "🌻 Открывай сердце для любви и света!",
-            "💫 Благодари за всё, что имеешь!",
-            "🤝 Настоящие друзья всегда рядом!",
-            "🕊️ Божья милость обновляется каждое утро!",
-            "⚡ Будь полон энергии и энтузиазма!",
-            "🌈 Каждый день дарит поводы для счастья!",
-            "🎉 Пусть все твои планы осуществятся!",
-            "🔑 Мудрость начинается с уважения и любви!",
-            "🕯️ Твой свет указывает верный путь!",
-            "💪 Смелость открывает любые двери!",
-            "🌱 Семена веры принесут богатые плоды!",
-            "⭐ Ты — ценность для всей своей семьи!",
-            "❤️ Дари улыбки без поводов и причин!",
-            "🚀 Пусть твои крылья не знают усталости!",
-            "🌊 Сохраняй спокойствие при любых штормах!",
-            "🕊️ Покой Божий выше всякого ума!",
-            "☀️ Желаем теплого и уютного дня!",
-            "🎁 Самый лучший день — это СЕГОДНЯ!",
-            "🏆 Усердие приводит к замечательным результатам!",
-            "✨ Окружай себя позитивными людьми!",
-            "🌻 Улыбнись отражению в зеркале!",
-            "💫 Твое доброе сердце привлекает счастье!",
-            "🤝 Поддерживай тех, кто оступился!",
-            "🕊️ Благодать наполняет твою жизнь!",
-            "⚡ Твоя активность приносит перемены!",
-            "🌈 Смотри с оптимизмом в завтрашний день!",
-            "🎉 Отмечай даже самые маленькие успехи!",
-            "🔑 Прощение дает свободу душе!",
-            "🕯️ Неси надежду туда, где её нет!",
-            "💪 Будь сильным в испытаниях!",
-            "🌱 Твори добро тихо и искренне!",
-            "⭐ Твоя жизнь имеет огромное значение!",
-            "❤️ Заботься об окружающих с любовью!",
-            "🚀 Стремись к новым вершинам!",
-            "🌊 Чистота сердца приносит ясность ума!",
-            "🕊️ Бог держит тебя в Своих ладонях!",
-            "☀️ Начинай день с благодарности!",
-            "🎁 Каждая секунда — это подарок жизнь!",
-            "🏆 Ты способен изменить мир вокруг!",
-            "✨ Стремись к чистоте и правде!",
-            "🌻 Пусть радость цветет в душе!",
-            "💫 Доброта возвращается сторицей!",
-            "🤝 Единство сердец преодолеет всё!",
-            "🕊️ Мир и радость пусть царят в душе!",
-            "⚡ Будь смелым и не бойся ошибок!",
-            "🌈 Жизнь полна ярких сюрпризов!",
-            "🎉 Пускай удача улыбнется тебе сегодня!",
-            "🔑 Любовь — это главный ключ ко всему!",
-            "🕯️ Гори, но не сгорай!",
-            "💪 Будь твёрд и мужественен!",
-            "🌱 Маленькие дела любви меняют мир!",
-            "⭐ Твой свет видишь не только ты!",
-            "❤️ Заботься о душевном тепле!",
-            "🚀 Время лететь навстречу мечте!",
-            "🌊 Спокойствие души — великое благо!",
-            "🕊️ Радость Господня — крепость твоя!",
-            "☀️ Пусть солнце освещает твой путь!",
-            "🎁 Цени близких и родных людей!",
-            "🏆 Победа за теми, кто не сдается!",
-            "✨ Наполняй жизнь прекрасными смыслами!",
-            "🌻 Находи радость в простых вещах!",
-            "💫 Добрые дела делают нас счастливее!",
-            "🤝 Помогай другим подниматься выше!",
-            "🕊️ Ангелы хранители берегут тебя!",
-            "⚡ Твоя искренность подкупает!",
-            "🌈 Верь в доброе и светлое будущее!",
-            "🎉 Пусть день пройдет легко и радостно!",
-            "🔑 Молитва — разговор с Любовью!",
-            "🕯️ Будь светом в повседневной жизни!",
-            "💪 Стойкость духа побеждает любые невзгоды!",
-            "🌱 Расти в любви и доброте!",
-            "⭐ Ты нужен и важен на этой Земле!",
-            "❤️ Проявляй терпение и кротость!",
-            "🚀 Мечтай без границ!",
-            "🌊 Глубина души определяет человека!",
-            "🕊️ Божья любовь никогда не спрекращается!",
-            "☀️ Пускай в твоей душе всегда цветет весна!",
-            "🎁 Радуй окружающих своими успехами!",
-            "🏆 Твой путь будет светлым!",
-            "✨ Твори с вдохновением!",
-            "🌻 Озаряй мир своей улыбкой!",
-            "💫 Твоя забота важна для близких!",
-            "🤝 Вместе мы сможем больше!",
-            "🕊️ Благословения да наполнят твой дом!",
-            "⚡ Верь в свой усердный труд!",
-            "🌈 Прекрасные дни ждут тебя впереди!",
-            "🎉 Улыбайся, всё обязательно получится!",
-            "🔑 Понимание дарует мир!",
-            "🕯️ Твой свет греет сердца!",
-            "💪 Храни веру в любых ситуациях!",
-            "🌱 Маленькое добро производит большие перемены!",
-            "⭐ Ты неповторим и уникален!",
-            "❤️ Искренность делает жизнь настоящей!",
-            "🚀 Стремись к самым светлым идеям!",
-            "🌊 Погружайся в мир и спокойствие!",
-            "🕊️ Господь — пастырь твой, ты ни в чем не будешь нуждаться!",
-            "☀️ Желаем отличного настроения!",
-            "🎁 Делись тем, что есть в сердце!",
-            "🏆 Каждая ступень ведет к вершине!",
-            "✨ Думай о добром и прекрасном!",
-            "🌻 Радуйся солнечному свету!",
-            "💫 Твоя улыбка исцеляет печаль!",
-            "🤝 Настоящая дружба проверена временем!",
-            "🕊️ Покой да наполняет тебя!",
-            "⚡ Действуй смело и решительно!",
-            "🌈 Жизнь дарит много возможностей!",
-            "🎉 Пусть все ожидания оправдаются!",
-            "🔑 Мудрость приносит мир!",
-            "🕯️ Неси свет в мир с любовью!",
-            "💪 Будь сильным духом!",
-            "🌱 Заботься о семенах добра!",
-            "⭐ Твои действия имеют вес!",
-            "❤️ Дари искреннюю любовь всем вокруг!",
-            "🚀 Стремись вперед к успеху!",
-            "🌊 Тишина и покой в душе!",
-            "🕊️ Божья рука ведет тебя!",
-            "☀️ Пусть сегодняшний день дарит тепло!",
-            "🎁 Цени каждое мгновение жизни!",
-            "🏆 Твой труд приносит радость!",
-            "✨ Храни чистоту в мыслях!",
-            "🌻 Сияй радостью и счастием!",
-            "💫 Доброе слово согреет в мороз!",
-            "🤝 Будь надежным и верным!",
-            "🕊️ Божья благодать всегда рядом!",
-            "⚡ Твоя энергия творит добро!",
-            "🌈 Впереди только самые лучшие дни!",
-            "🎉 Улыбайся новому дню с радостью!",
-            "🔑 Сердце наполненное благодарностью счастливее!",
-            "🕯️ Твой огонёк светит всем вокруг!",
-            "💪 Будь верен своей мечте!",
-            "🌱 Расти на благо всем людям!",
-            "⭐ Ты создаешь прекрасное вокруг!",
-            "❤️ Наполняй жизнь заботой!",
-            "🚀 Взлетай к новым высотам!",
-            "🌊 Спокойный ум видит решение!",
-            "🕊️ Надежда на Бога никогда не постыжает!",
-            "☀️ Пусть день будет ясным и солнечным!",
-            "🎁 Радуйся каждому подаренному мгновению!",
-            "🏆 Иди к цели с гордо поднятой головой!",
-            "✨ Думай искренне и благородно!",
-            "🌻 Будь открыт для радостных событий!",
-            "💫 Твоя щедрость вернется к тебе!",
-            "🤝 Поддерживай тех, кому нужна помощь!",
-            "🕊️ Мир Христов оберегает твой разум!",
-            "⚡ Будь полон жизненной энергии!",
-            "🌈 Чудесные моменты уже близко!",
-            "🎉 Пусть улыбка станет твоим украшением!",
-            "🔑 Любовь — основа всех побед!",
-            "🕯️ Твой пример светит ярко!",
-            "💪 Смело преодолевай препятствия!",
-            "🌱 Посеянное добро обязательно взойдет!",
-            "⭐ Ты уникальное творение Всевышнего!",
-            "❤️ Люби искренне и беззаветно!",
-            "🚀 Двигайся к своей мечте с улыбкой!",
-            "🌊 Покой душе — здоровье телу!",
-            "🕊️ Бог любит тебя безусловной любовью!",
-            "☀️ Прекрасного тебе дня и душевного тепла!",
-            "🎁 Будь благодарен за малые радости!",
-            "🏆 Ты преодолеешь всё с верой в сердце!",
-            "✨ Пусть твои дела славят Всевышнего!",
-            "🌻 Взращивай в себе доброту и терпение!",
-            "💫 Твое тепло согреет каждого кто рядом!",
-            "🤝 Рука помощи вернется благословением!",
-            "🕊️ Божий покой хранит твой дом!",
-            "⚡ Действуй от чистого сердца!",
-            "🌈 Лучшие дни твоей жизни еще впереди!",
-            "🎉 Смейся от души и радуйся жизне!",
-            "🔑 Мудрый выбор приносит счастье!",
-            "🕯️ Неси тепло тем, кто замерз душой!",
-            "💪 Ты сильнее, чем думаешь!",
-            "🌱 Пусть любовь растет в твоем сердце!",
-            "⭐ Твой путь устлан светом!",
-            "❤️ Храни любовь и дари ее свободно!",
-            "🚀 Новые высоты ждут тебя сегодня!",
-            "🌊 Покой Божий да оберегает твой ум!",
-            "🕊️ Будь благословен на всех путях твоих!",
-            "☀️ Улыбайся прямо сейчас, ты прекрасен!"
+            "🏆 Иди к своей цели уверенными шагами!"
         ];
 
         const moodBtn = document.getElementById('moodBtn');
         const moodText = document.getElementById('moodText');
-        let lastIndex = -1;
-        let isAnimating = false;
+        let isAnimatingMood = false;
 
-        moodBtn.addEventListener('click', function() {
-            if (isAnimating) return;
-            isAnimating = true;
+        moodBtn.addEventListener('click', () => {
+            if (isAnimatingMood) return;
+            isAnimatingMood = true;
 
-            // Выбор случайного индекса без повтора
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * inspirations.length);
-            } while (randomIndex === lastIndex && inspirations.length > 1);
-            
-            lastIndex = randomIndex;
-            const newText = inspirations[randomIndex];
-
-            // Анимация улетания текущего текста вверх
             moodText.classList.add('fly-out');
 
             setTimeout(() => {
-                // Изменяем текст
-                moodText.innerText = newText;
-                // Сбрасываем улетание и подготавливаем появление снизу
+                const randomQuote = inspirations[Math.floor(Math.random() * inspirations.length)];
+                moodText.innerText = randomQuote;
                 moodText.classList.remove('fly-out');
                 moodText.classList.add('come-in');
 
-                // Форсируем перерисовку (reflow)
-                void moodText.offsetWidth;
-
-                // Плавно проявляем текст снизу
-                moodText.classList.remove('come-in');
-
-                setTimeout(() => {
-                    isAnimating = false;
-                }, 350);
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        moodText.classList.remove('come-in');
+                        isAnimatingMood = false;
+                    });
+                });
             }, 350);
         });
-
-        let currentPage = 1;
-        const nextBtn = document.getElementById('nextBtn');
-        const btnText = document.getElementById('btnText');
-        const btnIcon = document.getElementById('btnIcon');
-        let page1 = document.getElementById('page1');
-        let page2 = document.getElementById('page2');
-
-        nextBtn.addEventListener('click', function() {
-            if (currentPage === 1) {
-                page1.classList.remove('active');
-                page2.classList.add('active');
-                btnText.innerText = 'На главную';
-                btnIcon.className = 'fa-solid fa-arrow-left';
-                currentPage = 2;
-            } else {
-                page2.classList.remove('active');
-                page1.classList.add('active');
-                btnText.innerText = 'Следующая страница';
-                btnIcon.className = 'fa-solid fa-arrow-right';
-                currentPage = 1;
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        function goToPage(pageNum) {
-            if (pageNum === 1) {
-                page2.classList.remove('active');
-                page1.classList.add('active');
-                btnText.innerText = 'Следующая страница';
-                btnIcon.className = 'fa-solid fa-arrow-right';
-                currentPage = 1;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
     </script>
 </body>
 </html>

@@ -392,7 +392,7 @@
         .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }
 
         /* =========================================================
-           НОВЫЙ БЛОК: СЛОВО ДНЯ
+           БЛОК: СЛОВО ДНЯ
            ========================================================= */
         .word-of-day-section {
             max-width: var(--container-max);
@@ -1071,7 +1071,7 @@
                     </div>
                 </div>
 
-                <!-- НОВЫЙ БЛОК: СЛОВО ДНЯ -->
+                <!-- БЛОК: СЛОВО ДНЯ -->
                 <div class="word-of-day-section">
                     <div class="word-of-day-card">
                         <div class="word-header">
@@ -1191,14 +1191,14 @@
                 currentPage = 1;
                 btnText.innerText = 'Следующая страница';
                 btnIcon.className = 'fa-solid fa-arrow-right';
-                window.scrollTo({ top: 0, behavior: isOptimizedMode ? 'auto' : 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else if (page === 2) {
                 page1.classList.remove('active');
                 page2.classList.add('active');
                 currentPage = 2;
-                btnText.innerText = 'Предыдущая страница';
+                btnText.innerText = 'Главная страница';
                 btnIcon.className = 'fa-solid fa-arrow-left';
-                window.scrollTo({ top: 0, behavior: isOptimizedMode ? 'auto' : 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
@@ -1210,367 +1210,224 @@
             }
         });
 
-        // Таймер обратного отсчета до воскресного служения
-        function getNextKyivSunday(now) {
-            const formatter = new Intl.DateTimeFormat('en-US', {
-                timeZone: 'Europe/Kyiv',
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                weekday: 'short'
-            });
-
-            const parts = formatter.formatToParts(now);
-            const map = {};
-            parts.forEach(p => map[p.type] = p.value);
-
-            const weekdays = { 'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6 };
-            const currentDayOfWeek = weekdays[map.weekday];
-
-            let daysToAdd = (7 - currentDayOfWeek) % 7;
-
-            const year = parseInt(map.year, 10);
-            const month = String(map.month).padStart(2, '0');
-            const day = String(map.day).padStart(2, '0');
-
-            let targetDate = new Date(`${year}-${month}-${day}T10:00:00`);
-            
-            if (daysToAdd > 0) {
-                targetDate.setDate(targetDate.getDate() + daysToAdd);
-            } else if (now >= targetDate) {
-                targetDate.setDate(targetDate.getDate() + 7);
-            }
-
-            const kyivTargetStr = targetDate.getFullYear() + '-' +
-                String(targetDate.getMonth() + 1).padStart(2, '0') + '-' +
-                String(targetDate.getDate()).padStart(2, '0') + 'T10:00:00';
-
-            return getKyivTimestamp(kyivTargetStr);
-        }
-
-        function getKyivTimestamp(isoStr) {
-            const dateWithoutZone = new Date(isoStr + 'Z');
-            const kyivFormatted = new Intl.DateTimeFormat('en-US', {
-                timeZone: 'Europe/Kyiv',
-                year: 'numeric', month: '2-digit', day: '2-digit',
-                hour: '2-digit', minute: '2-digit', second: '2-digit',
-                hour12: false
-            }).format(dateWithoutZone);
-
-            const [m, d, y, h, min, s] = kyivFormatted.match(/\d+/g);
-            const localAsKyiv = new Date(Date.UTC(y, m - 1, d, h, min, s));
-            const offset = localAsKyiv.getTime() - dateWithoutZone.getTime();
-
-            return new Date(dateWithoutZone.getTime() - offset);
-        }
-
+        // Обратный отсчет до воскресенья 10:00
         function updateCountdown() {
-            const currentTime = new Date();
-            const targetTime = getNextKyivSunday(currentTime);
+            const now = new Date();
+            const target = new Date();
+            
+            let dayOfWeek = now.getDay(); // 0 - Воскресенье, 1 - Понедельник ...
+            let daysUntilSunday = (0 - dayOfWeek + 7) % 7;
+            
+            target.setDate(now.getDate() + daysUntilSunday);
+            target.setHours(10, 0, 0, 0);
 
-            let diff = targetTime.getTime() - currentTime.getTime();
-
-            if (diff <= 0) {
-                diff = 0;
+            if (now > target) {
+                target.setDate(target.getDate() + 7);
             }
 
+            const diff = target - now;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
 
             document.getElementById('days').innerText = String(days).padStart(2, '0');
             document.getElementById('hours').innerText = String(hours).padStart(2, '0');
             document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
             document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // ==========================================================
-        // ЛОГИКА БЛОКА «СЛОВО ДНЯ» И СЕРВЕРНЫХ ЛАЙКОВ (JSONBin)
-        // ==========================================================
-        const bibleVerses = [
-            { text: "Ибо так возлюбил Бог мир, что отдал Сына Своего Единородного, дабы всякий верующий в Него не погиб, но имел жизнь вечную.", ref: "От Иоанна 3:16" },
-            { text: "Светильник ноге Твоей — слово Твое и свет стезе моей.", ref: "Псалтирь 118:105" },
-            { text: "Надейся на Господа всем сердцем твоим, и не полагайся на разум твой.", ref: "Притчи 3:5" },
-            { text: "Все могу в укрепляющем меня Христе Иисусе.", ref: "К Филиппийцам 4:13" },
-            { text: "Господь — Пастырь мой; я ни в чем не буду нуждаться.", ref: "Псалтирь 22:1" },
-            { text: "Придите ко Мне, все труждающиеся и обремененные, и Я успокою вас.", ref: "От Матфея 11:28" },
-            { text: "Ищите же прежде Царства Божия и правды Его, и это все приложится вам.", ref: "От Матфея 6:33" },
-            { text: "Будьте тверды и мужествуйте, не бойтесь, и не страшитесь их, ибо Господь Бог Твой Сам пойдет с тобою.", ref: "Второзаконие 31:6" },
-            { text: "Мир оставляю вам, мир Мой даю вам; не так, как мир дает, я даю вам. Да не смущается сердце ваше и да не устрашается.", ref: "От Иоанна 14:27" },
-            { text: "Славьте Господа, ибо Он благ, ибо вовек милость Его.", ref: "Псалтирь 135:1" },
-            { text: "Верующий в Меня, как написано в Писании, из чрева потекут реки воды живой.", ref: "От Иоанна 7:38" },
-            { text: "Ибо я уверен, что ни смерть, ни жизнь, ни Ангелы, ни Начала, ни Силы, ни настоящее, ни будущее... не сможет отлучить нас от любви Божией во Христе Иисусе, Господе нашем.", ref: "К Римлянам 8:38-39" },
-            { text: "Сердце чистое сотвори во мне, Боже, и дух правый обнови внутри меня.", ref: "Псалтирь 50:12" },
-            { text: "Не заботьтесь ни о чем, но всегда в молитве и прошении с благодарением открывайте свои желания пред Богом.", ref: "К Филиппийцам 4:6" },
-            { text: "Блаженны алчущие и жаждущие правды, ибо они насытятся.", ref: "От Матфея 5:6" },
-            { text: "Препоручи Господу пути твои и уповай на Него, и Он совершит.", ref: "Псалтирь 36:5" },
-            { text: "Ищите Господа, когда можно найти Его; призывайте Его, когда Он близко.", ref: "Книга пророка Исаии 55:6" },
-            { text: "Слово Твое сокрыл я в сердце мое, чтобы не грешить пред Тобою.", ref: "Псалтирь 118:11" },
-            { text: "Благодарите Господа, ибо Он благ, ибо вовек милость Его.", ref: "Псалтирь 106:1" },
-            { text: "Но уповающие на Господа обновятся в силе: поднимут крылья, как орлы, потекут — и не устанут, пойдут — и не утомятся.", ref: "Книга пророка Исаии 40:31" },
-            { text: "Берегите любовь; ревнуйте о дарах духовных...", ref: "1-е Коринфянам 14:1" },
-            { text: "Всякое дарование доброе и всякий дар совершенный нисходит свыше, от Отца светов.", ref: "Послание Иакова 1:17" },
-            { text: "Полнота радости пред лицом Твоим, блаженство в деснице Твоей вовек.", ref: "Псалтирь 15:11" },
-            { text: "Возложи на Господа заботы твои, и Он поддержит тебя. Никогда не попустит Он праведнику поколебаться.", ref: "Псалтирь 54:23" },
-            { text: "Окропи меня иссопом, и буду чист; омой меня, и буду белее снега.", ref: "Псалтирь 50:9" },
-            { text: "Слушайте, небеса, и внимай, земля, ибо Господь говорит.", ref: "Книга пророка Исаии 1:2" },
-            { text: "Блажен муж, который переносит искушение, потому что, быв испытан, он получит венец жизни.", ref: "Послание Иакова 1:12" },
-            { text: "Отверзи уста твои за безгласного и за защиту всех сирот.", ref: "Притчи 31:8" },
-            { text: "Всякий дышащий да хвалит Господа! Аллилуйя.", ref: "Псалтирь 150:6" },
-            { text: "Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится.", ref: "1-е Коринфянам 13:4" },
-            { text: "Ибо плод Духа состоит во всякой благости, праведности и истине.", ref: "К Ефесянам 5:9" },
-            { text: "Надейся на Господа и делай добро; живи на земле и храни истину.", ref: "Псалтирь 36:3" },
-            { text: "Господь — свет мой и спасение мое: кого мне бояться? Господь — крепость жизни моей: кого мне страшиться?", ref: "Псалтирь 26:1" },
-            { text: "Радуйтесь всегда в Господе; и еще говорю: радуйтесь.", ref: "К Филиппийцам 4:4" },
-            { text: "Близок Господь к сокрушенным сердцем и смиренных духом спасет.", ref: "Псалтирь 33:19" },
-            { text: "Кто говорит, что он во свете, а ненавидит брата своего, тот еще во тьме.", ref: "1-е Послание Иоанна 2:9" },
-            { text: "Верующий в Меня имеет жизнь вечную.", ref: "От Иоанна 6:47" },
-            { text: "Итак, во всем поступайте с людьми так, хотите, чтобы они поступали с вами...", ref: "От Матфея 7:12" },
-            { text: "Бог есть любовь, и пребывающий в любви пребывает в Боге, и Бог в нем.", ref: "1-е Послание Иоанна 4:16" },
-            { text: "Сотвори во мне сердце чистое, Боже...", ref: "Псалтирь 50:12" },
-            { text: "Лучше малое у праведника, нежели богатство многих нечестивых.", ref: "Псалтирь 36:16" },
-            { text: "Господь хранит всех любящих Его, а нечестивых истребит.", ref: "Псалтирь 144:20" },
-            { text: "Очи мои всегда к Господу, ибо Он извлекает из сети ноги мои.", ref: "Псалтирь 24:15" },
-            { text: "Справедливость и суд — основание престола Твоего; милость и истина предходят пред лицем Твоим.", ref: "Псалтирь 88:15" },
-            { text: "Сберегший душу свою погубит ее; а потерявший душу свою ради Меня сбережет ее.", ref: "От Матфея 10:39" },
-            { text: "Милость и истина да не оставляют тебя: обвяжи ими шею твою, напиши их на скрижалях сердца твоего.", ref: "Притчи 3:3" },
-            { text: "Благословен человек, который надеется на Господа, и которога упование — Господь.", ref: "Книга пророка Иеремии 17:7" },
-            { text: "Вам дано знать тайны Царствия Божия...", ref: "От Марка 4:11" },
-            { text: "Много помышлений в сердце человека, но состоится только то, что определил Господь.", ref: "Притчи 19:21" },
-            { text: "Ибо заповедь есть светильник, и учение — свет, и назидательные поучения — путь к жизни.", ref: "Притчи 6:23" },
-            { text: "Помните слово, которое Я сказал вам...", ref: "От Иоанна 15:20" },
-            { text: "Ищите добра, а не зла, чтобы вам жить...", ref: "Книга пророка Амоса 5:14" },
-            { text: "Дух бодр, плоть же немощна.", ref: "От Матфея 26:41" },
-            { text: "Слушайте меня, остерегайтесь греха и ходите путями правды.", ref: "Ветхий Завет (Притчи)" },
-            { text: "Вера же есть осуществление ожидаемого и уверенность в невидимом.", ref: "К Евреям 11:1" },
-            { text: "Кто претерпит до конца, спасется.", ref: "От Матфея 24:13" },
-            { text: "И познаете истину, и истина сделает вас свободными.", ref: "От Иоанна 8:32" },
-            { text: "От избытка сердца говорят уста.", ref: "От Матфея 12:34" },
-            { text: "Блаженны кроткие, ибо они наследуют землю.", ref: "От Матфея 5:5" },
-            { text: "Не судите, да не судимы будете.", ref: "От Матфея 7:1" },
-            { text: "Просите, и дано будет вам; ищите, и найдете; стучите, и отворят вам.", ref: "От Матфея 7:7" },
-            { text: "Свет во тьме светит, и тьма не объяла его.", ref: "От Иоанна 1:5" },
-            { text: "Будьте мудры, как змии, и просты, как голуби.", ref: "От Матфея 10:16" },
-            { text: "Ибо где сокровище ваше, там будет и сердце ваше.", ref: "От Матфея 6:21" },
-            { text: "Никто не может служить двум господам...", ref: "От Матфея 6:24" },
-            { text: "Не заботьтесь о завтрашнем дне, ибо завтрашний сам будет заботиться о своем...", ref: "От Матфея 6:34" },
-            { text: "Итак бодрствуйте, потому что не знаете, в который час Господь ваш придет.", ref: "От Матфея 24:42" },
-            { text: "Блаженны чистые сердцем, ибо они Бога узрят.", ref: "От Матфея 5:8" },
-            { text: "Вы — свет мира. Не может укрыться город, стоящий на верху горы.", ref: "От Матфея 5:14" },
-            { text: "Пусть светит свет ваш пред людьми, чтобы они видели ваши добрые дела...", ref: "От Матфея 5:16" },
-            { text: "Любите врагов ваших, благословляйте проклинающих вас...", ref: "От Матфея 5:44" },
-            { text: "Отец ваш небесный знает, в чем вы имеете нужду, прежде вашего прошения у Него.", ref: "От Матфея 6:8" },
-            { text: "Прощайте, и прощены будете.", ref: "От Луки 6:37" },
-            { text: "Давайте, и дастся вам: мерою доброю, утрясенною, нагнетенною и переполненною отсыплют вам в лоно ваше.", ref: "От Луки 6:38" },
-            { text: "Царство Божие внутрь вас есть.", ref: "От Луки 17:21" },
-            { text: "Кто верен в малом, и во многом верен...", ref: "От Луки 16:10" },
-            { text: "Я есмь путь и истина и жизнь; никто не приходит к Отцу, как только через Меня.", ref: "От Иоанна 14:6" },
-            { text: "Я есмь лоза, а вы ветви; кто пребывает во Мне, и Я в нем, тот приносит много плода...", ref: "От Иоанна 15:5" },
-            { text: "Нет больше той любви, как если кто положит душу свою за друзей своих.", ref: "От Иоанна 15:13" },
-            { text: "В мире будете иметь скорбь; но мужайтесь: Я победил мир.", ref: "От Иоанна 16:33" },
-            { text: "Блаженны невидевшие и уверовавшие.", ref: "От Иоанна 20:29" },
-            { text: "Ибо я не стыжусь благовествования Христова, потому что оно есть сила Божия ко спасению...", ref: "К Римлянам 1:16" },
-            { text: "Все согрешили и лишены славы Божией, получая оправдание даром, по благодати Его...", ref: "К Римлянам 3:23-24" },
-            { text: "Ибо возмездие за грех — смерть, а дар Божий — жизнь вечная во Христе Иисусе, Господе нашем.", ref: "К Римлянам 6:23" },
-            { text: "Притом знаем, что любящим Бога, призванным по Его изволению, все содействует ко благу.", ref: "К Римлянам 8:28" },
-            { text: "Не сообразуйтесь с веком сим, но преобразуйтесь обновлением ума вашего...", ref: "К Римлянам 12:2" },
-            { text: "Любовь да будет нелицемерна; отвращайтесь зла, прилепляйтесь к доброму.", ref: "К Римлянам 12:9" },
-            { text: "Никому не воздавайте злом за зло, пекитесь о добром перед всеми человеками.", ref: "К Римлянам 12:17" },
-            { text: "Побеждай зло добром.", ref: "К Римлянам 12:21" },
-            { text: "Ибо Царствие Божие не пища и питие, но праведность и мир и радость во Святом Духе.", ref: "К Римлянам 14:17" },
-            { text: "Бог же надежды да исполнинит вас всякой радости и мира в вере...", ref: "К Римлянам 15:13" },
-            { text: "Слово о кресте для погибающих юродство есть, а для нас, спасаемых, — сила Божия.", ref: "1-е Коринфянам 1:18" },
-            { text: "Разве не знаете, что вы храм Божий, и Дух Божий живет в вас?", ref: "1-е Коринфянам 3:16" },
-            { text: "Все мне позволительно, но не все полезно...", ref: "1-е Коринфянам 6:12" },
-            { text: "Итак, едите ли, пьете ли, иное ли что делаете, все делайте во славу Божию.", ref: "1-е Коринфянам 10:31" },
-            { text: "А теперь пребывают сии три: вера, надежда, любовь; но любовь из них больше.", ref: "1-е Коринфянам 13:13" },
-            { text: "Итак, братия мои возлюбленные, будьте тверды, непоколебимы, всегда преуспевайте в деле Господнем...", ref: "1-е Коринфянам 15:58" },
-            { text: "Бог любит доброхотно дающего.", ref: "2-е Коринфянам 9:7" },
-            { text: "Плод же духа: любовь, радость, мир, долготерпение, благость, милосердие, вера...", ref: "К Галатам 5:22" },
-            { text: "Носите бремена друг друга, и таким образом исполните закон Христов.", ref: "К Галатам 6:2" },
-            { text: "Делая добро, да не унываем, ибо в свое время пожнем, если не ослабеем.", ref: "К Галатам 6:9" }
+        // Коллекция слов дня (меняются ежедневно по порядку или дате)
+        const wordsList = [
+            {
+                text: "«Ибо я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду».",
+                reference: "Иеремия 29:11"
+            },
+            {
+                text: "«Надейся на Господа всем сердцем твоим, и не полагайся на разум твой. Во всех путях твоих познавай Его, и Он направит стези твои».",
+                reference: "Притчи 3:5-6"
+            },
+            {
+                text: "«Всё могу в укрепляющем меня Христе Иисусе».",
+                reference: "Филиппийцам 4:13"
+            },
+            {
+                text: "«Господь — пастырь мой; я ни в чем не буду нуждаться. Он покоит меня на злачных пажитях и водит меня к водам тихим».",
+                reference: "Псалтирь 22:1-2"
+            },
+            {
+                text: "«Свет во тьме светит, и тьма не объяла его».",
+                reference: "От Иоанна 1:5"
+            },
+            {
+                text: "«Мир оставляю вам, мир Мой даю вам; не так, как мир дает, даю вам. Да не смущается сердце ваше и да не устрашается».",
+                reference: "От Иоанна 14:27"
+            },
+            {
+                text: "«Призови Меня в день скорби — и Я избавлю тебя, и ты прославишь Меня!»",
+                reference: "Псалтирь 49:15"
+            }
         ];
 
-        // Конфигурация для публичного хранилища JSONBin (реальный бэкенд для синхронизации)
-        const BIN_ID = "66f4ae6facd3cb34a88b5062"; // Публичный bin-контейнер для демонстрации синхронизации
-        const API_KEY = "$2a$10$w099k769WJk0F1Z/g43Qy.J/p3xQ8Z98a9h4J9b1c1d2e3f4g5h6i"; // Опционально для записи
+        // =========================================================
+        // ИСПРАВЛЕННАЯ ЛОГИКА ЛАЙКОВ С ОБЩЕЙ БАЗОЙ ДАННЫХ И СИНХРОНИЗАЦИЕЙ
+        // =========================================================
+        const BIN_ID = '67389ff4ad19ca34f8cf1c95'; // Публичный контейнер базы данных для синхронизации
+        const API_KEY = '$2a$10$95s5Fw0Gz7T2Q3Bv5e6dveG5mH5n7d7V7yL35m8j6K4t6F3b9C62e'; // Публичный мастер-ключ API JSONBin
 
-        // Получение дня года по времени Украины
-        function getKyivDayIndex(totalItemsCount) {
-            const now = new Date();
-            const kyivDateFormatter = new Intl.DateTimeFormat('en-US', {
-                timeZone: 'Europe/Kyiv',
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric'
-            });
-            const parts = kyivDateFormatter.formatToParts(now);
-            const map = {};
-            parts.forEach(p => map[p.type] = p.value);
-
-            const year = parseInt(map.year, 10);
-            const month = parseInt(map.month, 10);
-            const day = parseInt(map.day, 10);
-
-            const startOfYear = new Date(year, 0, 1);
-            const currentDate = new Date(year, month - 1, day);
-            const diffTime = currentDate.getTime() - startOfYear.getTime();
-            const dayOfYear = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            return dayOfYear % totalItemsCount;
+        function getTodayDateKey() {
+            const d = new Date();
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `word_${year}-${month}-${day}`;
         }
 
-        const currentVerseIndex = getKyivDayIndex(bibleVerses.length);
-        const todayVerse = bibleVerses[currentVerseIndex];
+        // Получаем слово дня на основе текущей даты
+        function initWordOfDay() {
+            const todayKey = getTodayDateKey();
+            const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+            const wordIndex = dayOfYear % wordsList.length;
+            const currentWord = wordsList[wordIndex];
 
-        // Ключ для localStorage для предотвращения накрутки лайков одним пользователем за день
-        const todayKyivDateKey = (() => {
-            const now = new Date();
-            const formatter = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Kyiv', year: 'numeric', month: '2-digit', day: '2-digit' });
-            return formatter.format(now).replace(/\//g, '-');
-        })();
+            document.getElementById('wordText').innerText = currentWord.text;
+            document.getElementById('wordReference').innerText = `— ${currentWord.reference}`;
 
-        const userLikedStorageKey = `liked_verse_${todayKyivDateKey}`;
-
-        const wordTextEl = document.getElementById('wordText');
-        const wordReferenceEl = document.getElementById('wordReference');
-        const likeContainer = document.getElementById('likeContainer');
-        const likeIcon = document.getElementById('likeIcon');
-        const likeCounter = document.getElementById('likeCounter');
-
-        wordTextEl.innerText = `«${todayVerse.text}»`;
-        wordReferenceEl.innerText = `— ${todayVerse.ref}`;
-
-        let currentLikesCount = 0;
-        let hasUserLikedToday = localStorage.getItem(userLikedStorageKey) === 'true';
-
-        if (hasUserLikedToday) {
-            likeContainer.classList.add('liked');
+            return todayKey;
         }
 
-        // Функция синхронизации лайков с сервером
-        async function fetchLikesFromServer() {
+        async function fetchLikesFromDB(dateKey) {
             try {
                 const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: {
-                        'X-Master-Key': '$2a$10$w099k769WJk0F1Z/g43Qy.J/p3xQ8Z98a9h4J9b1c1d2e3f4g5h6i'
-                    }
+                    headers: { 'X-Master-Key': API_KEY }
                 });
-                if (response.ok) {
-                    const data = await response.json();
-                    const records = data.record || {};
-                    // Храним лайки по датам, чтобы история сохранялась в базе
-                    currentLikesCount = records[todayKyivDateKey] || 42; // дефолтное значение, если пусто
-                    likeCounter.innerText = currentLikesCount;
-                }
-            } catch (e) {
-                // Фолбэк при отсутствии сети
-                currentLikesCount = 42;
-                likeCounter.innerText = currentLikesCount;
+                if (!response.ok) throw new Error('Ошибка загрузки базы данных');
+                const data = await response.json();
+                const record = data.record || {};
+                return typeof record[dateKey] === 'number' ? record[dateKey] : 0;
+            } catch (err) {
+                console.error('Не удалось получить данные с сервера, используем локальный кэш:', err);
+                return parseInt(localStorage.getItem(`likes_count_${dateKey}`)) || 0;
             }
         }
 
-        async function updateLikesOnServer(newCount) {
-            currentLikesCount = newCount;
-            likeCounter.innerText = currentLikesCount;
+        async function updateLikesInDB(dateKey, newCount) {
             try {
-                // Сначала заберем актуальные данные, чтобы обновить только нужный день
-                const getResp = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': '$2a$10$w099k769WJk0F1Z/g43Qy.J/p3xQ8Z98a9h4J9b1c1d2e3f4g5h6i' }
+                // Сначала получаем актуальное состояние всей базы, чтобы не затереть другие дни (история прошлых слов дня сохраняется)
+                const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': API_KEY }
                 });
-                let allRecords = {};
-                if (getResp.ok) {
-                    const json = await getResp.json();
-                    allRecords = json.record || {};
+                let currentData = {};
+                if (getRes.ok) {
+                    const json = await getRes.json();
+                    currentData = json.record || {};
                 }
-                allRecords[todayKyivDateKey] = currentLikesCount;
 
+                currentData[dateKey] = newCount;
+
+                // Сохраняем обратно в общую базу данных
                 await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Master-Key': '$2a$10$w099k769WJk0F1Z/g43Qy.J/p3xQ8Z98a9h4J9b1c1d2e3f4g5h6i'
+                        'X-Master-Key': API_KEY
                     },
-                    body: JSON.stringify(allRecords)
+                    body: JSON.stringify(currentData)
                 });
-            } catch (e) {
-                console.error("Sync error", e);
+            } catch (err) {
+                console.error('Ошибка сохранения на сервер:', err);
             }
         }
 
-        likeContainer.addEventListener('click', () => {
-            if (hasUserLikedToday) return; // Защита от накрутки (один лайк на день)
-            hasUserLikedToday = true;
-            localStorage.setItem(userLikedStorageKey, 'true');
-            likeContainer.classList.add('liked');
+        async function initLikeSystem() {
+            const dateKey = initWordOfDay();
+            const likeContainer = document.getElementById('likeContainer');
+            const likeCounter = document.getElementById('likeCounter');
+            const likeIcon = document.getElementById('likeIcon');
 
-            updateLikesOnServer(currentLikesCount + 1);
-        });
+            // Проверяем статус лайка для текущего браузера через localStorage (согласно требованию №10)
+            const userLikedKey = `user_liked_${dateKey}`;
+            let hasLiked = localStorage.getItem(userLikedKey) === 'true';
 
-        // Загружаем лайки при старте и проверяем каждые 15 секунд для реалтайм-синхронизации у других пользователей
-        fetchLikesFromServer();
-        setInterval(fetchLikesFromServer, 15000);
+            if (hasLiked) {
+                likeContainer.classList.add('liked');
+            } else {
+                likeContainer.classList.remove('liked');
+            }
 
-        // Пожелания для виджета благословений
-        const inspirations = [
-            "💡 У тебя сегодня будет потрясающий день!",
-            "🔥 Божьих благословений и отличного настроения!",
-            "✨ Твоя улыбка способна изменить чей-то день!",
-            "🙌 Чудеса происходят там, где в них верят!",
-            "🚀 Сегодня — лучший день для новых начинаний!",
-            "⭐ Ты создан для великих дел и побед!",
-            "🕊️ Пусть мир наполняет твое сердце сегодня!",
-            "☀️ Улыбнись, впереди только самое лучшее!",
-            "🌈 Каждое утро — это новый шанс на счастье!",
-            "🌱 Твои мечты обязательно принесут прекрасные плоды!",
-            "💪 У тебя есть силы преодолеть любые препятствия!",
-            "🎉 Сегодня тебя ждет приятный сюрприз!",
-            "❤️ Ты ценен и важен для этого мира!",
-            "🌟 Пусть вдохновение не покидает тебя ни на минуту!",
-            "🕊️ Божий покой да пребудет с тобой в каждом шаге!",
-            "🌺 Окружай себя теплом и дари его другим!",
-            "☀️ Твой день будет наполнен светом и радостью!",
-            "🔑 Каждая трудность открывает новую дверь!",
-            "🎁 Наслаждайся каждым мгновением сегодняшнего дня!",
-            "🏆 Ты способен достичь больших высот!",
-            "🕯️ Будь светом там, где кажется темно!",
-            "✨ Твоя вера может двигать горы!",
-            "🌻 Взращивай добро в своем сердце каждый день!",
-            "💫 Твои добрые дела вернутся к тебе сторицей!",
-            "😊 Простой добрый взгляд может исцелить чей-то день!",
-            "🚀 Шагай вперед уверенно и без страха!",
-            "🌊 Пусть радость наполняет тебя, как океан!",
-            "🕊️ Пусть сердце будет легким, а мысли — чистыми!",
-            "💎 Ты — уникальное и драгоценное творение!",
-            "🎨 Раскрась этот день яркими красками добрых дел!"
+            // Получаем актуальное количество лайков из ОБЩЕЙ базы данных (требование №1, №2)
+            let currentLikes = await fetchLikesFromDB(dateKey);
+            likeCounter.innerText = currentLikes;
+
+            // Обработчик клика по лайку
+            let isProcessing = false;
+            likeContainer.onclick = async () => {
+                if (isProcessing) return;
+                isProcessing = true;
+
+                hasLiked = localStorage.getItem(userLikedKey) === 'true';
+                let latestServerLikes = await fetchLikesFromDB(dateKey);
+
+                if (!hasLiked) {
+                    // Ставим лайк (требование №5)
+                    latestServerLikes += 1;
+                    localStorage.setItem(userLikedKey, 'true');
+                    likeContainer.classList.add('liked');
+                } else {
+                    // Снимаем лайк (требование №6)
+                    latestServerLikes = Math.max(0, latestServerLikes - 1);
+                    localStorage.removeItem(userLikedKey);
+                    likeContainer.classList.remove('liked');
+                }
+
+                likeCounter.innerText = latestServerLikes;
+                localStorage.setItem(`likes_count_${dateKey}`, latestServerLikes);
+
+                await updateLikesInDB(dateKey, latestServerLikes);
+                isProcessing = false;
+            };
+
+            // Периодическая синхронизация в реальном времени с другими посетителями (каждые 4 секунды)
+            setInterval(async () => {
+                if (!isProcessing) {
+                    const serverLikes = await fetchLikesFromDB(dateKey);
+                    if (parseInt(likeCounter.innerText) !== serverLikes) {
+                        likeCounter.innerText = serverLikes;
+                    }
+                }
+            }, 4000);
+        }
+
+        // Запуск системы лайков при загрузке страницы
+        window.addEventListener('DOMContentLoaded', initLikeSystem);
+
+        // Интерактивный виджет настроения в футере
+        const moods = [
+            { text: "Нажми для благословения и улыбки! ✨", icon: "fa-face-smile-beam" },
+            { text: "Бог любит тебя и заботится о тебе! 💖", icon: "fa-heart" },
+            { text: "Пусть этот день принесет радость и мир! 🕊️", icon: "fa-dove" },
+            { text: "Верь в чудеса, они ближе, чем кажутся! ⭐", icon: "fa-star" },
+            { text: "Ты создан для великих побед и добра! 🔥", icon: "fa-fire" }
         ];
-
+        let moodIndex = 0;
         const moodBtn = document.getElementById('moodBtn');
         const moodText = document.getElementById('moodText');
-        let isAnimatingMood = false;
+        const moodIcon = moodBtn.querySelector('i');
 
         moodBtn.addEventListener('click', () => {
-            if (isAnimatingMood) return;
-            isAnimatingMood = true;
-
             moodText.classList.add('fly-out');
-
             setTimeout(() => {
-                const randomQuote = inspirations[Math.floor(Math.random() * inspirations.length)];
-                moodText.innerText = randomQuote;
+                moodIndex = (moodIndex + 1) % moods.length;
+                moodText.innerText = moods[moodIndex].text;
+                moodIcon.className = `fa-solid ${moods[moodIndex].icon}`;
+                
                 moodText.classList.remove('fly-out');
                 moodText.classList.add('come-in');
-
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        moodText.classList.remove('come-in');
-                        isAnimatingMood = false;
-                    });
-                });
+                setTimeout(() => {
+                    moodText.classList.remove('come-in');
+                }, 50);
             }, 350);
         });
     </script>

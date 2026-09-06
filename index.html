@@ -38,15 +38,18 @@
         header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(10, 15, 29, 0.85); backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); animation: slideDown 0.8s ease; }
         @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; position: relative; z-index: 10; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; position: relative; z-index: 10; gap: 15px; flex-wrap: wrap; }
         .logo { display: flex; align-items: center; gap: 14px; color: var(--white); font-weight: 700; font-size: 1.15rem; text-decoration: none; cursor: pointer; transition: var(--transition); }
         .logo:hover { transform: scale(1.04) translateX(4px); }
         .logo i { color: var(--accent); font-size: 1.8rem; filter: drop-shadow(0 0 10px var(--accent)); animation: pulseIcon 2.5s infinite; }
         @keyframes pulseIcon { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(0,242,254,0.4)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 18px var(--accent)); } }
         
-        .header-badge { background: linear-gradient(135deg, var(--accent-pink), #ff5e62); color: white; padding: 8px 20px; border-radius: 30px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; animation: glowBadge 3s infinite alternate; text-decoration: none; display: inline-block; cursor: pointer; transition: var(--transition); box-shadow: 0 4px 20px rgba(255,0,127,0.4); }
-        .header-badge:hover { transform: scale(1.08) rotate(2deg); box-shadow: 0 8px 28px rgba(255,94,98,0.7); }
-        @keyframes glowBadge { from { box-shadow: 0 0 8px rgba(255,0,127,0.4); } to { box-shadow: 0 0 22px rgba(255,94,98,0.9); } }
+        /* Неоновые соцсети в шапке */
+        .social-icons { display: flex; align-items: center; gap: 12px; }
+        .social-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.1rem; text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .social-btn.facebook:hover { background: #1877f2; border-color: #1877f2; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6); }
+        .social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: #d6249f; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6); }
+        .social-btn.youtube:hover { background: #ff0000; border-color: #ff0000; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6); }
 
         main { flex: 1; padding-top: 84px; position: relative; z-index: 2; }
         .page { display: none; }
@@ -74,7 +77,6 @@
         
         section { padding: 100px 20px; position: relative; }
         
-        /* Улучшенная премиум-анимация слева направо с разгоном и мягким блюром */
         .reveal-left {
             opacity: 0;
             transform: translateX(-120px);
@@ -94,7 +96,6 @@
         @keyframes expandBar { from { width: 50px; } to { width: 110px; background: var(--accent-pink); } }
         .section-title p { color: var(--gray); font-size: 1.1rem; }
         
-        /* Настоящий 3D объемный вращающийся крестик */
         .rotating-cross-badge { 
             position: fixed; 
             bottom: 30px; 
@@ -129,18 +130,9 @@
         }
 
         @keyframes spin3DYear {
-            0% { 
-                transform: rotateY(0deg) rotateX(10deg); 
-                filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); 
-            }
-            50% { 
-                transform: rotateY(180deg) rotateX(-10deg); 
-                filter: brightness(1.4) drop-shadow(5px 5px 12px rgba(0,242,254,0.9)); 
-            }
-            100% { 
-                transform: rotateY(360deg) rotateX(10deg); 
-                filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); 
-            }
+            0% { transform: rotateY(0deg) rotateX(10deg); filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); }
+            50% { transform: rotateY(180deg) rotateX(-10deg); filter: brightness(1.4) drop-shadow(5px 5px 12px rgba(0,242,254,0.9)); }
+            100% { transform: rotateY(360deg) rotateX(10deg); filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); }
         }
 
         .rotating-cross-badge:hover { 
@@ -160,7 +152,6 @@
                 0 0 30px rgba(255,0,127,1);
         }
 
-        /* КРУТОЙ СУПЕР-ФОН ДЛЯ РАЗДЕЛА: ИСТОРИЯ ЦЕРКВИ */
         #history {
             background: linear-gradient(135deg, #050b18 0%, #111d38 50%, #03060c 100%);
             color: var(--white);
@@ -212,7 +203,6 @@
         .timeline-content h3 { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; text-shadow: 0 0 12px rgba(0,242,254,0.5); }
         .timeline-content p { color: #cbd5e1; font-size: 0.98rem; }
 
-        /* Живой интерактивный таймер с неоновой подсветкой и стеклянным эффектом */
         .countdown-section {
             background: linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));
             padding: 70px 20px;
@@ -225,10 +215,7 @@
         .countdown-section::before {
             content: '';
             position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 250px;
-            height: 250px;
+            top: -50px; left: -50px; width: 250px; height: 250px;
             background: rgba(0, 242, 254, 0.15);
             border-radius: 50%;
             filter: blur(70px);
@@ -237,51 +224,24 @@
         .countdown-section::after {
             content: '';
             position: absolute;
-            bottom: -50px;
-            right: -50px;
-            width: 250px;
-            height: 250px;
+            bottom: -50px; right: -50px; width: 250px; height: 250px;
             background: rgba(255, 0, 127, 0.15);
             border-radius: 50%;
             filter: blur(70px);
             pointer-events: none;
         }
-        .countdown-container {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
+        .countdown-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
         .countdown-header h3 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 8px;
+            font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;
             background: linear-gradient(135deg, var(--accent), #70e1f5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 1px;
             filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));
         }
-        .countdown-header p {
-            color: #94a3b8;
-            font-size: 1.05rem;
-            margin-bottom: 35px;
-            font-weight: 300;
-        }
+        .countdown-header p { color: #94a3b8; font-size: 1.05rem; margin-bottom: 35px; font-weight: 300; }
         
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            justify-content: center;
-        }
-        @media(min-width: 640px) {
-            .countdown-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-        }
+        .countdown-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; justify-content: center; }
+        @media(min-width: 640px) { .countdown-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } }
         
         .countdown-card {
             background: rgba(255, 255, 255, 0.05);
@@ -299,37 +259,21 @@
             box-shadow: 0 20px 45px rgba(255, 0, 127, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 0, 127, 0.4);
         }
         .countdown-number {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--white);
-            line-height: 1.1;
-            margin-bottom: 6px;
+            font-size: 2.8rem; font-weight: 900; color: var(--white);
+            line-height: 1.1; margin-bottom: 6px;
             text-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 242, 254, 0.6);
             font-variant-numeric: tabular-nums;
         }
-        .countdown-card:hover .countdown-number {
-            text-shadow: 0 0 15px var(--accent-pink), 0 0 30px rgba(255, 0, 127, 0.7);
-        }
-        .countdown-label {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #cbd5e1;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
+        .countdown-card:hover .countdown-number { text-shadow: 0 0 15px var(--accent-pink), 0 0 30px rgba(255, 0, 127, 0.7); }
+        .countdown-label { font-size: 0.88rem; font-weight: 600; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* КРУТОЙ СУПЕР-ФОН ДЛЯ РАЗДЕЛА: ДЕЙСТВУЮЩИЕ СОБЫТИЯ И СЛУЖЕНИЯ */
         .events-section { 
             background: linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);
-            position: relative;
-            overflow: hidden;
-            color: var(--white);
+            position: relative; overflow: hidden; color: var(--white);
             box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
         }
         .events-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.16) 0%, transparent 45%),
                         radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.16) 0%, transparent 45%);
             pointer-events: none;
@@ -345,16 +289,11 @@
             background: rgba(255, 255, 255, 0.04); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 26px; 
-            padding: 38px; 
+            border-radius: 26px; padding: 38px; 
             box-shadow: 0 15px 45px rgba(0,0,0,0.55), inset 0 1px 3px rgba(255,255,255,0.25); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            border-top: 6px solid var(--accent); 
-            transition: var(--transition); 
-            position: relative; 
-            overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: space-between; 
+            border-top: 6px solid var(--accent); transition: var(--transition); 
+            position: relative; overflow: hidden; 
             border-left: 1px solid rgba(0,242,254,0.25);
             border-right: 1px solid rgba(0,242,254,0.25);
         }
@@ -370,12 +309,7 @@
         .event-card:hover .event-time { background: var(--accent-pink); color: var(--white); border-color: var(--accent-pink); box-shadow: 0 4px 15px rgba(255,0,127,0.5); }
         .event-card p { color: #cbd5e1; font-size: 0.96rem; }
 
-        .contact-section { 
-            background: linear-gradient(135deg, #05080e 0%, #0a0f1d 50%, #111b2e 100%);
-            color: var(--white); 
-            position: relative; 
-            overflow: hidden; 
-        }
+        .contact-section { background: linear-gradient(135deg, #05080e 0%, #0a0f1d 50%, #111b2e 100%); color: var(--white); position: relative; overflow: hidden; }
         .contact-section .section-title h2 { color: var(--white); }
         .contact-section .section-title h2::after { background: var(--accent); }
         .contact-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
@@ -394,12 +328,7 @@
         @keyframes bounceMap { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
         /* Page 2 Styles */
-        .page2-wrapper { 
-            padding: 65px 20px; 
-            background: linear-gradient(135deg, #0a0f1d 0%, #172b52 100%);
-            min-height: 80vh; 
-            color: var(--white);
-        }
+        .page2-wrapper { padding: 65px 20px; background: linear-gradient(135deg, #0a0f1d 0%, #172b52 100%); min-height: 80vh; color: var(--white); }
         .services-header { text-align: center; margin-bottom: 55px; }
         .services-header h2 { font-size: 2.8rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.3)); }
         .services-header p { color: #cbd5e1; font-size: 1.15rem; }
@@ -412,14 +341,10 @@
             background: rgba(255, 255, 255, 0.05); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-radius: 26px; 
-            padding: 42px 32px; 
+            border-radius: 26px; padding: 42px 32px; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
-            transition: var(--transition); 
-            position: relative; 
-            overflow: hidden; 
-            border-top: 6px solid var(--accent); 
-            border: 1px solid rgba(0,242,254,0.2);
+            transition: var(--transition); position: relative; overflow: hidden; 
+            border-top: 6px solid var(--accent); border: 1px solid rgba(0,242,254,0.2);
         }
         .service-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 30px 60px rgba(255,0,127,0.35); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }
         
@@ -429,7 +354,6 @@
         .service-card h3 { font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 14px; }
         .service-card p { color: #cbd5e1; font-size: 0.98rem; line-height: 1.65; }
 
-        /* Pagination & Widgets */
         .pagination-container { text-align: center; padding: 45px 20px; background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; z-index: 10; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); }
         
         .btn-page { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); border: none; padding: 18px 42px; border-radius: 50px; font-weight: 700; font-size: 1.15rem; cursor: pointer; transition: var(--transition); box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4); display: inline-flex; align-items: center; gap: 14px; z-index: 10; }
@@ -446,7 +370,6 @@
 <body>
     <div class="particles" id="particlesContainer"></div>
 
-    <!-- Объемный 3D крестик с бесконечным вращением слева направо -->
     <div class="rotating-cross-badge" title="Объёмный 3D крест">
         <i class="fa-solid fa-cross"></i>
     </div>
@@ -457,12 +380,15 @@
                 <i class="fa-solid fa-church"></i>
                 <span>Новое Поколение • Днепр</span>
             </a>
-            <a href="https://youtube.com/@dngvideochannel?si=6zVhkpvyzcuS0m0T" target="_blank" class="header-badge">Our YouTube</a>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/ngdnipro" target="_blank" class="social-btn facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/ngdnipro/" target="_blank" class="social-btn instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://youtube.com/@dngvideochannel?si=CuM-oSQEuHay1iKq" target="_blank" class="social-btn youtube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- СТРАНИЦА 1: Главная -->
         <div id="page1" class="page active">
             <section class="hero">
                 <div class="hero-content">
@@ -514,7 +440,6 @@
                 </div>
             </section>
             
-            <!-- Живой интерактивный таймер обратного отсчета со стеклянным эффектом и неоновой подсветкой -->
             <section class="countdown-section reveal-left">
                 <div class="countdown-container">
                     <div class="countdown-header">
@@ -625,7 +550,6 @@
             </section>
         </div>
 
-        <!-- СТРАНИЦА 2: Наши служения -->
         <div id="page2" class="page">
             <div class="page2-wrapper reveal-left">
                 <div class="services-header">
@@ -674,7 +598,6 @@
         </div>
     </main>
 
-    <!-- Кнопки управления и весёлые штучки -->
     <div class="pagination-container">
         <div class="mood-widget" id="moodBtn">
             <i class="fa-solid fa-face-smile-beam"></i>
@@ -692,7 +615,6 @@
     </footer>
 
     <script>
-        // Particle generation
         const particlesContainer = document.getElementById('particlesContainer');
         const particleCount = 25;
         for (let i = 0; i < particleCount; i++) {
@@ -707,7 +629,6 @@
             particlesContainer.appendChild(p);
         }
 
-        // Scroll Reveal Animation (Intersection Observer) for Left-to-Right reveal with Blur effect
         const observerOptions = { threshold: 0.12 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -721,7 +642,6 @@
             observer.observe(el);
         });
 
-        // Live Countdown to Next Sunday 10:00 AM
         function updateCountdown() {
             const now = new Date();
             const resultDate = new Date(now);
@@ -767,7 +687,6 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Inspirations
         const inspirations = [
             "💡 У тебя сегодня будет потрясающий день!",
             "🔥 Божьих благословений и отличного настроения!",

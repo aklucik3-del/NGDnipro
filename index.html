@@ -14,6 +14,7 @@
             --accent: #00f2fe;
             --accent-pink: #ff007f;
             --accent-yellow: #ffd166;
+            --accent-green: #00ff88;
             --dark: #05080e;
             --light: #f8fafc;
             --gray: #64748b;
@@ -323,6 +324,41 @@
         .contact-info-item h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
         .contact-info-item p { color: #94a3b8; font-size: 0.96rem; }
         
+        /* Стили для неоновой зеленой карточки телефона */
+        .contact-info-item.phone-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(0, 255, 136, 0.03);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+        }
+        .contact-info-item.phone-card:hover {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.07);
+            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.25), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+            transform: translateX(10px) scale(1.02);
+        }
+        .contact-info-item.phone-card i.phone-icon {
+            font-size: 1.6rem;
+            color: var(--accent-green);
+            filter: drop-shadow(0 0 10px var(--accent-green)) drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
+            margin-top: 0;
+            margin-bottom: 4px;
+            animation: pulseGreenPhone 2.5s infinite alternate;
+        }
+        @keyframes pulseGreenPhone {
+            0% { filter: drop-shadow(0 0 6px var(--accent-green)) drop-shadow(0 0 12px rgba(0, 255, 136, 0.4)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 14px var(--accent-green)) drop-shadow(0 0 25px rgba(0, 255, 136, 0.9)); transform: scale(1.1); }
+        }
+        .contact-info-item.phone-card:hover i.phone-icon {
+            transform: scale(1.25) rotate(-10deg);
+            color: #55ffb0;
+            filter: drop-shadow(0 0 16px #55ffb0) drop-shadow(0 0 30px rgba(0, 255, 136, 1));
+        }
+
         .map-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: 340px; border-radius: 22px; background: #111b2e; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); padding: 20px; text-decoration: none; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }
         .map-box:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0, 242, 254, 0.35); }
         .map-box i { font-size: 3.8rem; color: var(--accent); margin-bottom: 18px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.6)); animation: bounceMap 2s infinite; }
@@ -542,6 +578,13 @@
                                     <p>ул. Старозаводская, 19а<br>(Точные локации залов и домашних групп уточняйте по телефону)</p>
                                 </div>
                             </div>
+                            <div class="contact-info-item phone-card">
+                                <i class="fa-solid fa-phone phone-icon"></i>
+                                <div>
+                                    <h4>Телефон</h4>
+                                    <p style="color: #ffffff; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px;">056 747 4737</p>
+                                </div>
+                            </div>
                         </div>
                         <a href="https://maps.google.com/?q=ул.+Старозаводская+19а,+Днепр" target="_blank" class="map-box">
                             <i class="fa-solid fa-map-location-dot"></i>
@@ -677,7 +720,7 @@
             
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const minutes = Math.floor((diff % (1000 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
             document.getElementById('days').innerText = String(days).padStart(2, '0');

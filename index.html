@@ -1035,7 +1035,7 @@
 
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>
+                        <div class="service-icon-box"><i class="fa-solid fa-desktop"></i></div>
                         <h3>Медиа команда</h3>
                         <p>Команда отвечает за визуальное оформление богослужений, создание креативного контента для социальных сетей, координацию трансляций и общую медиа-поддержку всех проектов церкви.</p>
                     </div>
@@ -1293,7 +1293,6 @@
             "Пусть тучи рассеиваются, уступая место солнечному свету.",
             "Желаю сил для реализации всех светлых замыслов.",
             "Пусть радость переполняет твое сердце сегодня!",
-            // ... (продолжение массива до 500 элементов уникальных пожеланий)
             "Желаю крепкого умиротворения и ясного неба над головой.",
             "Пусть Господь благословит твои руки на созидание.",
             "Желаю тебе ощутить сегодня особую заботу Свыше.",
@@ -1344,8 +1343,7 @@
             "Пусть Божье благословение почиет над тобою.",
             "Желаю вдохновения для новых свершений.",
             "Пусть радость озаряет твой жизненный путь.",
-            // Генерация полной базы до 500 уникальных пожеланий программным расширением
-            ...Array.from({ length: 450 }, (_, i) => {
+            ...Array.from({ length: 400 }, (_, i) => {
                 const prefixes = [
                     "Желаю тебе сегодня", "Пусть Господь дарует", "Пусть каждый миг приносит", 
                     "Желаю неисчерпаемой радости и", "Пусть в твоем сердце живет", "Желаю тебе крепкой веры и",
@@ -1363,7 +1361,7 @@
                     "в каждом мгновении жизни.", "и пусть все получится!", "на долгие годы вперед.",
                     "с чистым сердцем.", "преодолевая любые преграды.", "во имя добра и света.", "сегодня и всегда."
                 ];
-                return `${prefixes[i % prefixes.length]} ${cores[i % cores.length]} ${suffixes[i % suffixes.length]} (Пожелание #${i + 51})`;
+                return `${prefixes[i % prefixes.length]} ${cores[i % cores.length]} ${suffixes[i % suffixes.length]} (Пожелание #${i + 101})`;
             })
         ];
 
@@ -1376,7 +1374,6 @@
         moodBtn.addEventListener('click', () => {
             moodText.classList.add('fly-out');
             setTimeout(() => {
-                // Случайный выбор пожелания без повтора подряд
                 let nextIndex;
                 do {
                     nextIndex = Math.floor(Math.random() * wishesList.length);
@@ -1410,7 +1407,6 @@
             { text: "«Слово Твое — светильник ноге моей и свет стезе моей».", reference: "Псалтирь 118:105" },
             { text: "«Ищите же прежде Царства Божия и правды Его, и это все приложится вам».", reference: "От Матфея 6:33" },
             { text: "«Блаженны кроткие, ибо они наследуют землю».", reference: "От Матфея 5:5" },
-            // Автоматическое расширение базы местописаний ровно до 500 уникальных элементов с указанием Книги, главы и стиха
             ...Array.from({ length: 490 }, (_, i) => {
                 const books = [
                     "Бытие", "Исход", "Левит", "Числа", "Второзаконие", "Иисус Навин", "Судьи", "Руфь", "1 Царств", "2 Царств",
@@ -1449,9 +1445,7 @@
         const API_KEY = '$2a$10$95s5Fw0Gz7T2Q3Bv5e6dveG5mH5n7d7V7yL35m8j6K4t6F3b9C62e'; 
 
         function getKyivDateKey() {
-            // Получаем текущую дату по времени Украины (00:00 смена суток)
             const now = new Date();
-            // Смещение для Украины (EET/EEST)
             const kyivTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Kiev' }));
             const year = kyivTime.getFullYear();
             const month = String(kyivTime.getMonth() + 1).padStart(2, '0');
@@ -1460,13 +1454,11 @@
         }
 
         function initWordOfDay() {
-            // Вычисляем день года для гарантированного прохождения всех 500+ уникальных элементов без повторов за цикл
             const now = new Date();
             const kyivTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Kiev' }));
             const startOfYear = new Date(kyivTime.getFullYear(), 0, 1);
             const dayOfYear = Math.floor((kyivTime - startOfYear) / (1000 * 60 * 60 * 24));
             
-            // Цикл по всем 500+ элементам (после окончания начнется новый цикл)
             const wordIndex = dayOfYear % wordsList.length;
             const currentWord = wordsList[wordIndex];
 
@@ -1526,58 +1518,33 @@
 
             if (hasLiked) {
                 likeContainer.classList.add('liked');
-            } else {
-                likeContainer.classList.remove('liked');
             }
 
             let currentLikes = await fetchLikesFromDB(dateKey);
             likeCounter.innerText = currentLikes;
 
-            let isProcessing = false;
-            likeContainer.onclick = async () => {
-                if (isProcessing) return;
-                isProcessing = true;
-
+            likeContainer.addEventListener('click', async () => {
                 hasLiked = localStorage.getItem(userLikedKey) === 'true';
-                let latestServerLikes = await fetchLikesFromDB(dateKey);
-
+                
                 if (!hasLiked) {
-                    latestServerLikes += 1;
+                    currentLikes++;
                     localStorage.setItem(userLikedKey, 'true');
                     likeContainer.classList.add('liked');
                 } else {
-                    latestServerLikes = Math.max(0, latestServerLikes - 1);
+                    currentLikes = Math.max(0, currentLikes - 1);
                     localStorage.removeItem(userLikedKey);
                     likeContainer.classList.remove('liked');
                 }
 
-                likeCounter.innerText = latestServerLikes;
-                localStorage.setItem(`likes_count_${dateKey}`, latestServerLikes);
-
-                await updateLikesInDB(dateKey, latestServerLikes);
-                isProcessing = false;
-            };
-
-            // Синхронизация лайков каждые 4 секунды
-            setInterval(async () => {
-                if (!isProcessing) {
-                    const serverLikes = await fetchLikesFromDB(dateKey);
-                    if (parseInt(likeCounter.innerText) !== serverLikes) {
-                        likeCounter.innerText = serverLikes;
-                    }
-                }
-            }, 4000);
-
-            // Проверка смены суток по времени Украины (00:00) каждые 30 секунд
-            setInterval(() => {
-                const newDateKey = getKyivDateKey();
-                if (newDateKey !== dateKey) {
-                    location.reload(); // Автоматическое обновление Слова дня ровно в 00:00
-                }
-            }, 30000);
+                likeCounter.innerText = currentLikes;
+                localStorage.setItem(`likes_count_${dateKey}`, currentLikes);
+                await updateLikesInDB(dateKey, currentLikes);
+            });
         }
 
-        window.addEventListener('DOMContentLoaded', initLikeSystem);
+        document.addEventListener('DOMContentLoaded', () => {
+            initLikeSystem();
+        });
     </script>
 </body>
 </html>

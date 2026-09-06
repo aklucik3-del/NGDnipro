@@ -655,7 +655,7 @@
 </head>
 <body>
     <!-- Стартовое обязательное модальное окно -->
-    <div class="opt-modal-overlay" id="optModalOverlay">
+    <div class="opt-modal-overlay active" id="optModalOverlay">
         <div class="opt-modal-card" role="dialog" aria-modal="true">
             <div class="opt-modal-icon">
                 <i class="fa-solid fa-bolt"></i>
@@ -934,7 +934,7 @@
     </footer>
 
     <script>
-        // Логика стартового окна и оптимизации
+        // Логика стартового окна и оптимизации (без сохранения в хранилищах)
         let isOptimizedMode = false;
         const optModalOverlay = document.getElementById('optModalOverlay');
         const optBtnConfirm = document.getElementById('optBtnConfirm');
@@ -950,26 +950,15 @@
             document.body.classList.remove('modal-open');
         }
 
-        function checkOptimizationChoice() {
-            const savedChoice = localStorage.getItem('ng_site_optimization_choice');
-            if (savedChoice === 'optimized') {
-                applyOptimization();
-            } else if (savedChoice === 'skipped') {
-                // Обычный режим
-            } else {
-                document.body.classList.add('modal-open');
-                optModalOverlay.classList.add('active');
-            }
-        }
+        // При каждом входе / перезагрузке окно открывается заново
+        document.body.classList.add('modal-open');
 
         optBtnConfirm.addEventListener('click', () => {
-            localStorage.setItem('ng_site_optimization_choice', 'optimized');
             applyOptimization();
             closeModal();
         });
 
         optBtnSkip.addEventListener('click', () => {
-            localStorage.setItem('ng_site_optimization_choice', 'skipped');
             closeModal();
         });
 
@@ -979,8 +968,6 @@
                 e.preventDefault();
             }
         });
-
-        checkOptimizationChoice();
 
         // Генерация фоновых частиц
         const particlesContainer = document.getElementById('particlesContainer');
@@ -1345,3 +1332,4 @@
     </script>
 </body>
 </html>
+

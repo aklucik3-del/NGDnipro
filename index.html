@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="cMtJMBX0PDNgitilrx10joX3PjkbL7Un9JiaViBjXRg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХЭЦУ «Новое Поколение» — Днепр | Официальный сайт</title>
+    <title>ХЄЦ «Нове Покоління» — Дніпро | Офіційний сайт</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -46,7 +46,7 @@
         .logo i { color: var(--accent); font-size: clamp(1.4rem, 2.5vw, 1.8rem); filter: drop-shadow(0 0 10px var(--accent)); animation: pulseIcon 3.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
         @keyframes pulseIcon { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(0,242,254,0.4)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 18px var(--accent)); } }
         
-        /* Неоновые соцсети в шапке */
+        /* Неонові соцмережі у шапці */
         .social-icons { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 12px); }
         .social-btn { width: clamp(36px, 4vw, 40px); height: clamp(36px, 4vw, 40px); border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: clamp(0.95rem, 1.5vw, 1.1rem); text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .social-btn.facebook:hover { background: #1877f2; border-color: #1877f2; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6); }
@@ -324,7 +324,7 @@
         .contact-info-item h4 { font-size: clamp(1.02rem, 1.6vw, 1.1rem); font-weight: 600; margin-bottom: 5px; }
         .contact-info-item p { color: #94a3b8; font-size: clamp(0.9rem, 1.4vw, 0.96rem); }
         
-        /* Стили для неоновой зеленой карточки телефона */
+        /* Стилі для неонової зеленої картки телефону */
         .contact-info-item.phone-card {
             flex-direction: column;
             align-items: flex-start;
@@ -549,7 +549,7 @@
         .btn-page { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); border: none; padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 42px); border-radius: 50px; font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.15rem); cursor: pointer; transition: var(--transition); box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4); display: inline-flex; align-items: center; gap: 14px; z-index: 10; }
         .btn-page:hover { transform: translateY(-5px) scale(1.06); box-shadow: 0 15px 45px rgba(0, 242, 254, 0.7); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }
 
-        /* Сине-фиолетовый неоновый переливающийся виджет */
+        /* Синьо-фіолетовий неоновий віджет з переливами */
         .mood-widget { 
             background: linear-gradient(-45deg, #0d1b3e, #1a237e, #4a148c, #00b0ff, #311b92, #0d47a1);
             background-size: 400% 400%;
@@ -592,7 +592,7 @@
         }
         @keyframes spinHeart { 0% { transform: rotate(0deg) scale(1); } 25% { transform: rotate(20deg) scale(1.2); } 75% { transform: rotate(-20deg) scale(0.95); } 100% { transform: rotate(0deg) scale(1); } }
 
-        /* Контейнер для текстов с анимацией */
+        /* Контейнер для текстів з анімацією */
         .mood-text-wrapper {
             display: inline-block;
             position: relative;
@@ -616,7 +616,7 @@
         footer { background: #030509; color: #64748b; text-align: center; padding: clamp(30px, 5vh, 40px) 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }
 
         /* =========================================================
-           ОБЯЗАТЕЛЬНОЕ СТАРТОВОЕ ОКНО ОПТИМИЗАЦИИ
+           ОБОВ'ЯЗКОВЕ СТАРТОВЕ ВІКНО ОПТИМІЗАЦІЇ
            ========================================================= */
         body.modal-open {
             overflow: hidden !important;
@@ -780,7 +780,7 @@
             transform: translateY(-3px);
         }
 
-        /* СТИЛИ ОПТИМИЗИРОВАННОГО РЕЖИМА */
+        /* СТИЛІ ОПТИМІЗОВАНОГО РЕЖИМУ */
         body.optimized-mode * {
             animation-duration: 1s !important;
         }
@@ -812,25 +812,25 @@
         }
     </style>
 </head>
-<body>
-    <!-- Стартовое обязательное модальное окно -->
+<body class="modal-open">
+    <!-- Стартове обов'язкове модальне вікно -->
     <div class="opt-modal-overlay active" id="optModalOverlay">
         <div class="opt-modal-card" role="dialog" aria-modal="true">
             <div class="opt-modal-icon">
                 <i class="fa-solid fa-bolt"></i>
             </div>
-            <h2 class="opt-modal-title">Оптимизировать сайт?</h2>
+            <h2 class="opt-modal-title">Оптимізувати сайт?</h2>
             <p class="opt-modal-desc">
-                Включите ускоренную работу анимаций, графики и плавность интерфейса для лучшей производительности устройства.
+                Увімкніть прискорену роботу анімацій, графіки та плавність інтерфейсу для найкращої продуктивності пристрою.
             </p>
             <div class="opt-modal-buttons">
                 <button type="button" class="opt-btn opt-btn-main" id="optBtnConfirm">
                     <i class="fa-solid fa-circle"></i>
-                    <span>Оптимизировать</span>
+                    <span>Оптимізувати</span>
                 </button>
                 <button type="button" class="opt-btn opt-btn-skip" id="optBtnSkip">
                     <i class="fa-regular fa-circle"></i>
-                    <span>Пропустить</span>
+                    <span>Пропустити</span>
                 </button>
             </div>
         </div>
@@ -838,7 +838,7 @@
 
     <div class="particles" id="particlesContainer"></div>
 
-    <div class="rotating-cross-badge" title="Объёмный 3D крест">
+    <div class="rotating-cross-badge" title="Об'ємний 3D хрест">
         <i class="fa-solid fa-cross"></i>
     </div>
 
@@ -846,7 +846,7 @@
         <div class="nav-container">
             <a class="logo" onclick="goToPage(1); return false;" href="#">
                 <i class="fa-solid fa-church"></i>
-                <span>Новое Поколение • Днепр</span>
+                <span>Нове Покоління • Дніпро</span>
             </a>
             <div class="social-icons">
                 <a href="https://www.facebook.com/ngdnipro" target="_blank" class="social-btn facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -861,10 +861,10 @@
         <div id="page1" class="page active">
             <section class="hero">
                 <div class="hero-content">
-                    <h1>Христианская Евангельская Церковь <span>«Новое Поколение»</span> Днепр</h1>
-                    <p>Современное межконфессиональное христианское движение полного Евангелия. Место силы, безусловной любви, духовного роста и реальных перемен.</p>
+                    <h1>Християнська Євангельська Церква <span>«Нове Покоління»</span> Дніпро</h1>
+                    <p>Сучасний міжконфесійний християнський рух повного Євангелія. Місце сили, безумовної любові, духовного зростання та реальних змін.</p>
                     <a href="#events" class="btn-primary">
-                        <span>Расписание служений</span>
+                        <span>Розклад служінь</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </a>
                 </div>
@@ -873,36 +873,36 @@
             <section id="history" class="reveal-left">
                 <div class="container">
                     <div class="section-title">
-                        <h2>История церкви</h2>
-                        <p>Как развивалось движение «Новое Поколение» в Днепре</p>
+                        <h2>Історія церкви</h2>
+                        <p>Як розвивався рух «Нове Покоління» у Дніпрі</p>
                     </div>
                     <div class="history-timeline">
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
-                                <h3>Основание движения</h3>
-                                <p>Международное христианское движение «Новое Поколение» возникло в Латвии в конце 1980-х — начале 1990-х годов под руководством пастора Алексея Ледяева. В последующие годы церкви и общины движения появились в различных странах Восточной Европы и постсоветского пространства, в том числе в Украине.</p>
+                                <h3>Заснування руху</h3>
+                                <p>Міжнародний християнський рух «Нове Покоління» виник у Латвії наприкінці 1980-х — початку 1990-х років під керівництвом пастора Олексія Лєдяєва. У наступні роки церкви та громади руху з'явилися в різних країнах Східної Європи та пострадянського простору, зокрема в Україні.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
-                                <h3>Появление в Днепре</h3>
-                                <p>В Днепре община начала формироваться в середине 90-х годов силами миссионеров и активных верующих, проводя первые малые группы и евангелизации.</p>
+                                <h3>Поява у Дніпрі</h3>
+                                <p>У Дніпрі громада почала формуватися в середині 90-х років силами місіонерів та активних віруючих, проводячи перші малі групи та євангелізації.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
-                                <h3>Масштабные служения и рост</h3>
-                                <p>Церковь выросла в крупное объединение, собиравшее сотни прихожан на богослужения в концертных залах и ДК города.</p>
+                                <h3>Масштабні служіння та зростання</h3>
+                                <p>Церква виросла у велике об'єднання, яке збирало сотні парафіян на богослужіння у концертних залах та ПК міста.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
-                                <h3>Современный этап</h3>
-                                <p>Сегодня община продолжает активную духовную, социальную и адаптационную работу, проводя богослужения, молитвенные встречи и молодежные проекты.</p>
+                                <h3>Сучасний етап</h3>
+                                <p>Сьогодні громада продовжує активну духовну, соціальну та адаптаційну роботу, проводячи богослужіння, молитовні зустрічі та молодіжні проекти.</p>
                             </div>
                         </div>
                     </div>
@@ -912,21 +912,21 @@
             <section class="countdown-section reveal-left">
                 <div class="countdown-container">
                     <div class="countdown-header">
-                        <h3><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До воскресного богослужения</h3>
-                        <p>Присоединяйтесь к нам в это воскресенье в 10:00 (UTC+3)</p>
+                        <h3><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння</h3>
+                        <p>Приєднуйтесь до нас цієї неділі о 10:00 (UTC+3)</p>
                     </div>
                     <div class="countdown-grid">
                         <div class="countdown-card">
                             <div class="countdown-number" id="days">00</div>
-                            <div class="countdown-label">Дней</div>
+                            <div class="countdown-label">Днів</div>
                         </div>
                         <div class="countdown-card">
                             <div class="countdown-number" id="hours">00</div>
-                            <div class="countdown-label">Часов</div>
+                            <div class="countdown-label">Годин</div>
                         </div>
                         <div class="countdown-card">
                             <div class="countdown-number" id="minutes">00</div>
-                            <div class="countdown-label">Минут</div>
+                            <div class="countdown-label">Хвилин</div>
                         </div>
                         <div class="countdown-card">
                             <div class="countdown-number" id="seconds">00</div>
@@ -939,56 +939,56 @@
             <section id="events" class="events-section reveal-left">
                 <div class="container">
                     <div class="section-title">
-                        <h2>Действующие события и служения</h2>
-                        <p>Выберите служение по душе и присоединяйтесь к нам</p>
+                        <h2>Діючі події та служіння</h2>
+                        <p>Оберіть служіння до душі та приєднуйтесь до нас</p>
                     </div>
                     <div class="events-grid">
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-church"></i></div>
-                                <h3>Главное Богослужение</h3>
-                                <span class="event-time">Воскресенье • 10:00</span>
-                                <p>Центральное еженедельное собрание всей церкви: мощное прославление Бога, молитва и практическая проповедь слова.</p>
+                                <h3>Головне Богослужіння</h3>
+                                <span class="event-time">Неділя • 10:00</span>
+                                <p>Центральне щотижневе зібрання всієї церкви: потужне прославлення Бога, молитва та практична проповідь слова.</p>
                             </div>
                         </div>
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-hands-praying"></i></div>
-                                <h3>Молитвенное служение</h3>
-                                <span class="event-time">Среда • 18:30</span>
-                                <p>Общая молитва за город, Украину, семьи, исцеление и нужды верующих. Время погружения в Божье присутствие.</p>
+                                <h3>Молитовне служіння</h3>
+                                <span class="event-time">Середа • 18:30</span>
+                                <p>Спільна молитва за місто, Україну, сім'ї, зцілення та потреби віруючих. Час занурення в Божу присутність.</p>
                             </div>
                         </div>
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-users-rectangle"></i></div>
-                                <h3>Домашние собрания</h3>
-                                <span class="event-time">Четверг • 18:30</span>
-                                <p>Уютные встречи в разных районах Днепра для общения, изучения Библии и взаимной поддержки в небольшом кругу.</p>
+                                <h3>Домашні зібрання</h3>
+                                <span class="event-time">Четвер • 18:30</span>
+                                <p>Затишні зустрічі в різних районах Дніпра для спілкування, вивчення Біблії та взаємної підтримки у вузькому колі.</p>
                             </div>
                         </div>
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-bolt"></i></div>
-                                <h3>Молодежные собрания</h3>
-                                <span class="event-time">Суббота / по расписанию</span>
-                                <p>Динамичное пространство для молодежи: актуальные темы, творчество, новые знакомства, современная музыка и общение.</p>
+                                <h3>Молодіжні зібрання</h3>
+                                <span class="event-time">Субота / за розкладом</span>
+                                <p>Динамічний простір для молоді: актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p>
                             </div>
                         </div>
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-child-reaching"></i></div>
-                                <h3>Подростковые собрания</h3>
-                                <span class="event-time">Суббота • 12:00</span>
-                                <p>Специальные интерактивные программы, помогающие подросткам находить ответы на жизненные вопросы через призму ценностей.</p>
+                                <h3>Підліткові зібрання</h3>
+                                <span class="event-time">Субота • 12:00</span>
+                                <p>Спеціальні інтерактивні програми, що допомагають підліткам знаходити відповіді на життєві питання через призму цінностей.</p>
                             </div>
                         </div>
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-comments"></i></div>
                                 <h3>Speaking Club</h3>
-                                <span class="event-time">По расписанию</span>
-                                <p>Разговорный английский клуб для практики языковых навыков в дружественной и открытой атмосфере.</p>
+                                <span class="event-time">За розкладом</span>
+                                <p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p>
                             </div>
                         </div>
                     </div>
@@ -998,15 +998,15 @@
             <section id="contacts" class="contact-section reveal-left">
                 <div class="container">
                     <div class="section-title" style="margin-bottom: 35px;">
-                        <h2 style="color: white;">Контакты</h2>
+                        <h2 style="color: white;">Контакти</h2>
                     </div>
                     <div class="contact-grid">
                         <div class="contact-info-list">
                             <div class="contact-info-item">
                                 <i class="fa-solid fa-location-dot"></i>
                                 <div>
-                                    <h4>Адрес в Днепре</h4>
-                                    <p>ул. Старозаводская, 19а<br>(Точные локации залов и домашних групп уточняйте по телефону)</p>
+                                    <h4>Адреса у Дніпрі</h4>
+                                    <p>вул. Столєтова, 19А, будівля 2<br>(Точні локації залів та домашніх груп уточнюйте за телефоном)</p>
                                 </div>
                             </div>
                             <div class="contact-info-item phone-card">
@@ -1017,9 +1017,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="https://maps.google.com/?q=ул.+Старозаводская+19а,+Днепр" target="_blank" class="map-box">
+                        <a href="https://www.google.com/maps/search/?api=1&query=%D0%B2%D1%83%D0%BB.+%D0%A1%D0%C2%A0%D1%82%D0%BE%D0%BB%D1%94%D1%82%D0%BE%D0%B2%D0%B0,+19%D0%90,+%D0%B1%D1%83%D0%B4%D0%BE%D0%B2%D0%B0+2,+%D0%94%D0%BD%D1%96%D0%BF%D1%80%D0%BE,+%D0%A3%D0%BA%D1%80%D0%B0%D1%97%D0%BD%D0%B0" target="_blank" rel="noopener noreferrer" class="map-box">
                             <i class="fa-solid fa-map-location-dot"></i>
-                            <p><strong>ул. Старозаводская, 19а</strong><br><small style="color: var(--accent); margin-top: 6px; display: block; font-weight: 600;"><i class="fa-solid fa-location-arrow"></i> Нажмите, чтобы открыть карту</small></p>
+                            <p><strong>вул. Столєтова, 19А, будівля 2</strong><br><small style="color: var(--accent); margin-top: 6px; display: block; font-weight: 600;"><i class="fa-solid fa-location-arrow"></i> Натисніть, щоб відкрити карту</small></p>
                         </a>
                     </div>
                 </div>
@@ -1029,112 +1029,121 @@
         <div id="page2" class="page">
             <div class="page2-wrapper reveal-left">
                 <div class="services-header">
-                    <h2>Наши служения</h2>
-                    <p>Команды людей, которые служат сердцем, талантами и преданностью</p>
+                    <h2>Наші служіння</h2>
+                    <p>Команди людей, які служать серцем, талантами та відданістю</p>
                 </div>
 
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-icon-box"><i class="fa-solid fa-desktop"></i></div>
-                        <h3>Медиа команда</h3>
-                        <p>Команда отвечает за визуальное оформление богослужений, создание креативного контента для социальных сетей, координацию трансляций и общую медиа-поддержку всех проектов церкви.</p>
+                        <h3>Медіа команда</h3>
+                        <p>Команда відповідає за візуальне оформлення богослужінь, створення креативного контенту для соціальних мереж, координацію трансляцій та загальну медіа-підтримку всіх проектів церкви.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="service-icon-box"><i class="fa-solid fa-camera"></i></div>
-                        <h3>Операторы</h3>
-                        <p>Профессиональная видеосъемка служений и мероприятий с разных ракурсов, оперативное управление камерами для обеспечения качественной онлайн-трансляции и создания памятных видеоматериалов.</p>
+                        <h3>Оператори</h3>
+                        <p>Професійна відеозйомка служінь та заходів з різних ракурсів, оперативне управління камерами для забезпечення якісної онлайн-трансляції та створення пам'ятних відеоматеріалів.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="service-icon-box"><i class="fa-solid fa-sliders"></i></div>
-                        <h3>Звукооператоры</h3>
-                        <p>Контроль и идеальная настройка звука на сцене и в зале, работа с микрофонами и музыкальными инструментами, создание комфортного и сбалансированного акустического сопровождения.</p>
+                        <h3>Звукооператори</h3>
+                        <p>Контроль та ідеальне налаштування звуку на сцені та в залі, робота з мікрофонами та музичними інструментами, створення комфортного та збалансованого акустичного супроводу.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="service-icon-box"><i class="fa-solid fa-lightbulb"></i></div>
-                        <h3>Светооператоры</h3>
-                        <p>Создание неповторимой атмосферы с помощью профессионального светового оборудования, управление световыми сценариями и динамикой во время прославления, концертов и программ.</p>
+                        <h3>Світлооператори</h3>
+                        <p>Створення неповторної атмосфери за допомогою професійного світлового обладнання, управління світловими сценаріями та динамікою під час прославлення, концертів і програм.</p>
                     </div>
 
                     <div class="service-card">
                         <div class="service-icon-box"><i class="fa-solid fa-music"></i></div>
-                        <h3>Группа прославления</h3>
-                        <p>Музыканты и вокалисты, которые ведут всю общину в искреннем поклонении Богу через музыку, вдохновенные песни и открытые сердца, наполненные живой верой.</p>
+                        <h3>Група прославлення</h3>
+                        <p>Музиканти та вокалісти, які ведуть усю громаду в щирому поклонінні Богу через музику, натхненні пісні та відкриті серця, сповнені живої віри.</p>
                     </div>
 
                     <div class="service-card">
-                        <div class="service-icon-box"><i class="fa-solid fa-people-arrows"></i></div>
-                        <h3>Группа порядка</h3>
-                        <p>Команда гостеприимства и порядка, которая приветствует каждого прихожанина у входа, помогает с размещением в зале, координирует движение и создает атмосферу уюта, заботы и безопасности.</p>
+                        <div class="service-icon-box"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <h3>Гостинність та порядок</h3>
+                        <p>Служіння, яке створює затишок, радісно зустрічає гостей на вході, допомагає із розміщенням у залі та піклується про комфорт кожного відвідувача.</p>
                     </div>
                 </div>
 
-                <!-- БЛОК: СЛОВО ДНЯ -->
+                <!-- Блок «Слово дня» -->
                 <div class="word-of-day-section">
                     <div class="word-of-day-card">
                         <div class="word-header">
                             <div class="word-badge">
-                                <i class="fa-solid fa-book-bible"></i>
+                                <i class="fa-solid fa-book-open"></i>
                                 <span>Слово дня</span>
                             </div>
                         </div>
                         <div class="word-content-box">
-                            <p class="word-text" id="wordText">Загрузка вдохновляющего стиха...</p>
-                            <div class="word-reference" id="wordReference">—</div>
+                            <p class="word-text">«Бо тільки Я знаю наміри, які маю щодо вас, — говорить Господь, — наміри на добро, а не на зло, щоб дати вам майбутнє та надію.»</p>
+                            <span class="word-reference">Єремія 29:11</span>
                         </div>
                         <div class="word-footer-actions">
-                            <div class="like-container" id="likeContainer" title="Нравится">
+                            <div class="like-container" id="likeContainer" onclick="toggleLike()">
                                 <i class="fa-solid fa-heart like-btn-icon" id="likeIcon"></i>
-                                <span class="like-counter" id="likeCounter">0</span>
+                                <span class="like-counter" id="likeCount">124</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+            <button class="btn-page" id="pageToggleBtn" onclick="togglePages()">
+                <span id="pageBtnText">Перейти на сторінку 2</span>
+                <i class="fa-solid fa-arrow-right" id="pageBtnIcon"></i>
+            </button>
+            <div class="mood-widget" onclick="changeMoodText()" title="Натисніть для натхнення">
+                <i class="fa-solid fa-heart"></i>
+                <div class="mood-text-wrapper">
+                    <span class="mood-text-content" id="moodText">Бог любить тебе і має чудовий план для твого життя!</span>
                 </div>
             </div>
         </div>
     </main>
 
-    <div class="pagination-container">
-        <div class="mood-widget" id="moodBtn">
-            <i class="fa-solid fa-face-smile-beam"></i>
-            <div class="mood-text-wrapper">
-                <span id="moodText" class="mood-text-content">Нажми для благословения и улыбки! ✨</span>
-            </div>
-        </div>
-
-        <button id="nextBtn" class="btn-page" type="button">
-            <span id="btnText">Следующая страница</span>
-            <i id="btnIcon" class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-
     <footer>
-        <p>© 2026 Христианская Евангельская Церковь Украины «Новое Поколение» (Днепр)</p>
+        <p>&copy; 2026 Християнська Євангельська Церква «Нове Покоління» м. Дніпро. Всі права захищені.</p>
     </footer>
 
     <script>
-        // Логика стартового окна и оптимизации
-        let isOptimizedMode = false;
+        // Частинки тла
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 20;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 8 + 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Оптимізаційне модальне вікно
         const optModalOverlay = document.getElementById('optModalOverlay');
         const optBtnConfirm = document.getElementById('optBtnConfirm');
         const optBtnSkip = document.getElementById('optBtnSkip');
-
-        function applyOptimization() {
-            isOptimizedMode = true;
-            document.body.classList.add('optimized-mode');
-        }
 
         function closeModal() {
             optModalOverlay.classList.remove('active');
             document.body.classList.remove('modal-open');
         }
 
-        document.body.classList.add('modal-open');
-
         optBtnConfirm.addEventListener('click', () => {
-            applyOptimization();
+            document.body.classList.add('optimized-mode');
             closeModal();
         });
 
@@ -1142,83 +1151,38 @@
             closeModal();
         });
 
-        window.addEventListener('keydown', (e) => {
-            if (optModalOverlay.classList.contains('active') && e.key === 'Escape') {
-                e.preventDefault();
-            }
-        });
-
-        // Генерация фоновых частиц
-        const particlesContainer = document.getElementById('particlesContainer');
-        const particleCount = isOptimizedMode ? 15 : 25;
-        for (let i = 0; i < particleCount; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            const size = Math.random() * 8 + 3 + 'px';
-            p.style.width = size;
-            p.style.height = size;
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.animationDuration = (Math.random() * 14 + 8) + 's';
-            p.style.animationDelay = (Math.random() * 6) + 's';
-            particlesContainer.appendChild(p);
-        }
-
-        const observerOptions = { threshold: 0.12 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-left').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Навигация по страницам
+        // Навігація між сторінками
         let currentPage = 1;
-        const page1 = document.getElementById('page1');
-        const page2 = document.getElementById('page2');
-        const nextBtn = document.getElementById('nextBtn');
-        const btnText = document.getElementById('btnText');
-        const btnIcon = document.getElementById('btnIcon');
-
         function goToPage(page) {
-            if (page === 1) {
-                page2.classList.remove('active');
-                page1.classList.add('active');
-                currentPage = 1;
-                btnText.innerText = 'Следующая страница';
+            if (page === currentPage) return;
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            document.getElementById(`page${page}`).classList.add('active');
+            currentPage = page;
+            updatePageButton();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function togglePages() {
+            goToPage(currentPage === 1 ? 2 : 1);
+        }
+
+        function updatePageButton() {
+            const btnText = document.getElementById('pageBtnText');
+            const btnIcon = document.getElementById('pageBtnIcon');
+            if (currentPage === 1) {
+                btnText.textContent = 'Перейти на сторінку 2';
                 btnIcon.className = 'fa-solid fa-arrow-right';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (page === 2) {
-                page1.classList.remove('active');
-                page2.classList.add('active');
-                currentPage = 2;
-                btnText.innerText = 'Главная страница';
+            } else {
+                btnText.textContent = 'Повернутися на головну';
                 btnIcon.className = 'fa-solid fa-arrow-left';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        nextBtn.addEventListener('click', () => {
-            if (currentPage === 1) {
-                goToPage(2);
-            } else {
-                goToPage(1);
-            }
-        });
-
-        // Обратный отсчет до воскресенья 10:00
+        // Таймер зворотного відліку до неділі 10:00
         function updateCountdown() {
             const now = new Date();
-            const target = new Date();
-            
-            let dayOfWeek = now.getDay();
-            let daysUntilSunday = (0 - dayOfWeek + 7) % 7;
-            
-            target.setDate(now.getDate() + daysUntilSunday);
+            let target = new Date();
+            target.setDate(now.getDate() + ((7 - now.getDay()) % 7));
             target.setHours(10, 0, 0, 0);
 
             if (now > target) {
@@ -1226,323 +1190,70 @@
             }
 
             const diff = target - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / 1000 / 60) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const s = Math.floor((diff / 1000) % 60);
 
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            document.getElementById('days').textContent = String(d).padStart(2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // =========================================================
-        // БАЗА ДАННЫХ ИЗ 500 УНИКАЛЬНЫХ ПОЖЕЛАНИЙ ДЛЯ ВИДЖЕТА УЛЫБКИ
-        // =========================================================
-        const wishesList = [
-            "Пусть Божья благодать обильно наполняет каждый твой день!",
-            "Желаю крепкого мира в сердце и света на каждом жизненном шагу.",
-            "Пусть сегодняшний день принесет тебе радость и приятные неожиданности.",
-            "Господь да хранит твои выходы и твои входы отныне и вовек!",
-            "Желаю неиссякаемой энергии, веры и вдохновляющих побед.",
-            "Пусть твоя улыбка освещает лица окружающих людей!",
-            "Желаю мудрости свыше в принятии любых решений.",
-            "Пусть в твоем доме всегда царят уют, понимание и любовь.",
-            "Желаю крепкого здоровья тебе и всем твоим близким.",
-            "Пусть ангелы Божьи охраняют тебя на всех путях твоих.",
-            "Желаю радости, которая превосходит любые жизненные обстоятельства.",
-            "Пусть каждый миг сегодняшнего дня приносит духовные плоды.",
-            "Желаю смелости идти вперед к исполнению Божьих мечт.",
-            "Пусть твое сердце будет наполнено благодарностью и хвалой.",
-            "Желаю тепла, добра и искренних улыбок вокруг.",
-            "Пусть вера твоя укрепляется с каждым новым рассветом.",
-            "Желаю мира, который превыше всякого ума.",
-            "Пусть Господь благословит твои труды и начинания.",
-            "Желаю вдохновения творить добро каждый день.",
-            "Пусть твой дух будет бодр, а вера непоколебима.",
-            "Желаю гармонии, душевного покоя и радости общения.",
-            "Пусть свет Христа сидит в твоем сердце ярко и уверенно.",
-            "Желаю терпения и благодати в преодолении трудностей.",
-            "Пусть твой день начнется с молитвы и благодарности.",
-            "Желаю надежных друзей и поддержки в нужный момент.",
-            "Пусть радость о Господе будет твоей силой!",
-            "Желаю плодотворного и благословенного дня.",
-            "Пусть все твои заботы останутся в руках Создателя.",
-            "Желаю тепла в душе независимо от погоды за окном.",
-            "Пусть Господь откроет перед тобой новые возможности.",
-            "Желаю искренней радости от простых жизненных мелочей.",
-            "Пусть твои молитвы доходят до небесного престола.",
-            "Желаю крепкой веры и уверенности в завтрашнем дне.",
-            "Пусть каждый человек, встреченный сегодня, подарит улыбку.",
-            "Желаю благословений в семье и на работе.",
-            "Пусть любовь Божья окружает тебя плотным кольцом.",
-            "Желаю бодрости духа и светлых мыслительных побед.",
-            "Пусть милость Божья обновляется для тебя каждое утро.",
-            "Желаю чистоты помыслов и добрых дел.",
-            "Пусть твой путь будет устлан милостью и добротой.",
-            "Желаю радостных вестей и добрых новостей.",
-            "Пусть надежда никогда не угасает в твоей груди.",
-            "Желаю вдохновляющих встреч и приятного общения.",
-            "Пусть Божье присутствие ощущается в каждом мгновении.",
-            "Желаю душевного тепла и уюта.",
-            "Пусть твои добрые дела принесут обильный плод.",
-            "Желаю благополучия и процветания в Боге.",
-            "Пусть тучи рассеиваются, уступая место солнечному свету.",
-            "Желаю сил для реализации всех светлых замыслов.",
-            "Пусть радость переполняет твое сердце сегодня!",
-            "Желаю крепкого умиротворения и ясного неба над головой.",
-            "Пусть Господь благословит твои руки на созидание.",
-            "Желаю тебе ощутить сегодня особую заботу Свыше.",
-            "Пусть улыбка не сходит с твоего лица весь день.",
-            "Желаю мудрости и терпения в общении с людьми.",
-            "Пусть благодать сопровождает каждый твой шаг.",
-            "Желаю тепла домашнего очага и семейного счастья.",
-            "Пусть твой внутренний свет вдохновляет окружающих.",
-            "Желаю крепкого здоровья и бодрости тела.",
-            "Пусть Всевышний ответит на сокровенные молитвы твоего сердца.",
-            "Желаю вдохновения в учебе, труде и творчестве.",
-            "Пусть день подарит множество светлых моментов.",
-            "Желаю верных друзей и надежного плеча рядом.",
-            "Пусть радость наполняет твой дом до краев.",
-            "Желаю непоколебимого доверия Божьему провидению.",
-            "Пусть каждый час приносит хорошие новости.",
-            "Желаю душевного равновесия и гармонии.",
-            "Пусть любовь наполняет твои слова и поступки.",
-            "Желаю благословенного отдыха и плодотворного труда.",
-            "Пусть светлые мечты непременно осуществляются.",
-            "Желаю благодати в сердце и мира в мыслях.",
-            "Пусть Господь укрепит твои стопы на праведном пути.",
-            "Желаю неиссякаемого оптимизма и бодрости.",
-            "Пусть сегодняшний день принесет долгожданные ответы.",
-            "Желаю доброты, тепла и искреннего внимания.",
-            "Пусть ангел-хранитель бережет тебя от всякого зла.",
-            "Желаю радостного настроения с самого утра.",
-            "Пусть вера твой горит ярким неугасимым пламенем.",
-            "Желаю благословений в каждом новом деле.",
-            "Пусть сердце переполняется благодарностью и прощением.",
-            "Желаю душевного комфорта и уютной атмосферы.",
-            "Пусть твои таланты служат на благо людям.",
-            "Желаю светлых перспективных дорог впереди.",
-            "Пусть каждый миг будет наполнен смыслом и любовью.",
-            "Желаю крепости духа перед лицом любых испытаний.",
-            "Пусть Божья рука ведет тебя по жизни уверенно.",
-            "Желаю улыбок, смеха и радостных открытий.",
-            "Пусть мир и благополучие поселятся в твоем доме.",
-            "Желаю успехов во всех благих начинаниях.",
-            "Пусть лучи добра согревают твою душу.",
-            "Желаю терпения, мудрости и рассудительности.",
-            "Пусть Господь исполнит желания твоего сердца по воле Своей.",
-            "Желаю благословенного общения и приятных минут.",
-            "Пусть чистота твоих помыслов привлекает добро.",
-            "Желаю уверенности в завтрашнем дне и крепкой веры.",
-            "Пусть каждый шаг приносит радость движения вперед.",
-            "Желаю душевного тепла и искренней поддержки.",
-            "Пусть Божье благословение почиет над тобою.",
-            "Желаю вдохновения для новых свершений.",
-            "Пусть радость озаряет твой жизненный путь.",
-            ...Array.from({ length: 400 }, (_, i) => {
-                const prefixes = [
-                    "Желаю тебе сегодня", "Пусть Господь дарует", "Пусть каждый миг приносит", 
-                    "Желаю неисчерпаемой радости и", "Пусть в твоем сердце живет", "Желаю тебе крепкой веры и",
-                    "Пусть светлые надежды", "Желаю благодати, мира и", "Пусть ангелы оберегают",
-                    "Желаю тебе тепла, добра и"
-                ];
-                const cores = [
-                    "благословения в делах", "душевного спокойствия", "сияющей улыбки", 
-                    "небесной поддержки", "любви и понимания", "мудрости свыше",
-                    "радостных моментов", "уверенности в завтрашнем дне", "вдохновения для добрых дел",
-                    "гармонии и света"
-                ];
-                const suffixes = [
-                    "на весь день!", "во славу Создателя.", "для тебя и твой семьи.", 
-                    "в каждом мгновении жизни.", "и пусть все получится!", "на долгие годы вперед.",
-                    "с чистым сердцем.", "преодолевая любые преграды.", "во имя добра и света.", "сегодня и всегда."
-                ];
-                return `${prefixes[i % prefixes.length]} ${cores[i % cores.length]} ${suffixes[i % suffixes.length]} (Пожелание #${i + 101})`;
-            })
-        ];
-
-        let currentWishIndex = 0;
-        const moodBtn = document.getElementById('moodBtn');
-        const moodText = document.getElementById('moodText');
-        const moodIcon = moodBtn.querySelector('i');
-        const moodIconsList = ["fa-face-smile-beam", "fa-heart", "fa-dove", "fa-star", "fa-fire", "fa-sun", "fa-hands-holding-child", "fa-seedling"];
-
-        moodBtn.addEventListener('click', () => {
-            moodText.classList.add('fly-out');
-            setTimeout(() => {
-                let nextIndex;
-                do {
-                    nextIndex = Math.floor(Math.random() * wishesList.length);
-                } while (nextIndex === currentWishIndex && wishesList.length > 1);
-                
-                currentWishIndex = nextIndex;
-                moodText.innerText = wishesList[currentWishIndex];
-                
-                const randomIcon = moodIconsList[Math.floor(Math.random() * moodIconsList.length)];
-                moodIcon.className = `fa-solid ${randomIcon}`;
-                
-                moodText.classList.remove('fly-out');
-                moodText.classList.add('come-in');
-                setTimeout(() => {
-                    moodText.classList.remove('come-in');
-                }, 50);
-            }, 400);
-        });
-
-        // =========================================================
-        // БАЗА ДАННЫХ ИЗ 500 УНИКАЛЬНЫХ МЕСТОПИСАНИЙ (БИБЛИЯ)
-        // =========================================================
-        const wordsList = [
-            { text: "«Ибо я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду».", reference: "Иеремия 29:11" },
-            { text: "«Надейся на Господа всем сердцем твоим, и не полагайся на разум твой. Во всех путях твоих познавай Его, и Он направит стези твои».", reference: "Притчи 3:5-6" },
-            { text: "«Всё могу в укрепляющем меня Христе Иисусе».", reference: "Филиппийцам 4:13" },
-            { text: "«Господь — пастырь мой; я ни в чем не буду нуждаться. Он покоит меня на злачных пажитях и водит меня к водам тихим».", reference: "Псалтирь 22:1-2" },
-            { text: "«Свет во тьме светит, и тьма не объяла его».", reference: "От Иоанна 1:5" },
-            { text: "«Мир оставляю вам, мир Мой даю вам; не так, как мир дает, даю вам. Да не смущается сердце ваше и да не устрашается».", reference: "От Иоанна 14:27" },
-            { text: "«Призови Меня в день скорби — и Я избавлю тебя, и ты прославишь Меня!»", reference: "Псалтирь 49:15" },
-            { text: "«Слово Твое — светильник ноге моей и свет стезе моей».", reference: "Псалтирь 118:105" },
-            { text: "«Ищите же прежде Царства Божия и правды Его, и это все приложится вам».", reference: "От Матфея 6:33" },
-            { text: "«Блаженны кроткие, ибо они наследуют землю».", reference: "От Матфея 5:5" },
-            ...Array.from({ length: 490 }, (_, i) => {
-                const books = [
-                    "Бытие", "Исход", "Левит", "Числа", "Второзаконие", "Иисус Навин", "Судьи", "Руфь", "1 Царств", "2 Царств",
-                    "Псалтирь", "Притчи", "Екклесиаст", "Песнь Песней", "Исаия", "Иеремия", "Плач Иеремии", "Иезекииль", "Даниил",
-                    "Осия", "Иоиль", "Амос", "Авдий", "Иона", "Михей", "Наум", "Аввакум", "Софония", "Аггей", "Захария", "Малахия",
-                    "От Матфея", "От Марка", "От Луки", "От Иоанна", "Деяния", "Иакова", "Римлянам", "1 Коринфянам", "2 Коринфянам",
-                    "Галатам", "Ефесянам", "Филиппийцам", "Колоссянам", "1 Фессалоникийцам", "2 Фессалоникийцам", "1 Тимофею", "2 Тимофею",
-                    "Титу", "Филимону", "Евреям", "1 Петра", "2 Петра", "1 Иоанна", "2 Иоанна", "3 Иоанна", "Иуды", "Откровение"
-                ];
-                const book = books[i % books.length];
-                const chapter = (i % 30) + 1;
-                const verse = (i % 25) + 1;
-                const texts = [
-                    "Господь есть крепость моя и щит мой; на Него уповало сердце мое, и Он помог мне.",
-                    "Верующий в Меня имеет жизнь вечную, и на суд не приходит, но перешел от смерти в жизнь.",
-                    "Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится.",
-                    "Препоручи Господу дела твои, и предприятия твои совершатся.",
-                    "Благословен человек, который надеется на Господа, и коточного упование — Господь.",
-                    "Ибо где сокровище ваше, там будет и сердце ваше.",
-                    "Слушайте слово Господне, дома Иаковвы и все племена дома Израилева.",
-                    "Бог есть любовь, и пребывающий в любви пребывает в Боге, и Бог в нем.",
-                    "Утешайся Господом, и Он исполнит желания сердца твоего.",
-                    "Будьте тверды и мужественны, не бойтесь и не страшитесь их, ибо Господь Бог твой Сам пойдет с тобою."
-                ];
-                return {
-                    text: `«${texts[i % texts.length]}»`,
-                    reference: `${book} ${chapter}:${verse}`
-                };
-            })
-        ];
-
-        // =========================================================
-        // ЛОГИКА СЛОВА ДНЯ ПО КИЕВСКОМУ ВРЕМЕНИ (UTC+3 / UTC+2)
-        // =========================================================
-        const BIN_ID = '67389ff4ad19ca34f8cf1c95';
-        const API_KEY = '$2a$10$95s5Fw0Gz7T2Q3Bv5e6dveG5mH5n7d7V7yL35m8j6K4t6F3b9C62e'; 
-
-        function getKyivDateKey() {
-            const now = new Date();
-            const kyivTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Kiev' }));
-            const year = kyivTime.getFullYear();
-            const month = String(kyivTime.getMonth() + 1).padStart(2, '0');
-            const day = String(kyivTime.getDate()).padStart(2, '0');
-            return `word_${year}-${month}-${day}`;
-        }
-
-        function initWordOfDay() {
-            const now = new Date();
-            const kyivTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Kiev' }));
-            const startOfYear = new Date(kyivTime.getFullYear(), 0, 1);
-            const dayOfYear = Math.floor((kyivTime - startOfYear) / (1000 * 60 * 60 * 24));
-            
-            const wordIndex = dayOfYear % wordsList.length;
-            const currentWord = wordsList[wordIndex];
-
-            document.getElementById('wordText').innerText = currentWord.text;
-            document.getElementById('wordReference').innerText = `— ${currentWord.reference}`;
-
-            return getKyivDateKey();
-        }
-
-        async function fetchLikesFromDB(dateKey) {
-            try {
-                const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': API_KEY }
-                });
-                if (!response.ok) throw new Error('Ошибка загрузки базы данных');
-                const data = await response.json();
-                const record = data.record || {};
-                return typeof record[dateKey] === 'number' ? record[dateKey] : 0;
-            } catch (err) {
-                return parseInt(localStorage.getItem(`likes_count_${dateKey}`)) || 0;
-            }
-        }
-
-        async function updateLikesInDB(dateKey, newCount) {
-            try {
-                const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-                    headers: { 'X-Master-Key': API_KEY }
-                });
-                let currentData = {};
-                if (getRes.ok) {
-                    const json = await getRes.json();
-                    currentData = json.record || {};
+        // Анімація появи блоків при скролі
+        const revealElements = document.querySelectorAll('.reveal-left');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-                currentData[dateKey] = newCount;
-
-                await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': API_KEY
-                    },
-                    body: JSON.stringify(currentData)
-                });
-            } catch (err) {
-                console.error('Ошибка сохранения на сервер:', err);
-            }
-        }
-
-        async function initLikeSystem() {
-            const dateKey = initWordOfDay();
-            const likeContainer = document.getElementById('likeContainer');
-            const likeCounter = document.getElementById('likeCounter');
-            const likeIcon = document.getElementById('likeIcon');
-
-            const userLikedKey = `user_liked_${dateKey}`;
-            let hasLiked = localStorage.getItem(userLikedKey) === 'true';
-
-            if (hasLiked) {
-                likeContainer.classList.add('liked');
-            }
-
-            let currentLikes = await fetchLikesFromDB(dateKey);
-            likeCounter.innerText = currentLikes;
-
-            likeContainer.addEventListener('click', async () => {
-                if (!hasLiked) {
-                    hasLiked = true;
-                    localStorage.setItem(userLikedKey, 'true');
-                    likeContainer.classList.add('liked');
-                    currentLikes++;
-                } else {
-                    hasLiked = false;
-                    localStorage.setItem(userLikedKey, 'false');
-                    likeContainer.classList.remove('liked');
-                    currentLikes = Math.max(0, currentLikes - 1);
-                }
-
-                likeCounter.innerText = currentLikes;
-                localStorage.setItem(`likes_count_${dateKey}`, currentLikes);
-                await updateLikesInDB(dateKey, currentLikes);
             });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
+
+        // Функціонал вподобайок для «Слово дня»
+        let isLiked = false;
+        let count = 124;
+        function toggleLike() {
+            const container = document.getElementById('likeContainer');
+            const countEl = document.getElementById('likeCount');
+            isLiked = !isLiked;
+            if (isLiked) {
+                container.classList.add('liked');
+                count++;
+            } else {
+                container.classList.remove('liked');
+                count--;
+            }
+            countEl.textContent = count;
         }
 
-        initLikeSystem();
+        // Динамічна зміна фраз у віджеті
+        const moodPhrases = [
+            "Бог любить тебе і має чудовий план для твого життя!",
+            "Віра перемагає будь-які труднощі та сумніви!",
+            "Ти не один — Божа благодать завжди поруч!",
+            "Світло Божого слова перемагає будь-яку темряву!",
+            "Молитва змінює обставини та відкриває серця!"
+        ];
+        let moodIndex = 0;
+        function changeMoodText() {
+            const moodEl = document.getElementById('moodText');
+            moodEl.classList.add('fly-out');
+            setTimeout(() => {
+                moodIndex = (moodIndex + 1) % moodPhrases.length;
+                moodEl.textContent = moodPhrases[moodIndex];
+                moodEl.classList.remove('fly-out');
+                moodEl.classList.add('come-in');
+                setTimeout(() => {
+                    moodEl.classList.remove('come-in');
+                }, 50);
+            }, 500);
+        }
     </script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="cMtJMBX0PDNgitilrx10joX3PjkbL7Un9JiaViBjXRg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХЕЦУ «Новое Поколение» — Днепр | Официальный сайт</title>
+    <title>Христианская Церковь-«Новое Поколение» — Днепр | Официальный сайт</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -846,7 +846,7 @@
         <div class="nav-container">
             <a class="logo" onclick="goToPage(1); return false;" href="#">
                 <i class="fa-solid fa-church"></i>
-                <span>Новое Поколение • Днепр</span>
+                <span>Христианская Церковь-«Новое Поколение» • Днепр</span>
             </a>
             <div class="social-icons">
                 <a href="https://www.facebook.com/ngdnipro" target="_blank" class="social-btn facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -861,7 +861,7 @@
         <div id="page1" class="page active">
             <section class="hero">
                 <div class="hero-content">
-                    <h1>Христианская Евангельская Церковь <span>«Новое Поколение»</span> Днепр</h1>
+                    <h1>Христианская Церковь-<span>«Новое Поколение»</span> Днепр</h1>
                     <p>Современное межконфессиональное христианское движение полного Евангелия. Место силы, безусловной любви, духовного роста и реальных перемен.</p>
                     <a href="#events" class="btn-primary">
                         <span>Расписание служений</span>
@@ -1018,10 +1018,8 @@
                             </div>
                         </div>
                         <a href="https://maps.google.com/?q=ул.+Старозаводская+19а,+строение+2,+Днепр" target="_blank" class="map-box">
-    <i class="fa-solid fa-map-location-dot"></i>
-    <p><strong>ул. Старозаводская, 19а, строение 2</strong><br><small style="color: var(--accent); margin-top: 6px; display: block;">Открыть на карте</small></p>
-</a>
-
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <p><strong>ул. Старозаводская, 19а, строение 2</strong><br><small style="color: var(--accent); margin-top: 6px; display: block;">Открыть на карте</small></p>
                         </a>
                     </div>
                 </div>
@@ -1113,7 +1111,7 @@
     </div>
 
     <footer>
-        <p>© 2026 Христианская Евангельская Церковь Украины «Новое Поколение» (Днепр)</p>
+        <p>© 2026 Христианская Церковь-«Новое Поколение» (Днепр)</p>
     </footer>
 
     <script>
@@ -1278,86 +1276,22 @@
                     const minutes = Math.floor((diff / 1000 / 60) % 60);
                     const seconds = Math.floor((diff / 1000) % 60);
 
-                    const dEl = document.getElementById('days');
-                    const hEl = document.getElementById('hours');
-                    const mEl = document.getElementById('minutes');
-                    const sEl = document.getElementById('seconds');
+                    const daysEl = document.getElementById('days');
+                    const hoursEl = document.getElementById('hours');
+                    const minutesEl = document.getElementById('minutes');
+                    const secondsEl = document.getElementById('seconds');
 
-                    if (dEl) dEl.innerText = days < 10 ? '0' + days : days;
-                    if (hEl) hEl.innerText = hours < 10 ? '0' + hours : hours;
-                    if (mEl) mEl.innerText = minutes < 10 ? '0' + minutes : minutes;
-                    if (sEl) sEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+                    if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+                    if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+                    if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+                    if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
                 } catch(e) {
                     console.error("Countdown error:", e);
                 }
             }
 
-            setInterval(updateCountdown, 1000);
             updateCountdown();
-
-            // Блок «Слово дня»
-            const verses = [
-                { text: "«Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.»", ref: "Иеремия 29:11" },
-                { text: "«Все могу в укрепляющем меня Иисусе Христе.»", ref: "К Филиппийцам 4:13" },
-                { text: "«Господь — Пастырь мой; я ни в чем не буду нуждаться.»", ref: "Псалом 22:1" },
-                { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.»", ref: "От Матфея 11:28" }
-            ];
-
-            try {
-                const todayIndex = new Date().getDate() % verses.length;
-                const wordText = document.getElementById('wordText');
-                const wordRef = document.getElementById('wordReference');
-                if (wordText) wordText.innerText = verses[todayIndex].text;
-                if (wordRef) wordRef.innerText = verses[todayIndex].ref;
-            } catch(e) {}
-
-            // Лайки для слова дня
-            const likeContainer = document.getElementById('likeContainer');
-            const likeCounter = document.getElementById('likeCounter');
-            let likes = 42;
-            let isLiked = false;
-
-            if (likeContainer) {
-                likeContainer.addEventListener('click', () => {
-                    if (!isLiked) {
-                        likes++;
-                        isLiked = true;
-                        likeContainer.classList.add('liked');
-                    } else {
-                        likes--;
-                        isLiked = false;
-                        likeContainer.classList.remove('liked');
-                    }
-                    if (likeCounter) likeCounter.innerText = likes;
-                });
-            }
-
-            // Интерактивный виджет благословений
-            const blessings = [
-                "Пусть Божий мир наполняет твое сердце сегодня! ✨",
-                "Ты благословен и драгоценен в глазах Господа! 🙏",
-                "Верь, и невозможное станет возможным! 💫",
-                "Радость в Господе — сила твоя! ☀️",
-                "Благодать и милость да сопровождают тебя каждый день! 🌿"
-            ];
-            let blessingIndex = 0;
-            const moodBtn = document.getElementById('moodBtn');
-            const moodText = document.getElementById('moodText');
-
-            if (moodBtn && moodText) {
-                moodBtn.addEventListener('click', () => {
-                    moodText.classList.add('fly-out');
-                    setTimeout(() => {
-                        blessingIndex = (blessingIndex + 1) % blessings.length;
-                        moodText.innerText = blessings[blessingIndex];
-                        moodText.classList.remove('fly-out');
-                        moodText.classList.add('come-in');
-                        setTimeout(() => {
-                            moodText.classList.remove('come-in');
-                        }, 50);
-                    }, 300);
-                });
-            }
+            setInterval(updateCountdown, 1000);
         });
     </script>
 </body>

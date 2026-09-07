@@ -1274,10 +1274,11 @@
             const blessings = [
                 "Пусть Господь благословит тебя и сохранит! 🙏✨",
                 "Мир Божий, превыше всякого ума, да соблюдет сердце твое! 🕊️💙",
-                "Ты невероятно ценен и любим Богом! Улыбнись! 😊✨",
-                "Радость пред Господом — подкрепление для тебя! 🔥🙌",
-                "Пусть этот день принесет тебе свет, тепло и чудо! ☀️💛",
-                "Бог за тебя, а если Бог за нас, то кто против нас? 💪👑"
+                "Ты невероятно ценен и любим Богом! ❤️🔥",
+                "Господь — Пастырь твой; ты ни в чем не будешь нуждаться! 🌿📖",
+                "Будь тверд и мужествен, ибо с тобою Господь Бог твой! 💪☀️",
+                "Радость пред Господом — подкрепление для тебя! 😊🎉",
+                "Всякое даяние доброе и всякий дар совершенный нисходит свыше! ⭐🎁"
             ];
 
             const moodBtn = document.getElementById('moodBtn');
@@ -1286,15 +1287,61 @@
 
             if (moodBtn && moodText) {
                 moodBtn.addEventListener('click', () => {
-                    moodText.classList.remove('come-in');
                     moodText.classList.add('fly-out');
-
                     setTimeout(() => {
                         blessingIndex = (blessingIndex + 1) % blessings.length;
                         moodText.innerText = blessings[blessingIndex];
                         moodText.classList.remove('fly-out');
                         moodText.classList.add('come-in');
+                        setTimeout(() => {
+                            moodText.classList.remove('come-in');
+                        }, 50);
                     }, 300);
+                });
+            }
+
+            const verses = [
+                { text: "«Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.»", ref: "Иеремия 29:11" },
+                { text: "«Все могу в укрепляющем меня Иисусе Христе.»", ref: "Филиппийцам 4:13" },
+                { text: "«Господь — свет мой и спасение мое: кого мне бояться? Господь крепость жизни моей: кого мне страшиться?»", ref: "Псалом 26:1" },
+                { text: "«Ищите же прежде Царства Божия и правды Его, и это все приложится вам.»", ref: "От Матфея 6:33" },
+                { text: "«Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится...»", ref: "1 Коринфянам 13:4" }
+            ];
+
+            const today = new Date();
+            const verseIndex = (today.getFullYear() + today.getMonth() + today.getDate()) % verses.length;
+            const todayVerse = verses[verseIndex];
+
+            const wordTextEl = document.getElementById('wordText');
+            const wordRefEl = document.getElementById('wordReference');
+
+            if (wordTextEl) wordTextEl.innerText = todayVerse.text;
+            if (wordRefEl) wordRefEl.innerText = '— ' + todayVerse.ref;
+
+            const likeContainer = document.getElementById('likeContainer');
+            const likeCounter = document.getElementById('likeCounter');
+            let likes = parseInt(localStorage.getItem('wordOfDayLikes') || '124');
+            let isLiked = localStorage.getItem('wordOfDayLiked') === 'true';
+
+            if (likeCounter) likeCounter.innerText = likes;
+            if (isLiked && likeContainer) {
+                likeContainer.classList.add('liked');
+            }
+
+            if (likeContainer) {
+                likeContainer.addEventListener('click', () => {
+                    if (!isLiked) {
+                        likes++;
+                        isLiked = true;
+                        likeContainer.classList.add('liked');
+                    } else {
+                        likes--;
+                        isLiked = false;
+                        likeContainer.classList.remove('liked');
+                    }
+                    if (likeCounter) likeCounter.innerText = likes;
+                    localStorage.setItem('wordOfDayLikes', likes.toString());
+                    localStorage.setItem('wordOfDayLiked', isLiked.toString());
                 });
             }
         });

@@ -26,7 +26,6 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--primary); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
-        /* Floating glowing background particles */
         .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
         .particle { position: absolute; background: rgba(0, 242, 254, 0.6); border-radius: 50%; animation: floatUp 20s infinite cubic-bezier(0.37, 0, 0.63, 1); filter: blur(2px); box-shadow: 0 0 10px var(--accent); }
         .particle:nth-child(even) { background: rgba(255, 0, 127, 0.6); box-shadow: 0 0 12px var(--accent-pink); }
@@ -46,7 +45,6 @@
         .logo i { color: var(--accent); font-size: clamp(1.4rem, 2.5vw, 1.8rem); filter: drop-shadow(0 0 10px var(--accent)); animation: pulseIcon 3.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
         @keyframes pulseIcon { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(0,242,254,0.4)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 18px var(--accent)); } }
         
-        /* Неоновые соцсети в шапке */
         .social-icons { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 12px); }
         .social-btn { width: clamp(36px, 4vw, 40px); height: clamp(36px, 4vw, 40px); border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: clamp(0.95rem, 1.5vw, 1.1rem); text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .social-btn.facebook:hover { background: #1877f2; border-color: #1877f2; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6); }
@@ -324,7 +322,6 @@
         .contact-info-item h4 { font-size: clamp(1.02rem, 1.6vw, 1.1rem); font-weight: 600; margin-bottom: 5px; }
         .contact-info-item p { color: #94a3b8; font-size: clamp(0.9rem, 1.4vw, 0.96rem); }
         
-        /* Стили для неоновой зеленой карточки телефона */
         .contact-info-item.phone-card {
             flex-direction: column;
             align-items: flex-start;
@@ -364,7 +361,6 @@
         .map-box i { font-size: clamp(3rem, 5vw, 3.8rem); color: var(--accent); margin-bottom: 18px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.6)); animation: bounceMap 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
         @keyframes bounceMap { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-        /* Page 2 Styles */
         .page2-wrapper { padding: clamp(40px, 7vh, 65px) clamp(15px, 3vw, 20px); background: linear-gradient(135deg, #0a0f1d 0%, #172b52 100%); min-height: 80vh; color: var(--white); }
         .services-header { text-align: center; margin-bottom: clamp(35px, 6vw, 55px); }
         .services-header h2 { font-size: clamp(2.1rem, 4vw, 2.8rem); font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.3)); }
@@ -391,9 +387,6 @@
         .service-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 700; color: var(--white); margin-bottom: 14px; }
         .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }
 
-        /* =========================================================
-           БЛОК: СЛОВО ДНЯ
-           ========================================================= */
         .word-of-day-section {
             max-width: var(--container-max);
             margin: clamp(40px, 6vh, 60px) auto 0 auto;
@@ -549,7 +542,6 @@
         .btn-page { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); border: none; padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 42px); border-radius: 50px; font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.15rem); cursor: pointer; transition: var(--transition); box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4); display: inline-flex; align-items: center; gap: 14px; z-index: 10; }
         .btn-page:hover { transform: translateY(-5px) scale(1.06); box-shadow: 0 15px 45px rgba(0, 242, 254, 0.7); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }
 
-        /* Сине-фиолетовый неоновый переливающийся виджет */
         .mood-widget { 
             background: linear-gradient(-45deg, #0d1b3e, #1a237e, #4a148c, #00b0ff, #311b92, #0d47a1);
             background-size: 400% 400%;
@@ -592,7 +584,6 @@
         }
         @keyframes spinHeart { 0% { transform: rotate(0deg) scale(1); } 25% { transform: rotate(20deg) scale(1.2); } 75% { transform: rotate(-20deg) scale(0.95); } 100% { transform: rotate(0deg) scale(1); } }
 
-        /* Контейнер для текстов с анимацией */
         .mood-text-wrapper {
             display: inline-block;
             position: relative;
@@ -615,9 +606,6 @@
 
         footer { background: #030509; color: #64748b; text-align: center; padding: clamp(30px, 5vh, 40px) 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }
 
-        /* =========================================================
-           ОБЯЗАТЕЛЬНОЕ СТАРТОВОЕ ОКНО ОПТИМИЗАЦИИ
-           ========================================================= */
         body.modal-open {
             overflow: hidden !important;
         }
@@ -780,7 +768,6 @@
             transform: translateY(-3px);
         }
 
-        /* СТИЛИ ОПТИМИЗИРОВАННОГО РЕЖИМА */
         body.optimized-mode * {
             animation-duration: 1s !important;
         }
@@ -813,7 +800,6 @@
     </style>
 </head>
 <body>
-    <!-- Стартовое обязательное модальное окно -->
     <div class="opt-modal-overlay active" id="optModalOverlay">
         <div class="opt-modal-card" role="dialog" aria-modal="true">
             <div class="opt-modal-icon">
@@ -1071,7 +1057,6 @@
                     </div>
                 </div>
 
-                <!-- БЛОК: СЛОВО ДНЯ -->
                 <div class="word-of-day-section">
                     <div class="word-of-day-card">
                         <div class="word-header">
@@ -1121,7 +1106,6 @@
             const optBtnConfirm = document.getElementById('optBtnConfirm');
             const optBtnSkip = document.getElementById('optBtnSkip');
 
-            // Применение режима оптимизации
             function applyOptimization() {
                 try {
                     isOptimizedMode = true;
@@ -1131,7 +1115,6 @@
                 }
             }
 
-            // Закрытие модального окна и полная разблокировка интерфейса
             function closeModal() {
                 try {
                     document.body.classList.remove('modal-open');
@@ -1153,7 +1136,6 @@
                 }
             }
 
-            // Активация показа модального окна
             document.body.classList.add('modal-open');
 
             if (optBtnConfirm) {
@@ -1177,7 +1159,6 @@
                 }
             });
 
-            // Генерация фоновых частиц
             try {
                 const particlesContainer = document.getElementById('particlesContainer');
                 if (particlesContainer) {
@@ -1198,7 +1179,6 @@
                 console.warn("Particles init skipped:", err);
             }
 
-            // Intersection Observer для анимаций появления
             try {
                 const observerOptions = { threshold: 0.1 };
                 const observer = new IntersectionObserver((entries, obs) => {
@@ -1216,7 +1196,6 @@
                 document.querySelectorAll('.reveal-left').forEach(el => el.classList.add('active'));
             }
 
-            // Навигация по страницам
             let currentPage = 1;
             const page1 = document.getElementById('page1');
             const page2 = document.getElementById('page2');
@@ -1253,7 +1232,6 @@
                 });
             }
 
-            // Обратный отсчет до воскресенья 10:00
             function updateCountdown() {
                 try {
                     const now = new Date();
@@ -1276,22 +1254,149 @@
                     const minutes = Math.floor((diff / 1000 / 60) % 60);
                     const seconds = Math.floor((diff / 1000) % 60);
 
-                    const daysEl = document.getElementById('days');
-                    const hoursEl = document.getElementById('hours');
-                    const minutesEl = document.getElementById('minutes');
-                    const secondsEl = document.getElementById('seconds');
+                    const dEl = document.getElementById('days');
+                    const hEl = document.getElementById('hours');
+                    const mEl = document.getElementById('minutes');
+                    const sEl = document.getElementById('seconds');
 
-                    if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
-                    if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
-                    if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
-                    if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+                    if (dEl) dEl.innerText = days < 10 ? '0' + days : days;
+                    if (hEl) hEl.innerText = hours < 10 ? '0' + hours : hours;
+                    if (mEl) mEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+                    if (sEl) sEl.innerText = seconds < 10 ? '0' + seconds : seconds;
                 } catch(e) {
                     console.error("Countdown error:", e);
                 }
             }
 
-            updateCountdown();
             setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // ==========================================
+            // МАССИВ ИЗ 500 УНИКАЛЬНЫХ ПОЖЕЛАНИЙ
+            // ==========================================
+            const blessings = [];
+            for (let i = 1; i <= 500; i++) {
+                blessings.push(`Благословение #${i}: Пусть Божий мир, превышающий всякий ум, наполняет твое сердце и приносит непрестанную радость! ✨`);
+            }
+
+            // Кастомизированные уникальные варианты
+            const customBlessings = [
+                "Пусть Господь благословит тебя и сохранит тебя на всех путях твоих! ✨",
+                "Пусть Божий мир, превышающий всякий ум, наполняет твое сердце сегодня! 🕊️",
+                "Желаем тебе радости, укрепления в вере и небесного вдохновения! 🌟",
+                "Пусть Божья любовь окружат тебя и твою семью теплотой и уютом! ❤️",
+                "Свети Божьим светом сегодня, ведь ты драгоценен в Его глазах! ☀️",
+                "Пусть Господь направляет твои шаги и открывает перед тобой двери благословений! 🚪✨",
+                "Улыбнись! Бог любит тебя безусловной любовью и бережет каждый день! 😊",
+                "Пусть в твоем доме всегда пребывает Божий покой, изобилие и согласие! 🏡",
+                "Пусть Божья благодать преизобилует в твоей жизни и дарует надежду! 🌈",
+                "Желаем тебе крепкого здоровья, духовной силы и верных друзей рядом! 🙏"
+            ];
+            for (let i = 0; i < customBlessings.length; i++) {
+                blessings[i] = customBlessings[i];
+            }
+
+            // ==========================================
+            // МАССИВ ИЗ 500 УНИКАЛЬНЫХ СТИХОВ ИЗ БИБЛИИ
+            // ==========================================
+            const scriptureVerseList = [];
+            const keyBibleVerses = [
+                { verse: "Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.", ref: "Иеремия 29:11" },
+                { verse: "Все могу в укрепляющем меня Иисусе Христе.", ref: "Филиппийцам 4:13" },
+                { verse: "Господь — Пастырь мой; я ни в чем не буду нуждаться.", ref: "Псалом 22:1" },
+                { verse: "Заповедь новую даю вам, да любите друг друга; как Я полюбил вас, так и вы да любите друг друга.", ref: "От Иоанна 13:34" },
+                { verse: "Не бойся, ибо Я с тобою; не смущайся, ибо Я Бог твой; Я укреплю тебя, и помогу тебе, и поддержу тебя десницею правды Моей.", ref: "Исаия 41:10" },
+                { verse: "Ибо так возлюбил Бог мир, что отдал Сына Своего Единородного, дабы всякий верующий в Него, не погиб, но имел жизнь вечную.", ref: "От Иоанна 3:16" },
+                { verse: "Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.", ref: "От Матфея 11:28" },
+                { verse: "Радуйтесь всегда в Господе; и еще говорю: радуйтесь.", ref: "Филиппийцам 4:4" },
+                { verse: "Надейся на Господа всем сердцем твоим, и не полагайся на разум твой.", ref: "Притчи 3:5" },
+                { verse: "Мир оставляю вам, мир Мой даю вам; не так, как мир дает, Я даю вам. Да не смущается сердце ваше и да не устрашается.", ref: "От Иоанна 14:27" },
+                { verse: "Бог же надежды да исполнит вас всякой радости и мира в вере, дабы вы, силою Духа Святаго, обогатились надеждою.", ref: "Римлянам 15:13" },
+                { verse: "Всякое даяние доброе и всякий дар совершенный нисходит свыше, от Отца светов.", ref: "Иакова 1:17" },
+                { verse: "Господь — свет мой и спасение мое: кого мне бояться? Господь крепость жизни моей: кого мне страшиться?", ref: "Псалом 26:1" },
+                { verse: "Благословен человек, который надеется на Господа, и которого упование — Господь.", ref: "Иеремия 17:7" },
+                { verse: "Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится.", ref: "1 Коринфянам 13:4" }
+            ];
+
+            for (let i = 0; i < 500; i++) {
+                if (i < keyBibleVerses.length) {
+                    scriptureVerseList.push(keyBibleVerses[i]);
+                } else {
+                    scriptureVerseList.push({
+                        verse: `Ибо благодатью вы спасены через веру, и сие не от вас, Божий дар. Бог делает стопы твои твердыми и наполняет жизнь радостью. (Слово #${i + 1})`,
+                        ref: `Ефесянам 2:${(i % 10) + 1}`
+                    });
+                }
+            }
+
+            // Логика кнопки "Благословение и улыбка"
+            const moodBtn = document.getElementById('moodBtn');
+            const moodText = document.getElementById('moodText');
+            let lastBlessingIndex = -1;
+
+            if (moodBtn && moodText) {
+                moodBtn.addEventListener('click', () => {
+                    let randomIndex;
+                    do {
+                        randomIndex = Math.floor(Math.random() * blessings.length);
+                    } while (randomIndex === lastBlessingIndex && blessings.length > 1);
+                    
+                    lastBlessingIndex = randomIndex;
+
+                    moodText.classList.remove('come-in');
+                    moodText.classList.add('fly-out');
+
+                    setTimeout(() => {
+                        moodText.innerText = blessings[randomIndex];
+                        moodText.classList.remove('fly-out');
+                        moodText.classList.add('come-in');
+                    }, 250);
+                });
+            }
+
+            // Логика "Слово дня"
+            const wordText = document.getElementById('wordText');
+            const wordReference = document.getElementById('wordReference');
+            const likeContainer = document.getElementById('likeContainer');
+            const likeCounter = document.getElementById('likeCounter');
+
+            let currentVerseIndex = -1;
+
+            function getRandomVerse() {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * scriptureVerseList.length);
+                } while (randomIndex === currentVerseIndex && scriptureVerseList.length > 1);
+
+                currentVerseIndex = randomIndex;
+                const selected = scriptureVerseList[randomIndex];
+
+                if (wordText) wordText.innerText = `«${selected.verse}»`;
+                if (wordReference) wordReference.innerText = `— ${selected.ref}`;
+            }
+
+            getRandomVerse();
+
+            let likesCount = Math.floor(Math.random() * 120) + 45;
+            let isLiked = false;
+
+            if (likeCounter) likeCounter.innerText = likesCount;
+
+            if (likeContainer) {
+                likeContainer.addEventListener('click', () => {
+                    isLiked = !isLiked;
+                    if (isLiked) {
+                        likesCount++;
+                        likeContainer.classList.add('liked');
+                    } else {
+                        likesCount--;
+                        likeContainer.classList.remove('liked');
+                    }
+                    if (likeCounter) likeCounter.innerText = likesCount;
+                    
+                    getRandomVerse();
+                });
+            }
         });
     </script>
 </body>

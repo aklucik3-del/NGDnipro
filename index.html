@@ -1271,130 +1271,30 @@
             setInterval(updateCountdown, 1000);
             updateCountdown();
 
-            // ==========================================
-            // МАССИВ ИЗ 500 УНИКАЛЬНЫХ ПОЖЕЛАНИЙ
-            // ==========================================
-            const blessings = [];
-            for (let i = 1; i <= 500; i++) {
-                blessings.push(`Благословение #${i}: Пусть Божий мир, превышающий всякий ум, наполняет твое сердце и приносит непрестанную радость! ✨`);
-            }
-
-            // Кастомизированные уникальные варианты
-            const customBlessings = [
-                "Пусть Господь благословит тебя и сохранит тебя на всех путях твоих! ✨",
-                "Пусть Божий мир, превышающий всякий ум, наполняет твое сердце сегодня! 🕊️",
-                "Желаем тебе радости, укрепления в вере и небесного вдохновения! 🌟",
-                "Пусть Божья любовь окружат тебя и твою семью теплотой и уютом! ❤️",
-                "Свети Божьим светом сегодня, ведь ты драгоценен в Его глазах! ☀️",
-                "Пусть Господь направляет твои шаги и открывает перед тобой двери благословений! 🚪✨",
-                "Улыбнись! Бог любит тебя безусловной любовью и бережет каждый день! 😊",
-                "Пусть в твоем доме всегда пребывает Божий покой, изобилие и согласие! 🏡",
-                "Пусть Божья благодать преизобилует в твоей жизни и дарует надежду! 🌈",
-                "Желаем тебе крепкого здоровья, духовной силы и верных друзей рядом! 🙏"
-            ];
-            for (let i = 0; i < customBlessings.length; i++) {
-                blessings[i] = customBlessings[i];
-            }
-
-            // ==========================================
-            // МАССИВ ИЗ 500 УНИКАЛЬНЫХ СТИХОВ ИЗ БИБЛИИ
-            // ==========================================
-            const scriptureVerseList = [];
-            const keyBibleVerses = [
-                { verse: "Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.", ref: "Иеремия 29:11" },
-                { verse: "Все могу в укрепляющем меня Иисусе Христе.", ref: "Филиппийцам 4:13" },
-                { verse: "Господь — Пастырь мой; я ни в чем не буду нуждаться.", ref: "Псалом 22:1" },
-                { verse: "Заповедь новую даю вам, да любите друг друга; как Я полюбил вас, так и вы да любите друг друга.", ref: "От Иоанна 13:34" },
-                { verse: "Не бойся, ибо Я с тобою; не смущайся, ибо Я Бог твой; Я укреплю тебя, и помогу тебе, и поддержу тебя десницею правды Моей.", ref: "Исаия 41:10" },
-                { verse: "Ибо так возлюбил Бог мир, что отдал Сына Своего Единородного, дабы всякий верующий в Него, не погиб, но имел жизнь вечную.", ref: "От Иоанна 3:16" },
-                { verse: "Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.", ref: "От Матфея 11:28" },
-                { verse: "Радуйтесь всегда в Господе; и еще говорю: радуйтесь.", ref: "Филиппийцам 4:4" },
-                { verse: "Надейся на Господа всем сердцем твоим, и не полагайся на разум твой.", ref: "Притчи 3:5" },
-                { verse: "Мир оставляю вам, мир Мой даю вам; не так, как мир дает, Я даю вам. Да не смущается сердце ваше и да не устрашается.", ref: "От Иоанна 14:27" },
-                { verse: "Бог же надежды да исполнит вас всякой радости и мира в вере, дабы вы, силою Духа Святаго, обогатились надеждою.", ref: "Римлянам 15:13" },
-                { verse: "Всякое даяние доброе и всякий дар совершенный нисходит свыше, от Отца светов.", ref: "Иакова 1:17" },
-                { verse: "Господь — свет мой и спасение мое: кого мне бояться? Господь крепость жизни моей: кого мне страшиться?", ref: "Псалом 26:1" },
-                { verse: "Благословен человек, который надеется на Господа, и которого упование — Господь.", ref: "Иеремия 17:7" },
-                { verse: "Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится.", ref: "1 Коринфянам 13:4" }
+            const blessings = [
+                "Пусть Господь благословит тебя и сохранит! 🙏✨",
+                "Мир Божий, превыше всякого ума, да соблюдет сердце твое! 🕊️💙",
+                "Ты невероятно ценен и любим Богом! Улыбнись! 😊✨",
+                "Радость пред Господом — подкрепление для тебя! 🔥🙌",
+                "Пусть этот день принесет тебе свет, тепло и чудо! ☀️💛",
+                "Бог за тебя, а если Бог за нас, то кто против нас? 💪👑"
             ];
 
-            for (let i = 0; i < 500; i++) {
-                if (i < keyBibleVerses.length) {
-                    scriptureVerseList.push(keyBibleVerses[i]);
-                } else {
-                    scriptureVerseList.push({
-                        verse: `Ибо благодатью вы спасены через веру, и сие не от вас, Божий дар. Бог делает стопы твои твердыми и наполняет жизнь радостью. (Слово #${i + 1})`,
-                        ref: `Ефесянам 2:${(i % 10) + 1}`
-                    });
-                }
-            }
-
-            // Логика кнопки "Благословение и улыбка"
             const moodBtn = document.getElementById('moodBtn');
             const moodText = document.getElementById('moodText');
-            let lastBlessingIndex = -1;
+            let blessingIndex = 0;
 
             if (moodBtn && moodText) {
                 moodBtn.addEventListener('click', () => {
-                    let randomIndex;
-                    do {
-                        randomIndex = Math.floor(Math.random() * blessings.length);
-                    } while (randomIndex === lastBlessingIndex && blessings.length > 1);
-                    
-                    lastBlessingIndex = randomIndex;
-
                     moodText.classList.remove('come-in');
                     moodText.classList.add('fly-out');
 
                     setTimeout(() => {
-                        moodText.innerText = blessings[randomIndex];
+                        blessingIndex = (blessingIndex + 1) % blessings.length;
+                        moodText.innerText = blessings[blessingIndex];
                         moodText.classList.remove('fly-out');
                         moodText.classList.add('come-in');
-                    }, 250);
-                });
-            }
-
-            // Логика "Слово дня"
-            const wordText = document.getElementById('wordText');
-            const wordReference = document.getElementById('wordReference');
-            const likeContainer = document.getElementById('likeContainer');
-            const likeCounter = document.getElementById('likeCounter');
-
-            let currentVerseIndex = -1;
-
-            function getRandomVerse() {
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * scriptureVerseList.length);
-                } while (randomIndex === currentVerseIndex && scriptureVerseList.length > 1);
-
-                currentVerseIndex = randomIndex;
-                const selected = scriptureVerseList[randomIndex];
-
-                if (wordText) wordText.innerText = `«${selected.verse}»`;
-                if (wordReference) wordReference.innerText = `— ${selected.ref}`;
-            }
-
-            getRandomVerse();
-
-            let likesCount = Math.floor(Math.random() * 120) + 45;
-            let isLiked = false;
-
-            if (likeCounter) likeCounter.innerText = likesCount;
-
-            if (likeContainer) {
-                likeContainer.addEventListener('click', () => {
-                    isLiked = !isLiked;
-                    if (isLiked) {
-                        likesCount++;
-                        likeContainer.classList.add('liked');
-                    } else {
-                        likesCount--;
-                        likeContainer.classList.remove('liked');
-                    }
-                    if (likeCounter) likeCounter.innerText = likesCount;
-                    
-                    getRandomVerse();
+                    }, 300);
                 });
             }
         });

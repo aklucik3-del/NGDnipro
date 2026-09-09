@@ -1096,315 +1096,204 @@
     </div>
 
     <footer>
-        <p>© 2026 Христианская Церковь-«Новое Поколение» (Днепр)</p>
+        <p>&copy; 2026 Христианская Церковь-«Новое Поколение» — Днепр. Все права защищены.</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Массив из 100+ библейских стихов
-            const bibleVerses = [
-                { text: "Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.", ref: "Иеремия 29:11" },
-                { text: "Все могу в укрепляющем меня Иисусе Христе.", ref: "Филиппийцам 4:13" },
-                { text: "Ибо так возлюбил Бог мир, что отдал Сына Своего Единородного, дабы всякий верующий в Него, не погиб, но имел жизнь вечную.", ref: "От Иоанна 3:16" },
-                { text: "Господь — Пастырь мой; я ни в чем не буду нуждаться.", ref: "Псалом 22:1" },
-                { text: "Надейся на Господа всем сердцем твоим, и не полагайся на разум твой.", ref: "Притчи 3:5" },
-                { text: "Притом знаем, что любящим Бога, призванным по Его изволению, все содействует ко благу.", ref: "Римлянам 8:28" },
-                { text: "Не бойся, ибо Я с тобою; не смущайся, ибо Я Бог твой; Я укреплю тебя, и помогу тебе, и поддержу тебя десницею правды Моей.", ref: "Исаия 41:10" },
-                { text: "Ищите же прежде Царства Божия и правды Его, и это все приложится вам.", ref: "От Матфея 6:33" },
-                { text: "Сия есть заповедь Моя, да любите друг друга, как Я возлюбил вас.", ref: "От Иоанна 15:12" },
-                { text: "Мир оставляю вам, мир Мой даю вам; не так, как мир дает, Я даю вам. Да не смущается сердце ваше и да не устрашается.", ref: "От Иоанна 14:27" },
-                { text: "Будьте тверды и мужественны, не бойтесь и не страшитесь их, ибо Господь Бог твой Сам пойдет с тобою и не отступит от тебя и не оставит тебя.", ref: "Второзаконие 31:6" },
-                { text: "Благословен человек, который надеется на Господа, и которого упование — Господь.", ref: "Иеремия 17:7" },
-                { text: "Господь — свет мой и спасение мое: кого мне бояться? Господь крепость жизни моей: кого мне страшиться?", ref: "Псалом 26:1" },
-                { text: "Все заботы ваши возложите на Него, ибо Он печется о вас.", ref: "1 Петра 5:7" },
-                { text: "Всякое даяние доброе и всякий дар совершенный нисходит свыше, от Отца светов, у Которого нет изменения и ни тени перемены.", ref: "Иакова 1:17" },
-                { text: "Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.", ref: "От Матфея 11:28" },
-                { text: "Я есмь путь и истина и жизнь; никто не приходит к Отцу, как только через Меня.", ref: "От Иоанна 14:6" },
-                { text: "Бог же надежды да исполнит вас всякой радости и мира в вере, дабы вы, силою Духа Святаго, обогатились надеждою.", ref: "Римлянам 15:13" },
-                { text: "Терпение же должно иметь совершенное действие, чтобы вы были совершенны во всей полноте, без всякого недостатка.", ref: "Иакова 1:4" },
-                { text: "Слово Твое — светильник ноге моей и свет стезе моей.", ref: "Псалом 118:105" },
-                { text: "Ибо у Бога не останется бессильным никакое слово.", ref: "От Луки 1:37" },
-                { text: "Заповедь новую даю вам, да любите друг друга; как Я возлюбил вас, так и вы да любите друг друга.", ref: "От Иоанна 13:34" },
-                { text: "Итак вы — свет мира. Не может укрыться город, стоящий на верху горы.", ref: "От Матфея 5:14" },
-                { text: "Благодать Господа нашего Иисуса Христа со всеми вами. Аминь.", ref: "Откровение 22:21" },
-                { text: "Воззови ко Мне — и Я отвечу тебе, покажу тебе великое и недоступное, чего ты не знаешь.", ref: "Иеремия 33:3" },
-                { text: "Не непрестанно ли Я заповедую тебе: будь тверд и мужествен, не страшись и не ужасайся; ибо с тобою Господь Бог твой везде, куда ни пойдешь.", ref: "Иисус Навин 1:9" },
-                { text: "Радуйтесь всегда в Господе; и еще говорю: радуйтесь.", ref: "Филиппийцам 4:4" },
-                { text: "Не заботьтесь ни о чем, но всегда в молитве и прошении с благодарением открывайте свои желания пред Богом.", ref: "Филиппийцам 4:6" },
-                { text: "И мир Божий, который превыше всякого ума, соблюдет сердца ваши и помышления ваши во Христе Иисусе.", ref: "Филиппийцам 4:7" },
-                { text: "Очи Господа обращены к праведным, и уши Его — к кличет их.", ref: "Псалом 33:16" },
-                { text: "Вкусите, и увидите, как благ Господь! Блажен человек, который уповает на Него!", ref: "Псалом 33:9" },
-                { text: "А надеющиеся на Господа обновятся в силе: поднимут крылья, как орлы, потекут — и не утомятся, пойдут — и не устанут.", ref: "Исаия 40:31" },
-                { text: "Господь за меня — не устрашусь: что сделает мне человек?", ref: "Псалом 117:6" },
-                { text: "Надейся на Господа, мужайся, и да укрепляется сердце твое, и надейся на Господа.", ref: "Псалом 26:14" },
-                { text: "Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится.", ref: "1 Коринфянам 13:4" },
-                { text: "Любовь никогда не престает, хотя и пророчества прекратятся, и языки умолкнут, и знание упразднится.", ref: "1 Коринфянам 13:8" },
-                { text: "А теперь пребывают сии три: вера, надежда, любовь; но любовь из них больше.", ref: "1 Коринфянам 13:13" },
-                { text: "Ибо Я — Господь, Бог твой; держу тебя за правую руку твою, говорю тебе: «не бойся, Я помогаю тебе».", ref: "Исаия 41:13" },
-                { text: "Будем внимательны друг к другу, поощряя к любви и добрым делам.", ref: "Евреям 10:24" },
-                { text: "Вера же есть осуществление ожидаемого и уверенность в невидимом.", ref: "Евреям 11:1" },
-                { text: "А без веры угодить Богу невозможно; ибо надобно, чтобы приходящий к Богу веровал, что Он есть, и ищущим Его дает награду.", ref: "Евреям 11:6" },
-                { text: "Взирая на начальника и совершителя веры Иисуса, Который, вместо предлежавшей Ему радости, претерпел крест.", ref: "Евреям 12:2" },
-                { text: "Иисус Христос вчера и сегодня и вовеки Тот же.", ref: "Евреям 13:8" },
-                { text: "Не забывайте также благотворения и общительности, ибо таковые жертвы благоугодны Богу.", ref: "Евреям 13:16" },
-                { text: "Господь мне помощник, и не убоюсь: что сделает мне человек?", ref: "Евреям 13:6" },
-                { text: "Если же у кого из вас недостает мудрости, да просит у Бога, дающего всем просто и без упреков, — и дастся ему.", ref: "Иакова 1:5" },
-                { text: "Всякое даяние доброе и всякий дар совершенный нисходит свыше от Отца светов.", ref: "Иакова 1:17" },
-                { text: "Будьте же исполнители слова, а не слушатели только, обманывающие самих себя.", ref: "Иакова 1:22" },
-                { text: "Приблизьтесь к Богу, и приблизится к вам.", ref: "Иакова 4:8" },
-                { text: "Смиритесь пред Господом, и вознесет вас.", ref: "Иакова 4:10" },
-                { text: "Благословен Бог и Отец Господа нашего Иисуса Христа, по великой Своей милости возродивший нас упованием живым.", ref: "1 Петра 1:3" },
-                { text: "Трезвитесь, бодрствуйте, потому что противник ваш диавол ходит, как рыкающий лев, ища, кого поглотить.", ref: "1 Петра 5:8" },
-                { text: "Бог же всякой благодати, призвавший нас в вечную славу Свою во Христе Иисусе, Сам да совершит вас.", ref: "1 Петра 5:10" },
-                { text: "Бог есть свет, и нет в Нем никакой тьмы.", ref: "1 Иоанна 1:5" },
-                { text: "Если исповедуем грехи наши, то Он, будучи верен и праведен, простит нам грехи наши и очистит нас от всякой неправды.", ref: "1 Иоанна 1:9" },
-                { text: "Дети мои! будем любить не словом или языком, но делом и истиною.", ref: "1 Иоанна 3:18" },
-                { text: "Кто не любит, тот не познал Бога, потому что Бог есть любовь.", ref: "1 Иоанна 4:8" },
-                { text: "В любви нет страха, но совершенная любовь изгоняет страх.", ref: "1 Иоанна 4:18" },
-                { text: "Будем любить Его, потому что Он прежде возлюбил нас.", ref: "1 Иоанна 4:19" },
-                { text: "Ибо всякий, родившийся от Бога, побеждает мир; и сия есть победа, победившая мир, вера наша.", ref: "1 Иоанна 5:4" },
-                { text: "Се, стою у двери и стучу: если кто услышит голос Мой и отворит дверь, войду к нему, и буду вечерять с ним, и он со Мною.", ref: "Откровение 3:20" },
-                { text: "И отрет Бог всякую слезу с очей их, и смерти не будет уже; ни плача, ни вопля, ни болезни уже не будет.", ref: "Откровение 21:4" },
-                { text: "Я есмь Альфа и Омега, начало и конец, говорит Господь, Который есть и был и грядет, Вседержитель.", ref: "Откровение 1:8" },
-                { text: "Бог надежды да исполнит вас всякой радости и мира в вере.", ref: "Римлянам 15:13" },
-                { text: "Не будь побежден злом, но побеждай зло добром.", ref: "Римлянам 12:21" },
-                { text: "Радуйтесь с радующимися и плачьте с плачущими.", ref: "Римлянам 12:15" },
-                { text: "В усердии не слабейте; духом пламенейте; Господу служите;", ref: "Римлянам 12:11" },
-                { text: "Утешайтесь надеждою; в скорби будьте терпеливы, в молитве постоянны;", ref: "Римлянам 12:12" },
-                { text: "Если Бог за нас, кто против нас?", ref: "Римлянам 8:31" },
-                { text: "Ибо я уверен, что ни смерть, ни жизнь, ни Ангелы, ни Начала... не может отлучить нас от любви Божией во Христе Иисусе.", ref: "Римлянам 8:38-39" },
-                { text: "Итак нет ныне никакого осуждения тем, которые во Христе Иисусе живут не по плоти, но по духу.", ref: "Римлянам 8:1" },
-                { text: "Потому что если устами твоими будешь исповедовать Иисуса Господом и сердцем твоим веровать, что Бог воскресил Его из мертвых, то спасешься.", ref: "Римлянам 10:9" },
-                { text: "Итак вера от слышания, а слышание от слова Божия.", ref: "Римлянам 10:17" },
-                { text: "Благодать вам и мир от Бога Отца нашего и Господа Иисуса Христа.", ref: "1 Коринфянам 1:3" },
-                { text: "Вас постигло искушение не иное, как человеческое; и верен Бог, Который не попустит вам быть искушаемыми сверх сил.", ref: "1 Коринфянам 10:13" },
-                { text: "Итак, едите ли, пьете ли, или иное что делаете, все делайте в славу Божию.", ref: "1 Коринфянам 10:31" },
-                { text: "Все у вас да будет с любовью.", ref: "1 Коринфянам 16:14" },
-                { text: "Но Он сказал мне: «довольно для тебя благодати Моей, ибо сила Моя совершается в немощи».", ref: "2 Коринфянам 12:9" },
-                { text: "Итак, кто во Христе, тот новая тварь; древнее прошло, теперь все новое.", ref: "2 Коринфянам 5:17" },
-                { text: "Ибо мы ходим верою, а не видением.", ref: "2 Коринфянам 5:7" },
-                { text: "Каждый уделяй по расположению сердца, не с огорчением и не с принуждением; ибо доброхотно дающего любит Бог.", ref: "2 Коринфянам 9:7" },
-                { text: "Плод же духа: любовь, радость, мир, долготерпение, благость, милосердие, вера, кротость, воздержание.", ref: "Галатам 5:22-23" },
-                { text: "Носите бремена друг друга, и таким образом исполните закон Христов.", ref: "Галатам 6:2" },
-                { text: "Делая добро, да не унываем, ибо в свое время пожнем, если не ослабеем.", ref: "Галатам 6:9" },
-                { text: "Ибо благодатью вы спасены через веру, и сие не от вас, Божий дар: не от дел, чтобы никто не хвалился.", ref: "Ефесянам 2:8-9" },
-                { text: "Ибо мы — Его создание, созданы во Христе Иисусе на добрые дела.", ref: "Ефесянам 2:10" },
-                { text: "Никакое гнилое слово да не выходит из уст ваших, а только доброе для назидания в вере.", ref: "Ефесянам 4:29" },
-                { text: "Будьте друг к другу добры, сострадательны, прощайте друг друга, как и Бог во Христе простил вас.", ref: "Ефесянам 4:32" },
-                { text: "Исполняйтесь Духом, назидая самих себя псалмами и славословиями и песнопениями духовными.", ref: "Ефесянам 5:18-19" },
-                { text: "Облекитесь во всеоружие Божие, чтобы вам можно было стать против козней диавольских.", ref: "Ефесянам 6:11" },
-                { text: "Ибо мир Божий соблюдет сердца ваши и помышления ваши во Христе Иисусе.", ref: "Филиппийцам 4:7" },
-                { text: "Бог мой да восполнит всякую нужду вашу, по богатству Своему в славе, Христом Иисусом.", ref: "Филиппийцам 4:19" },
-                { text: "Слово Христово да вселяется в вас обильно, со всякою премудростью.", ref: "Колоссянам 3:16" },
-                { text: "И все, что делаете, делайте от души, как для Господа, а не для человеков.", ref: "Колоссянам 3:23" },
-                { text: "Слово ваше да будет всегда с благодатью, приправлено солью, дабы вы знали, как отвечать каждому.", ref: "Колоссянам 4:6" },
-                { text: "Непрестанно молитесь. За все благодарите: ибо такова о вас воля Божия во Христе Иисусе.", ref: "1 Фессалоникийцам 5:17-18" },
-                { text: "Все испытывайте, хорошего держитесь. Удерживайтесь от всякого рода зла.", ref: "1 Фессалоникийцам 5:21-22" },
-                { text: "Верен Господь, Который утвердит вас и сохранит от лукавого.", ref: "2 Фессалоникийцам 3:3" },
-                { text: "Ибо дал нам Бог духа не боязни, но силы и любви и целомудрия.", ref: "2 Тимофею 1:7" },
-                { text: "Все Писание богодухновенно и полезно для научения, для обличения, для исправления, для наставления в праведности.", ref: "2 Тимофею 3:16" },
-                { text: "Ибо явилась благодать Божия, спасительная для всех человеков.", ref: "Титу 2:11" },
-                { text: "Живо слово Божие и действенно и острее всякого меча обоюдоострого.", ref: "Евреям 4:12" },
-                { text: "Посему да приступаем с дерзновением к престолу благодати, чтобы получить милость и обрести благодать для своевременной помощи.", ref: "Евреям 4:16" },
-                { text: "Ибо Бог не есть Бог неустройства, но мира.", ref: "1 Коринфянам 14:33" },
-                { text: "Господь сохранит тебя от всякого зла; сохранит душу твою Господь.", ref: "Псалом 120:7" },
-                { text: "Господь сохранит выхождение твое и вхождение твое отныне и вовек.", ref: "Псалом 120:8" },
-                { text: "Бог нам прибежище и сила, скорый помощник в бедах.", ref: "Псалом 45:2" },
-                { text: "Остановитесь и познайте, что Я — Бог.", ref: "Псалом 45:11" },
-                { text: "Сердце чистое сотвори во мне, Боже, и дух правый обнови внутри меня.", ref: "Псалом 50:12" },
-                { text: "Возложи на Господа заботу твою, и Он поддержит тебя.", ref: "Псалом 54:23" }
-            ];
+        // Анимация частиц
+        function createParticles() {
+            const container = document.getElementById('particlesContainer');
+            const particleCount = 20;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 8 + 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 15}s`;
+                container.appendChild(particle);
+            }
+        }
 
-            // Настройка рандомного стиха
-            const randomVerse = bibleVerses[Math.floor(Math.random() * bibleVerses.length)];
-            const wordTextElem = document.getElementById('wordText');
-            const wordRefElem = document.getElementById('wordReference');
+        // Переключение страниц
+        let currentPage = 1;
+        function goToPage(page) {
+            if (currentPage === page) return;
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            document.getElementById(`page${page}`).classList.add('active');
+            currentPage = page;
+            
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+            if (currentPage === 1) {
+                btnText.textContent = "Следующая страница";
+                btnIcon.className = "fa-solid fa-arrow-right";
+            } else {
+                btnText.textContent = "Предыдущая страница";
+                btnIcon.className = "fa-solid fa-arrow-left";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            checkScroll();
+        }
 
-            if (wordTextElem && wordRefElem) {
-                wordTextElem.textContent = `«${randomVerse.text}»`;
-                wordRefElem.textContent = `— ${randomVerse.ref}`;
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentPage === 1) goToPage(2);
+            else goToPage(1);
+        });
+
+        // Таймер обратного отсчета до воскресенья 10:00
+        function updateCountdown() {
+            const now = new Date();
+            let sunday = new Date();
+            sunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+            sunday.setHours(10, 0, 0, 0);
+
+            if (now > sunday) {
+                sunday.setDate(sunday.getDate() + 7);
             }
 
-            // Логика лайка
-            const likeContainer = document.getElementById('likeContainer');
-            const likeCounter = document.getElementById('likeCounter');
-            let liked = localStorage.getItem('ng_verse_liked') === 'true';
-            let count = parseInt(localStorage.getItem('ng_verse_likes_count') || '124', 10);
+            const diff = sunday - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
 
-            if (liked && likeContainer) {
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+
+        // Слово дня (Обновление РОВНО 1 раз в 24 часа по календарному дню)
+        const bibleVerses = [
+            { text: "«Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.»", ref: "Иеремия 29:11" },
+            { text: "«Всё могу в укрепляющем меня Иисусе Христе.»", ref: "Филиппийцам 4:13" },
+            { text: "«Господь — Пастырь мой; я ни в чем не буду нуждаться.»", ref: "Псалом 22:1" },
+            { text: "«Ищите же прежде Царства Божия и правды Его, и это всё приложится вам.»", ref: "От Матфея 6:33" },
+            { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.»", ref: "От Матфея 11:28" },
+            { text: "«Заповедь новую даю вам, да любите друг друга; как Я полюбил вас, так и вы да любите друг друга.»", ref: "От Иоанна 13:34" },
+            { text: "«Вера же есть осуществление ожидаемого и уверенность в невидимом.»", ref: "Евреям 11:1" },
+            { text: "«Господь — свет мой и спасение мое: кого мне бояться?»", ref: "Псалом 26:1" },
+            { text: "«Благословен человек, который надеется на Господа, и которого упование — Господь.»", ref: "Иеремия 17:7" },
+            { text: "«Мир оставляю вам, мир Мой даю вам; не так, как мир дает, Я даю вам. Да не смущается сердце ваше и да не устрашается.»", ref: "От Иоанна 14:27" }
+        ];
+
+        function updateDailyWord() {
+            const todayStr = new Date().toDateString(); // Получаем текущую дату в виде строки, например "Wed Sep 09 2026"
+            const savedDate = localStorage.getItem('dailyWordDate');
+            let verseIndex = localStorage.getItem('dailyWordIndex');
+
+            // Если наступил новый день или стих еще ни разу не сохранялся
+            if (savedDate !== todayStr || verseIndex === null) {
+                // Выбираем индекс на основе количества дней с эпохи Unix для строго синхронного 24-часового цикла
+                const dayOffset = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24));
+                verseIndex = dayOffset % bibleVerses.length;
+                
+                localStorage.setItem('dailyWordDate', todayStr);
+                localStorage.setItem('dailyWordIndex', verseIndex);
+            }
+
+            const verse = bibleVerses[verseIndex];
+            document.getElementById('wordText').innerText = verse.text;
+            document.getElementById('wordReference').innerText = '— ' + verse.ref;
+        }
+
+        // Лайки для Слова Дня
+        const likeContainer = document.getElementById('likeContainer');
+        const likeCounter = document.getElementById('likeCounter');
+        let likes = parseInt(localStorage.getItem('wordLikes') || '42');
+        let isLiked = localStorage.getItem('wordIsLiked') === 'true';
+
+        likeCounter.innerText = likes;
+        if (isLiked) {
+            likeContainer.classList.add('liked');
+        }
+
+        likeContainer.addEventListener('click', () => {
+            if (!isLiked) {
+                likes++;
+                isLiked = true;
                 likeContainer.classList.add('liked');
+            } else {
+                likes--;
+                isLiked = false;
+                likeContainer.classList.remove('liked');
             }
-            if (likeCounter) {
-                likeCounter.textContent = count;
-            }
+            likeCounter.innerText = likes;
+            localStorage.setItem('wordLikes', likes);
+            localStorage.setItem('wordIsLiked', isLiked);
+        });
 
-            if (likeContainer) {
-                likeContainer.addEventListener('click', () => {
-                    liked = !liked;
-                    if (liked) {
-                        count++;
-                        likeContainer.classList.add('liked');
-                    } else {
-                        count--;
-                        likeContainer.classList.remove('liked');
-                    }
-                    localStorage.setItem('ng_verse_liked', liked);
-                    localStorage.setItem('ng_verse_likes_count', count);
-                    if (likeCounter) {
-                        likeCounter.textContent = count;
-                    }
-                });
-            }
+        // Нажми для благословения
+        const moodBtn = document.getElementById('moodBtn');
+        const moodText = document.getElementById('moodText');
+        const blessings = [
+            "Пусть Божий мир наполняет твое сердце сегодня! 🕊️",
+            "Ты драгоценен в очах Божьих и глубоко любим! ❤️",
+            "Господь — твоя крепость и защита в любой день! 🛡️",
+            "Пусть радость Божья станет твоей силой! ✨",
+            "Сегодня день новых возможностей и благословений! 🌟",
+            "Бог усматривает лучшее для твоей жизни! 🙏",
+            "Улыбнись, ведь Христос с тобой всегда! 😊"
+        ];
 
-            // Логика частиц
-            const particlesContainer = document.getElementById('particlesContainer');
-            if (particlesContainer) {
-                for (let i = 0; i < 25; i++) {
-                    const p = document.createElement('div');
-                    p.className = 'particle';
-                    const size = Math.random() * 6 + 3;
-                    p.style.width = `${size}px`;
-                    p.style.height = `${size}px`;
-                    p.style.left = `${Math.random() * 100}%`;
-                    p.style.animationDelay = `${Math.random() * 20}s`;
-                    p.style.animationDuration = `${Math.random() * 12 + 15}s`;
-                    particlesContainer.appendChild(p);
+        moodBtn.addEventListener('click', () => {
+            moodText.classList.add('fly-out');
+            setTimeout(() => {
+                const randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
+                moodText.innerText = randomBlessing;
+                moodText.classList.remove('fly-out');
+                moodText.classList.add('come-in');
+                setTimeout(() => {
+                    moodText.classList.remove('come-in');
+                }, 500);
+            }, 500);
+        });
+
+        // Scroll reveal анимация
+        function checkScroll() {
+            const reveals = document.querySelectorAll('.reveal-left');
+            const windowHeight = window.innerHeight;
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    element.classList.add('active');
                 }
-            }
+            });
+        }
 
-            // Логика переключения страниц
-            window.goToPage = function(pageNum) {
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                const targetPage = document.getElementById(`page${pageNum}`);
-                if (targetPage) {
-                    targetPage.classList.add('active');
-                }
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.addEventListener('scroll', checkScroll);
 
-                const btnText = document.getElementById('btnText');
-                const btnIcon = document.getElementById('btnIcon');
-                if (btnText && btnIcon) {
-                    if (pageNum === 2) {
-                        btnText.textContent = 'Предыдущая страница';
-                        btnIcon.className = 'fa-solid fa-arrow-left';
-                    } else {
-                        btnText.textContent = 'Следующая страница';
-                        btnIcon.className = 'fa-solid fa-arrow-right';
-                    }
-                }
-            };
+        // Модальное окно оптимизации
+        const optModal = document.getElementById('optModalOverlay');
+        const optConfirm = document.getElementById('optBtnConfirm');
+        const optSkip = document.getElementById('optBtnSkip');
 
-            const nextBtn = document.getElementById('nextBtn');
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    const page1 = document.getElementById('page1');
-                    if (page1 && page1.classList.contains('active')) {
-                        goToPage(2);
-                    } else {
-                        goToPage(1);
-                    }
-                });
-            }
+        document.body.classList.add('modal-open');
 
-            // Анимации при скролле (IntersectionObserver)
-            const observerOptions = { threshold: 0.1 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
+        function closeModal() {
+            optModal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
 
-            document.querySelectorAll('.reveal-left').forEach(el => observer.observe(el));
+        optConfirm.addEventListener('click', () => {
+            document.body.classList.add('optimized-mode');
+            closeModal();
+        });
 
-            // Таймер обратного отсчета до ближайшего воскресенья 10:00
-            function updateCountdown() {
-                const now = new Date();
-                let nextSunday = new Date();
-                nextSunday.setDate(now.getDate() + ((7 - now.getDay()) % 7));
-                nextSunday.setHours(10, 0, 0, 0);
+        optSkip.addEventListener('click', () => {
+            closeModal();
+        });
 
-                if (now > nextSunday) {
-                    nextSunday.setDate(nextSunday.getDate() + 7);
-                }
-
-                const diff = nextSunday - now;
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
-
-                const dElem = document.getElementById('days');
-                const hElem = document.getElementById('hours');
-                const mElem = document.getElementById('minutes');
-                const sElem = document.getElementById('seconds');
-
-                if (dElem) dElem.textContent = String(days).padStart(2, '0');
-                if (hElem) hElem.textContent = String(hours).padStart(2, '0');
-                if (mElem) mElem.textContent = String(minutes).padStart(2, '0');
-                if (sElem) sElem.textContent = String(seconds).padStart(2, '0');
-            }
-
+        // Инициализация при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
             setInterval(updateCountdown, 1000);
             updateCountdown();
-
-            // Mood Widget (Благословения)
-            const blessings = [
-                "Пусть Божий мир наполняет твое сердце сегодня! ✨",
-                "Ты благословен и храним во всех путях своих! 🙏",
-                "Божья благодать обновляется для тебя каждое утро! 🌅",
-                "Радость в Господе — подкрепление для тебя! 😊",
-                "Все заботы отдай Ему, ибо Он печется о тебе! 🕊️",
-                "Верь: лучшее от Бога еще впереди! 🌟"
-            ];
-
-            const moodBtn = document.getElementById('moodBtn');
-            const moodText = document.getElementById('moodText');
-            let blessingIndex = 0;
-
-            if (moodBtn && moodText) {
-                moodBtn.addEventListener('click', () => {
-                    moodText.classList.add('fly-out');
-                    setTimeout(() => {
-                        blessingIndex = (blessingIndex + 1) % blessings.length;
-                        moodText.textContent = blessings[blessingIndex];
-                        moodText.classList.remove('fly-out');
-                        moodText.classList.add('come-in');
-                        setTimeout(() => moodText.classList.remove('come-in'), 500);
-                    }, 300);
-                });
-            }
-
-            // Модальное окно оптимизации
-            const optOverlay = document.getElementById('optModalOverlay');
-            const optBtnConfirm = document.getElementById('optBtnConfirm');
-            const optBtnSkip = document.getElementById('optBtnSkip');
-
-            if (optOverlay) {
-                document.body.classList.add('modal-open');
-            }
-
-            function closeModal() {
-                if (optOverlay) {
-                    optOverlay.classList.remove('active');
-                    document.body.classList.remove('modal-open');
-                }
-            }
-
-            if (optBtnConfirm) {
-                optBtnConfirm.addEventListener('click', () => {
-                    document.body.classList.add('optimized-mode');
-                    closeModal();
-                });
-            }
-
-            if (optBtnSkip) {
-                optBtnSkip.addEventListener('click', () => {
-                    closeModal();
-                });
-            }
+            updateDailyWord();
+            checkScroll();
         });
     </script>
 </body>

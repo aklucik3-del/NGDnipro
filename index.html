@@ -503,139 +503,95 @@
         .service-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 700; color: var(--white); margin-bottom: 14px; }
         .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }
 
-        /* НЕОНОВА КАРТОЧКА "СВІТЛО ДНЯ" (СИНЬО-ФІОЛЕТОВА) */
-        .neon-light-section {
+        .word-of-day-section {
             max-width: var(--container-max);
             margin: clamp(40px, 6vh, 60px) auto 0 auto;
             width: 100%;
         }
 
-        .neon-light-card {
-            background: linear-gradient(135deg, rgba(10, 15, 35, 0.95) 0%, rgba(30, 10, 60, 0.95) 50%, rgba(15, 5, 40, 0.98) 100%);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 2px solid #8a2be2;
-            border-radius: 32px;
-            padding: clamp(35px, 6vw, 55px);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.35), 0 0 60px rgba(138, 43, 226, 0.5), 0 20px 60px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(0, 242, 254, 0.15);
+        .word-of-day-card {
+            background: linear-gradient(135deg, rgba(13, 22, 48, 0.85) 0%, rgba(28, 14, 46, 0.85) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            border-radius: 30px;
+            padding: clamp(30px, 5vw, 50px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15), inset 0 1px 3px rgba(255,255,255,0.25);
             position: relative;
             overflow: hidden;
             transition: var(--transition);
         }
 
-        .neon-light-card::before {
+        .word-of-day-card::before {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.25) 0%, transparent 45%),
-                        radial-gradient(circle at 70% 70%, rgba(138, 43, 226, 0.35) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 10%, rgba(0, 150, 255, 0.2) 0%, transparent 40%);
+            background: radial-gradient(circle at 70% 20%, rgba(0, 242, 254, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.12) 0%, transparent 50%);
             pointer-events: none;
-            animation: neonAuraRotate 18s infinite ease-in-out alternate;
+            animation: wordGlowRotate 25s infinite linear;
         }
 
-        @keyframes neonAuraRotate {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
+        @keyframes wordGlowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .neon-light-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: #00f2fe;
-            box-shadow: 0 0 45px rgba(0, 242, 254, 0.6), 0 0 90px rgba(138, 43, 226, 0.8), 0 30px 70px rgba(0, 0, 0, 0.9), inset 0 0 35px rgba(138, 43, 226, 0.3);
-        }
-
-        .neon-light-header {
+        .word-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
+            margin-bottom: 25px;
             position: relative;
             z-index: 2;
             flex-wrap: wrap;
             gap: 15px;
         }
 
-        .neon-badge {
+        .word-badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(138, 43, 226, 0.2);
-            color: #00f2fe;
-            border: 1px solid rgba(0, 242, 254, 0.5);
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4), 0 0 35px rgba(138, 43, 226, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .neon-badge i {
-            color: #00f2fe;
-            filter: drop-shadow(0 0 8px #00f2fe);
-            animation: pulseGlowIcon 2.5s infinite ease-in-out;
-        }
-
-        @keyframes pulseGlowIcon {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #00f2fe); }
-            50% { transform: scale(1.3); filter: drop-shadow(0 0 18px #8a2be2); }
-        }
-
-        .neon-light-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .neon-quote-icon {
-            font-size: clamp(2rem, 4vw, 3rem);
-            background: linear-gradient(135deg, #00f2fe, #8a2be2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.6));
-        }
-
-        .neon-light-text {
-            font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-            font-weight: 600;
-            line-height: 1.75;
-            color: #ffffff;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4), 0 0 20px rgba(138, 43, 226, 0.6);
-            letter-spacing: 0.3px;
-        }
-
-        .neon-light-text span {
-            background: linear-gradient(135deg, #00f2fe 0%, #b82be2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .neon-light-footer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .neon-light-author {
-            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            gap: 10px;
+            background: rgba(0, 242, 254, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            padding: 8px 20px;
+            border-radius: 30px;
             font-weight: 700;
-            color: #00f2fe;
+            font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 12px rgba(0, 242, 254, 0.8), 0 0 25px rgba(138, 43, 226, 0.6);
-            border-bottom: 2px solid #8a2be2;
-            padding-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .word-badge i {
+            filter: drop-shadow(0 0 8px var(--accent));
+        }
+
+        .word-content-box {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 10px;
+        }
+
+        .word-text {
+            font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+            font-weight: 500;
+            line-height: 1.7;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+            font-style: italic;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .word-reference {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(0,242,254,0.4));
         }
 
         .pagination-container { text-align: center; padding: clamp(30px, 6vh, 45px) clamp(15px, 3vw, 20px); background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; z-index: 10; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); }
@@ -711,7 +667,7 @@
         body.optimized-mode .countdown-card,
         body.optimized-mode .event-card,
         body.optimized-mode .service-card,
-        body.optimized-mode .neon-light-card,
+        body.optimized-mode .word-of-day-card,
         body.optimized-mode .contact-info-item.phone-card,
         body.optimized-mode header {
             backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
@@ -721,7 +677,7 @@
         body.optimized-mode .hero::before,
         body.optimized-mode #history::before,
         body.optimized-mode .events-section::before,
-        body.optimized-mode .neon-light-card::before { animation-duration: 50s !important; }
+        body.optimized-mode .word-of-day-card::before { animation-duration: 50s !important; }
     </style>
 </head>
 <body>
@@ -951,27 +907,6 @@
                 </div>
             </section>
 
-            <!-- НЕОНОВА СИНЬО-ФІОЛЕТОВА КАРТОЧКА "СВІТЛО ДНЯ" -->
-            <section class="neon-light-section reveal-left">
-                <div class="neon-light-card">
-                    <div class="neon-light-header">
-                        <div class="neon-badge">
-                            <i class="fa-solid fa-bolt-lightning"></i>
-                            <span>Світло Дня</span>
-                        </div>
-                    </div>
-                    <div class="neon-light-content">
-                        <i class="fa-solid fa-quote-left neon-quote-icon"></i>
-                        <p class="neon-light-text">
-                            «Ти — моє світло у темряві, моє джерело сили та нескінченної надії. <span>Нехай твоя віра сяє яскравіше за будь-які зірки!</span>»
-                        </p>
-                    </div>
-                    <div class="neon-light-footer">
-                        <span class="neon-light-author">Псалом 27:1</span>
-                    </div>
-                </div>
-            </section>
-
             <section id="contacts" class="contact-section reveal-left">
                 <div class="container">
                     <div class="section-title" style="margin-bottom: 35px;">
@@ -1006,65 +941,433 @@
         <div id="page2" class="page">
             <div class="page2-wrapper reveal-left">
                 <div class="services-header">
-                    Перехід на сторінку 2
+                    <h2>Наші служіння</h2>
+                    <p>Команди людей, які служать серцем, талантами та відданістю</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-desktop"></i></div>
+                        <h3>Медіа команда</h3>
+                        <p>Команда відповідає за візуальне оформлення богослужінь, створення креативного контенту для соціальних мереж, координацію трансляцій та загальну медіа-підтримку всіх проектів церкви.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-camera"></i></div>
+                        <h3>Оператори</h3>
+                        <p>Професійна відеозйомка служінь та заходів з різних ракурсів, оперативне управління камерами для забезпечення якісної онлайн-трансляції та створення пам'ятних відеоматеріалів.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-sliders"></i></div>
+                        <h3>Звукооператори</h3>
+                        <p>Контроль та ідеальне налаштування звуку на сцені та у залі, робота з мікрофонами та музичними інструментами, створення комфортного та збалансованого акустичного супроводу.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-lightbulb"></i></div>
+                        <h3>Світлооператори</h3>
+                        <p>Створення неповторної атмосфери за допомогою професійного світлового обладнання, управління світловими сценаріями та динамікою під час прославлення, концертів і програм.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-music"></i></div>
+                        <h3>Група прославлення</h3>
+                        <p>Музиканти та вокалісти, які ведуть усю громаду в щирому поклонінні Богу через музику, натхненні пісні та відкриті серця, наповнені живою вірою.</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon-box"><i class="fa-solid fa-people-arrows"></i></div>
+                        <h3>Група порядку</h3>
+                        <p>Команда гостинності та порядку, яка вітає кожного парафіянина біля входу, допомагає з розміщенням у залі, координує рух та створює атмосферу затишку, турботи та безпеки.</p>
+                    </div>
+                </div>
+
+                <!-- Картка "Слово дня" -->
+                <div class="word-of-day-section">
+                    <div class="word-of-day-card">
+                        <div class="word-header">
+                            <div class="word-badge">
+                                <i class="fa-solid fa-book-bible"></i>
+                                <span>Слово дня</span>
+                            </div>
+                        </div>
+                        <div class="word-content-box">
+                            <p class="word-text" id="wordText">Завантаження натхненного вірша...</p>
+                            <div class="word-reference" id="wordReference">—</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="pagination-container">
+            <button class="btn-page" id="pageBtn" onclick="togglePages()">
+                <span id="pageBtnText">Перейти на сторінку 2</span>
+                <i class="fa-solid fa-arrow-right" id="pageBtnIcon"></i>
+            </button>
+        </div>
     </main>
 
-    <div class="pagination-container">
-        <button class="btn-page" id="pageToggleBtn" onclick="togglePages()">
-            <span>Перейти до служінь</span>
-            <i class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-
     <footer>
-        <p>&copy; 2026 Християнська Церква-«Нове Покоління» • Дніпро. Всі права захищено.</p>
+        <p>&copy; 2026 Християнська Церква-«Нове Покоління» — Дніпро. Усі права захищено.</p>
     </footer>
 
     <script>
-        // Modal Optimization
-        const optModalOverlay = document.getElementById('optModalOverlay');
-        const optBtnConfirm = document.getElementById('optBtnConfirm');
-        const optBtnSkip = document.getElementById('optBtnSkip');
-
-        function closeModal() {
-            if (optModalOverlay) {
-                optModalOverlay.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            }
-        }
-
-        if (optBtnConfirm) {
-            optBtnConfirm.addEventListener('click', () => {
-                document.body.classList.add('optimized-mode');
-                closeModal();
-            });
-        }
-
-        if (optBtnSkip) {
-            optBtnSkip.addEventListener('click', () => {
-                closeModal();
-            });
-        }
-
-        // Particle generator
-        const particlesContainer = document.getElementById('particlesContainer');
-        if (particlesContainer) {
-            const particleCount = 20;
-            for (let i = 0; i < particleCount; i++) {
+        // Частинки фону
+        const pContainer = document.getElementById('particlesContainer');
+        if (pContainer) {
+            for (let i = 0; i < 25; i++) {
                 const particle = document.createElement('div');
-                particle.classList.add('particle');
+                particle.className = 'particle';
                 const size = Math.random() * 6 + 3;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 20}s`;
-                particle.style.animationDuration = `${Math.random() * 15}s`;
-                particlesContainer.appendChild(particle);
+                particle.style.animationDelay = `${Math.random() * 18}s`;
+                particle.style.animationDuration = `${Math.random() * 12 + 14}s`;
+                pContainer.appendChild(particle);
             }
         }
+
+        // Перемикання сторінок
+        let currentPage = 1;
+        function togglePages() {
+            if (currentPage === 1) {
+                goToPage(2);
+            } else {
+                goToPage(1);
+            }
+        }
+
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const btnText = document.getElementById('pageBtnText');
+            const btnIcon = document.getElementById('pageBtnIcon');
+
+            if (pageNum === 2) {
+                p1.classList.remove('active');
+                p2.classList.add('active');
+                btnText.textContent = 'Повернутися на головну';
+                btnIcon.className = 'fa-solid fa-arrow-left';
+            } else {
+                p2.classList.remove('active');
+                p1.classList.add('active');
+                btnText.textContent = 'Перейти на сторінку 2';
+                btnIcon.className = 'fa-solid fa-arrow-right';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(checkScroll, 100);
+        }
+
+        // Анімація появи при скролі
+        function checkScroll() {
+            const reveals = document.querySelectorAll('.reveal-left');
+            const windowHeight = window.innerHeight;
+            reveals.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Модальне вікно оптимізації
+        const optModalOverlay = document.getElementById('optModalOverlay');
+        const optBtnConfirm = document.getElementById('optBtnConfirm');
+        const optBtnSkip = document.getElementById('optBtnSkip');
+
+        if (optModalOverlay) {
+            document.body.classList.add('modal-open');
+            optBtnConfirm?.addEventListener('click', () => {
+                document.body.classList.add('optimized-mode');
+                closeOptModal();
+            });
+            optBtnSkip?.addEventListener('click', () => {
+                closeOptModal();
+            });
+        }
+
+        function closeOptModal() {
+            optModalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // ==========================================
+        // ЛОГІКА ТАЙМЕРІВ ВІДЛІКУ (GMT+3)
+        // ==========================================
+        function getNextTargetDate(targetDayOfWeek, targetHour, targetMinute) {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const nowGmt3 = new Date(utc + (3600000 * 3));
+
+            let dayDiff = targetDayOfWeek - nowGmt3.getDay();
+            if (dayDiff < 0) {
+                dayDiff += 7;
+            } else if (dayDiff === 0) {
+                const currentMinutes = nowGmt3.getHours() * 60 + nowGmt3.getMinutes();
+                const targetMinutes = targetHour * 60 + targetMinute;
+                if (currentMinutes >= targetMinutes) {
+                    dayDiff = 7;
+                }
+            }
+
+            const targetGmt3 = new Date(nowGmt3.getFullYear(), nowGmt3.getMonth(), nowGmt3.getDate() + dayDiff, targetHour, targetMinute, 0);
+            const targetUtc = targetGmt3.getTime() - (3600000 * 3);
+            return targetUtc;
+        }
+
+        function updateTimers() {
+            const now = new Date().getTime();
+
+            // 1. Неділя 10:00 GMT+3 (targetDayOfWeek = 0)
+            const targetSunday = getNextTargetDate(0, 10, 0);
+            const diffSunday = targetSunday - now;
+
+            if (diffSunday > 0) {
+                const days = Math.floor(diffSunday / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diffSunday % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diffSunday % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diffSunday % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            }
+
+            // 2. Середа 18:30 GMT+3 (targetDayOfWeek = 3)
+            const targetWednesday = getNextTargetDate(3, 18, 30);
+            const diffWednesday = targetWednesday - now;
+
+            if (diffWednesday > 0) {
+                const days2 = Math.floor(diffWednesday / (1000 * 60 * 60 * 24));
+                const hours2 = Math.floor((diffWednesday % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes2 = Math.floor((diffWednesday % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds2 = Math.floor((diffWednesday % (1000 * 60)) / 1000);
+
+                document.getElementById('days2').textContent = String(days2).padStart(2, '0');
+                document.getElementById('hours2').textContent = String(hours2).padStart(2, '0');
+                document.getElementById('minutes2').textContent = String(minutes2).padStart(2, '0');
+                document.getElementById('seconds2').textContent = String(seconds2).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateTimers, 1000);
+        updateTimers();
+
+        // ==========================================
+        // БАЗА ПОБАЖАНЬ (ПОНАД 100 ОДИНИЦЬ)
+        // ==========================================
+        const warmBlessings = [
+            "Нехай Божий мир наповнить твоє серце спокоєм, а кожен день приносить нові приводи для радості! ✨",
+            "Пам'ятай: Господь за тебе, і нічого не зможе здолати твою віру! 🛡️",
+            "Нехай сьогоднішній день буде наповнений ніжністю, Божою благодаттю та чудовими сюрпризами! 💖",
+            "Усміхнися! Бог приготував для тебе неймовірно гарне майбутнє! 🌈",
+            "Нехай ангели охороняють усі твої шляхи, а в домі панує затишок і тепло! 🕊️",
+            "Твоя віра здатна переставляти гори. Сміливо крокуй уперед! ⛰️✨",
+            "Нехай Боже благословення супроводжує кожен твій крок та кожну важливу справу! 🌿",
+            "Ти дорогоцінне творіння в Божих очах. Ніколи не забувай про свою унікальність! 💎",
+            "Божа любов безмежна і безумовна. Відкрий серце для Його дива сьогодні! 🔥",
+            "Нехай здоров'я, радість та достаток будуть твоїми вірними супутниками! 🌻",
+            "Бажаю тобі безмежного щастя, теплого спілкування та щирих посмішок довкола! 😊",
+            "Господь усе бачить і тримає твою руку. Усе обов'язково буде добре! 🤝",
+            "Нехай твоє життя світло сяє для інших і дарує надію тим, хто поряд! 💡",
+            "Божий спокій вищий за всякий розум — нехай він береже твоє серце від тривог! 🌸",
+            "Бажаю радості у кожній миті, підтримки у важкі дні та Перемоги в усьому! 🕊️",
+            "Нехай кожна молитва знаходить швидку Божу відповідь! 🙏",
+            "Твоє серце — це дім для Божої любові. Поділися нею зі світом сьогодні! ❤️",
+            "Господь — твоя скеля та міцне укриття. Будь сміливим і не бійся! 🏰",
+            "Нехай Божа благодать вкриває тебе, наче тепла ковдра у холодний день! ☕✨",
+            "Усміхнися, адже ти оточений невидимою Божою турботою щосекунди! ☀️",
+            "Нехай в твоїй душі завжди квітне весна та звучить пісня вдячності! 🌸🎵",
+            "Бог знає всі твої мрії та м'яко веде тебе до їх здійснення! 🌟",
+            "Сьогодні чудовий день для нових звершень та Божих чудес у твоєму житті! 🚀",
+            "Нехай любов та злагода завжди перебувають у твоїй родині! 🏡💖",
+            "Боже слово — каганець для твоїх ніг. Іди сміливо шляхом світла! 📖🔦",
+            "Нехай доброта твого серця повертається до тебе сторицею! 🌿✨",
+            "Господь дарує тобі сили подолати будь-яку перешкоду на шляху! 💪✨",
+            "Твоє майбутнє сповнене світла, любові та Божого благовоління! 🌅",
+            "Нехай тиша та Божа присутність дарують тобі відновлення й наснагу! 🕊️",
+            "Божа вірність неминуща. Він ніколи не залишить і не покине тебе! ⚓",
+            "Бажаю світлого дня, наповненого легкістю, посмішками та внутрішнім теплом! ☀️",
+            "Нехай Господь пошле тобі вірних друзів та щирих людей на шляху! 🫂",
+            "Кожен твій день — це подарунок з неба. Проживи його з радістю! 🎁",
+            "Нехай сила Святого Духа наповнює тебе радістю та впевненістю! 🔥",
+            "Бог міняє смуток на радість, а попіл — на красу. Довіряй Йому! 🦋",
+            "Нехай твій дім буде повною чашею благословень та миру! 🌾",
+            "Твоя посмішка робить цей світ гарнішим та теплішим! Усміхнись! 😊✨",
+            "Господь охороняє твій вихід і твій вхід відтепер і повіки! 🚪🕊️",
+            "Нехай Боже милосердя відновлюється над тобою кожного ранку! 🌅",
+            "Бажаю тобі натхнення у праці, миру в душі та гармонії в усьому! 🎨",
+            "Твоє життя під надійною Божою охороною. Спи та відпочивай спокійно! 🌙",
+            "Нехай надія, наче якір, тримає твою душу непохитною! ⚓💖",
+            "Бажаю тобі повноти радості у Божій присутності щодня! 🕊️",
+            "Нехай Господь благословить твої руки для добрих справ та успіху! 🖐️✨",
+            "Будь міцним та мужнім, бо Господь, Бог твій, з тобою скрізь! 🦁",
+            "Нехай кожен світанок дарує нові приводи дякувати Творцеві! 🌄",
+            "Твоя молитва має велику силу. Молись із вірою! 🙏⚡",
+            "Нехай Божа мудрість керує всіма твоїми рішеннями та вибором! 🧭",
+            "Нехай у твоєму серці палає вогонь першої любові до Бога! 🔥❤️",
+            "Бажаю тобі щасливих митей, гарних новин та душевного піднесення! 💌",
+            "Нехай Божа краса відображається у твоїх вчинках та словах! 🌸",
+            "Твоє серце — джерело життя. Бережи його у Божій чистоті! 💧",
+            "Нехай Господь наповнить твій день сміхом та щирою дитячою радістю! 😄",
+            "Бог готує для тебе щось неймовірне. Просто вір і чекай! 🎁✨",
+            "Нехай Господь вгамує будь-яку спрагу твоєї душі Своєю живою водою! 🌊",
+            "Твій шлях підсвічений Божою любов'ю. Простуй упевнено! 🌟",
+            "Нехай кожен твій день починається з посмішки та подяки! ☀️🙏",
+            "Господь — пастир твій, тому ти не матимеш нужди ні в чому! 🐑✨",
+            "Нехай Божий мир охороняє твої думки від смутку й тривоги! 🧠🕊️",
+            "Бажаю тобі щирого захоплення Божим творінням та Його любов'ю! 🌿🌺",
+            "Нехай Господь зцілить усе, що болить, та дасть нові сили! 🩹❤️",
+            "Твоє життя має велику цінність та призначення. Крокуй до мети! 🎯",
+            "Нехай любов Господня переповнює тебе так, щоб аж виливалася на інших! 🌊💖",
+            "Бажаю тобі міцного здоров'я, бадьорості духу та оптимізму! 🏃‍♂️✨",
+            "Нехай Божа присутність буде відчутною у кожній дрібниці дня! 🕊️",
+            "Усміхнись! Бог любить тебе більше, ніж ти можеш собі уявити! 🫶😍",
+            "Нехай Бог відкриє перед тобою всі двері, які ведуть до добра! 🚪🔑",
+            "Бажаю тобі спокою в бурях та непохитної віри у випробуваннях! ⛵🌩️",
+            "Нехай Творець пошле тобі затишок та тепло у кожну хвилину! ☕🏡",
+            "Твоє ім'я записане на долонях Бога. Ти в безпеці! ✋✨",
+            "Нехай Господь дарує тобі бачення та натхнення творити прекрасне! 🎨💫",
+            "Бажаю, щоб твій дім був місцем молитви, любові та дитячого сміху! 👨‍👩‍👧‍👦",
+            "Нехай Божий покров зберігає тебе та твоїх близьких від усього лихого! 🛡️",
+            "Кожен день — це нова сторінка Божої милості у твоєму житті! 📖✨",
+            "Нехай щирість та доброта відкривають перед тобою серця людей! 💖",
+            "Господь дає наснагу втомленому та помножує силу слабкому! 💪✨",
+            "Нехай Твій день буде сонячним, навіть якщо за вікном хмари! 🌤️",
+            "Божа любов розіллється у твоєму серці Духом Святим! 🔥❤️",
+            "Бажаю тобі легкості у вирішенні всіх питань сьогодні! 🎈",
+            "Нехай Божа краса наповнює твої очі світлом та радістю! ✨👁️",
+            "Твій голос чують на небесах. Молись із відкритим серцем! ☁️🙏",
+            "Нехай Господь благословить твій хліб та воду і відведе недуги! 🍞🥛",
+            "Будь джерелом світла та добра для кожного, кого зустрінеш! 💡🤝",
+            "Нехай благодать Господа Ісуса Христа буде з твоїм духом! 🕊️✨",
+            "Завжди радій, безперестанку молись, за все дякуй! 😃🙏🙌",
+            "Нехай Божа ніжність торкнеться тебе у цю хвилину! 🌸🌿",
+            "Господь — твоє світло та спасіння, кого тобі боятися? ☀️🛡️",
+            "Нехай твої дні будуть наповнені глибоким смислом та радістю! 📜✨",
+            "Бажаю тобі перемог у кожній духовній та життєвій битві! 🏆⚔️",
+            "Нехай Господь перетворить твої сльози на джерело радості! 💧➡️🌸",
+            "Бог дає тобі нове серце та новий дух для переможного життя! ❤️🔥",
+            "Нехай Господь наповнить твоє життя яскравими кольорами благодаті! 🌈",
+            "Ти світло для світу. Не ховай своє світло під посудиною! 🕯️🌍",
+            "Нехай благословенний буде твій день, твою працю та твій відпочинок! 🛋️✨",
+            "Бог — твоя фортеця. Біжи до Вона і будь у безпеці! 🏰🏃‍♂️",
+            "Нехай Господь подарує тобі глибокий та відновлюючий сон! 🌙💤",
+            "Твоя віра — це сила, яка перемагає світ! 🛡️✨",
+            "Нехай Божа ніжність зігріває тебе у найхолодніші моменти! ☀️🥰",
+            "Господь із тобою! Усміхнись і з легкістю крокуй у новий день! 🫶✨"
+        ];
+
+        // Логіка неонової кнопки побажань з анімацією
+        const blessingBtn = document.getElementById('blessingBtn');
+        const blessingCard = document.getElementById('blessingCard');
+        const blessingText = document.getElementById('blessingText');
+        let isAnimating = false;
+
+        if (blessingBtn && blessingCard && blessingText) {
+            blessingBtn.addEventListener('click', () => {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                const getRandomMsg = () => warmBlessings[Math.floor(Math.random() * warmBlessings.length)];
+
+                if (blessingCard.classList.contains('active')) {
+                    // Старе побажання плавно улітає наверх
+                    blessingCard.classList.remove('active');
+                    blessingCard.classList.add('fly-out');
+
+                    setTimeout(() => {
+                        blessingCard.classList.remove('fly-out');
+                        blessingText.textContent = getRandomMsg();
+                        // Нове побажання плавно випливає знизу
+                        blessingCard.classList.add('active');
+                        isAnimating = false;
+                    }, 500);
+                } else {
+                    blessingText.textContent = getRandomMsg();
+                    blessingCard.classList.add('active');
+                    isAnimating = false;
+                }
+            });
+        }
+
+        // ==========================================
+        // БАЗА СЛОВА ДНЯ З ДОДАНИМИ ВІРШАМИ (ОНОВЛЕННЯ ЩОДНІ О 00:00 GMT+3)
+        // ==========================================
+        const dailyVerses = [
+            { text: "«Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутностi та надію.»", ref: "Єремії 29:11" },
+            { text: "«Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі.»", ref: "До Филип'ян 4:13" },
+            { text: "«Господь — то мій Пастир, тому в недостатку не буду.»", ref: "Псалом 22:1" },
+            { text: "«Ні про що не турбуйтесь, але в усьому молитвою та проханням з подякою відкривайте свої бажання перед Богом.»", ref: "До Филип'ян 4:6" },
+            { text: "«Будьте сильні та відважні, не бійтеся й не лякайтеся, бо Господь, Бог твій, Він Той, Хто ходить з тобою, — Він не залишить тебе й не покине тебе!»", ref: "Повторення Закону 31:6" },
+            { text: "«Прийдіть до Мене, усі струджені та обтяжені, — і Я заспокою вас!»", ref: "Від Матвія 11:28" },
+            { text: "«Бо так залюбив Бог світ, що віддав Сина Свого Єдинородного, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.»", ref: "Від Івана 3:16" },
+            { text: "«Дім і багатство — спадщина від батьків, а розумна дружина — від Господа.»", ref: "Приповісті 19:14" },
+            { text: "«Слово Твоє — каганець для моєї ноги вдень і світло для стежки моєї.»", ref: "Псалом 118:105" },
+            { text: "«Надійся на Господа всім своїм серцем, а на розум свій не покладайся!»", ref: "Приповісті 3:5" },
+            { text: "«А Бог надії нехай наповнить вас усякою радістю й миром у вірі, щоб ви збагатились надією силю Святого Духа!»", ref: "До Римлян 15:13" },
+            { text: "«Господь — моє світло й спасіння моє, кого буду боятись? Господь — твердиня мого життя, кого буду лякатись?»", ref: "Псалом 26:1" },
+            { text: "«Дякуйте Господу, добрий бо Він, бо повіки Його милосердя!»", ref: "Псалом 106:1" },
+            { text: "«Мир залишаю вам, Мій мир даю вам; не так, як світ дає, Я даю вам. Нехай не тривожиться серце ваше і не лякається.»", ref: "Від Івана 14:27" },
+            { text: "«А шукайте найперше Царства Божого та правди Його, — і все це вам додасться.»", ref: "Від Матвія 6:33" },
+            { text: "«Упаде біля тебе тисяча, і десять тисяч праворуч тебе, — до тебе ж не дійде!»", ref: "Псалом 90:7" },
+            { text: "«Благословенна людина, що сподівається на Господа, і що Господь — її надія!»", ref: "Єремії 17:7" },
+            { text: "«Ви — світло для світу. Не може сховатися місто, що стоїть на верховині гори.»", ref: "Від Матвія 5:14" },
+            { text: "«Хто живе під покровoм Всевишнього, той у тіні Всемогутнього ночує.»", ref: "Псалом 90:1" },
+            { text: "«А тим, хто любить Бога, хто покликаний Його постановою, усе допомагає на добре.»", ref: "До Римлян 8:28" },
+            { text: "«Тож підкоріться Богу, протистаньте дияволу — і він утече від вас.»", ref: "Якова 4:7" },
+            { text: "«Завжди радійте. Безперестанку моліться. За все дякуйте, бо така щодо вас воля Божа у Христі Ісусі.»", ref: "1 до Солунян 5:16-18" },
+            { text: "«Блаженні чисті серцем, бо вони Бога побачать.»", ref: "Від Матвія 5:8" },
+            { text: "«Бо я переконаний, що ні смерть, ні життя... ні створене інше не зможе відлучити нас від любові Божої, яка в Христі Ісусі, Господі нашому!»", ref: "До Римлян 8:38-39" },
+            { text: "«Творіть добро і не знеохочуйтеся, бо у свій час пожнемо, якщо не ослабнемо.»", ref: "До Галатів 6:9" }
+        ];
+
+        // Функція визначення слова дня за часом GMT+3 (зміна о 00:00 GMT+3 кожні 24 години)
+        function updateWordOfDay() {
+            const wordTextEl = document.getElementById('wordText');
+            const wordRefEl = document.getElementById('wordReference');
+
+            if (!wordTextEl || !wordRefEl) return;
+
+            const now = new Date();
+            const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const gmt3Ms = utcMs + (3600000 * 3);
+            
+            // Розрахунок днів від фіксованої відправної точки (1 січня 2026 р.)
+            const baseDateMs = Date.UTC(2026, 0, 1, 0, 0, 0);
+            const dayIndex = Math.floor((gmt3Ms - baseDateMs) / (1000 * 60 * 60 * 24));
+            
+            const verseCount = dailyVerses.length;
+            const selectedIndex = ((dayIndex % verseCount) + verseCount) % verseCount;
+            const todayVerse = dailyVerses[selectedIndex];
+
+            wordTextEl.textContent = todayVerse.text;
+            wordRefEl.textContent = `— ${todayVerse.ref}`;
+        }
+
+        updateWordOfDay();
+        // Розрахунок інтервалу оновлення точно до наступної 00:00 GMT+3
+        function scheduleNextWordUpdate() {
+            const now = new Date();
+            const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const gmt3Now = new Date(utcMs + (3600000 * 3));
+
+            const gmt3NextMidnight = new Date(gmt3Now.getFullYear(), gmt3Now.getMonth(), gmt3Now.getDate() + 1, 0, 0, 2);
+            const msToMidnight = gmt3NextMidnight.getTime() - gmt3Now.getTime();
+
+            setTimeout(() => {
+                updateWordOfDay();
+                scheduleNextWordUpdate();
+            }, msToMidnight);
+        }
+        scheduleNextWordUpdate();
     </script>
 </body>
 </html>

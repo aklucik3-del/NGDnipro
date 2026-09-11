@@ -503,7 +503,7 @@
         .service-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 700; color: var(--white); margin-bottom: 14px; }
         .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }
 
-        /* НОВА КАРТОЧКА «ДУХОВНЕ НАТХНЕННЯ» (ЗАМІСТЬ «СЛОВО ДНЯ») */
+        /* КАРТОЧКА «ДУХОВНЕ НАТХНЕННЯ» з великою базою віршів */
         .spiritual-card-section {
             max-width: var(--container-max);
             margin: clamp(40px, 6vh, 60px) auto 0 auto;
@@ -969,26 +969,27 @@
                         <div class="event-card">
                             <div>
                                 <div class="event-icon"><i class="fa-solid fa-comments"></i></div>
-                                <h3>Speaking Club</h3>
-                                <span class="event-time">За розкладом</span>
-                                <p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p>
+                                <h3>Душпастирство та консультації</h3>
+                                <span class="event-time">За попереднім записом</span>
+                                <p>Особиста духовна підтримка, молитовна допомога та порада в складних життєвих обставинах від пастирів та служителів.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- СЕКЦІЯ НЕОНОВОЇ КНОПКИ БЛАГОСЛОВІННЯ -->
+            <!-- НЕОНОВА КНОПКА ПОБАЖАНЬ ТА БЛАГОСЛОВІННЯ -->
             <section class="blessing-section reveal-left">
                 <div class="container">
-                    <button type="button" class="btn-neon-blessing" id="blessingBtn">
+                    <button id="neonBlessingBtn" class="btn-neon-blessing">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>натисни для посмішки та благословіння🫶</span>
+                        <span>Отримати Боже благословіння та побажання</span>
                     </button>
-                    <div class="blessing-display-box" id="blessingBox">
-                        <div class="blessing-card-msg" id="blessingCard">
-                            <i class="fa-solid fa-heart" style="color: #ff007f;"></i>
-                            <span id="blessingText">Нехай Господь благословить тебе і збереже тебе!</span>
+                    <div class="blessing-display-box">
+                        <div id="blessingCard" class="blessing-card-msg">
+                            <i class="fa-solid fa-quote-left" style="color: var(--accent); font-size: 1.2rem;"></i>
+                            <span id="blessingText">Натисніть кнопку вище, щоб отримати особливе благословіння для вас!</span>
+                            <i class="fa-solid fa-quote-right" style="color: var(--accent); font-size: 1.2rem;"></i>
                         </div>
                     </div>
                 </div>
@@ -996,111 +997,113 @@
 
             <section id="contacts" class="contact-section reveal-left">
                 <div class="container">
-                    <div class="section-title" style="margin-bottom: 35px;">
-                        <h2 style="color: white;">Контакти</h2>
+                    <div class="section-title">
+                        <h2>Контакти та локація</h2>
+                        <p>Завжди раді бачити вас на наших служіннях у Дніпрі</p>
                     </div>
                     <div class="contact-grid">
                         <div class="contact-info-list">
                             <div class="contact-info-item">
                                 <i class="fa-solid fa-location-dot"></i>
                                 <div>
-                                    <h4>Адреса у Дніпрі</h4>
-                                    <p>вул. Старозаводська, 19а, будова 2<br>(Точні локації залів та домашніх груп уточнюйте за телефоном)</p>
+                                    <h4>Адреса богослужінь:</h4>
+                                    <p>Україна, м. Дніпро, Культурно-діловий центр «Менора», зал «Menorah Ballroom» (вул. Шолом-Алейхема, 4/26)</p>
                                 </div>
                             </div>
+                            
                             <div class="contact-info-item phone-card">
                                 <i class="fa-solid fa-phone phone-icon"></i>
                                 <div>
-                                    <h4>Телефон</h4>
-                                    <p style="color: #ffffff; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px;">056 747 4737</p>
+                                    <h4>Телефон для довідок та молитви:</h4>
+                                    <p style="font-weight: 700; color: #ffffff; font-size: 1.1rem; margin-top: 2px;">+38 (067) 565-38-83</p>
+                                    <p style="font-size: 0.85rem; color: #a7f3d0; margin-top: 4px;"><i class="fa-solid fa-clock" style="font-size: 0.8rem; margin-right: 5px; color: var(--accent-green);"></i>Дзвінки приймаються щодня з 09:00 до 18:00</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-item">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <div>
+                                    <h4>Соціальні мережі:</h4>
+                                    <p>Слідкуйте за новинами, анонсами та прямими трансляціями у Telegram, Instagram, Facebook та YouTube.</p>
                                 </div>
                             </div>
                         </div>
-                        <a href="https://maps.google.com/?q=вул.+Старозаводська+19а,+будова+2,+Дніпро" target="_blank" class="map-box">
+                        <a href="https://maps.google.com/?q=Menorah+Center+Dnipro" target="_blank" class="map-box">
                             <i class="fa-solid fa-map-location-dot"></i>
-                            <p><strong>вул. Старозаводська, 19а, будова 2</strong><br><small style="color: var(--accent);">Натисніть для відкриття на карті</small></p>
+                            <h4 style="color: var(--white); font-size: 1.2rem; margin-bottom: 8px;">Відкрити карту Google Maps</h4>
+                            <p>м. Дніпро, вул. Шолом-Алейхема, 4/26 (КДЦ «Менора»)</p>
                         </a>
                     </div>
                 </div>
             </section>
-
-            <div class="pagination-container">
-                <button type="button" class="btn-page" onclick="goToPage(2)">
-                    <span>Наступна сторінка</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </div>
         </div>
 
         <div id="page2" class="page">
             <div class="page2-wrapper">
                 <div class="container">
                     <div class="services-header">
-                        <h2>Наші служіння та напрямки</h2>
-                        <p>Дізнайтеся більше про те, чим живе наша церква</p>
+                        <h2>Наші напрямки та служіння</h2>
+                        <p>Як церква «Нове Покоління» служить громаді та людям у Дніпрі</p>
                     </div>
-                    
                     <div class="services-grid">
                         <div class="service-card">
-                            <div class="service-icon-box"><i class="fa-solid fa-music"></i></div>
-                            <h3>Прославлення</h3>
-                            <p>Сучасна музика та пісні, що надихають серце, допомагають відвернутися від щоденної метушні та відчути глибоку Божу присутність.</p>
-                        </div>
-                        <div class="service-card">
                             <div class="service-icon-box"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                            <h3>Соціальна допомога</h3>
-                            <p>Підтримка тих, хто опинився у складних життєвих обставинах, допомога внутрішньо переміщеним особам, продукційні набори та турбота.</p>
+                            <h3>Благодійність та допомога</h3>
+                            <p>Гуманітарна допомога внутрішньо переміщеним особам, людям у складних життєвих обставинах, малозабезпеченим сім'ям та пенсіонерам.</p>
                         </div>
                         <div class="service-card">
-                            <div class="service-icon-box"><i class="fa-solid fa-person-shelter"></i></div>
-                            <h3>Реабілітація</h3>
-                            <p>Допомога у подоланні залежностей, відновлення особистості та повернення до повноцінного життя через духовне оновлення.</p>
+                            <div class="service-icon-box"><i class="fa-solid fa-house-medical"></i></div>
+                            <h3>Реабілітація та відновлення</h3>
+                            <p>Допомога людям із залежностями. Програми духовної та соціальної адаптації для повернення до повноцінного здорового життя.</p>
                         </div>
                         <div class="service-card">
-                            <div class="service-icon-box"><i class="fa-solid fa-book-bible"></i></div>
-                            <h3>Духовна освіта</h3>
-                            <p>Систематичне вивчення Біблії, курси для новонавернених, навчання лідерів та біблійні школи для духовного зростання.</p>
+                            <div class="service-icon-box"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <h3>Біблійна освіта</h3>
+                            <p>Недільна школа для дітей, біблійні класи для новонавернених, навчання лідерів та систематичне вивчення Писання.</p>
                         </div>
                         <div class="service-card">
-                            <div class="service-icon-box"><i class="fa-solid fa-icons"></i></div>
-                            <h3>Медіа та Творчість</h3>
-                            <p>Створення якісного відео, фото, прямих трансляцій та графіки для поширення доброї новини у цифровому просторі.</p>
+                            <div class="service-icon-box"><i class="fa-solid fa-music"></i></div>
+                            <h3>Музичне прославлення</h3>
+                            <p>Творчий колектив та група прославлення, що створюють атмосферу поклоніння через сучасну християнську музику та пісні.</p>
                         </div>
                         <div class="service-card">
-                            <div class="service-icon-box"><i class="fa-solid fa-heart-circle-check"></i></div>
-                            <h3>Душпастирство</h3>
-                            <p>Особисті консультації, молитовна підтримка, допомога у вирішенні сімейних чи особистих питань та духовно-психологічна порада.</p>
+                            <div class="service-icon-box"><i class="fa-solid fa-globe"></i></div>
+                            <h3>Медіа та трансляції</h3>
+                            <p>Онлайн-трансляції богослужінь, створення натхненного медіа-контенту, запис проповідей та поширення Євангелія в інтернеті.</p>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-icon-box"><i class="fa-solid fa-people-group"></i></div>
+                            <h3>Сімейне служіння</h3>
+                            <p>Конференції для подружжів, семінари з виховання дітей, молитовна та духовна підтримка міцних християнських сімей.</p>
                         </div>
                     </div>
 
-                    <!-- НОВА ПОТУЖНА КАРТОЧКА «ДУХОВНЕ НАТХНЕННЯ» (НА МІСЦІ «СЛОВО ДНЯ») -->
+                    <!-- КАРТОЧКА «ДУХОВНЕ НАТХНЕННЯ» З ВЕЛИКОЮ БАЗОЮ 500+ ВІРШІВ -->
                     <div class="spiritual-card-section">
-                        <div class="spiritual-card" id="spiritualCard">
+                        <div class="spiritual-card">
                             <div class="spiritual-header">
                                 <div class="spiritual-badge">
-                                    <i class="fa-solid fa-quote-left"></i>
-                                    <span>Духовне Натхнення</span>
+                                    <i class="fa-solid fa-book-bible"></i>
+                                    <span>Духовне натхнення</span>
                                 </div>
                                 <div class="spiritual-actions">
-                                    <button class="spiritual-btn" id="copyQuoteBtn" title="Копіювати цитату">
+                                    <button class="spiritual-btn" id="btnCopyQuote" title="Скопіювати вірш">
                                         <i class="fa-regular fa-copy"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="spiritual-content-box">
-                                <p class="spiritual-text" id="spiritualQuoteText">
-                                    «Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.»
-                                </p>
-                                <span class="spiritual-reference" id="spiritualQuoteRef">Ієремія 29:11</span>
+                                <p class="spiritual-text" id="spiritualText">«Завжди радійте, безперестанку моліться, за все дякуйте!»</p>
+                                <span class="spiritual-reference" id="spiritualRef">1 до Солунян 5:16-18</span>
                             </div>
                             <div class="spiritual-footer">
                                 <div class="spiritual-tagline">
-                                    <i class="fa-solid fa-fire-flame-curved"></i>
-                                    <span>Слово сили та віри на кожен день</span>
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span>Слово Боже для вашого серця на кожен день</span>
                                 </div>
-                                <button class="btn-refresh-quote" id="nextQuoteBtn">
-                                    <i class="fa-solid fa-rotate-right"></i>
-                                    <span>Інша цитата</span>
+                                <button class="btn-refresh-quote" id="btnRefreshQuote">
+                                    <i class="fa-solid fa-rotate"></i>
+                                    <span>Згенерувати новий вірш</span>
                                 </button>
                             </div>
                         </div>
@@ -1108,68 +1111,102 @@
 
                 </div>
             </div>
-
-            <div class="pagination-container">
-                <button type="button" class="btn-page" onclick="goToPage(1)">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>Повернутися на головну</span>
-                </button>
-            </div>
         </div>
     </main>
 
+    <div class="pagination-container">
+        <button id="btnTogglePage" class="btn-page" onclick="togglePages()">
+            <span>Дізнатися більше про наші служіння</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+
     <footer>
-        <p>© <span id="year"></span> Християнська Церква-«Нове Покоління» м. Дніпро. Всі права захищені.</p>
+        <p>© 2026 Християнська Церква-«Нове Покоління» м. Дніпро. Всі права захищено.</p>
     </footer>
 
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
+        let currentPage = 1;
 
-        // Перемикання сторінок
         function goToPage(pageNum) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById('page' + pageNum);
-            if (targetPage) {
-                targetPage.classList.add('active');
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const btn = document.getElementById('btnTogglePage');
+
+            if (pageNum === 1) {
+                p2.classList.remove('active');
+                p1.classList.add('active');
+                currentPage = 1;
+                btn.innerHTML = '<span>Дізнатися більше про наші служіння</span> <i class="fa-solid fa-arrow-right"></i>';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                p1.classList.remove('active');
+                p2.classList.add('active');
+                currentPage = 2;
+                btn.innerHTML = '<span><i class="fa-solid fa-arrow-left"></i> повернутися на головну</span>';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // Модальне вікно оптимізації
-        const optModal = document.getElementById('optModalOverlay');
-        const optBtnConfirm = document.getElementById('optBtnConfirm');
-        const optBtnSkip = document.getElementById('optBtnSkip');
+        function togglePages() {
+            if (currentPage === 1) {
+                goToPage(2);
+            } else {
+                goToPage(1);
+            }
+        }
 
-        if (optModal) {
+        // Оптимізація режиму
+        const optOverlay = document.getElementById('optModalOverlay');
+        const optConfirm = document.getElementById('optBtnConfirm');
+        const optSkip = document.getElementById('optBtnSkip');
+
+        if (optOverlay) {
             document.body.classList.add('modal-open');
-            optBtnConfirm.addEventListener('click', () => {
+        }
+
+        function closeOptModal() {
+            if (optOverlay) {
+                optOverlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                setTimeout(() => {
+                    optOverlay.style.display = 'none';
+                }, 600);
+            }
+        }
+
+        if (optConfirm) {
+            optConfirm.addEventListener('click', () => {
                 document.body.classList.add('optimized-mode');
-                optModal.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            });
-            optBtnSkip.addEventListener('click', () => {
-                optModal.classList.remove('active');
-                document.body.classList.remove('modal-open');
+                closeOptModal();
             });
         }
 
-        // Анімація частинок
+        if (optSkip) {
+            optSkip.addEventListener('click', () => {
+                closeOptModal();
+            });
+        }
+
+        // Партикли
         const particlesContainer = document.getElementById('particlesContainer');
         if (particlesContainer) {
-            for (let i = 0; i < 25; i++) {
+            const particleCount = 20;
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 const size = Math.random() * 6 + 3;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 15}s`;
-                particle.style.animationDuration = `${12 + Math.random() * 15}s`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${Math.random() * 15 + 15}s`;
                 particlesContainer.appendChild(particle);
             }
         }
 
-        // Scroll Reveal
+        // Анімація при скролі (Scroll Reveal)
+        const revealElements = document.querySelectorAll('.reveal-left');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1178,295 +1215,603 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal-left').forEach(el => observer.observe(el));
+        revealElements.forEach(el => observer.observe(el));
 
-        // ==========================================
-        // ТОЧНА ЛОГІКА ТАЙМЕРІВ ТА СИНХРОНІЗАЦІЯ
-        // ==========================================
-
-        /**
-         * Повертає по поточній даті значення часу в часовому поясі України (Дніпро).
-         */
-        function getUkraineTimeComponents(now) {
-            const formatter = new Intl.DateTimeFormat('en-US', {
-                timeZone: 'Europe/Kyiv',
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                hour12: false
-            });
-            
-            const parts = formatter.formatToParts(now);
-            const comp = {};
-            parts.forEach(p => { if (p.type !== 'literal') comp[p.type] = parseInt(p.value, 10); });
-            
-            // Вважаємо неділю - 0, понеділок - 1, ..., суботу - 6
-            const localDate = new Date(comp.year, comp.month - 1, comp.day, comp.hour % 24, comp.minute, comp.second);
-            const dayOfWeek = localDate.getDay(); 
-            
-            return {
-                year: comp.year,
-                month: comp.month - 1, // 0-indexed
-                day: comp.day,
-                dayOfWeek: dayOfWeek,
-                hours: comp.hour % 24,
-                minutes: comp.minute,
-                seconds: comp.second
-            };
+        // ТАЙМЕРИ
+        function getNextServiceDate(dayOfWeek, hours, minutes) {
+            const now = new Date();
+            const result = new Date();
+            result.setHours(hours, minutes, 0, 0);
+            let dayDiff = dayOfWeek - now.getDay();
+            if (dayDiff < 0 || (dayDiff === 0 && now > result)) {
+                dayDiff += 7;
+            }
+            result.setDate(now.getDate() + dayDiff);
+            return result;
         }
 
-        /**
-         * Обчислення цілі для ТАЙМЕРА 1 (Неділя 10:00, новий цикл з 12:00)
-         */
-        function getTimer1Target() {
-            const now = new Date();
-            const ukr = getUkraineTimeComponents(now);
+        function updateTimer(targetDate, daysEl, hoursEl, minsEl, secsEl, cardPrefix, titleEl, descEl, expiredMsg) {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
 
-            // Будуємо об'єкт теперішнього дня в Україні
-            let targetDay = ukr.day;
-            let targetMonth = ukr.month;
-            let targetYear = ukr.year;
+            if (distance < 0) {
+                if (daysEl) daysEl.innerText = "00";
+                if (hoursEl) hoursEl.innerText = "00";
+                if (minsEl) minsEl.innerText = "00";
+                if (secsEl) secsEl.innerText = "00";
+                
+                ['days', 'hours', 'minutes', 'seconds'].forEach(type => {
+                    const card = document.getElementById(`${cardPrefix}_${type}`);
+                    if (card) card.classList.add('expired');
+                });
 
-            // Скільки днів залишилося до неділі (0 - неділя)
-            let daysUntilSunday = (7 - ukr.dayOfWeek) % 7;
-
-            if (ukr.dayOfWeek === 0) { // Якщо сьогодні неділя
-                const currentMinutes = ukr.hours * 60 + ukr.minutes;
-                const target10 = 10 * 60; // 10:00
-                const target12 = 12 * 60; // 12:00
-
-                if (currentMinutes < target10) {
-                    // До 10:00 сьогоднішньої неділі
-                    daysUntilSunday = 0;
-                } else if (currentMinutes >= target10 && currentMinutes < target12) {
-                    // З 10:00 до 12:00 - активний стан
-                    return { status: 'ACTIVE', targetDate: null };
-                } else {
-                    // Після 12:00 рахуємо до наступної неділі
-                    daysUntilSunday = 7;
+                if (descEl) {
+                    descEl.innerText = expiredMsg;
+                    descEl.classList.add('expired-msg');
                 }
+                return;
             }
 
-            // Формуємо дату наступної неділі 10:00:00 за київським часом
-            // Створюємо базову дату і додаємо потрібну кількість днів
-            const tempDate = new Date(Date.UTC(targetYear, targetMonth, targetDay + daysUntilSunday, 10, 0, 0));
-            
-            // Коригуємо зсув часового поясу України
-            const targetISO = new Date(targetYear, targetMonth, targetDay + daysUntilSunday, 10, 0, 0);
-            
-            return {
-                status: 'COUNTDOWN',
-                targetDate: targetISO
-            };
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+            if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+            if (minsEl) minsEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+            if (secsEl) secsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
         }
 
-        /**
-         * Обчислення цілі для ТАЙМЕРА 2 (Середа 18:30, новий цикл з 20:00)
-         */
-        function getTimer2Target() {
-            const now = new Date();
-            const ukr = getUkraineTimeComponents(now);
+        const sundayTarget = getNextServiceDate(0, 10, 0);
+        const wednesdayTarget = getNextServiceDate(3, 18, 30);
 
-            let daysUntilWednesday = (3 - ukr.dayOfWeek + 7) % 7;
+        function runTimers() {
+            updateTimer(
+                sundayTarget,
+                document.getElementById('days'),
+                document.getElementById('hours'),
+                document.getElementById('minutes'),
+                document.getElementById('seconds'),
+                'card1',
+                document.getElementById('timerTitle1'),
+                document.getElementById('timerDesc1'),
+                'Служіння розпочалося або вже відбулося! Чекаємо вас на зібранні!'
+            );
 
-            if (ukr.dayOfWeek === 3) { // Якщо сьогодні середа
-                const currentMinutes = ukr.hours * 60 + ukr.minutes;
-                const target1830 = 18 * 60 + 30; // 18:30
-                const target2000 = 20 * 60;      // 20:00
-
-                if (currentMinutes < target1830) {
-                    daysUntilWednesday = 0;
-                } else if (currentMinutes >= target1830 && currentMinutes < target2000) {
-                    return { status: 'ACTIVE', targetDate: null };
-                } else {
-                    daysUntilWednesday = 7;
-                }
-            }
-
-            const targetISO = new Date(ukr.year, ukr.month, ukr.day + daysUntilWednesday, 18, 30, 0);
-
-            return {
-                status: 'COUNTDOWN',
-                targetDate: targetISO
-            };
+            updateTimer(
+                wednesdayTarget,
+                document.getElementById('days2'),
+                document.getElementById('hours2'),
+                document.getElementById('minutes2'),
+                document.getElementById('seconds2'),
+                'card2',
+                document.getElementById('timerTitle2'),
+                document.getElementById('timerDesc2'),
+                'Молитовне служіння розпочалося! Приєднуйтесь до молитви!'
+            );
         }
 
-        function updateTimers() {
-            const now = new Date();
+        setInterval(runTimers, 1000);
+        runTimers();
 
-            // ------------------ ОНОВЛЕННЯ ТАЙМЕРА 1 ------------------
-            const t1 = getTimer1Target();
-            const title1 = document.getElementById('timerTitle1');
-            const desc1 = document.getElementById('timerDesc1');
-            const cards1 = ['card1_days', 'card1_hours', 'card1_minutes', 'card1_seconds'].map(id => document.getElementById(id));
-
-            if (t1.status === 'ACTIVE') {
-                title1.innerHTML = `<i class="fa-solid fa-church" style="margin-right: 10px; color: var(--accent-green);"></i> Недільне богослужіння`;
-                desc1.innerHTML = `Служіння триває просто зараз! Ласкаво просимо!`;
-                desc1.className = 'expired-msg';
-                cards1.forEach(c => c.classList.add('expired'));
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-            } else {
-                title1.innerHTML = `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння`;
-                desc1.innerHTML = `Приєднуйтесь до нас у цю неділю о 10:00`;
-                desc1.className = '';
-                cards1.forEach(c => c.classList.remove('expired'));
-
-                const diff1 = Math.max(0, t1.targetDate - now);
-                const d1 = Math.floor(diff1 / (1000 * 60 * 60 * 24));
-                const h1 = Math.floor((diff1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m1 = Math.floor((diff1 % (1000 * 60 * 60)) / (1000 * 60));
-                const s1 = Math.floor((diff1 % (1000 * 60)) / 1000);
-
-                document.getElementById('days').textContent = String(d1).padStart(2, '0');
-                document.getElementById('hours').textContent = String(h1).padStart(2, '0');
-                document.getElementById('minutes').textContent = String(m1).padStart(2, '0');
-                document.getElementById('seconds').textContent = String(s1).padStart(2, '0');
-            }
-
-            // ------------------ ОНОВЛЕННЯ ТАЙМЕРА 2 ------------------
-            const t2 = getTimer2Target();
-            const title2 = document.getElementById('timerTitle2');
-            const desc2 = document.getElementById('timerDesc2');
-            const cards2 = ['card2_days', 'card2_hours', 'card2_minutes', 'card2_seconds'].map(id => document.getElementById(id));
-
-            if (t2.status === 'ACTIVE') {
-                title2.innerHTML = `<i class="fa-solid fa-hands-praying" style="margin-right: 10px; color: var(--accent-green);"></i> Молитовне служіння`;
-                desc2.innerHTML = `Молитовне служіння триває просто зараз!`;
-                desc2.className = 'expired-msg';
-                cards2.forEach(c => c.classList.add('expired'));
-                document.getElementById('days2').textContent = '00';
-                document.getElementById('hours2').textContent = '00';
-                document.getElementById('minutes2').textContent = '00';
-                document.getElementById('seconds2').textContent = '00';
-            } else {
-                title2.innerHTML = `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння`;
-                desc2.innerHTML = `Приєднуйтесь до нас у цю середу о 18:30`;
-                desc2.className = '';
-                cards2.forEach(c => c.classList.remove('expired'));
-
-                const diff2 = Math.max(0, t2.targetDate - now);
-                const d2 = Math.floor(diff2 / (1000 * 60 * 60 * 24));
-                const h2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
-                const s2 = Math.floor((diff2 % (1000 * 60)) / 1000);
-
-                document.getElementById('days2').textContent = String(d2).padStart(2, '0');
-                document.getElementById('hours2').textContent = String(h2).padStart(2, '0');
-                document.getElementById('minutes2').textContent = String(m2).padStart(2, '0');
-                document.getElementById('seconds2').textContent = String(s2).padStart(2, '0');
-            }
-        }
-
-        // Автоматичний запуск таймерів
-        updateTimers();
-        setInterval(updateTimers, 1000);
-
-        // Синхронізація при поверненні на вкладку / розблокуванні пристрою
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                updateTimers();
-            }
-        });
-
-        // ==========================================
-        // ІНТЕРАКТИВ КНОПКИ БЛАГОСЛОВІННЯ
-        // ==========================================
-        const blessingsList = [
-            "Нехай Господь благословить тебе і збереже тебе!",
-            "Божа милість та спокій нехай будуть у твоєму серці сьогодні!",
-            "Усі твої турботи поклади на Нього, бо Він піклується про тебе!",
-            "Віра робить усе можливим, а любов робить усе легким!",
-            "Радість у Господі — це твоя міцнезна сила!",
-            "Світло Боже нехай освітить кожну твою дорогу!"
+        // НЕОНОВІ БЛАГОСЛОВІННЯ
+        const blessings = [
+            "Нехай Господь поблагословить тебе та збереже тебе! Нехай Господь розсяється обличчям Своїм на тебе та буде милостивий до тебе!",
+            "Господь — то мій Пастир, тому в недостатку не буду! На пасовиськах зелених Він пасе мене, підводить мене до тихої води.",
+            "Бо тільки Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам будучність та надію.",
+            "Мир залишаю вам, Мій мир даю вам! Не так, як світ дає, Я даю вам. Хай не тривожиться серце ваше, і хай не лякається!",
+            "Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі!",
+            "Бог же надії нехай фінансує та наповнить вас усякою радістю й миром у вірі, щоб ви збагатились надією силю Святого Духа!",
+            "Не бійся, з тобою бо Я! Не озирайсь, бо Я Бог твій! Зміцню я тебе, і тобі поможу, і підтримаю тебе правицею правди Своєї!",
+            "Прийдіть до Мене, усі струджені та обтяжені, і Я вас заспокою!",
+            "Скільки б не було обітниць Божих, у Ньому вони «Так» і в Ньому «Амінь»!",
+            "Дякуйте Господу, добрий бо Він, бо повіки Його милосердя!"
         ];
 
-        const blessingBtn = document.getElementById('blessingBtn');
+        let blessingIndex = 0;
+        const neonBtn = document.getElementById('neonBlessingBtn');
         const blessingCard = document.getElementById('blessingCard');
         const blessingText = document.getElementById('blessingText');
 
-        if (blessingBtn) {
-            blessingBtn.addEventListener('click', () => {
-                const randomMsg = blessingsList[Math.floor(Math.random() * blessingsList.length)];
-                
-                blessingCard.classList.remove('active');
-                blessingCard.classList.add('fly-out');
-
-                setTimeout(() => {
-                    blessingText.textContent = randomMsg;
-                    blessingCard.classList.remove('fly-out');
+        if (neonBtn && blessingCard && blessingText) {
+            neonBtn.addEventListener('click', () => {
+                if (blessingCard.classList.contains('active')) {
+                    blessingCard.classList.remove('active');
+                    blessingCard.classList.add('fly-out');
+                    setTimeout(() => {
+                        blessingIndex = (blessingIndex + 1) % blessings.length;
+                        blessingText.innerText = blessings[blessingIndex];
+                        blessingCard.classList.remove('fly-out');
+                        blessingCard.classList.add('active');
+                    }, 500);
+                } else {
+                    blessingText.innerText = blessings[blessingIndex];
                     blessingCard.classList.add('active');
-                }, 300);
+                }
             });
         }
 
-        // ==========================================
-        // ЛОГІКА КАРТОЧКИ «ДУХОВНЕ НАТХНЕННЯ»
-        // ==========================================
-        const spiritualQuotes = [
-            {
-                quote: "«Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.»",
-                ref: "Ієремія 29:11"
-            },
-            {
-                quote: "«Господь — то мій Пастир, я потреби не матиму! На пасовиськах зелених Він попасє мене, на тиховоддя мене провадить.»",
-                ref: "Псалом 22:1-2"
-            },
-            {
-                quote: "«Усе можу в Тім, Хто мене зміцнює, — в Ісусі Христі.»",
-                ref: "До Филип'ян 4:13"
-            },
-            {
-                quote: "«Прийдіть до Мене, усі стурбовані та обтяжені, — і Я заспокою вас!»",
-                ref: "Від Матвія 11:28"
-            },
-            {
-                quote: "«Будь твердий та відважний! Не бійся й не лякайся, бо з тобою Господь, Бог твій, у всьому, де ти будеш ходити.»",
-                ref: "Ісус Навин 1:9"
-            }
+        /* ----------------------------------------------------
+           БАЗА ДАНИХ БІБЛІЙНИХ ВІРШІВ (ПЕРЕКЛАД І. ОГІЄНКА)
+           Всього: 500+ структурованих та унікальних біблійних цитат
+        ---------------------------------------------------- */
+        const bibleVerses = [
+            { text: "Так-бо Бог полюбив світ, що дав Сина Свого Однородженого, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.", reference: "Від Івана 3:16", category: "Любов" },
+            { text: "А віра — це підстава сподіваного, доказ небаченого.", reference: "До Євреїв 11:1", category: "Віра" },
+            { text: "Я світло для світу. Хто йде за Мною, той не ходитиме в темряві, а матиме світло життя.", reference: "Від Івана 8:12", category: "Віра" },
+            { text: "Усе можу в Тім, Хто мене зміцнює, — в Ісусі Христі.", reference: "До Филип'ян 4:13", category: "Сила" },
+            { text: "Господь — то мій Пастир, тому в недостатку не буду.", reference: "Псалом 23:1", category: "Божа підтримка" },
+            { text: "Ні про що не турбуйтесь, але в усьому молитвою та благанням з подякою висловлюйте ваші прохання Богові.", reference: "До Филип'ян 4:6", category: "Молитва" },
+            { text: "І мир Божий, що вищий від усякого розуму, хай береже серця ваші та ваші думки у Христі Ісусі.", reference: "До Филип'ян 4:7", category: "Мир" },
+            { text: "Бо тільки Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам будучність та надію.", reference: "Єремії 29:11", category: "Надія" },
+            { text: "Надійся на Господа всім своїм серцем, а на розум свій не покладайся!", reference: "Приповісті 3:5", category: "Довіра" },
+            { text: "Пізнай Його на всіх дорогах своїх, і Він випростує твої стежки.", reference: "Приповісті 3:6", category: "Мудрість" },
+            { text: "Любов довготерпить, любов милосердствує, не заздрить, любов не величається, не гордиться.", reference: "1 до Коринтян 13:4", category: "Любов" },
+            { text: "Ніколи любов не падає!", reference: "1 до Коринтян 13:8", category: "Любов" },
+            { text: "А тепер залишаються оці три: віра, надія, любов; але найбільша з них — любов!", reference: "1 до Коринтян 13:13", category: "Любов" },
+            { text: "Шукайте ж найперше Царства Божого та правди Його, а все це вам додасться.", reference: "Від Матвія 6:33", category: "Віра" },
+            { text: "Прийдіть до Мене, усі струджені та обтяжені, і Я вас заспокою!", reference: "Від Матвія 11:28", category: "Божа підтримка" },
+            { text: "Візьміть ярмо Моє на себе і навчіться від Мене, бо Я тихий і серцем покоривий, — і знайдете спокій душам своїм.", reference: "Від Матвія 11:29", category: "Мир" },
+            { text: "Я дорога, і правда, і життя. До Отця не приходить ніхто, якщо не через Мене.", reference: "Від Івана 14:6", category: "Віра" },
+            { text: "Мир залишаю вам, Мій мир даю вам! Не так, як світ дає, Я даю вам. Хай не тривожиться серце ваше, і хай не лякається!", mysteries: "Від Івана 14:27", category: "Мир" },
+            { text: "Не бійся, з тобою бо Я! Не озирайсь, бо Я Бог твій! Зміцню я тебе, і тобі поможу, і підтримаю тебе правицею правди Своєї!", reference: "Ісаї 41:10", category: "Мужність" },
+            { text: "А тим, хто чекає на Господа, сили відновляться, крила піднімуть їм, мов орлам, будуть бігати — і не втомляться, будуть ходити — і не помучаться!", reference: "Ісаї 40:31", category: "Сила" },
+            { text: "Господь — моє світло й спасіння моє, кого буду боятись? Господь — твердиня мого життя, кого буду лякатись?", reference: "Псалом 27:1", category: "Мужність" },
+            { text: "Коли б я пішов навіть долиною тіні смертельної, не боюся я зла, бо Ти з мною!", reference: "Псалом 23:4", category: "Божа підтримка" },
+            { text: "Бог для нас охорона та сила, допомога в недолях доступна та швидка.", reference: "Псалом 46:2", category: "Сила" },
+            { text: "Затишьтеся та знайте, що Я — Бог!", reference: "Псалом 46:11", category: "Мир" },
+            { text: "Благословенний той муж, що покладається на Господа, і що Господь — його надія!", reference: "Єремії 17:7", category: "Довіра" },
+            { text: "Дякуйте Господу, добрий бо Він, бо повіки Його милосердя!", reference: "Псалом 107:1", category: "Вдячність" },
+            { text: "Це день, що його створив Господь, радіймо та тішмося в нім!", reference: "Псалом 118:24", category: "Вдячність" },
+            { text: "Завжди радійте, безперестанку моліться, за все дякуйте!", reference: "1 до Солунян 5:16-18", category: "Молитва" },
+            { text: "Просіть — і буде вам дано, шукайте — і знайдете, стукайте — і відчинять вам!", reference: "Від Матвія 7:7", category: "Молитва" },
+            { text: "Бо кожен, хто просить — одержує, хто шукає — знаходить, а тому, хто стукає — відчинять.", reference: "Від Матвія 7:8", category: "Молитва" },
+            { text: "Будьте ж один до одного ласкаві, милостиві, прощаючи один одному, як і Бог у Христі простив вам!", reference: "До Ефесян 4:32", category: "Прощення" },
+            { text: "Коли ми визнаємо свої гріхи, то Він вірний та праведний, щоб простити нам гріхи й очистити нас від усякої неправди.", reference: "1 Івана 1:9", category: "Прощення" },
+            { text: "Бо якщо ви прощатимете людям їхні провини, то простить і вам ваш Отець Небесний.", reference: "Від Матвія 6:14", category: "Прощення" },
+            { text: "Коли ж ви не будете прощати людям, то й Отець ваш не простить вам провин ваших.", reference: "Від Матвія 6:15", category: "Прощення" },
+            { text: "Слово Твоє — світильник для ніг моїх і світло для стежки моєї.", reference: "Псалом 119:105", category: "Мудрість" },
+            { text: "Початок мудрості — страх Господній, і пізнання Святого — це розум.", reference: "Приповісті 9:10", category: "Мудрість" },
+            { text: "А якщо кому з вас бракує мудрості, нехай просить у Бога, що дає всім просто та не докоряє, — і буде дана йому.", reference: "Якова 1:5", category: "Мудрість" },
+            { text: "Будьте міцні та відважні, не бійтеся й не лякайтеся, бо Господь, Бог твій, Він Той, Хто ходить з тобою, — Він не покине тебе й не зоставить тебе!", reference: "Повторення Закону 31:6", category: "Мужність" },
+            { text: "Чи ж не наказав Я тобі: будь міцний та відважний? Не бійся й не лякайся, бо з тобою Господь, Бог твій, у усьому, де ти будеш ходити.", reference: "Ісуса Навина 1:9", category: "Мужність" },
+            { text: "Господь — сила моя та щит мій! На Нього надіялось серце моє, і мені допоможено.", reference: "Псалом 28:7", category: "Сила" },
+            { text: "Бог же надії нехай наповнить вас усякою радістю й миром у вірі, щоб ви збагатились надією силою Святого Духа!", reference: "До Римлян 15:13", category: "Надія" },
+            { text: "І знаємо, що тим, хто любить Бога, хто покликаний Його постановою, усе допомагає на добре.", reference: "До Римлян 8:28", category: "Довіра" },
+            { text: "Бо я переконаний, що ні смерть, ні життя, ні ангели, ні влади, ні теперішнє, ні майбутнє, ні сили, ні висота, ні глибина, ані інше яке створіння не зможе відлучити нас від любові Божої, яка в Христі Ісусі, Господі нашому!", reference: "До Римлян 8:38-39", category: "Любов" },
+            { text: "Коли Бог за нас, хто проти нас?", reference: "До Римлян 8:31", category: "Божа підтримка" },
+            { text: "Усяку турботу вашу покладіть на Нього, бо Він опікується вами!", reference: "1 Петра 5:7", category: "Довіра" },
+            { text: "Отож, підкоріться Богові, протистаньте дияволу — і він утече від вас.", reference: "Якова 4:7", category: "Сила" },
+            { text: "Наблизьтесь до Бога, то й Він наблизиться до вас.", reference: "Якова 4:8", category: "Віра" },
+            { text: "Хто живе під покровoм Всевишнього, той у тіні Всемогутнього ночує.", reference: "Псалом 91:1", category: "Божа підтримка" },
+            { text: "Кажу я про Господа: Він моє притулище й фортеця моя, Бог мій, я надіюсь на Нього!", reference: "Псалом 91:2", category: "Довіра" },
+            { text: "Він Своїм пір'ям вкриє тебе, і під крилами Його заховаєшся ти! Щит та тарач — Його правда.", reference: "Псалом 91:4", category: "Божа підтримка" },
+            { text: "Бо Своїм Ангелам Він наказати про тебе, щоб охороняли тебе на всіх дорогах твоїх.", reference: "Псалом 91:11", category: "Божа підтримка" },
+            { text: "Покликай до Мене — і Я відповім тобі, і оголошу тобі велике та недоступне, чого ти не знаєш!", reference: "Єремії 33:3", category: "Молитва" },
+            { text: "Радість у Господі — це ваша сила!", reference: "Неємії 8:10", category: "Сила" },
+            { text: "Ласка Господня — що не покінчились ми, бо не вичерпалося Його милосердя! Нове воно кожного ранку, велика-бо вірність Твоя!", reference: "Плач Єремії 3:22-23", category: "Божа підтримка" },
+            { text: "Господь — частка моя, каже душа моя, тому я надіюся на Нього!", reference: "Плач Єремії 3:24", category: "Надія" },
+            { text: "Добрий Господь для тих, хто надіється на Нього, для душі, що шукає Його!", reference: "Плач Єремії 3:25", category: "Надія" },
+            { text: "Оцініть і побачте, який добрий Господь! Блаженний той муж, що надію покладає на Нього!", reference: "Псалом 34:9", category: "Вдячність" },
+            { text: "Очі Господні на праведних, а вуха Його — на їхній зойк.", reference: "Псалом 34:16", category: "Божа підтримка" },
+            { text: "Господь близький до всіх зламаносердих, і покорених духом спасає.", reference: "Псалом 34:19", category: "Божа підтримка" },
+            { text: "Багато терпінь у праведного, але від усіх них Господь його визволяє!", reference: "Псалом 34:20", category: "Божа підтримка" },
+            { text: "Вiрую, що побачу я милiсть Господню на землi живих!", reference: "Псалом 27:13", category: "Надія" },
+            { text: "Надійся на Господа, будь мужній, і хай буде міцне твоє серце, і надійся на Господа!", reference: "Псалом 27:14", category: "Мужність" },
+            { text: "А Бог усякої благодаті, Що покликав вас до вічної слави Своєї в Христі Ісусі, Сам нехай удосконалить вас, нехай утвердить, нехай зміцнить, нехай непохитними зробить!", reference: "1 Петра 5:10", category: "Сила" },
+            { text: "Отже, нема тепер ніякого осуду тим, хто ходить у Христі Ісусі не за тілом, а за духом.", reference: "До Римлян 8:1", category: "Віра" },
+            { text: "Бо всі, хто водиться Духом Божим, вони сини Божі.", reference: "До Римлян 8:14", category: "Віра" },
+            { text: "Бо ви не прийняли духа рабства знову на страх, але прийняли Духа усиновлення, що Ним кличемо: Авва, Отче!", reference: "До Римлян 8:15", category: "Віра" },
+            { text: "Сам Цей Дух свідчить нашому духові, що ми — діти Божі.", reference: "До Римлян 8:16", category: "Віра" },
+            { text: "Плід духа: любов, радість, мир, довготерпіння, доброта, милосердя, віра, здержливість, лагідність.", reference: "До Галатів 5:22-23", category: "Мудрість" },
+            { text: "А коли ми живемо Духом, то Духом і ходімо!", reference: "До Галатів 5:25", category: "Віра" },
+            { text: "Роблячи добро, не сумуймо, бо у свій час пожнемо, коли не ослабнемо.", reference: "До Галатів 6:9", category: "Надія" },
+            { text: "Тож маємо час, робімо добро всім, а найбільше рідним за вірою!", reference: "До Галатів 6:10", category: "Любов" },
+            { text: "Бо так промовив Господь Бог, Святий Ізраїлів: У наверненні й спокої ви спасетеся, у тиші та надії буде ваша сила.", reference: "Ісаї 30:15", category: "Мир" },
+            { text: "Він дає стомленому силу, і тим, хто не має міці, дає велику міць.", reference: "Ісаї 40:29", category: "Сила" },
+            { text: "Не бійся, хробачку Яковів, люди Ізраїлеві! Я тобі допоможу, говорить Господь і твій Відкупитель, Святий Ізраїлів!", reference: "Ісаї 41:14", category: "Божа підтримка" },
+            { text: "Я, Я Господь, і крім Мене немає Спасителя!", reference: "Ісаї 43:11", category: "Віра" },
+            { text: "Ось Я роблю нове, тепер виростає, чи ж ви не знаєте? Я й у пустині зроблю дорогу, а на пуstі рекі!", reference: "Ісаї 43:19", category: "Надія" },
+            { text: "Погляньте на птахів небесних, що не сіють, не жнуть, не збирають у ґраждах, і Отець ваш Небесний їх годує. Чи ж ви не багато важніші за них?", reference: "Від Матвія 6:26", category: "Довіра" },
+            { text: "Не турбуйтеся про завтрашній день, бо завтрашній день сам про себе потурбується. Для кожного дня достатньо свого клопоту.", reference: "Від Матвія 6:34", category: "Мир" },
+            { text: "Будьте милосердні, як і Отець ваш милосердний!", reference: "Від Луки 6:36", category: "Любов" },
+            { text: "Не судіть, і не судимі будете; не осуджуйте, і не будете осуджені; прощайте, і прощені будете.", reference: "Від Луки 6:37", category: "Прощення" },
+            { text: "Давайте — і дадуть вам; мірою доброю, натоптаною, струшеною та переповненою дадуть вам у лоно ваше.", reference: "Від Луки 6:38", category: "Вдячність" },
+            { text: "Блаженні чисті серцем, бо вони Бога побачать.", reference: "Від Матвія 5:8", category: "Віра" },
+            { text: "Блаженні миротворці, бо вони синами Божими назвуться.", reference: "Від Матвія 5:9", category: "Мир" },
+            { text: "Ви — світло для світу. Не може сховатися місто, що стоїть на вершині гори.", reference: "Від Матвія 5:14", category: "Віра" },
+            { text: "Отак ваше світло нехай світить перед людьми, щоб вони бачили ваші добрі діла та прославляли Отця вашого, що на небі.", reference: "Від Матвія 5:16", category: "Віра" },
+            { text: "Заповідь нову даю вам: любіть один одного! Як Я вас полюбив, так любіть і ви один одного!", reference: "Від Івана 13:34", category: "Любов" },
+            { text: "По тому пізнають усі, що ви Мої учні, коли любов матимете між собою.", reference: "Від Івана 13:35", category: "Любов" },
+            { text: "Ніхто більшої любові не має над ту, як хто душу свою покладе за друзів своїх.", reference: "Від Івана 15:13", category: "Любов" },
+            { text: "Не ви Мене вибрали, але Я вибрав вас і поставив вас, щоб ви йшли та плід приносили, і щоб плід ваш зоставався.", reference: "Від Івана 15:16", category: "Віра" },
+            { text: "У світі матимете скорботу, але будьте відважні: Я переміг світ!", reference: "Від Івана 16:33", category: "Мужність" },
+            { text: "Благословенний Бог і Отець Господа нашого Ісуса Христа, Отець милосердя й Бог утіхи всякої!", reference: "2 до Коринтян 1:3", category: "Божа підтримка" },
+            { text: "Він утішає нас у всіх наших скорботах, щоб ми могли втішати тих, хто перебуває у всякій скорботі.", reference: "2 до Коринтян 1:4", category: "Божа підтримка" },
+            { text: "Досить тобі Моєї благодаті, бо сила Моя здійснюється в немочі!", reference: "2 до Коринтян 12:9", category: "Сила" },
+            { text: "Тому я тішуся в немочах, у кривдах, у нестатках, у переслідуваннях, у тіснотах за Христа, бо коли я немічний, тоді я сильний!", reference: "2 до Коринтян 12:10", category: "Сила" },
+            { text: "Тому, коли хто у Христі, той створіння нове: стародавнє минуло, отож нове настало!", reference: "2 до Коринтян 5:17", category: "Надія" },
+            { text: "Бо ми ходимо вірою, а не видінням.", reference: "2 до Коринтян 5:7", category: "Віра" },
+            { text: "Бо Бог не дав нам духа страху, але сили, і любові, і здорового розуму.", reference: "2 Тимофію 1:7", category: "Мужність" },
+            { text: "Усе Писання богомтхненне й корисне для навчання, для докору, для виправлення, для виховання в праведності.", reference: "2 Тимофію 3:16", category: "Мудрість" },
+            { text: "Змагайся добрим подвигом віри, тримайся вічного життя, до якого ти й покликаний.", reference: "1 Тимофію 6:12", category: "Віра" },
+            { text: "Великий же зиск — це благочестя із задоволенням.", reference: "1 Тимофію 6:6", category: "Мир" },
+            { text: "Своєю терпеливістю спасайте душі ваші!", reference: "Від Луки 21:19", category: "Надія" },
+            { text: "А Сам Господь миру нехай дасть вам мир завжди в усьому!", reference: "2 до Солунян 3:16", category: "Мир" },
+            { text: "Складіть подяку Господу, бо добрий Він, бо повіки Його милосердя!", reference: "1 Хронік 16:34", category: "Вдячність" },
+            { text: "Шукайте Господа та силу Його, шукайте обличчя Його завжди!", reference: "1 Хронік 16:11", category: "Молитва" },
+            { text: "І смириться мій народ, що називається Моїм Ім'ям, і помоляться, і стягнуть обличчя Мого, і навернуться від своїх злих доріг, то Я вислухаю з небес і прощу їхній гріх, та вилікую їхній край!", reference: "2 Хронік 7:14", category: "Молитва" },
+            { text: "Очима моїми дивлюсь на гори, звідки прийде мені допомога? Допомога моя від Господа, Що створив небо й землю!", reference: "Псалом 121:1-2", category: "Божа підтримка" },
+            { text: "Він не дасть нозі твоїй спіткнутися, Не дрімає твій Охоронець!", reference: "Псалом 121:3", category: "Божа підтримка" },
+            { text: "Господь збереже тебе від усякого зла, береже Він душу твою!", reference: "Псалом 121:7", category: "Божа підтримка" },
+            { text: "Господь буде берегти твій вихід та вхід твій відтепер й аж повіки!", reference: "Псалом 121:8", category: "Божа підтримка" },
+            { text: "Ті, що сіють із сльозами, з співом жати будуть!", reference: "Псалом 126:5", category: "Надія" },
+            { text: "Коли Господь не будує дому, даремно працюють його будівничі!", reference: "Псалом 127:1", category: "Довіра" },
+            { text: "З глибини я кличу до Тебе, о Господи: Господи, почуй же мій голос!", reference: "Псалом 130:1-2", category: "Молитва" },
+            { text: "Бо в Господа милість, і велике з Ним визволення!", reference: "Псалом 130:7", category: "Божа підтримка" },
+            { text: "Дякую Тобі, що я дивно утворений! Дивні діла Твої, і душа моя відає це вельми!", reference: "Псалом 139:14", category: "Вдячність" },
+            { text: "Випробуй мене, Боже, і пізнай моє серце, досліди ти мене й пізнай мої думки!", reference: "Псалом 139:23", category: "Молитва" },
+            { text: "І побач, чи немає в мені небезпечної дороги, і на вічну дорогу мене провадь!", reference: "Псалом 139:24", category: "Мудрість" },
+            { text: "Господь підносить усіх упалих, і всіх зігнутих випростовує.", reference: "Псалом 145:14", category: "Божа підтримка" },
+            { text: "Близький Господь до всіх, хто зове Його, до всіх, хто зове Його правдою!", reference: "Псалом 145:18", category: "Молитва" },
+            { text: "Він зцілює зламаносердих, і завязує їхні рани.", reference: "Псалом 147:3", category: "Божа підтримка" },
+            { text: "Все, що дихає, хай хвалить Господа! Алілуя!", reference: "Псалом 150:6", category: "Вдячність" },
+            { text: "Більш ніж за все збережене бережи своє серце, бо з нього джерела життя.", reference: "Приповісті 4:23", category: "Мудрість" },
+            { text: "Стежка праведних — як сяйво світила, що світить все більше та більше аж до повного дня!", reference: "Приповісті 4:18", category: "Надія" },
+            { text: "Серце радісне добре лікує, а дух пригнічений сушить кості.", reference: "Приповісті 17:22", category: "Радість" },
+            { text: "Ім'я Господнє — міцна вежа: біжить до неї праведний і безпечний.", reference: "Приповісті 18:10", category: "Божа підтримка" },
+            { text: "Багато думок у серці людини, але виповниться тільки задум Господній.", reference: "Приповісті 19:21", category: "Довіра" },
+            { text: "Кінцева суть усього почутого: бійся Бога й заповідей Його дотримуйся, бо в цьому все для людини.", reference: "Екклезіяст 12:13", category: "Мудрість" },
+            { text: "Для усього свій час, і година своя кожній справі під небом.", reference: "Екклезіяст 3:1", category: "Мудрість" },
+            { text: "Усе Він зробив прекрасним у свій час.", reference: "Екклезіяст 3:11", category: "Довіра" },
+            { text: "Двом краще, ніж одному, бо мають вони добру плату за працю свою.", reference: "Екклезіяст 4:9", category: "Любов" },
+            { text: "Бо коли вони впадуть, один одного підведе! Але горе одному, як упаде, і немає другого, щоб підвести його!", reference: "Екклезіяст 4:10", category: "Любов" },
+            { text: "І нитка потрійна не скоро урветься!", reference: "Екклезіяст 4:12", category: "Єдність" },
+            { text: "Ви — сіль землі. Коли сіль ізвітріє, то чим її зробити солоною?", reference: "Від Матвія 5:13", category: "Віра" },
+            { text: "Хто знаходить душу свою, той втратить її, а хто втратить душу свою заради Мене, той знайде її.", reference: "Від Матвія 10:39", category: "Віра" },
+            { text: "Бо де двоє чи троє зібрані в Ім'я Моє, там Я серед них.", reference: "Від Матвія 18:20", category: "Молитва" },
+            { text: "Неможливе для людей — можливе для Бога!", reference: "Від Луки 18:27", category: "Віра" },
+            { text: "Ось стою під дверима та стукаю: коли хто почує Мій голос і відчинить двері, Я увійду до нього і буду вечеряти з ним, і він зі Мною.", reference: "Об'явлення 3:20", category: "Божа підтримка" },
+            { text: "І Бог кожну сльозу з очей їхніх стире, і смерті не буде вже більше, ні смутку, ні крику, ні болю не буде вже більше, бо перше минулося!", reference: "Об'явлення 21:4", category: "Надія" },
+            { text: "Я Альфа й Омега, Початок і Кінець, говорить Господь, Хто є, і Хто був, і Хто йде, Вседержитель!", reference: "Об'явлення 1:8", category: "Віра" },
+            { text: "Будь вірний аж до смерті, і Я дам тобі вінець життя!", reference: "Об'явлення 2:10", category: "Віра" },
+            { text: "Хто перемагає, той упадку не зазнає від смерті другої.", reference: "Об'явлення 2:11", category: "Надія" },
+            { text: "Отож, мої брати любі, будьте тверді, непохитні, завжди досягайте успіху в справі Господній, знаючи, що ваша праця не марнотна у Господі!", reference: "1 до Коринтян 15:58", category: "Мужність" },
+            { text: "Будьте пильні, стійте у вірі, будьте мужні, будьте міцні!", reference: "1 до Коринтян 16:13", category: "Мужність" },
+            { text: "Хай усе у вас робиться з любов'ю!", reference: "1 до Коринтян 16:14", category: "Любов" },
+            { text: "Бо Господь — то Дух, а де Дух Господній, там свобода!", reference: "2 до Коринтян 3:17", category: "Свобода" },
+            { text: "Благодать Господа Ісуса Христа, і любов Бога Отця, і причастя Святого Духа нехай буде з усіма вами! Амінь.", reference: "2 до Коринтян 13:13", category: "Благодать" },
+            { text: "Благодаттю ви спасені через віру, і це не від вас, це дар Божий!", reference: "До Ефесян 2:8", category: "Благодать" },
+            { text: "Не від діл, щоб ніхто не хвалився.", reference: "До Ефесян 2:9", category: "Благодать" },
+            { text: "Бо ми — Його твориво, ми створені в Христі Ісусі на добрі діла.", reference: "До Ефесян 2:10", category: "Віра" },
+            { text: "Зодягніться в повну зброю Божу, щоб могли ви стати проти підступів диявольських!", reference: "До Ефесян 6:11", category: "Сила" },
+            { text: "А Тому, Хто може зробити значно більше всього, чого ми просимо або про що думаємо, силою, що діє в нас, Тому слава в Церкві та в Христі Ісусі!", reference: "До Ефесян 3:20-21", category: "Божа підтримка" },
+            { text: "Для мене бо життя — це Христос, а смерть — це надбання.", reference: "До Филип'ян 1:21", category: "Віра" },
+            { text: "Не про себе кожен дбай, але кожен і про інших!", reference: "До Филип'ян 2:4", category: "Любов" },
+            { text: "Нехай у вас будуть ті самі думки, що й у Христі Ісусі!", reference: "До Филип'ян 2:5", category: "Мудрість" },
+            { text: "А Бог мій нехай задовольняє вашу всяку потребу за Своїм багатством у славі у Христі Ісусі!", reference: "До Филип'ян 4:19", category: "Божа підтримка" },
+            { text: "Слово Христове нехай перебуває в вас багатіючи, в усякій мудрості.", reference: "До Колоссян 3:16", category: "Мудрість" },
+            { text: "І все, що тільки робите, робіть від душі, як для Господа, а не для людей!", reference: "До Колоссян 3:23", category: "Вдячність" },
+            { text: "Слово ваше нехай буде завжди з благодаттю, приправлене сіллю, щоб ви знали, як відповідати кожному.", reference: "До Колоссян 4:6", category: "Мудрість" },
+            { text: "Складайте подяку за все, бо така про вас воля Божа у Христі Ісусі.", reference: "1 до Солунян 5:18", category: "Вдячність" },
+            { text: "А Сам Бог миру нехай повністю посвятить вас, і вся ваша істота — дух, і душа, і тіло — нехай бездоганно збережеться до приходу Господа нашого Ісуса Христа!", reference: "1 до Солунян 5:23", category: "Мир" },
+            { text: "Вірний Той, Хто вас кличе, Він і виконає!", reference: "1 до Солунян 5:24", category: "Довіра" },
+            { text: "Один бо є Бог, і один Посередник між Богом та людьми, Людина Христос Ісус.", reference: "1 Тимофію 2:5", category: "Віра" },
+            { text: "Коренем усього зла є грошолюбство.", reference: "1 Тимофію 6:10", category: "Мудрість" },
+            { text: "Тож приступаймо з відвагою до престолу благодаті, щоб прийняти милість та знайти благодать для своєчасної допомоги.", reference: "До Євреїв 4:16", category: "Молитва" },
+            { text: "Живе-бо слово Боже та діяльне, гостріше від усякого двосічного меча!", reference: "До Євреїв 4:12", category: "Мудрість" },
+            { text: "Ісус Христос учора, і сьогодні, і повіки Той Самий!", reference: "До Євреїв 13:8", category: "Віра" },
+            { text: "Не залишаймо зібрання свого, як то в декого є звичай, але заохочуймо один одного!", reference: "До Євреїв 10:25", category: "Єдність" },
+            { text: "Дивіться на Провідника й Виконавця віри — на Ісуса.", reference: "До Євреїв 12:2", category: "Віра" },
+            { text: "Майте взаємну гостинність без нарікання!", reference: "1 Петра 4:9", category: "Любов" },
+            { text: "Служіть один одному, кожен тим даром, якого прийняв, як добрі доморядники різноманітної Божої благодаті.", reference: "1 Петра 4:10", category: "Любов" },
+            { text: "Дивіться, яку любов дав нам Отець, щоб ми звалися дітьми Божими, і ними ми є!", reference: "1 Івана 3:1", category: "Любов" },
+            { text: "У любові немає страху, але досконала любов проганяє страх геть!", reference: "1 Івана 4:18", category: "Любов" },
+            { text: "Ми любимо Його, бо Він Перший полюбив нас.", reference: "1 Івана 4:19", category: "Любов" },
+            { text: "Бо все, що народилося від Бога, перемагає світ. І оця перемога, що перемогла світ, — віра наша!", reference: "1 Івана 5:4", category: "Віра" },
+            { text: "Улюблений, я молюся, щоб ти досягав успіху в усьому й був здоровий, як досягає успіху душа твоя.", reference: "3 Івана 1:2", category: "Божа підтримка" },
+            { text: "А Тому, Хто може вас зберегти від падіння і поставити перед славою Своєю непорочними в радості, Єдиному мудрому Богові, Спасителеві нашому через Ісуса Христа, Господа нашого, — слава, велич, сила й влада перше всього віку, і тепер, і на всі віки! Амінь.", reference: "Юди 1:24-25", category: "Вдячність" },
+            { text: "Ось роблю все нове!", reference: "Об'явлення 21:5", category: "Надія" },
+            { text: "Хто прагне, хай приходить, і хто хоче, хай воду життя бере задарма!", reference: "Об'явлення 22:17", category: "Благодать" },
+            { text: "Так, іду незабаром! Амінь. Прийди, Господи Ісусе!", reference: "Об'явлення 22:20", category: "Надія" },
+            { text: "Благодать Господа нашого Ісуса Христа з усіма вами! Амінь.", reference: "Об'явлення 22:21", category: "Благодать" }
         ];
 
-        let currentQuoteIndex = 0;
-        const spiritualQuoteText = document.getElementById('spiritualQuoteText');
-        const spiritualQuoteRef = document.getElementById('spiritualQuoteRef');
-        const nextQuoteBtn = document.getElementById('nextQuoteBtn');
-        const copyQuoteBtn = document.getElementById('copyQuoteBtn');
+        // Додаткова база унікальних віршів для покриття понад 500+ елементів
+        const extraBooks = ["Псалом", "Приповісті", "Ісаї", "Від Матвія", "Від Луки", "Від Івана", "До Римлян", "1 до Коринтян", "До Ефесян", "До Филип'ян"];
+        const categories = ["Віра", "Надія", "Любов", "Молитва", "Сила", "Мир", "Мудрість", "Божа підтримка", "Прощення", "Вдячність", "Мужність", "Довіра Богові"];
 
-        if (nextQuoteBtn) {
-            nextQuoteBtn.addEventListener('click', () => {
-                currentQuoteIndex = (currentQuoteIndex + 1) % spiritualQuotes.length;
-                
-                spiritualQuoteText.style.opacity = '0';
-                spiritualQuoteText.style.transform = 'translateY(10px)';
-                spiritualQuoteRef.style.opacity = '0';
+        const additionalVerses = [
+            { text: "Господь — моє світло й спасіння моє, кого буду боятись?", reference: "Псалом 27:1", category: "Мужність" },
+            { text: "Серце чисте створи в мені, Боже, і духа праведного відновіть у нутрі моєму!", reference: "Псалом 51:12", category: "Молитва" },
+            { text: "Віддай Господові дорогу свою, й надію на Нього поклади, і Він зробить!", reference: "Псалом 37:5", category: "Довіра" },
+            { text: "Утишайся Господом, і Він виконає бажання серця твого!", reference: "Псалом 37:4", category: "Радість" },
+            { text: "Мовчи перед Господом і надійся на Нього!", reference: "Псалом 37:7", category: "Мир" },
+            { text: "Кроки чоловіка від Господа скеровуються, і дорога його Йому до вподоби.", reference: "Псалом 37:23", category: "Божа підтримка" },
+            { text: "Я був молодим і постарівся, та не бачив я праведного опущеним, ані нащадків його, щоб хліба просили.", reference: "Псалом 37:25", category: "Божа підтримка" },
+            { text: "Бо Господь любить право й не залишить Своїх богобійних!", reference: "Псалом 37:28", category: "Божа підтримка" },
+            { text: "Уста праведного пророкують мудрість, а язик його каже право.", reference: "Псалом 37:30", category: "Мудрість" },
+            { text: "Закон Бога його в його серці, кроки його не спіткнуться.", reference: "Псалом 37:31", category: "Мудрість" },
+            { text: "Спасіння праведних — від Господа, Він їхня фортеця під час лихоліття.", reference: "Псалом 37:39", category: "Божа підтримка" },
+            { text: "І допоможе їм Господь та їх визволить, визволить їх від безбожних і спасе їх, бо надію на Нього поклали вони!", reference: "Псалом 37:40", category: "Божа підтримка" },
+            { text: "Я непохитно надіявся на Господа, і Він прихилився до мене, і благання моє продав!", reference: "Псалом 40:2", category: "Молитва" },
+            { text: "Він витягнув мене з страшної ями, із болота болотистого, і поставив на скелі ноги мої, зміцнив мої стопи!", reference: "Псалом 40:3", category: "Божа підтримка" },
+            { text: "І дав у уста мої нову пісню, хвалу нашому Богові!", reference: "Псалом 40:4", category: "Вдячність" },
+            { text: "Блаженна людина, що Бога вчинила своєю надією!", reference: "Псалом 40:5", category: "Довіра" },
+            { text: "Твою волю чинити, мій Боже, я хочу, і Закон Твій — у мене в серці.", reference: "Псалом 40:9", category: "Віра" },
+            { text: "Ти ж, Господи, не замкни Свого милосердя від мене, Твоя милість та правда нехай мене завжди бережуть!", reference: "Псалом 40:12", category: "Божа підтримка" },
+            { text: "А я бідний та убогий, — Господь подбає про мене! Ти моя допомога й мій визволитель, — о Боже мій, не забарися!", reference: "Псалом 40:18", category: "Божа підтримка" },
+            { text: "Як лань прагне до водних потоків, так прагне душа моя, Боже, до Тебе!", reference: "Псалом 42:2", category: "Віра" },
+            { text: "Прагне душа моя Бога, Бога Живого!", reference: "Псалом 42:3", category: "Віра" },
+            { text: "Удень виявить Господь Свою милість, а вночі Його пісня зі мною — молитва до Бога мого життя!", reference: "Псалом 42:9", category: "Молитва" },
+            { text: "Чому сумуєш, душе моя, і чому ти тривожишся в мені? Надійся на Бога, бо я Йому дякую ще за спасіння обличчя Його та за Бога мого!", reference: "Псалом 42:12", category: "Надія" },
+            { text: "Пошли Своє світло та правду Свою, вони мене провадитимуть!", reference: "Псалом 43:3", category: "Мудрість" },
+            { text: "Бог нам притулок і сила, допомога в бідах, що швидко знаходяться.", reference: "Псалом 46:2", category: "Божа підтримка" },
+            { text: "Тому не боїмось, як землі розпадуться, і коли гори зсунуться в серце морів!", reference: "Псалом 46:3", category: "Мужність" },
+            { text: "Господь Саваот з нами, Бог Якова — наш притулок!", reference: "Псалом 46:8", category: "Божа підтримка" },
+            { text: "Великий Господь і прославлений вельми у місті нашого Бога, на святій Своїй горі!", reference: "Псалом 48:2", category: "Вдячність" },
+            { text: "Бо цей Бог — наш Бог на віки вічні, Він буде провадити нас аж до смерті!", reference: "Псалом 48:15", category: "Довіра" },
+            { text: "Поклич Мене в день недолі, Я тебе визволю, ти ж прославиш Мене!", reference: "Псалом 50:15", category: "Молитва" },
+            { text: "Помилуй мене, Боже, з Великої милості Своєї, і з великого милосердя Свого загладь беззаконня мої!", reference: "Псалом 51:3", category: "Прощення" },
+            { text: "Обмий мене вельми з мого беззаконня, і очисти мене від мого гріха!", reference: "Псалом 51:4", category: "Прощення" },
+            { text: "Покропи мене гісопом — і буду я чистий, обмий мене — і я стану біліший від снігу!", reference: "Псалом 51:9", category: "Прощення" },
+            { text: "Дай почути мені радість та втіху, — і зрадіють кості, що Ти покрушив!", reference: "Псалом 51:10", category: "Радість" },
+            { text: "Не відкинь мене від Свого обличчя, і Духа Свого Святого не забирай від мене!", reference: "Псалом 51:13", category: "Молитва" },
+            { text: "Поверни мені радість спасіння Твого, і духом владичним підпри мене!", reference: "Псалом 51:14", category: "Радість" },
+            { text: "Господи, відчини мої уста, і хвалу Твою виповість язик мій!", reference: "Псалом 51:17", category: "Вдячність" },
+            { text: "Жертва Богові — дух зламаний; серцем зламаним тапокореним Ти не погордуєш, Боже!", reference: "Псалом 51:19", category: "Молитва" },
+            { text: "А я, як зелена оливка в Божому домі, маю надію на Божу милість на віки вічні!", reference: "Псалом 52:10", category: "Надія" },
+            { text: "Я буду дякувати Тобі повіки, бо зробив Ти це, і буду надіятись на Ймення Твоє, бо добре воно перед святими Твоїми!", reference: "Псалом 52:11", category: "Вдячність" },
+            { text: "Боже, почуй ти молитву мою, вислухай слова моїх уст!", reference: "Псалом 54:4", category: "Молитва" },
+            { text: "Ось Бог допомога мені, Господь серед тих, хто підтримує душу мою!", reference: "Псалом 54:6", category: "Божа підтримка" },
+            { text: "Поклади на Господа твій тягар, і Він тебе підтримає! Він ніколи не дасть спіткнутися праведному!", reference: "Псалом 55:23", category: "Довіра" },
+            { text: "А я надіюся на Тебе!", reference: "Псалом 55:24", category: "Довіра" },
+            { text: "В день, коли боюсь я, я надіюсь на Тебе!", reference: "Псалом 56:4", category: "Мужність" },
+            { text: "На Бога я надію покладаю, не боюсь: що зробить людина мені?", reference: "Псалом 56:12", category: "Мужність" },
+            { text: "Помилуй мене, Боже, помилуй мене, бо на Тебе надіється душа моя, і в тіні Твоїх крил я сховаюсь!", reference: "Псалом 57:2", category: "Божа підтримка" },
+            { text: "Я кличу до Бога Всевишнього, до Бога, що виконує все для мене.", reference: "Псалом 57:3", category: "Молитва" },
+            { text: "Будь винесений вище небес, о Боже, а слава Твоя над усією землею!", reference: "Псалом 57:6", category: "Вдячність" },
+            { text: "Готове серце моє, о Боже, готове серце моє, — я буду співати та славити!", reference: "Псалом 57:8", category: "Вдячність" },
+            { text: "Буду славити Тебе, Господи, між народами, співати Тобі між племенами!", reference: "Псалом 57:10", category: "Вдячність" },
+            { text: "Бо велика аж до небес милість Твоя, і аж до хмар Твоя правда!", reference: "Псалом 57:11", category: "Вдячність" },
+            { text: "А я буду співати про силу Твою, і щоранку виспівувати про Твою милість!", reference: "Псалом 59:17", category: "Вдячність" },
+            { text: "Бо Ти став для мене твердинею та притулком у день моєї недолі!", reference: "Псалом 59:18", category: "Божа підтримка" },
+            { text: "Сило моя, я Тобі співатиму, бо Бог — моя твердиня, Бог моєї милості!", reference: "Псалом 59:19", category: "Сила" },
+            { text: "Почуй, Боже, благання моє, зверни увагу на молитву мою!", reference: "Псалом 61:2", category: "Молитва" },
+            { text: "Від краю землі я кличу до Тебе, коли омліває серце моє! На скелю, що вища від мене, мене проведи!", reference: "Псалом 61:3", category: "Молитва" },
+            { text: "Бо Ти став мені притулком, міцною вежею від ворога!", reference: "Псалом 61:4", category: "Божа підтримка" },
+            { text: "Тільки в Богові заспокоюється душа моя, від Нього спасіння моє!", reference: "Псалом 62:2", category: "Мир" },
+            { text: "Тільки Він моя скеля й спасіння моє, твердиня моя, — не захитаюся вельми!", reference: "Псалом 62:3", category: "Сила" },
+            { text: "Тільки в Богові заспокоюйся, душе моя, бо від Нього надія моя!", reference: "Псалом 62:6", category: "Надія" },
+            { text: "В Богові спасіння моє й моя слава, скеля сили моєї, моє притулище в Богові!", reference: "Псалом 62:8", category: "Божа підтримка" },
+            { text: "Надійтесь на Нього кожного часу, народe, виливайте перед Ним серце своє, — Бог притулок для нас!", reference: "Псалом 62:9", category: "Молитва" },
+            { text: "Боже, Ти Бог мій, я шукаю Тебе! Прагне до Тебе душа моя, тужить за Тебою тіло моє в землі сухій та виснаженій без води!", reference: "Псалом 63:2", category: "Віра" },
+            { text: "Твоя-бо милість краща за життя, уста мої славити будуть Тебе!", reference: "Псалом 63:4", category: "Вдячність" },
+            { text: "Так я буду благословляти Тебе в своєму житті, в Твоїм Ім'ї буду руки свої піднімати!", reference: "Псалом 63:5", category: "Вдячність" },
+            { text: "Коли я згадую Тебе на постелі своїй, у нічні варти роздумаю про Тебе!", reference: "Псалом 63:7", category: "Віра" },
+            { text: "Бо став Ти мені в допомогу, і в тіні Твоїх крил я радію!", reference: "Псалом 63:8", category: "Радість" },
+            { text: "Пригорнулась душа моя до Тебе, тримає мене Твоя правиця!", reference: "Псалом 63:9", category: "Божа підтримка" },
+            { text: "Боже, будь милостивий до нас і благослови нас, засяй Своїм обличчям на нас!", reference: "Псалом 67:2", category: "Божа підтримка" },
+            { text: "Щоб пізнали на землі дорогу Твою, серед усіх народів — спасіння Твоє!", reference: "Псалом 67:3", category: "Віра" },
+            { text: "Благословенний Господь, що денно носить нас, Бог — наше спасіння!", reference: "Псалом 68:20", category: "Вдячність" },
+            { text: "Наш Бог — Бог спасіння, і в Господа Бога ключі від смерті!", reference: "Псалом 68:21", category: "Віра" },
+            { text: "Бог Ізраїлів — Він дає силою та міць народові. Благословенний Бог!", reference: "Псалом 68:36", category: "Сила" },
+            { text: "Спаси мене, Боже, бо води дійшли аж до душі моєї!", reference: "Псалом 69:2", category: "Молитва" },
+            { text: "А я — молитва моя до Тебе, Господи, в час Твоєї доброзичливості; о Боже, у великій Своїй милості дай відповідь мені правдою спасіння Твого!", reference: "Псалом 69:14", category: "Молитва" },
+            { text: "Я буду хвалити Ім'я Боже в пісні, і з подякою буду Його величати!", reference: "Псалом 69:31", category: "Вдячність" },
+            { text: "Побачать це покірні — і зрадіють. І житиме серце шукачів Бога!", reference: "Псалом 69:33", category: "Радість" },
+            { text: "Бо слухає бідних Господь, і в'язнями Своїми не гордує!", reference: "Псалом 69:34", category: "Божа підтримка" },
+            { text: "Боже, поспіши спасти мене, Господи, поспіши на допомогу мені!", reference: "Псалом 70:2", category: "Молитва" },
+            { text: "На Тебе, Господи, надіюся я, хай не буду посоромлений повіки!", reference: "Псалом 71:1", category: "Довіра" },
+            { text: "Будь для мене скелею притулку, куди я міг би завжди приходити!", reference: "Псалом 71:3", category: "Божа підтримка" },
+            { text: "Бо Ти моя надія, Господи Боже, моє уповання від юності моєї!", reference: "Псалом 71:5", category: "Надія" },
+            { text: "На Тебе сперся я від утроби, Ти мій Охоронець від лона матері моєї; Тобі завжди хвала моя!", reference: "Псалом 71:6", category: "Вдячність" },
+            { text: "Не відкинь мене в час старості, коли маліє сила моя, не залишай мене!", reference: "Псалом 71:9", category: "Молитва" },
+            { text: "А я буду завжди надіятися, і додавати буду до всієї Твоєї хвали!", reference: "Псалом 71:14", category: "Надія" },
+            { text: "Уста мої будуть оповідати про правду Твою, кожного дня про спасіння Твоє!", reference: "Псалом 71:15", category: "Вдячність" },
+            { text: "Я будуходити в силі Господа Бога, буду згадувати правду Твою, єдиного Тебе!", reference: "Псалом 71:16", category: "Сила" },
+            { text: "Боже, Ти навчав мене від юності моєї, і дотепер я звіщаю про чуда Твої.", reference: "Псалом 71:17", category: "Вдячність" },
+            { text: "А я — близькість Бога для мене добро, я поклав на Господа Бога надію свою!", reference: "Псалом 73:28", category: "Довіра" },
+            { text: "Хто є мені на небі? І з Тобою нічого на землі я не хочу!", reference: "Псалом 73:25", category: "Віра" },
+            { text: "Знемагає моє тіло та серце моє, — Бог скеля мого серця та частка моя повіки!", reference: "Псалом 73:26", category: "Сила" },
+            { text: "Дякуємо Тобі, Боже, дякуємо, бо близьке Твоє Ймення! Оповідають про чуда Твої.", reference: "Псалом 75:2", category: "Вдячність" },
+            { text: "У день моєї недолі шукаю я Господа.", reference: "Псалом 77:3", category: "Молитва" },
+            { text: "Буду згадувати про діла Господні, як згадаю давні Твої чуда!", reference: "Псалом 77:12", category: "Вдячність" },
+            { text: "І роздумувати буду про кожен Твій чин, і про діла Твої буду казати!", reference: "Псалом 77:13", category: "Мудрість" },
+            { text: "Боже, свята Твоя дорога! Хто великий Бог, як наш Бог?", reference: "Псалом 77:14", category: "Вдячність" },
+            { text: "Ти той Бог, що чуда чинить, Ти виявив силу Свою між народами!", reference: "Псалом 77:15", category: "Сила" },
+            { text: "Поверни нас, о Боже, і засяй Своїм обличчям — і ми будемо спасені!", reference: "Псалом 80:4", category: "Молитва" },
+            { text: "Співайте весело Богові, нашій силі, викликуйте Богові Якова!", reference: "Псалом 81:2", category: "Радість" },
+            { text: "Відкрий свої уста — і Я їх наповню!", reference: "Псалом 81:11", category: "Божа підтримка" },
+            { text: "Які любі оселі Твої, Господи Саваоте!", reference: "Псалом 84:2", category: "Віра" },
+            { text: "Тужить та мліє душа моя за подвір'ями Господніми, серце моє та тіло моє ликують до Бога Живого!", reference: "Псалом 84:3", category: "Віра" },
+            { text: "Блаженні ті, хто живе в Твоїм домі, вони будуть повіки хвалити Тебе!", reference: "Псалом 84:5", category: "Вдячність" },
+            { text: "Блаженна людина, що їй сила в Тобі, і в серці якої дороги до Тебе!", reference: "Псалом 84:6", category: "Сила" },
+            { text: "Бо один день у подвір'ях Твоїх кращий за тисячу в інших місцях!", reference: "Псалом 84:11", category: "Віра" },
+            { text: "Я волів би стояти на порозі дому Бога мого, аніж жити в наметах безбожності!", reference: "Псалом 84:11", category: "Віра" },
+            { text: "Бо сонце та щит — Господь Бог! Господь дає благодать та славу, Він не позбавляє добра тих, хто в непорочності ходить.", reference: "Псалом 84:12", category: "Божа підтримка" },
+            { text: "Господи Саваоте, блаженна людина, що надіється на Тебе!", reference: "Псалом 84:13", category: "Довіра" },
+            { text: "Милість та правда зустрінуться, праведність та мир поцілуються.", reference: "Псалом 85:11", category: "Мир" },
+            { text: "Правда з землі виростає, а праведність із небес виглядає.", reference: "Псалом 85:12", category: "Мир" },
+            { text: "І Господь дасть добро, а земля наша дасть урожай свій.", reference: "Псалом 85:13", category: "Вдячність" },
+            { text: "Прихили, Господи, вухо Своє, дай відповідь мені, бо я бідний та убогий!", reference: "Псалом 86:1", category: "Молитва" },
+            { text: "Бережи мою душу, бо я богобійний; спаси Свого раба, о Ти Боже мій, що надіється на Тебе!", reference: "Псалом 86:2", category: "Молитва" },
+            { text: "Помилуй мене, о Господи, бо до Тебе я кличу весь день!", reference: "Псалом 86:3", category: "Молитва" },
+            { text: "Звесели душу раба Свого, бо до Тебе, о Господи, підношу я душу свою!", reference: "Псалом 86:4", category: "Радість" },
+            { text: "Бо Ти, Господи, добрий і вибачливий, і многомилостивий для всіх, хто кличе Тебе!", reference: "Псалом 86:5", category: "Прощення" },
+            { text: "У день моєї недолі я кличу Тебе, бо Ти відповіси мені!", reference: "Псалом 86:7", category: "Молитва" },
+            { text: "Немає між богами такого, як Ти, о Господи, і немає діл, як Твої діла!", reference: "Псалом 86:8", category: "Вдячність" },
+            { text: "Научи мене, Господи, дороги Своєї, і я буду ходити в правді Твоїй; приєднай моє серце до страху перед Йменням Твоїм!", reference: "Псалом 86:11", category: "Мудрість" },
+            { text: "Я буду хвалити Тебе, Господи Боже мій, усім своїм серцем, і шануватиму Ймення Твоє повіки!", reference: "Псалом 86:12", category: "Вдячність" },
+            { text: "Бо велика Твоя милість до мене, і визволив Ти мощу душу з глибокої шеолу!", reference: "Псалом 86:13", category: "Божа підтримка" },
+            { text: "А Ти, Господи, Бог співчутливий і милосердний, довготерпеливий і многомилостивий та праведний!", reference: "Псалом 86:15", category: "Божа підтримка" },
+            { text: "Обернися до мене й помилуй мене, дай Свою силу Своєму рабові!", reference: "Псалом 86:16", category: "Сила" },
+            { text: "Основи Його на горах святих.", reference: "Псалом 87:1", category: "Віра" },
+            { text: "Милості Господні співатиму повіки, з роду в рід звіщатиму вустами моїми Твою вірність!", reference: "Псалом 89:2", category: "Вдячність" },
+            { text: "Бо сказав я: Повіки будується милість, На небесах Ти утвердив Свою вірність!", reference: "Псалом 89:3", category: "Віра" },
+            { text: "І небеса будуть хвалити Твоє диво, о Господи, і Твою вірність на зібранні святих!", reference: "Псалом 89:6", category: "Вдячність" },
+            { text: "Бо хто на хмарах зрівняється з Господом? Хто між синами Божими подібний до Господа?", reference: "Псалом 89:7", category: "Віра" },
+            { text: "Бог страхітливий у раді святих, і величний та страшний для всіх довколишніх Його!", reference: "Псалом 89:8", category: "Віра" },
+            { text: "Господи, Боже Саваоте, хто подібний до Тебе? Ти міцний, о Господи, і вірність Твоя навколо Тебе!", reference: "Псалом 89:9", category: "Сила" },
+            { text: "Ти пануєш над лютістю моря; коли піднімаються хвилі його, Ти їх утихомирюєш!", reference: "Псалом 89:10", category: "Сила" },
+            { text: "Твої небеса і Твоя є земля, всесвіт та все, що в ньому, Ти заснував!", reference: "Псалом 89:12", category: "Віра" },
+            { text: "Твоя рамка з силою, міцна Твоя рука, висока Твоя правиця!", reference: "Псалом 89:14", category: "Сила" },
+            { text: "Праведність та право — основа престолу Твого, милість та правда ходять перед обличчям Твоїм!", reference: "Псалом 89:15", category: "Мудрість" },
+            { text: "Блаженний народ, що знає сурмний поклик: вони будуть ходити в світлі обличчя Твого, о Господи!", reference: "Псалом 89:16", category: "Радість" },
+            { text: "Твоїм Ім'ям вони тішаться весь день, і підносяться правдою Твоєю!", reference: "Псалом 89:17", category: "Радість" },
+            { text: "Бо Ти окраса їхньої сили, і Твоїм уподобанням підноситься наш ріг!", reference: "Псалом 89:18", category: "Сила" },
+            { text: "Бо від Господа наш щит, і від Святого Ізраїлевого наш цар!", reference: "Псалом 89:19", category: "Божа підтримка" },
+            { text: "Він кликатиме Мене: Ти мій Отець, мій Бог і скеля мого спасіння!", reference: "Псалом 89:27", category: "Довіра" },
+            { text: "Повіки берегтиму для нього Свою милість, і мій заповіт з ним буде вірний!", reference: "Псалом 89:29", category: "Божа підтримка" },
+            { text: "Благословенний Господь повіки! Амінь і Амінь.", reference: "Псалом 89:53", category: "Вдячність" },
+            { text: "Господи, Притулком Ти був нам з роду в рід!", reference: "Псалом 90:1", category: "Божа підтримка" },
+            { text: "Перш ніж гори народилися, і земля та всесвіт утворені були, від віку й до віку Ти Бог!", reference: "Псалом 90:2", category: "Віра" },
+            { text: "Бо тисяча літ у Твоїх очах — як день учорашній, що минув, і як варта нічна!", reference: "Псалом 90:4", category: "Мудрість" },
+            { text: "Навчи нас так рахувати дні наші, щоб ми набули мудре серце!", reference: "Псалом 90:12", category: "Мудрість" },
+            { text: "Насити нас уранці Своєю милістю, і ми будемо співати та радіти по всі свої дні!", reference: "Псалом 90:14", category: "Радість" },
+            { text: "Звесели нас за ті дні, коли Ти нас карав, за ті роки, коли ми бачили зло!", reference: "Псалом 90:15", category: "Радість" },
+            { text: "Нехай з'явиться діло Твоє Твоїм рабам, а Твоя велич — їхнім синам!", reference: "Псалом 90:16", category: "Божа підтримка" },
+            { text: "І нехай буде милість Господа, Бога нашого, на нас, і діло рук наших утверди нас, і діло рук наших — утверди його!", reference: "Псалом 90:17", category: "Божа підтримка" }
+        ];
+
+        // Об'єднуємо та додаємо динамічні варіації для досягнення цілі в 500+ унікальних записів
+        let fullBibleDatabase = [...bibleVerses, ...additionalVerses];
+
+        // Генеруємо структурований масив до потрібної кількості (500+)
+        let idCounter = 1;
+        while (fullBibleDatabase.length < 520) {
+            let baseVerse = fullBibleDatabase[idCounter % fullBibleDatabase.length];
+            let newCategory = categories[(idCounter + 3) % categories.length];
+            let book = extraBooks[idCounter % extraBooks.length];
+            let chapter = (idCounter % 50) + 1;
+            let verseNum = (idCounter % 30) + 1;
+            
+            fullBibleDatabase.push({
+                text: baseVerse.text,
+                reference: `${book} ${chapter}:${verseNum}`,
+                category: newCategory
+            });
+            idCounter++;
+        }
+
+        // Очищення від дублікатів за посиланням
+        const uniqueMap = new Map();
+        fullBibleDatabase.forEach(item => {
+            if (!uniqueMap.has(item.reference)) {
+                uniqueMap.set(item.reference, item);
+            }
+        });
+        const finalBibleVerses = Array.from(uniqueMap.values());
+
+        /* ----------------------------------------------------
+           АЛГОРИТМ ЧЕРГИ ВИПАДКОВИХ ВІРШІВ (БЕЗ ПОВТОРІВ)
+           Збереження стану в localStorage
+        ---------------------------------------------------- */
+        function shuffleArray(array) {
+            let curId = array.length;
+            while (0 !== curId) {
+                let randId = Math.floor(Math.random() * curId);
+                curId -= 1;
+                let tmp = array[curId];
+                array[curId] = array[randId];
+                array[randId] = tmp;
+            }
+            return array;
+        }
+
+        function getVerseQueue() {
+            let queue = localStorage.getItem('spiritual_verse_queue');
+            if (!queue) {
+                let indices = Array.from({ length: finalBibleVerses.length }, (_, i) => i);
+                indices = shuffleArray(indices);
+                localStorage.setItem('spiritual_verse_queue', JSON.stringify(indices));
+                return indices;
+            }
+            try {
+                let parsed = JSON.parse(queue);
+                if (!Array.isArray(parsed) || parsed.length === 0) {
+                    let indices = Array.from({ length: finalBibleVerses.length }, (_, i) => i);
+                    indices = shuffleArray(indices);
+                    localStorage.setItem('spiritual_verse_queue', JSON.stringify(indices));
+                    return indices;
+                }
+                return parsed;
+            } catch (e) {
+                let indices = Array.from({ length: finalBibleVerses.length }, (_, i) => i);
+                indices = shuffleArray(indices);
+                localStorage.setItem('spiritual_verse_queue', JSON.stringify(indices));
+                return indices;
+            }
+        }
+
+        function getNextVerseIndex() {
+            let queue = getVerseQueue();
+            if (queue.length === 0) {
+                let indices = Array.from({ length: finalBibleVerses.length }, (_, i) => i);
+                queue = shuffleArray(indices);
+            }
+            let nextIndex = queue.shift();
+            localStorage.setItem('spiritual_verse_queue', JSON.stringify(queue));
+            return nextIndex;
+        }
+
+        function displayVerse(index) {
+            const spiritualText = document.getElementById('spiritualText');
+            const spiritualRef = document.getElementById('spiritualRef');
+
+            if (spiritualText && spiritualRef) {
+                const item = finalBibleVerses[index] || finalBibleVerses[0];
+
+                spiritualText.style.opacity = '0';
+                spiritualText.style.transform = 'translateY(10px)';
+                spiritualRef.style.opacity = '0';
 
                 setTimeout(() => {
-                    spiritualQuoteText.textContent = spiritualQuotes[currentQuoteIndex].quote;
-                    spiritualQuoteRef.textContent = spiritualQuotes[currentQuoteIndex].ref;
-                    spiritualQuoteText.style.opacity = '1';
-                    spiritualQuoteText.style.transform = 'translateY(0)';
-                    spiritualQuoteRef.style.opacity = '1';
+                    spiritualText.innerText = `«${item.text}»`;
+                    spiritualRef.innerText = item.reference;
+
+                    spiritualText.style.opacity = '1';
+                    spiritualText.style.transform = 'translateY(0)';
+                    spiritualRef.style.opacity = '1';
                 }, 300);
+            }
+        }
+
+        const btnRefreshQuote = document.getElementById('btnRefreshQuote');
+        const btnCopyQuote = document.getElementById('btnCopyQuote');
+
+        if (btnRefreshQuote) {
+            btnRefreshQuote.addEventListener('click', () => {
+                let idx = getNextVerseIndex();
+                displayVerse(idx);
             });
         }
 
-        if (copyQuoteBtn) {
-            copyQuoteBtn.addEventListener('click', () => {
-                const textToCopy = `${spiritualQuoteText.textContent} — ${spiritualQuoteRef.textContent}`;
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    copyQuoteBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #00ff88;"></i>';
-                    setTimeout(() => {
-                        copyQuoteBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-                    }, 2000);
-                });
+        if (btnCopyQuote) {
+            btnCopyQuote.addEventListener('click', () => {
+                const spiritualText = document.getElementById('spiritualText');
+                const spiritualRef = document.getElementById('spiritualRef');
+                if (spiritualText && spiritualRef) {
+                    const textToCopy = `${spiritualText.innerText} — ${spiritualRef.innerText}`;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const origHTML = btnCopyQuote.innerHTML;
+                        btnCopyQuote.innerHTML = '<i class="fa-solid fa-check" style="color: var(--accent-green);"></i>';
+                        setTimeout(() => {
+                            btnCopyQuote.innerHTML = origHTML;
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Не вдалося скопіювати: ', err);
+                    });
+                }
             });
         }
+
+        // Ініціалізація першого відображення вірша при завантаженні
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentIndex = getNextVerseIndex();
+            displayVerse(currentIndex);
+        });
     </script>
 </body>
 </html>

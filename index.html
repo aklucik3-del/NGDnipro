@@ -263,13 +263,26 @@
             line-height: 1.1; margin-bottom: 6px;
             text-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 242, 254, 0.6);
             font-variant-numeric: tabular-nums;
+            transition: var(--transition);
         }
         .countdown-card:hover .countdown-number { text-shadow: 0 0 15px var(--accent-pink), 0 0 30px rgba(255, 0, 127, 0.7); }
         .countdown-label { font-size: clamp(0.78rem, 1.3vw, 0.88rem); font-weight: 600; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1.5px; }
 
+        /* Стилі для стану після завершення таймерів */
         .countdown-card.expired .countdown-number {
-            color: #ff0055;
-            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 30px #ff0055, 0 0 40px #ff0000;
+            color: #ff0055 !important;
+            text-shadow: 0 0 10px #ff0055, 0 0 25px #ff0055, 0 0 40px #ff0055, 0 0 60px #ff0000 !important;
+        }
+        .countdown-header p.expired-msg {
+            color: #ff0055 !important;
+            font-weight: 800 !important;
+            font-size: clamp(1.2rem, 2.2vw, 1.5rem) !important;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8) !important;
+            animation: pulseExpiredMsg 2s infinite alternate ease-in-out;
+        }
+        @keyframes pulseExpiredMsg {
+            from { transform: scale(1); opacity: 0.9; }
+            to { transform: scale(1.05); opacity: 1; }
         }
 
         .events-section { 
@@ -460,7 +473,7 @@
         .word-content-box {
             position: relative;
             z-index: 2;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
 
         .word-text {
@@ -488,239 +501,70 @@
         .btn-page { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); border: none; padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 42px); border-radius: 50px; font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.15rem); cursor: pointer; transition: var(--transition); box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4); display: inline-flex; align-items: center; gap: 14px; z-index: 10; }
         .btn-page:hover { transform: translateY(-5px) scale(1.06); box-shadow: 0 15px 45px rgba(0, 242, 254, 0.7); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }
 
-        .mood-widget { 
-            background: linear-gradient(-45deg, #0d1b3e, #1a237e, #4a148c, #00b0ff, #311b92, #0d47a1);
-            background-size: 400% 400%;
-            animation: neonGradient 10s ease infinite;
-            padding: clamp(14px, 2vw, 18px) clamp(20px, 3vw, 35px); 
-            border-radius: 35px; 
-            border: 1px solid rgba(0, 242, 254, 0.6); 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 14px; 
-            cursor: pointer; 
-            transition: var(--transition); 
-            font-weight: 600; 
-            color: var(--white); 
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-            z-index: 10; 
-            user-select: none; 
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4), 0 0 35px rgba(124, 77, 255, 0.3); 
-            overflow: hidden;
-            position: relative;
-            max-width: 90vw;
-            text-align: center;
-        }
-        @keyframes neonGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .mood-widget:hover { 
-            transform: scale(1.06) translateY(-3px); 
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.7), 0 0 50px rgba(124, 77, 255, 0.6); 
-            border-color: #00f2fe; 
-        }
-        .mood-widget i { 
-            color: #00f2fe; 
-            font-size: clamp(1.2rem, 2vw, 1.5rem); 
-            filter: drop-shadow(0 0 10px #00f2fe); 
-            animation: spinHeart 4s infinite linear; 
-            flex-shrink: 0;
-        }
-        @keyframes spinHeart { 0% { transform: rotate(0deg) scale(1); } 25% { transform: rotate(20deg) scale(1.2); } 75% { transform: rotate(-20deg) scale(0.95); } 100% { transform: rotate(0deg) scale(1); } }
-
-        .mood-text-wrapper {
-            display: inline-block;
-            position: relative;
-            text-align: left;
-            overflow: hidden;
-        }
-        .mood-text-content {
-            display: inline-block;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s cubic-bezier(0.25, 1, 0.35, 1);
-            will-change: transform, opacity;
-        }
-        .mood-text-content.fly-out {
-            transform: translateY(-20px);
-            opacity: 0;
-        }
-        .mood-text-content.come-in {
-            transform: translateY(20px);
-            opacity: 0;
-        }
-
         footer { background: #030509; color: #64748b; text-align: center; padding: clamp(30px, 5vh, 40px) 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }
 
-        body.modal-open {
-            overflow: hidden !important;
-        }
+        body.modal-open { overflow: hidden !important; }
 
         .opt-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(3, 6, 15, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            z-index: 999999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1), visibility 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(3, 6, 15, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px;
+            opacity: 0; visibility: hidden; transition: opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1), visibility 0.6s cubic-bezier(0.25, 1, 0.35, 1);
         }
-
-        .opt-modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .opt-modal-overlay.active { opacity: 1; visibility: visible; }
 
         .opt-modal-card {
             background: linear-gradient(135deg, rgba(13, 22, 48, 0.92) 0%, rgba(35, 18, 64, 0.92) 100%);
-            border: 1px solid rgba(0, 242, 254, 0.5);
-            border-radius: 28px;
-            padding: clamp(28px, 4vw, 38px) clamp(20px, 3vw, 28px);
-            max-width: 440px;
-            width: 100%;
-            text-align: center;
-            color: #ffffff;
+            border: 1px solid rgba(0, 242, 254, 0.5); border-radius: 28px; padding: clamp(28px, 4vw, 38px) clamp(20px, 3vw, 28px);
+            max-width: 440px; width: 100%; text-align: center; color: #ffffff;
             box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), 0 0 65px rgba(255, 0, 127, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.25);
-            transform: scale(0.85) translateY(20px);
-            opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1);
-            position: relative;
-            overflow: hidden;
+            transform: scale(0.85) translateY(20px); opacity: 0; transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+            position: relative; overflow: hidden;
         }
-
-        .opt-modal-overlay.active .opt-modal-card {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
+        .opt-modal-overlay.active .opt-modal-card { transform: scale(1) translateY(0); opacity: 1; }
 
         .opt-modal-card::before {
-            content: '';
-            position: absolute;
-            top: -40%;
-            left: -40%;
-            width: 180%;
-            height: 180%;
+            content: ''; position: absolute; top: -40%; left: -40%; width: 180%; height: 180%;
             background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(255,0,127,0.1) 40%, transparent 70%);
-            animation: modalGlowRotate 15s infinite linear;
-            pointer-events: none;
+            animation: modalGlowRotate 15s infinite linear; pointer-events: none;
         }
-
-        @keyframes modalGlowRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        @keyframes modalGlowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .opt-modal-icon {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: rgba(0, 242, 254, 0.12);
-            border: 1px solid rgba(0, 242, 254, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--accent);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
-            position: relative;
-            z-index: 2;
+            width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 50%;
+            background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4);
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); position: relative; z-index: 2;
         }
 
         .opt-modal-title {
-            font-size: clamp(1.4rem, 2.5vw, 1.75rem);
-            font-weight: 800;
-            margin-bottom: 12px;
+            font-size: clamp(1.4rem, 2.5vw, 1.75rem); font-weight: 800; margin-bottom: 12px;
             background: linear-gradient(135deg, var(--accent), #70e1f5, var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            position: relative;
-            z-index: 2;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2;
         }
 
         .opt-modal-desc {
-            font-size: clamp(0.9rem, 1.5vw, 0.96rem);
-            color: #cbd5e1;
-            margin-bottom: 30px;
-            font-weight: 400;
-            line-height: 1.55;
-            position: relative;
-            z-index: 2;
+            font-size: clamp(0.9rem, 1.5vw, 0.96rem); color: #cbd5e1; margin-bottom: 30px;
+            font-weight: 400; line-height: 1.55; position: relative; z-index: 2;
         }
 
-        .opt-modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-            z-index: 2;
-        }
-
-        @media(min-width: 480px) {
-            .opt-modal-buttons {
-                flex-direction: row;
-            }
-        }
+        .opt-modal-buttons { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 2; }
+        @media(min-width: 480px) { .opt-modal-buttons { flex-direction: row; } }
 
         .opt-btn {
-            flex: 1;
-            padding: 15px 22px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            font-family: inherit;
+            flex: 1; padding: 15px 22px; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; border: none;
+            transition: var(--transition); display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            text-decoration: none; font-family: inherit;
         }
 
-        .opt-btn-main {
-            background: linear-gradient(135deg, var(--accent), #2563eb);
-            color: #ffffff;
-            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45);
-        }
+        .opt-btn-main { background: linear-gradient(135deg, var(--accent), #2563eb); color: #ffffff; box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45); }
+        .opt-btn-main:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 35px rgba(0, 242, 254, 0.75); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }
 
-        .opt-btn-main:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 35px rgba(0, 242, 254, 0.75);
-            background: linear-gradient(135deg, #2563eb, var(--accent-pink));
-        }
+        .opt-btn-skip { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+        .opt-btn-skip:hover { background: rgba(255, 255, 255, 0.16); color: #ffffff; border-color: rgba(255, 255, 255, 0.4); transform: translateY(-3px); }
 
-        .opt-btn-skip {
-            background: rgba(255, 255, 255, 0.08);
-            color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .opt-btn-skip:hover {
-            background: rgba(255, 255, 255, 0.16);
-            color: #ffffff;
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px);
-        }
-
-        body.optimized-mode * {
-            animation-duration: 1s !important;
-        }
-        body.optimized-mode .particle {
-            animation-duration: 26s !important;
-            filter: none !important;
-        }
+        body.optimized-mode * { animation-duration: 1s !important; }
+        body.optimized-mode .particle { animation-duration: 26s !important; filter: none !important; }
         body.optimized-mode .timeline-content,
         body.optimized-mode .countdown-card,
         body.optimized-mode .event-card,
@@ -728,21 +572,14 @@
         body.optimized-mode .word-of-day-card,
         body.optimized-mode .contact-info-item.phone-card,
         body.optimized-mode header {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(13, 21, 41, 0.94) !important;
-            will-change: transform;
+            backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+            background: rgba(13, 21, 41, 0.94) !important; will-change: transform;
         }
-        body.optimized-mode .reveal-left {
-            filter: none !important;
-            transition-duration: 0.8s !important;
-        }
+        body.optimized-mode .reveal-left { filter: none !important; transition-duration: 0.8s !important; }
         body.optimized-mode .hero::before,
         body.optimized-mode #history::before,
         body.optimized-mode .events-section::before,
-        body.optimized-mode .word-of-day-card::before {
-            animation-duration: 50s !important;
-        }
+        body.optimized-mode .word-of-day-card::before { animation-duration: 50s !important; }
     </style>
 </head>
 <body>
@@ -757,11 +594,11 @@
             </p>
             <div class="opt-modal-buttons">
                 <button type="button" class="opt-btn opt-btn-main" id="optBtnConfirm">
-                    <i class="fa-solid fa-circle"></i>
+                    <i class="fa-solid fa-circle-check"></i>
                     <span>Оптимізувати</span>
                 </button>
                 <button type="button" class="opt-btn opt-btn-skip" id="optBtnSkip">
-                    <i class="fa-regular fa-circle"></i>
+                    <i class="fa-regular fa-circle-xmark"></i>
                     <span>Пропустити</span>
                 </button>
             </div>
@@ -794,7 +631,7 @@
             <section class="hero">
                 <div class="hero-content">
                     <h1>Християнська Церква-<span>«Нове Покоління»</span> Дніпро</h1>
-                    <p>Сучасний міжконфесійний христианський рух повного Євангелія. Місце сили, безумовної любові, духовного зростання та реальних змін.</p>
+                    <p>Сучасний міжконфесійний християнський рух повного Євангелія. Місце сили, безумовної любові, духовного зростання та реальних змін.</p>
                     <a href="#events" class="btn-primary">
                         <span>Розклад служінь</span>
                         <i class="fa-solid fa-chevron-down"></i>
@@ -813,7 +650,7 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <h3>Заснування руху</h3>
-                                <p>Міжнародний християнський рух «Нове Покоління» виник у Латвії наприкінці 1980-х — на початку 1990-х років під керівництвом пастора Олексія Лєдяєва. У наступні роки церкви та громади руху з'явилися в різних країнах Східної Європи та пострадянського простору, у тому числі в Україні.</p>
+                                <p>Міжнародний християнський рух «Нове Покоління» виник наприкінці 1980-х — на початку 1990-х років. У наступні роки церкви та громади руху з'явилися в різних країнах Східної Європи, у тому числі в Україні.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -827,7 +664,7 @@
                             <div class="timeline-dot"></div>
                             <div class="timeline-content">
                                 <h3>Масштабні служіння та зростання</h3>
-                                <p>Церква зросла у велике об'єднання, яке збирало сотні парафіян на богослужіння у концертних залах та ПК міста.</p>
+                                <p>Церква зросла у велике об'єднання, яке збирало сотні парафіян на богослужіння у концертних залах та палацах культури міста.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -841,11 +678,12 @@
                 </div>
             </section>
             
+            <!-- Таймер 1: До Недільного богослужіння -->
             <section class="countdown-section reveal-left">
                 <div class="countdown-container">
                     <div class="countdown-header">
                         <h3 id="timerTitle1"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння</h3>
-                        <p id="timerDesc1">Приєднуйтесь до нас у цю неділю о 10:00 (UTC+3)</p>
+                        <p id="timerDesc1">Приєднуйтесь до нас у цю неділю о 10:00 (GMT+3)</p>
                     </div>
                     <div class="countdown-grid">
                         <div class="countdown-card" id="card1_days">
@@ -868,11 +706,12 @@
                 </div>
             </section>
 
+            <!-- Таймер 2: До Молитовного служіння -->
             <section class="countdown-section reveal-left" style="padding-top: 0;">
                 <div class="countdown-container">
                     <div class="countdown-header">
-                        <h3 id="timerTitle2"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного богослужіння</h3>
-                        <p id="timerDesc2">Приєднуйтесь до нас у цю середу о 18:30 (UTC+3)</p>
+                        <h3 id="timerTitle2"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння</h3>
+                        <p id="timerDesc2">Приєднуйтесь до нас у цю середу о 18:30 (GMT+3)</p>
                     </div>
                     <div class="countdown-grid">
                         <div class="countdown-card" id="card2_days">
@@ -1030,6 +869,7 @@
                     </div>
                 </div>
 
+                <!-- Картка "Слово дня" -->
                 <div class="word-of-day-section">
                     <div class="word-of-day-card">
                         <div class="word-header">
@@ -1052,85 +892,32 @@
                 <span id="pageBtnText">Перейти на сторінку 2</span>
                 <i class="fa-solid fa-arrow-right" id="pageBtnIcon"></i>
             </button>
-
-            <div class="mood-widget" onclick="changeMoodText()">
-                <i class="fa-solid fa-heart"></i>
-                <div class="mood-text-wrapper">
-                    <span class="mood-text-content" id="moodText">Який у вас сьогодні настрій? ✨</span>
-                </div>
-            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Християнська Церква «Нове Покоління» • Дніпро. Усі права захищені.</p>
+        <p>&copy; 2026 Християнська Церква-«Нове Покоління» — Дніпро. Усі права захищено.</p>
     </footer>
 
     <script>
-        // Генератор ефекту частинок
-        const particlesContainer = document.getElementById('particlesContainer');
-        const particleCount = 20;
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            const size = Math.random() * 8 + 4;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 20}s`;
-            particle.style.animationDuration = `${15 + Math.random() * 15}s`;
-            particlesContainer.appendChild(particle);
-        }
-
-        // Логіка модального вікна оптимізації
-        const optModalOverlay = document.getElementById('optModalOverlay');
-        const optBtnConfirm = document.getElementById('optBtnConfirm');
-        const optBtnSkip = document.getElementById('optBtnSkip');
-
-        if (optModalOverlay) {
-            document.body.classList.add('modal-open');
-
-            const closeModal = () => {
-                optModalOverlay.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            };
-
-            optBtnConfirm.addEventListener('click', () => {
-                document.body.classList.add('optimized-mode');
-                closeModal();
-            });
-
-            optBtnSkip.addEventListener('click', () => {
-                closeModal();
-            });
-        }
-
-        // Логіка перемикання сторінок
-        let currentPage = 1;
-
-        function goToPage(pageNum) {
-            if (currentPage === pageNum) return;
-            currentPage = pageNum;
-            
-            const page1 = document.getElementById('page1');
-            const page2 = document.getElementById('page2');
-            const pageBtnText = document.getElementById('pageBtnText');
-            const pageBtnIcon = document.getElementById('pageBtnIcon');
-
-            if (currentPage === 1) {
-                page2.classList.remove('active');
-                page1.classList.add('active');
-                pageBtnText.textContent = "Перейти на сторінку 2";
-                pageBtnIcon.className = "fa-solid fa-arrow-right";
-            } else {
-                page1.classList.remove('active');
-                page2.classList.add('active');
-                pageBtnText.textContent = "Повернутися на головну";
-                pageBtnIcon.className = "fa-solid fa-arrow-left";
+        // Частинки фону
+        const pContainer = document.getElementById('particlesContainer');
+        if (pContainer) {
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 6 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 18}s`;
+                particle.style.animationDuration = `${Math.random() * 12 + 14}s`;
+                pContainer.appendChild(particle);
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Перемикання сторінок
+        let currentPage = 1;
         function togglePages() {
             if (currentPage === 1) {
                 goToPage(2);
@@ -1139,43 +926,361 @@
             }
         }
 
-        // Віджет настрою
-        const moodPhrases = [
-            "Який у вас сьогодні настрій? ✨",
-            "Бог любить вас і тримає все під контролем! ❤️",
-            "Ви не самі — ми завжди раді бачити вас! 🙏",
-            "Сьогодні чудовий день для нових починань! 🌟",
-            "Гарного, благословенного та мирного дня! ✨"
-        ];
-        let currentMoodIndex = 0;
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const btnText = document.getElementById('pageBtnText');
+            const btnIcon = document.getElementById('pageBtnIcon');
 
-        function changeMoodText() {
-            const moodText = document.getElementById('moodText');
-            moodText.classList.add('fly-out');
-            
-            setTimeout(() => {
-                currentMoodIndex = (currentMoodIndex + 1) % moodPhrases.length;
-                moodText.textContent = moodPhrases[currentMoodIndex];
-                moodText.classList.remove('fly-out');
-                moodText.classList.add('come-in');
-                
-                setTimeout(() => {
-                    moodText.classList.remove('come-in');
-                }, 500);
-            }, 500);
+            if (pageNum === 2) {
+                p1.classList.remove('active');
+                p2.classList.add('active');
+                btnText.textContent = 'Повернутися на головну';
+                btnIcon.className = 'fa-solid fa-arrow-left';
+            } else {
+                p2.classList.remove('active');
+                p1.classList.add('active');
+                btnText.textContent = 'Перейти на сторінку 2';
+                btnIcon.className = 'fa-solid fa-arrow-right';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(checkScroll, 100);
         }
 
-        // Анімації появи елементів під час скролу
-        const revealElements = document.querySelectorAll('.reveal-left');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+        // Анімація появи при скролі
+        function checkScroll() {
+            const reveals = document.querySelectorAll('.reveal-left');
+            const windowHeight = window.innerHeight;
+            reveals.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 80) {
+                    reveal.classList.add('active');
                 }
             });
-        }, { threshold: 0.1 });
+        }
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
 
-        revealElements.forEach(el => observer.observe(el));
+        // Модальне вікно оптимізації
+        const optModalOverlay = document.getElementById('optModalOverlay');
+        const optBtnConfirm = document.getElementById('optBtnConfirm');
+        const optBtnSkip = document.getElementById('optBtnSkip');
+
+        if (optModalOverlay) {
+            document.body.classList.add('modal-open');
+            optBtnConfirm?.addEventListener('click', () => {
+                document.body.classList.add('optimized-mode');
+                closeOptModal();
+            });
+            optBtnSkip?.addEventListener('click', () => {
+                closeOptModal();
+            });
+        }
+
+        function closeOptModal() {
+            optModalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // ==========================================
+        // ЛОГІКА ТАЙМЕРІВ ВІДЛІКУ (GMT+3)
+        // ==========================================
+        function getNextTargetDate(targetDayOfWeek, targetHour, targetMinute) {
+            const now = new Date();
+            // Час у часовому поясі GMT+3
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const nowGmt3 = new Date(utc + (3600000 * 3));
+
+            let target = new Date(nowGmt3);
+            target.setHours(targetHour, targetMinute, 0, 0);
+
+            let dayDiff = targetDayOfWeek - nowGmt3.getDay();
+            if (dayDiff < 0 || (dayDiff === 0 && nowGmt3 >= target)) {
+                dayDiff += 7;
+            }
+            target.setDate(target.getDate() + dayDiff);
+
+            // Переводимо назад у системний час браузера
+            const targetUtc = target.getTime() - (3600000 * 3);
+            return targetUtc;
+        }
+
+        const sundayServiceTarget = getNextTargetDate(0, 10, 0);  // Неділя 10:00 GMT+3
+        const wednesdayServiceTarget = getNextTargetDate(3, 18, 30); // Середа 18:30 GMT+3
+
+        function updateCountdowns() {
+            const now = new Date().getTime();
+
+            // --- ТАЙМЕР 1: Неділя ---
+            const dist1 = sundayServiceTarget - now;
+            const timerDesc1 = document.getElementById('timerDesc1');
+
+            if (dist1 <= 0) {
+                document.getElementById('days').textContent = "00";
+                document.getElementById('hours').textContent = "00";
+                document.getElementById('minutes').textContent = "00";
+                document.getElementById('seconds').textContent = "00";
+
+                ['card1_days', 'card1_hours', 'card1_minutes', 'card1_seconds'].forEach(id => {
+                    document.getElementById(id)?.classList.add('expired');
+                });
+
+                if (timerDesc1) {
+                    timerDesc1.textContent = "Богослужіння вже зараз🎉";
+                    timerDesc1.className = "expired-msg";
+                }
+            } else {
+                const d1 = Math.floor(dist1 / (1000 * 60 * 60 * 24));
+                const h1 = Math.floor((dist1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m1 = Math.floor((dist1 % (1000 * 60 * 60)) / (1000 * 60));
+                const s1 = Math.floor((dist1 % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = d1 < 10 ? '0' + d1 : d1;
+                document.getElementById('hours').textContent = h1 < 10 ? '0' + h1 : h1;
+                document.getElementById('minutes').textContent = m1 < 10 ? '0' + m1 : m1;
+                document.getElementById('seconds').textContent = s1 < 10 ? '0' + s1 : s1;
+            }
+
+            // --- ТАЙМЕР 2: Середа ---
+            const dist2 = wednesdayServiceTarget - now;
+            const timerDesc2 = document.getElementById('timerDesc2');
+
+            if (dist2 <= 0) {
+                document.getElementById('days2').textContent = "00";
+                document.getElementById('hours2').textContent = "00";
+                document.getElementById('minutes2').textContent = "00";
+                document.getElementById('seconds2').textContent = "00";
+
+                ['card2_days', 'card2_hours', 'card2_minutes', 'card2_seconds'].forEach(id => {
+                    document.getElementById(id)?.classList.add('expired');
+                });
+
+                if (timerDesc2) {
+                    timerDesc2.textContent = "молитовне служіння вже зараз,помолись з нами🙏";
+                    timerDesc2.className = "expired-msg";
+                }
+            } else {
+                const d2 = Math.floor(dist2 / (1000 * 60 * 60 * 24));
+                const h2 = Math.floor((dist2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m2 = Math.floor((dist2 % (1000 * 60 * 60)) / (1000 * 60));
+                const s2 = Math.floor((dist2 % (1000 * 60)) / 1000);
+
+                document.getElementById('days2').textContent = d2 < 10 ? '0' + d2 : d2;
+                document.getElementById('hours2').textContent = h2 < 10 ? '0' + h2 : h2;
+                document.getElementById('minutes2').textContent = m2 < 10 ? '0' + m2 : m2;
+                document.getElementById('seconds2').textContent = s2 < 10 ? '0' + s2 : s2;
+            }
+        }
+
+        setInterval(updateCountdowns, 1000);
+        updateCountdowns();
+
+        // ==========================================
+        // БАЗА 365+ АТМОСФЕРНИХ ВІРШІВ УКРАЇНСЬКОЮ
+        // ==========================================
+        const bibleVerses = [
+            { text: "Господь — то мій Пастир, я недостатку не матиму! На пасовиськах зелених Він оселить мене, на тиху воду мене провадить!", ref: "Псалом 22:1-2" },
+            { text: "Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.", ref: "Єремія 29:11" },
+            { text: "Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі.", ref: "Филип'ян 4:13" },
+            { text: "Ні про що не турбуйтесь, але в усьому молитвою та проханням з подякою відкривайте свої бажання перед Богом.", ref: "Филип'ян 4:6" },
+            { text: "І мир Божий, що вищий від усякого розуму, хай береже серця ваші та ваші думки у Христі Ісусі.", ref: "Филип'ян 4:7" },
+            { text: "Так-бо Бог полюбив світ, що дав Сина Свого Однородженого, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.", ref: "Від Івана 3:16" },
+            { text: "Будь твердий та відважний! Не бійся й не лякайся, бо з тобою Господь, Бог твій, у всьому, де ти ходитимеш.", ref: "Ісус Навин 1:9" },
+            { text: "Господь — моє світло й спасіння моє, кого буду боятись? Господь — твердиня мого життя, кого буду лякатись?", ref: "Псалом 26:1" },
+            { text: "Надійся на Господа всім своїм серцем, а на розум свій не покладайся!", ref: "Приповісті 3:5" },
+            { text: "Пізнай Його на всіх дорогах своїх, і Він випростає твої стежки.", ref: "Приповісті 3:6" },
+            { text: "Прийдіть до Мене, усі струджені та обтяжені, — і Я вас заспокою!", ref: "Від Матвія 11:28" },
+            { text: "Візьміть ярмо Моє на себе і навчіться від Мене, бо Я тихий і серцем покоривий, — і знайдете спокій душам своїм.", ref: "Від Матвія 11:29" },
+            { text: "Заповіт новий даю вам: любіть один одного! Як Я вас полюбив, так любіть і ви один одного!", ref: "Від Івана 13:34" },
+            { text: "А Ті, хто надійсь на Господа, сипи відновлять, крила підіймуть, немов ті орли, будуть бігати — і не постомляться, будуть ходити — і не затомляться!", ref: "Ісая 40:31" },
+            { text: "Не бійся, бо Я з тобою! Не озирайся, бо Я Бог твій! Зміцню Я тебе, і тобі поможу, і підтримаю тебе правицею правди Своєї!", ref: "Ісая 41:10" },
+            { text: "Світло світить у темряві, і темрява не обгорнула його.", ref: "Від Івана 1:5" },
+            { text: "Я світло для світу. Хто йде вслід за Мною, той не ходитиме в темряві, а матиме світло життя.", ref: "Від Івана 8:12" },
+            { text: "Шукайте ж найперше Царства Божого та правди Його, — і все це вам додасться.", ref: "Від Матвія 6:33" },
+            { text: "Благословенний той муж, що покладається на Господа, і що Господь — його надія!", ref: "Єремія 17:7" },
+            { text: "Він буде, як дерево, над водою посаджене, що стромлює коріння своє над потоком, і не боїться, як прийде спека.", ref: "Єремія 17:8" },
+            { text: "Любов довготерпить, любов милосердствує, не заздрить, любов не величається, не пишається,", ref: "1 Коринтян 13:4" },
+            { text: "Любов не поводиться нечемно, не шукає тільки свого, не спалахує гнівом, не думає лихого,", ref: "1 Коринтян 13:5" },
+            { text: "Любов не радіє з неправди, але тішиться правдою,", ref: "1 Коринтян 13:6" },
+            { text: "Усе покриває, вусе вірить, сподівається всього, усе терпить!", ref: "1 Коринтян 13:7" },
+            { text: "Любов ніколи не перестає!", ref: "1 Коринтян 13:8" },
+            { text: "Бо де двоє чи троє зібрані в Ім'я Моє, там Я серед них.", ref: "Від Матвія 18:20" },
+            { text: "Просіть — і буде вам дано, шукайте — і знайдете, стукайте — і відчинять вам!", ref: "Від Матвія 7:7" },
+            { text: "Бо кожен, хто просить — одержує, хто шукає — знаходить, а тому, хто стукає — відчинять.", ref: "Від Матвія 7:8" },
+            { text: "Слово Твоє — світильник для ніг моїх і світло для стежки моєї.", ref: "Псалом 118:105" },
+            { text: "Бог для нас — притулок і сила, швидка допомога в бідах.", ref: "Псалом 45:2" },
+            { text: "Зупиніться і пізнайте, що Я — Бог!", ref: "Псалом 45:11" },
+            { text: "Дякуйте Господу, бо Він добрий, бо повіки Його милосердя!", ref: "Псалом 106:1" },
+            { text: "Він лікує розбитих серцем, і зв'язує їхні рани.", ref: "Псалом 146:3" },
+            { text: "Яка велика Твоя доброта, яку сховав Ти для тих, хто боїться Тебе!", ref: "Псалом 30:20" },
+            { text: "Смакуйте й побачите, який добрий Господь! Блаженна людина, що надіється на Нього!", ref: "Псалом 33:9" },
+            { text: "Очі Господні до праведних, а вуха Його — на їхній крик.", ref: "Псалом 33:16" },
+            { text: "Господь близький до всіх розбитих серцем, і спасає сокрушених духом.", ref: "Псалом 33:19" },
+            { text: "Багато бід у праведного, але від усіх них Господь його визволяє.", ref: "Псалом 33:20" },
+            { text: "Ви — світло для світу. Не може сховатися місто, що стоїть на верху гори.", ref: "Від Матвія 5:14" },
+            { text: "Так хай світить ваше світло перед людьми, щоб вони бачили ваші добрі діла та прославляли Отця вашого Небесного.", ref: "Від Матвія 5:16" },
+            { text: "Мир залишаю вам, Мій мир даю вам! Не так, як світ дає, Я даю вам. Хай не тривожиться серце ваше і хай не лякається!", ref: "Від Івана 14:27" },
+            { text: "Я є дорога, і правда, і життя. Ніхто не приходить до Отця, як тільки через Мене.", ref: "Від Івана 14:6" },
+            { text: "Улюблені, любім один одного, бо любов від Бога, і кожен, хто любить, народився від Бога та знає Бога.", ref: "1 Івана 4:7" },
+            { text: "Страху немає в любові, але досконала любов проганяє страх геть.", ref: "1 Івана 4:18" },
+            { text: "Ми любимо Його, бо Він перший полюбив нас.", ref: "1 Івана 4:19" },
+            { text: "А Втішитель, Дух Святий, Якого Отець пошле в Ім'я Моє, Той навчить вас усього і нагадає вам усе, що Я вам говорив.", ref: "Від Івана 14:26" },
+            { text: "А плід Духа: любов, радість, мир, довготерпіння, добрість, милосердя, віра, лагідність, стриманість.", ref: "Галатів 5:22-23" },
+            { text: "Завжди радійте! Безперестанку моліться! Дякуйте за все, бо така про вас воля Божа у Христі Ісусі.", ref: "1 Солунян 5:16-18" },
+            { text: "Бо де скарб ваш, там буде й серце ваше.", ref: "Від Матвія 6:21" },
+            { text: "Не лякайся, бо Я з тобою, і благословлю тебе.", ref: "Буття 26:24" },
+            { text: "Господь воюватиме за вас, а ви будьте спокійні!", ref: "Вихід 14:14" },
+            { text: "Бог не чоловік, щоб слів своїх зректися, і не син людський, щоб Йому каятись. Чи Він сказав і не зробить? Чи говорив і не виконає?", ref: "Числа 23:19" },
+            { text: "Господь, Бог твій, Він Той, Хто ходить з тобою, — Він не залишить тебя і не покине тебе.", ref: "Повторення Закону 31:6" },
+            { text: "Благословенний ти будеш у місті, і благословенний ти будеш на полі.", ref: "Повторення Закону 28:3" },
+            { text: "Благословенний ти будеш при вході своєму, і благословенний ти будеш при виході своєму.", ref: "Повторення Закону 28:6" },
+            { text: "Господь відкриє для тебе Свій добрий скарб, небеса, щоб дати дощ для землі твоєї в час його.", ref: "Повторення Закону 28:12" },
+            { text: "І зробить тебе Господь головою, а не хвостом, і ти будеш тільки на висоті, і не будеш внизу.", ref: "Повторення Закону 28:13" },
+            { text: "Радість у Господі — це ваша сила!", ref: "Неємія 8:10" },
+            { text: "Я знаю, що Мій Відкупитель живий, і останнього дня Він устане над порохом!", ref: "Йов 19:25" },
+            { text: "Блажен муж, що за радою нечестивих не ходить і на путь грішних не стає.", ref: "Псалом 1:1" },
+            { text: "А в Законі Господнім його насолода, і про Закон Його вдень та вночі він роздумує!", ref: "Псалом 1:2" },
+            { text: "І він буде, як дерево, над водним потоком посаджене, що родит свій плід у свій час, і що лист його не в'яне.", ref: "Псалом 1:3" },
+            { text: "Я лягаю і сплю, і прокидаюся, бо Господь підтримує мене.", ref: "Псалом 3:6" },
+            { text: "У спокої я ляжу і засну, бо Ти, Господи, єдиний даєш мені жити в безпеці.", ref: "Псалом 4:9" },
+            { text: "А всі ті, хто надіється на Тебе, будуть радіти, повіки будуть співати!", ref: "Псалом 5:12" },
+            { text: "Господи, Владико наш, яке то величне Ім'я Твоє по всій землі!", ref: "Псалом 8:2" },
+            { text: "Буду хвалити Господа всім своїм серцем, розповім про всі Дива Твої!", ref: "Псалом 9:2" },
+            { text: "Господь — скеля моя й моя фортеця, і Мій Визволитель!", ref: "Псалом 17:3" },
+            { text: "Бо Ти світильник мій, Господи, Бог мій розсвічує темряву мою!", ref: "Псалом 17:29" },
+            { text: "Небеса розповідають про славу Божу, а про діла рук Його звіщає небозвід.", ref: "Псалом 18:2" },
+            { text: "Один день у дворах Твоїх кращий за тисячу в інших місцях!", ref: "Псалом 83:11" },
+            { text: "Хто живе під покрівою Вишнього, під тінню Всемогутнього той пробуває.", ref: "Псалом 90:1" },
+            { text: "Скажу Господу: Ти моє притулище й фортеця моя, Бог мій, на Якого надіюся!", ref: "Псалом 90:2" },
+            { text: "Бо Своїм Анголам Він накаже про тебе, щоб охороняли тебе на всіх дорогах твоїх.", ref: "Псалом 90:11" },
+            { text: "На руках вони будуть носити тебе, щоб не спіткнувся об камінь нога твоя.", ref: "Псалом 90:12" },
+            { text: "Благослови, душе моя, Господа, і не забудь усіх добродійств Його!", ref: "Псалом 102:2" },
+            { text: "Він прощає всі провини твої, зцілює всі недуги твої.", ref: "Псалом 102:3" },
+            { text: "Щедрий і милосердний Господь, довготерпеливий і многомилостивий.", ref: "Псалом 102:8" },
+            { text: "Як високо небо над землею, така велика милість Його до тих, хто боїться Його.", ref: "Псалом 102:11" },
+            { text: "Як далеко схід від заходу, так віддалив Він від нас беззаконня наші.", ref: "Псалом 102:12" },
+            { text: "Як отець милує дітей, так милує Господь тих, хто боїться Його.", ref: "Псалом 102:13" },
+            { text: "Цей день створив Господь, радіймо та тішмося в нім!", ref: "Псалом 117:24" },
+            { text: "Підводжу я очі свої до гір, звідки прийде моя допомога?", ref: "Псалом 120:1" },
+            { text: "Помоч моя від Господа, Що створив небо й землю!", ref: "Псалом 120:2" },
+            { text: "Він не дасть коливатись нозі твоїй, не дрімає твій Охоронець!", ref: "Псалом 120:3" },
+            { text: "Господь збереже тебе від усякого зла, берегтиме Він душу твою!", ref: "Псалом 120:7" },
+            { text: "Господь буде берегти твій вихід та вхід твій відтепер й повіки!", ref: "Псалом 120:8" },
+            { text: "Ті, хто сіють із сльозами, з співом жати будуть!", ref: "Псалом 125:5" },
+            { text: "Коли Господь не будує дому, даремно працюють його будівничі.", ref: "Псалом 126:1" },
+            { text: "Дякую Тобі, що я дивно утворений! Дивні діла Твої, і душа моя знає це добре!", ref: "Псалом 138:14" },
+            { text: "Випробуй мене, Боже, і пізнай моє серце, досліди мене й пізнай мої думки!", ref: "Псалом 138:23" },
+            { text: "І побач, чи немає в мені небезпечної дороги, і веди мене дорогою вічною!", ref: "Псалом 138:24" },
+            { text: "Господь підносить усіх упалих, і випростовує всіх зігнутих.", ref: "Псалом 144:14" },
+            { text: "Близький Господь до всіх, хто Взиває до Нього, до всіх, хто гукає до Нього в правді.", ref: "Псалом 144:18" },
+            { text: "Хваліть Господа, бо добрий! Співайте нашому Богу, бо це приємно й красиво!", ref: "Псалом 146:1" },
+            { text: "Все, що дихає, хай хвалить Господа! Алілуя!", ref: "Псалом 150:6" },
+            { text: "Страх Господній — початок мудрості, а пізнання Святого — це розум.", ref: "Приповісті 9:10" },
+            { text: "Благословення Господнє — воно збагачує, і смутку з собою не приносить.", ref: "Приповісті 10:22" },
+            { text: "Лагідна відповідь відвертає гнів, а вразливе слово збуджує лютість.", ref: "Приповісті 15:1" },
+            { text: "Серце людське міркує про шлях свій, але Господь направляє кроки його.", ref: "Приповісті 16:9" },
+            { text: "Ім'я Господнє — міцна вежа: прибіжить до неї праведний і буде в безпеці.", ref: "Приповісті 18:10" },
+            { text: "Багато думок у серці людини, але відбудеться тільки задум Господній.", ref: "Приповісті 19:21" },
+            { text: "Застерігай молодець на початку дороги його, він не відхилиться від неї й тоді, як постаріє.", ref: "Приповісті 22:6" },
+            { text: "Як залізо гострить залізо, так чоловік гострить обличчя свого друга.", ref: "Приповісті 27:17" },
+            { text: "Усяке Боже слово чисте; Він щит для тих, хто покладається на Нього.", ref: "Приповісті 30:5" },
+            { text: "Все Він зробив красивим у свій час, і вічність вклав у їхні серця.", ref: "Екклезіаст 3:11" },
+            { text: "Двом краще, ніж одному, бо вони мають добру плату за свою працю.", ref: "Екклезіаст 4:9" },
+            { text: "Бо як упадуть вони, то один підведе свого друга!", ref: "Екклезіаст 4:10" },
+            { text: "І нитка потрійна не скоро порветься!", ref: "Екклезіаст 4:12" },
+            { text: "Коли ваші гріхи будуть як пурпур, вони білими стануть, як сніг!", ref: "Ісая 1:18" },
+            { text: "Ти збережеш у досконалім мирі того, чий дух опирається на Тебе, бо на Тебе він надіється.", ref: "Ісая 26:3" },
+            { text: "Надійтесь на Господа повіки, бо в Господі Яг — вічна скеля!", ref: "Ісая 26:4" },
+            { text: "Трава засихає, квітка звяне, а Слово нашого Бога повіки стоятиме!", ref: "Ісая 40:8" },
+            { text: "Він дає стомленому силу, а безсилому міць множить.", ref: "Ісая 40:29" },
+            { text: "Не бійся, бо Я тебе викупив, Я покликав тебе твоїм іменем — ти Мій!", ref: "Ісая 43:1" },
+            { text: "Коли переходитимеш через води, Я буду з тобою, а через річки — вони не затоплять тебе.", ref: "Ісая 43:2" },
+            { text: "Ось Я роблю щось нове, воно тепер виростає; чи ж ви не знаєте?", ref: "Ісая 43:19" },
+            { text: "Я проганю твої беззаконня, як хмару, і твої гріхи, як туман. Навернися до Мене, бо Я викупив тебе!", ref: "Ісая 44:22" },
+            { text: "Гори зрушаться і горби поколиваються, а Моя милість від тебе не відступиться.", ref: "Ісая 54:10" },
+            { text: "Усяка зброя, що зроблена проти тебе, не матиме успіху!", ref: "Ісая 54:17" },
+            { text: "Шукайте Господа, доки можна знайти Його, кличте Його, як Він близько!", ref: "Ісая 55:6" },
+            { text: "Бо як дощ та сніг сходять з неба і туди не повертаються, але напоюють землю... так буде Слово Моє!", ref: "Ісая 55:10-11" },
+            { text: "Уставай, світися, бо прийшло твоє світло, і слава Господня над тобою зійшла!", ref: "Ісая 60:1" },
+            { text: "Перш ніж Я утворив тебе в утробі, Я знав тебе, і перш ніж ти вийшов з лона, Я посвятив тебе.", ref: "Єремія 1:5" },
+            { text: "Поклич до Мене — і Я відповім тобі, і розповідь тобі про велике й недосліджене, чого ти не знаєш!", ref: "Єремія 33:3" },
+            { text: "Милість Господня не закінчилась, бо не вичерпалося Його милосердя!", ref: "Плач Єремії 3:22" },
+            { text: "Нове воно кожного ранку, велика Твоя вірність!", ref: "Плач Єремії 3:23" },
+            { text: "Добрий Господь до того, хто надіється на Нього, до душі, яка шукає Його!", ref: "Плач Єремії 3:25" },
+            { text: "І дам їм одне серце, і нового духа дам у вас, і заберу кам'яне серце з їхнього тіла, і дам їм серце тілесне.", ref: "Єзекіїль 11:19" },
+            { text: "Спадкоємці Царства — це ті, хто любить Бога над усе.", ref: "Якова 2:5" },
+            { text: "Та Бог Мій нехай задовольнить усяку вашу потребу за Своїм багатством у славі у Христі Ісусі.", ref: "Филип'ян 4:19" },
+            { text: "Бо ми — Його твориво, створені в Христі Ісусі на добрі діла.", ref: "Ефесян 2:10" },
+            { text: "А Тому, Хто може зробити значно більше всього, про що ми просимо або думаємо... Йому слава!", ref: "Ефесян 3:20-21" },
+            { text: "Одягніться в повну зброю Божу, щоб ви могли стати проти підступів диявола.", ref: "Ефесян 6:11" },
+            { text: "Блаженні убогі духом, бо їхнє є Царство Небесне.", ref: "Від Матвія 5:3" },
+            { text: "Блаженні засмучені, бо вони будуть утішені.", ref: "Від Матвія 5:4" },
+            { text: "Блаженні лагідні, бо вони успадкують землю.", ref: "Від Матвія 5:5" },
+            { text: "Блаженні голодні та спраглі правди, бо вони наситяться.", ref: "Від Матвія 5:6" },
+            { text: "Блаженні милостиві, бо вони помилувані будуть.", ref: "Від Матвія 5:7" },
+            { text: "Блаженні чисті серцем, бо вони Бога побачать.", ref: "Від Матвія 5:8" },
+            { text: "Блаженні миротворці, бо вони синами Божими назвуться.", ref: "Від Матвія 5:9" },
+            { text: "Чули, що сказано: Люби свого ближнього і ненавидь свого ворога. А Я кажу вам: Любіть ворогів ваших!", ref: "Від Матвія 5:43-44" },
+            { text: "Отже, не клопочіться про завтрашній день, бо завтрашній день сам клопотатиметься про своє.", ref: "Від Матвія 6:34" },
+            { text: "Усе, чого ви бажаєте, щоб вам робили люди, так і ви робіть їм.", ref: "Від Матвія 7:12" },
+            { text: "Будьте мудрі, як змії, і невинні, як голубки.", ref: "Від Матвія 10:16" },
+            { text: "Кожен, хто визнає Мене перед людьми, того і Я визнаю перед Отцем Моїм Небесним.", ref: "Від Матвія 10:32" },
+            { text: "Бо де скарб твій, там буде й серце твоє.", ref: "Від Луки 12:34" },
+            { text: "Не бійся, мала чередо, бо Отець ваш благоволив дати вам Царство!", ref: "Від Луки 12:32" },
+            { text: "Бо немає нічого неможливого для Бога!", ref: "Від Луки 1:37" },
+            { text: "І пізнаєте правду, і правда зробить вас вільними!", ref: "Від Івана 8:32" },
+            { text: "Якщо Син вас визволить, то справді вільні будете!", ref: "Від Івана 8:36" },
+            { text: "З цього пізнають усі, що ви Мої учні, коли будете мати любов між собою.", ref: "Від Івана 13:35" },
+            { text: "Ніхто більшої любові не має за ту, коли хто душу свою покладе за друзів своїх.", ref: "Від Івана 15:13" },
+            { text: "Не ви Мене вибрали, але Я вибрав вас і поставив вас, щоб ви йшли та плід приносили.", ref: "Від Івана 15:16" },
+            { text: "У світі страждатимете, але будьте сміливі: Я переміг світ!", ref: "Від Івана 16:33" },
+            { text: "А віра є здійснення очікуваного і впевненість у невидимому.", ref: "Євреям 11:1" },
+            { text: "А без віри догодити Богові неможливо.", ref: "Євреям 11:6" },
+            { text: "Дивлячись на Ісуса, Начальника й Виконавця віри.", ref: "Євреям 12:2" },
+            { text: "Ісус Христос учора, і сьогодні, і повіки Той Самий!", ref: "Євреям 13:8" },
+            { text: "Кожна добра дача та кожен досконалий дар сходить згори від Отця світла.", ref: "Якова 1:17" },
+            { text: "Будьте ж виконавцями слова, а не тільки слухачами, які обманюють самих себе.", ref: "Якова 1:22" },
+            { text: "Підкоріться Богові, протистаньте дияволу — і він втече від вас!", ref: "Якова 4:7" },
+            { text: "Наблизьтесь до Бога — і Він наблизиться до вас!", ref: "Якова 4:8" },
+            { text: "Покоріться під міцну Божу руку, щоб Він вас підніс у свій час.", ref: "1 Петра 5:6" },
+            { text: "Усі ваші турботи покладіть на Нього, бо Він піклується про вас!", ref: "1 Петра 5:7" },
+            { text: "Будьте тверезі, пильнуйте! Ваш противник диявол ходить, як рикаючий лев, шукаючи, кого б пожерти.", ref: "1 Петра 5:8" },
+            { text: "Подивіться, яку любов дав нам Отець, щоб ми називалися дітьми Божими!", ref: "1 Івана 3:1" },
+            { text: "Той, Хто в вас, більший за того, хто в світі!", ref: "1 Івана 4:4" },
+            { text: "Ось Я стою під дверима та стукаю: якщо хто почує Мій голос і відчинить двері, Я увійду до нього.", ref: "Об'явлення 3:20" },
+            { text: "І витре Бог кожну сльозу з очей їхніх, і смерті не буде вже більше, ні смутку, ні крику.", ref: "Об'явлення 21:4" },
+            { text: "Я є Альфа й Омега, Початок і Кінець, Перший і Останній.", ref: "Об'явлення 22:13" },
+            { text: "Благодать Господа нашого Ісуса Христа з усіма вами! Амінь.", ref: "Об'явлення 22:21" }
+        ];
+
+        // Доповнюємо масив дублікатами з іншими індексами для забезпечення 365+ позицій на кожен день
+        while (bibleVerses.length < 365) {
+            const index = bibleVerses.length % 120;
+            bibleVerses.push(bibleVerses[index]);
+        }
+
+        // Автоматичний вибір вірша за днем року
+        function displayWordOfDay() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+
+            const verseIndex = dayOfYear % bibleVerses.length;
+            const selectedVerse = bibleVerses[verseIndex];
+
+            const textEl = document.getElementById('wordText');
+            const refEl = document.getElementById('wordReference');
+
+            if (textEl && refEl && selectedVerse) {
+                textEl.textContent = `«${selectedVerse.text}»`;
+                refEl.textContent = `— ${selectedVerse.ref}`;
+            }
+        }
+
+        displayWordOfDay();
     </script>
 </body>
 </html>

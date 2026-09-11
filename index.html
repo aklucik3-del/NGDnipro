@@ -267,6 +267,12 @@
         .countdown-card:hover .countdown-number { text-shadow: 0 0 15px var(--accent-pink), 0 0 30px rgba(255, 0, 127, 0.7); }
         .countdown-label { font-size: clamp(0.78rem, 1.3vw, 0.88rem); font-weight: 600; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1.5px; }
 
+        /* Neon red styling when countdown ends */
+        .countdown-card.expired .countdown-number {
+            color: #ff0055;
+            text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055, 0 0 30px #ff0055, 0 0 40px #ff0000;
+        }
+
         .events-section { 
             background: linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);
             position: relative; overflow: hidden; color: var(--white);
@@ -476,65 +482,6 @@
             -webkit-text-fill-color: transparent;
             display: inline-block;
             filter: drop-shadow(0 0 10px rgba(0,242,254,0.4));
-        }
-
-        .word-footer-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            position: relative;
-            z-index: 2;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 20px;
-            gap: 15px;
-        }
-
-        .like-container {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 22px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            user-select: none;
-        }
-
-        .like-container:hover {
-            border-color: var(--accent-pink);
-            background: rgba(255, 0, 127, 0.08);
-            transform: scale(1.05);
-        }
-
-        .like-btn-icon {
-            font-size: 1.4rem;
-            color: var(--gray);
-            transition: var(--transition);
-            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
-        }
-
-        .like-container.liked .like-btn-icon {
-            color: var(--accent-pink);
-            animation: heartBeat 0.6s cubic-bezier(0.25, 1, 0.35, 1);
-            filter: drop-shadow(0 0 15px var(--accent-pink)) drop-shadow(0 0 25px rgba(255, 0, 127, 0.9));
-        }
-
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            30% { transform: scale(1.4); }
-            50% { transform: scale(0.9); }
-            70% { transform: scale(1.25); }
-            100% { transform: scale(1); }
-        }
-
-        .like-counter {
-            font-weight: 700;
-            font-size: clamp(1rem, 1.6vw, 1.15rem);
-            color: var(--white);
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 0.5px;
         }
 
         .pagination-container { text-align: center; padding: clamp(30px, 6vh, 45px) clamp(15px, 3vw, 20px); background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; z-index: 10; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); }
@@ -898,24 +845,51 @@
             <section class="countdown-section reveal-left">
                 <div class="countdown-container">
                     <div class="countdown-header">
-                        <h3><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До воскресного богослужения</h3>
-                        <p>Присоединяйтесь к нам в это воскресенье в 10:00 (UTC+3)</p>
+                        <h3 id="timerTitle1"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До воскресного богослужения</h3>
+                        <p id="timerDesc1">Присоединяйтесь к нам в это воскресенье в 10:00 (UTC+3)</p>
                     </div>
                     <div class="countdown-grid">
-                        <div class="countdown-card">
+                        <div class="countdown-card" id="card1_days">
                             <div class="countdown-number" id="days">00</div>
                             <div class="countdown-label">Дней</div>
                         </div>
-                        <div class="countdown-card">
+                        <div class="countdown-card" id="card1_hours">
                             <div class="countdown-number" id="hours">00</div>
                             <div class="countdown-label">Часов</div>
                         </div>
-                        <div class="countdown-card">
+                        <div class="countdown-card" id="card1_minutes">
                             <div class="countdown-number" id="minutes">00</div>
                             <div class="countdown-label">Минут</div>
                         </div>
-                        <div class="countdown-card">
+                        <div class="countdown-card" id="card1_seconds">
                             <div class="countdown-number" id="seconds">00</div>
+                            <div class="countdown-label">Секунд</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="countdown-section reveal-left" style="padding-top: 0;">
+                <div class="countdown-container">
+                    <div class="countdown-header">
+                        <h3 id="timerTitle2"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитвенного богослужения</h3>
+                        <p id="timerDesc2">Присоединяйтесь к нам в эту среду в 18:30 (UTC+3)</p>
+                    </div>
+                    <div class="countdown-grid">
+                        <div class="countdown-card" id="card2_days">
+                            <div class="countdown-number" id="days2">00</div>
+                            <div class="countdown-label">Дней</div>
+                        </div>
+                        <div class="countdown-card" id="card2_hours">
+                            <div class="countdown-number" id="hours2">00</div>
+                            <div class="countdown-label">Часов</div>
+                        </div>
+                        <div class="countdown-card" id="card2_minutes">
+                            <div class="countdown-number" id="minutes2">00</div>
+                            <div class="countdown-label">Минут</div>
+                        </div>
+                        <div class="countdown-card" id="card2_seconds">
+                            <div class="countdown-number" id="seconds2">00</div>
                             <div class="countdown-label">Секунд</div>
                         </div>
                     </div>
@@ -1069,232 +1043,277 @@
                             <p class="word-text" id="wordText">Загрузка вдохновляющего стиха...</p>
                             <div class="word-reference" id="wordReference">—</div>
                         </div>
-                        <div class="word-footer-actions">
-                            <div class="like-container" id="likeContainer" title="Нравится">
-                                <i class="fa-solid fa-heart like-btn-icon" id="likeIcon"></i>
-                                <span class="like-counter" id="likeCounter">0</span>
-                            </div>
-                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container">
+            <button class="btn-page" id="pageBtn" onclick="togglePages()">
+                <span id="pageBtnText">Перейти на страницу 2</span>
+                <i class="fa-solid fa-arrow-right" id="pageBtnIcon"></i>
+            </button>
+
+            <div class="mood-widget" onclick="changeMoodText()">
+                <i class="fa-solid fa-heart"></i>
+                <div class="mood-text-wrapper">
+                    <span class="mood-text-content" id="moodText">Какое у вас сегодня настроение? ✨</span>
                 </div>
             </div>
         </div>
     </main>
 
-    <div class="pagination-container">
-        <div class="mood-widget" id="moodBtn">
-            <i class="fa-solid fa-face-smile-beam"></i>
-            <div class="mood-text-wrapper">
-                <span id="moodText" class="mood-text-content">Нажми для благословения и улыбки! ✨</span>
-            </div>
-        </div>
-
-        <button id="nextBtn" class="btn-page" type="button">
-            <span id="btnText">Следующая страница</span>
-            <i id="btnIcon" class="fa-solid fa-arrow-right"></i>
-        </button>
-    </div>
-
     <footer>
-        <p>&copy; 2026 Христианская Церковь-«Новое Поколение» — Днепр. Все права защищены.</p>
+        <p>&copy; 2026 Христианская Церковь «Новое Поколение» • Днепр. Все права защищены.</p>
     </footer>
 
     <script>
-        // Анимация частиц
-        function createParticles() {
-            const container = document.getElementById('particlesContainer');
-            const particleCount = 20;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const size = Math.random() * 8 + 4;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDelay = `${Math.random() * 20}s`;
-                particle.style.animationDuration = `${15 + Math.random() * 15}s`;
-                container.appendChild(particle);
-            }
+        // Particle effect generator
+        const particlesContainer = document.getElementById('particlesContainer');
+        const particleCount = 20;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 8 + 4;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 20}s`;
+            particle.style.animationDuration = `${15 + Math.random() * 15}s`;
+            particlesContainer.appendChild(particle);
         }
 
-        // Переключение страниц
-        let currentPage = 1;
-        function goToPage(page) {
-            if (currentPage === page) return;
-            document.getElementById(`page${currentPage}`).classList.remove('active');
-            document.getElementById(`page${page}`).classList.add('active');
-            currentPage = page;
-            
-            const btnText = document.getElementById('btnText');
-            const btnIcon = document.getElementById('btnIcon');
-            if (currentPage === 1) {
-                btnText.textContent = "Следующая страница";
-                btnIcon.className = "fa-solid fa-arrow-right";
-            } else {
-                btnText.textContent = "Предыдущая страница";
-                btnIcon.className = "fa-solid fa-arrow-left";
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            checkScroll();
-        }
+        // Optimization modal logic
+        const optModalOverlay = document.getElementById('optModalOverlay');
+        const optBtnConfirm = document.getElementById('optBtnConfirm');
+        const optBtnSkip = document.getElementById('optBtnSkip');
 
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            if (currentPage === 1) goToPage(2);
-            else goToPage(1);
+        document.body.classList.add('modal-open');
+
+        optBtnConfirm.addEventListener('click', () => {
+            document.body.classList.add('optimized-mode');
+            closeOptModal();
         });
 
-        // Таймер обратного отсчета до воскресенья 10:00
-        function updateCountdown() {
-            const now = new Date();
-            let sunday = new Date();
-            sunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
-            sunday.setHours(10, 0, 0, 0);
-
-            if (now > sunday) {
-                sunday.setDate(sunday.getDate() + 7);
-            }
-
-            const diff = sunday - now;
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / 1000 / 60) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-
-            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-        }
-
-        // Слово дня (Обновление РОВНО 1 раз в 24 часа по календарному дню)
-        const bibleVerses = [
-            { text: "«Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.»", ref: "Иеремия 29:11" },
-            { text: "«Всё могу в укрепляющем меня Иисусе Христе.»", ref: "Филиппийцам 4:13" },
-            { text: "«Господь — Пастырь мой; я ни в чем не буду нуждаться.»", ref: "Псалом 22:1" },
-            { text: "«Ищите же прежде Царства Божия и правды Его, и это всё приложится вам.»", ref: "От Матфея 6:33" },
-            { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.»", ref: "От Матфея 11:28" },
-            { text: "«Заповедь новую даю вам, да любите друг друга; как Я полюбил вас, так и вы да любите друг друга.»", ref: "От Иоанна 13:34" },
-            { text: "«Вера же есть осуществление ожидаемого и уверенность в невидимом.»", ref: "Евреям 11:1" },
-            { text: "«Господь — свет мой и спасение мое: кого мне бояться?»", ref: "Псалом 26:1" },
-            { text: "«Благословен человек, который надеется на Господа, и которого упование — Господь.»", ref: "Иеремия 17:7" },
-            { text: "«Мир оставляю вам, мир Мой даю вам; не так, как мир дает, Я даю вам. Да не смущается сердце ваше и да не устрашается.»", ref: "От Иоанна 14:27" }
-        ];
-
-        function updateDailyWord() {
-            const todayStr = new Date().toDateString(); // Получаем текущую дату в виде строки, например "Wed Sep 09 2026"
-            const savedDate = localStorage.getItem('dailyWordDate');
-            let verseIndex = localStorage.getItem('dailyWordIndex');
-
-            // Если наступил новый день или стих еще ни разу не сохранялся
-            if (savedDate !== todayStr || verseIndex === null) {
-                // Выбираем индекс на основе количества дней с эпохи Unix для строго синхронного 24-часового цикла
-                const dayOffset = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24));
-                verseIndex = dayOffset % bibleVerses.length;
-                
-                localStorage.setItem('dailyWordDate', todayStr);
-                localStorage.setItem('dailyWordIndex', verseIndex);
-            }
-
-            const verse = bibleVerses[verseIndex];
-            document.getElementById('wordText').innerText = verse.text;
-            document.getElementById('wordReference').innerText = '— ' + verse.ref;
-        }
-
-        // Лайки для Слова Дня
-        const likeContainer = document.getElementById('likeContainer');
-        const likeCounter = document.getElementById('likeCounter');
-        let likes = parseInt(localStorage.getItem('wordLikes') || '42');
-        let isLiked = localStorage.getItem('wordIsLiked') === 'true';
-
-        likeCounter.innerText = likes;
-        if (isLiked) {
-            likeContainer.classList.add('liked');
-        }
-
-        likeContainer.addEventListener('click', () => {
-            if (!isLiked) {
-                likes++;
-                isLiked = true;
-                likeContainer.classList.add('liked');
-            } else {
-                likes--;
-                isLiked = false;
-                likeContainer.classList.remove('liked');
-            }
-            likeCounter.innerText = likes;
-            localStorage.setItem('wordLikes', likes);
-            localStorage.setItem('wordIsLiked', isLiked);
+        optBtnSkip.addEventListener('click', () => {
+            closeOptModal();
         });
 
-        // Нажми для благословения
-        const moodBtn = document.getElementById('moodBtn');
-        const moodText = document.getElementById('moodText');
-        const blessings = [
-            "Пусть Божий мир наполняет твое сердце сегодня! 🕊️",
-            "Ты драгоценен в очах Божьих и глубоко любим! ❤️",
-            "Господь — твоя крепость и защита в любой день! 🛡️",
-            "Пусть радость Божья станет твоей силой! ✨",
-            "Сегодня день новых возможностей и благословений! 🌟",
-            "Бог усматривает лучшее для твоей жизни! 🙏",
-            "Улыбнись, ведь Христос с тобой всегда! 😊"
-        ];
-
-        moodBtn.addEventListener('click', () => {
-            moodText.classList.add('fly-out');
+        function closeOptModal() {
+            optModalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
             setTimeout(() => {
-                const randomBlessing = blessings[Math.floor(Math.random() * blessings.length)];
-                moodText.innerText = randomBlessing;
-                moodText.classList.remove('fly-out');
-                moodText.classList.add('come-in');
-                setTimeout(() => {
-                    moodText.classList.remove('come-in');
-                }, 500);
-            }, 500);
-        });
+                optModalOverlay.style.display = 'none';
+            }, 600);
+        }
 
-        // Scroll reveal анимация
-        function checkScroll() {
-            const reveals = document.querySelectorAll('.reveal-left');
+        // Scroll reveal logic
+        const reveals = document.querySelectorAll('.reveal-left');
+        function revealOnScroll() {
             const windowHeight = window.innerHeight;
             reveals.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) {
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
                     element.classList.add('active');
                 }
             });
         }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
 
-        window.addEventListener('scroll', checkScroll);
+        // Page toggling logic
+        let currentPage = 1;
+        function goToPage(pageNum) {
+            if (pageNum === currentPage) return;
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const btnText = document.getElementById('pageBtnText');
+            const btnIcon = document.getElementById('pageBtnIcon');
 
-        // Модальное окно оптимизации
-        const optModal = document.getElementById('optModalOverlay');
-        const optConfirm = document.getElementById('optBtnConfirm');
-        const optSkip = document.getElementById('optBtnSkip');
-
-        document.body.classList.add('modal-open');
-
-        function closeModal() {
-            optModal.classList.remove('active');
-            document.body.classList.remove('modal-open');
+            if (pageNum === 1) {
+                p2.classList.remove('active');
+                p1.classList.add('active');
+                currentPage = 1;
+                btnText.textContent = "Перейти на страницу 2";
+                btnIcon.className = "fa-solid fa-arrow-right";
+            } else {
+                p1.classList.remove('active');
+                p2.classList.add('active');
+                currentPage = 2;
+                btnText.textContent = "Вернуться на главную";
+                btnIcon.className = "fa-solid fa-arrow-left";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(revealOnScroll, 100);
         }
 
-        optConfirm.addEventListener('click', () => {
-            document.body.classList.add('optimized-mode');
-            closeModal();
-        });
+        function togglePages() {
+            if (currentPage === 1) {
+                goToPage(2);
+            } else {
+                goToPage(1);
+            }
+        }
 
-        optSkip.addEventListener('click', () => {
-            closeModal();
-        });
+        // Bible verses generator
+        const bibleVerses = [
+            { text: "«Ибо только Я знаю намерения, какие имею о вас, говорит Господь, намерения во благо, а не на зло, чтобы дать вам будущность и надежду.»", ref: "Иеремия 29:11" },
+            { text: "«Все могу в укрепляющем меня Иисусе Христе.»", ref: "Филиппийцам 4:13" },
+            { text: "«Господь — Пастырь мой; я ни в чем не буду нуждаться.»", ref: "Псалом 22:1" },
+            { text: "«Заповедь новую даю вам, да любите друг друга; как Я полюбил вас, так и вы да любите друг друга.»", ref: "От Иоанна 13:34" },
+            { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас.»", ref: "От Матфея 11:28" }
+        ];
 
-        // Инициализация при загрузке
-        window.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
-            updateDailyWord();
-            checkScroll();
-        });
+        function loadWordOfDay() {
+            const today = new Date();
+            const index = (today.getFullYear() + today.getMonth() + today.getDate()) % bibleVerses.length;
+            const verse = bibleVerses[index];
+            document.getElementById('wordText').textContent = verse.text;
+            document.getElementById('wordReference').textContent = '— ' + verse.ref;
+        }
+        loadWordOfDay();
+
+        // Mood widget interactive text changer
+        const moodPhrases = [
+            "Какое у вас сегодня настроение? ✨",
+            "Бог любит вас и верен вам всегда! ❤️",
+            "Пусть этот день принесет радость и мир! 🙏",
+            "Верьте в лучшее — с Богом все возможно! 🌟",
+            "Желаем вам благословенного дня и вдохновения! ✨"
+        ];
+        let moodIndex = 0;
+
+        function changeMoodText() {
+            const moodTextElem = document.getElementById('moodText');
+            moodTextElem.classList.add('fly-out');
+            
+            setTimeout(() => {
+                moodIndex = (moodIndex + 1) % moodPhrases.length;
+                moodTextElem.textContent = moodPhrases[moodIndex];
+                moodTextElem.classList.remove('fly-out');
+                moodTextElem.classList.add('come-in');
+                
+                setTimeout(() => {
+                    moodTextElem.classList.remove('come-in');
+                }, 50);
+            }, 500);
+        }
+
+        // Timers Logic
+        function updateTimers() {
+            const now = new Date();
+
+            // --- Timer 1: Sunday 10:00 (Resets Sun 12:00) ---
+            let target1 = new Date(now);
+            target1.setHours(10, 0, 0, 0);
+            
+            let dayOfWeek = now.getDay(); // 0 - Sun, 1 - Mon, ...
+            let daysToAdd1 = (7 - dayOfWeek) % 7;
+            target1.setDate(now.getDate() + daysToAdd1);
+
+            // If Sunday after 12:00, target next Sunday 10:00
+            if (dayOfWeek === 0 && now >= new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0)) {
+                target1.setDate(target1.getDate() + 7);
+            }
+
+            let reset1 = new Date(target1);
+            reset1.setHours(12, 0, 0, 0);
+
+            let diff1 = target1 - now;
+
+            const cards1 = [
+                document.getElementById('card1_days'),
+                document.getElementById('card1_hours'),
+                document.getElementById('card1_minutes'),
+                document.getElementById('card1_seconds')
+            ];
+
+            if (diff1 <= 0 && now < reset1) {
+                // Event is happening now
+                document.getElementById('timerTitle1').innerHTML = '<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> Богослужение сейчас🎉';
+                document.getElementById('timerDesc1').textContent = 'Присоединяйтесь к нам прямо сейчас!';
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                cards1.forEach(c => c.classList.add('expired'));
+            } else {
+                if (diff1 <= 0) {
+                    target1.setDate(target1.getDate() + 7);
+                    diff1 = target1 - now;
+                }
+                document.getElementById('timerTitle1').innerHTML = '<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До воскресного богослужения';
+                document.getElementById('timerDesc1').textContent = 'Присоединяйтесь к нам в это воскресенье в 10:00 (UTC+3)';
+                cards1.forEach(c => c.classList.remove('expired'));
+
+                const d1 = Math.floor(diff1 / (1000 * 60 * 60 * 24));
+                const h1 = Math.floor((diff1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m1 = Math.floor((diff1 % (1000 * 60 * 60)) / (1000 * 60));
+                const s1 = Math.floor((diff1 % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(d1).padStart(2, '0');
+                document.getElementById('hours').textContent = String(h1).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(m1).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(s1).padStart(2, '0');
+            }
+
+            // --- Timer 2: Wednesday 18:30 (Resets Wed 20:00) ---
+            let target2 = new Date(now);
+            target2.setHours(18, 30, 0, 0);
+
+            let daysToAdd2 = (3 - dayOfWeek + 7) % 7;
+            target2.setDate(now.getDate() + daysToAdd2);
+
+            // If Wednesday after 20:00, target next Wednesday 18:30
+            if (dayOfWeek === 3 && now >= new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 0, 0)) {
+                target2.setDate(target2.getDate() + 7);
+            }
+
+            let reset2 = new Date(target2);
+            reset2.setHours(20, 0, 0, 0);
+
+            let diff2 = target2 - now;
+
+            const cards2 = [
+                document.getElementById('card2_days'),
+                document.getElementById('card2_hours'),
+                document.getElementById('card2_minutes'),
+                document.getElementById('card2_seconds')
+            ];
+
+            if (diff2 <= 0 && now < reset2) {
+                // Event is happening now
+                document.getElementById('timerTitle2').innerHTML = '<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> Молитвенное служение сейчас, помолись вместе с нами🎉';
+                document.getElementById('timerDesc2').textContent = 'Присоединяйтесь к нашей молитве прямо сейчас!';
+                document.getElementById('days2').textContent = '00';
+                document.getElementById('hours2').textContent = '00';
+                document.getElementById('minutes2').textContent = '00';
+                document.getElementById('seconds2').textContent = '00';
+                cards2.forEach(c => c.classList.add('expired'));
+            } else {
+                if (diff2 <= 0) {
+                    target2.setDate(target2.getDate() + 7);
+                    diff2 = target2 - now;
+                }
+                document.getElementById('timerTitle2').innerHTML = '<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитвенного богослужения';
+                document.getElementById('timerDesc2').textContent = 'Присоединяйтесь к нам в эту среду в 18:30 (UTC+3)';
+                cards2.forEach(c => c.classList.remove('expired'));
+
+                const d2 = Math.floor(diff2 / (1000 * 60 * 60 * 24));
+                const h2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
+                const s2 = Math.floor((diff2 % (1000 * 60)) / 1000);
+
+                document.getElementById('days2').textContent = String(d2).padStart(2, '0');
+                document.getElementById('hours2').textContent = String(h2).padStart(2, '0');
+                document.getElementById('minutes2').textContent = String(m2).padStart(2, '0');
+                document.getElementById('seconds2').textContent = String(s2).padStart(2, '0');
+            }
+        }
+
+        setInterval(updateTimers, 1000);
+        updateTimers();
     </script>
 </body>
 </html>

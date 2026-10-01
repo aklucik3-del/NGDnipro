@@ -54,7 +54,10 @@
         .social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: #d6249f; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6); }
         .social-btn.youtube:hover { background: #ff0000; border-color: #ff0000; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6); }
 
-        main { flex: 1; padding-top: 84px; position: relative; z-index: 2; }
+        /* ВИПРАВЛЕННЯ: фон області <main> тепер темний (раніше крізь відступ під шапкою
+           та крізь ще не показані секції просвічував світлий фон body → білі/сірі смуги).
+           Перші 84px (відступ під fixed-шапкою) мають колір шапки, далі — глибокий темний. */
+        main { flex: 1; padding-top: 84px; position: relative; z-index: 2; background: linear-gradient(to bottom, #0a0f1d 0, #0a0f1d 84px, #05080e 84px, #05080e 100%); }
         .page { display: none; }
         .page.active { display: block; animation: pageZoomIn 0.8s cubic-bezier(0.25, 1, 0.35, 1) forwards; }
         @keyframes pageZoomIn { from { opacity: 0; transform: scale(0.96) translateY(15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
@@ -62,7 +65,9 @@
         .hero { min-height: calc(100vh - 84px); background: linear-gradient(135deg, rgba(10, 15, 29, 0.9), rgba(23, 43, 82, 0.88)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover; display: flex; align-items: center; text-align: center; color: var(--white); padding: clamp(40px, 8vh, 80px) clamp(15px, 3vw, 20px); position: relative; overflow: hidden; }
         .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,242,254,0.12) 0%, transparent 65%); animation: rotateGlow 35s infinite linear; pointer-events: none; }
         @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to top, var(--light), transparent); pointer-events: none; }
+        /* ВИПРАВЛЕННЯ: нижній перехід Hero раніше танув у білий (var(--light)).
+           Тепер він плавно переходить у темний колір наступної секції з м'яким неоновим сяйвом. */
+        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 140px; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0, 242, 254, 0.16) 0%, transparent 70%), linear-gradient(to top, #050b18 0%, rgba(5, 11, 24, 0.85) 35%, transparent 100%); pointer-events: none; }
           
         .hero-content { max-width: clamp(600px, 80vw, 880px); margin: 0 auto; animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.35, 1) 0.2s both; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }

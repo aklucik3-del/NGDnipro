@@ -90,11 +90,19 @@
             filter: blur(10px);  
             transition: opacity 1.4s cubic-bezier(0.25, 1, 0.35, 1), transform 1.4s cubic-bezier(0.25, 1, 0.35, 1), filter 1.4s cubic-bezier(0.25, 1, 0.35, 1);  
         }  
-        .reveal-left.active {  
-            opacity: 1;  
-            transform: translateX(0);  
-            filter: blur(0);  
-        }  
+        /* ВИПРАВЛЕННЯ БАГУ ЗНИКАННЯ КАРТОК ТАЙМЛАЙНА:
+           раніше фінальний стан був transform: translateX(0) та filter: blur(0). Це НЕ «нічого»:
+           будь-яке значення, окрім none, залишає на секції контекст накладання (stacking context),
+           а filter ще й робить її "backdrop root". Усередині лежать картки з backdrop-filter, і
+           при кліку (transform: scale + translateY) під час/одразу після анімації появи
+           Chromium губить шар такої картки, тому 3-тя або 4-та картка зникала.
+           Тепер у кінці анімації обидві властивості повністю знімаються (none), візуально
+           результат той самий, але ланцюжок filter/transform над backdrop-filter зникає. */
+        .reveal-left.active {
+            opacity: 1;
+            transform: none;
+            filter: none;
+        }
 
         .container { max-width: var(--container-max); margin: 0 auto; width: 100%; }  
         .section-title { text-align: center; margin-bottom: clamp(40px, 7vw, 65px); }  
@@ -2388,4 +2396,4 @@
     })();
     </script>
 </body>  
-    </html>
+</html>

@@ -90,14 +90,8 @@
             filter: blur(10px);  
             transition: opacity 1.4s cubic-bezier(0.25, 1, 0.35, 1), transform 1.4s cubic-bezier(0.25, 1, 0.35, 1), filter 1.4s cubic-bezier(0.25, 1, 0.35, 1);  
         }  
-        /* ВИПРАВЛЕННЯ БАГУ ЗНИКАННЯ КАРТОК ТАЙМЛАЙНА:
-           раніше фінальний стан був transform: translateX(0) та filter: blur(0). Це НЕ «нічого»:
-           будь-яке значення, окрім none, залишає на секції контекст накладання (stacking context),
-           а filter ще й робить її "backdrop root". Усередині лежать картки з backdrop-filter, і
-           при кліку (transform: scale + translateY) під час/одразу після анімації появи
-           Chromium губить шар такої картки, тому 3-тя або 4-та картка зникала.
-           Тепер у кінці анімації обидві властивості повністю знімаються (none), візуально
-           результат той самий, але ланцюжок filter/transform над backdrop-filter зникає. */
+        /* Фінальний стан появи секції: none замість translateX(0)/blur(0), щоб після анімації
+           над скляними картками не лишалися filter/transform предка (чисте завершення анімації). */
         .reveal-left.active {
             opacity: 1;
             transform: none;
@@ -195,7 +189,13 @@
         .history-timeline { position: relative; max-width: 900px; margin: 0 auto; z-index: 2; }  
         .history-timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 4px; background: linear-gradient(to bottom, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 25px var(--accent); }  
         @media(min-width: 768px) { .history-timeline::before { left: 50%; transform: translateX(-50%); } }  
-        .timeline-item { position: relative; margin-bottom: clamp(35px, 5vw, 50px); padding-left: 55px; }  
+        /* ВИПРАВЛЕННЯ ЗНИКАННЯ ЛАНОК ТАЙМЛАЙНА (проблема композиції, а не JS):
+           кожна ланка (точка + скляна картка з backdrop-filter) тепер від самого початку є власним
+           композитним шаром. Раніше перший клік раптово створював новий шар для натиснутої картки
+           (transform: scale), Chrome перебудовував шари під час живого розмиття фону, і шар сусідньої
+           ланки (разом з її точкою) губився. Тепер клік шарів не створює і не перебудовує.
+           Вигляд, кольори, розміри й анімації не змінюються. */
+        .timeline-item { position: relative; margin-bottom: clamp(35px, 5vw, 50px); padding-left: 55px; will-change: transform; }  
         @media(min-width: 768px) { .timeline-item { width: 50%; padding-left: 0; padding-right: 45px; } .timeline-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 45px; } }  
         .timeline-dot { position: absolute; left: 8px; top: 5px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: 5px solid var(--dark); box-shadow: 0 0 0 5px rgba(0, 242, 254, 0.35), 0 0 25px var(--accent); transition: var(--transition); }  
         .timeline-item.is-on .timeline-dot { transform: scale(1.45) rotate(180deg); background: var(--accent-pink); box-shadow: 0 0 0 10px rgba(255,0,127,0.3), 0 0 30px var(--accent-pink); }  
@@ -2396,4 +2396,4 @@
     })();
     </script>
 </body>  
-</html>
+                </html>

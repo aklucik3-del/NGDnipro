@@ -907,6 +907,244 @@
             transform: translateY(-2px);  
         }  
 
+        /* ==========================================================
+           ЗАПИТАННЯ ДО БОГА — блок під карткою «Духовне натхнення»
+           Палітра: блакитний → синій → фіолетовий (м'яка, без кислотних відтінків)
+           ========================================================== */
+        .ask-god-section {
+            position: relative;
+            max-width: var(--container-max);
+            margin: clamp(24px, 4vh, 36px) auto 0 auto;
+            width: 100%;
+        }
+
+        /* Три «гало» (блакитне, синє, фіолетове) по черзі м'яко проявляються — ніжне переливання сяйва */
+        .ag-halo {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 30px; pointer-events: none;
+            opacity: 0; animation: agPulse 12s ease-in-out infinite;
+        }
+        .ag-halo-1 { box-shadow: 0 0 44px 2px rgba(92, 200, 255, 0.28); }
+        .ag-halo-2 { box-shadow: 0 0 44px 2px rgba(79, 124, 255, 0.32); animation-delay: -4s; }
+        .ag-halo-3 { box-shadow: 0 0 44px 2px rgba(155, 123, 255, 0.30); animation-delay: -8s; }
+        @keyframes agPulse { 0%, 100% { opacity: 0; } 33% { opacity: 1; } 66% { opacity: 0; } }
+
+        .ask-god-card {
+            position: relative; z-index: 1; overflow: hidden;
+            border-radius: 30px;
+            padding: clamp(20px, 4.5vw, 44px);
+            text-align: center;
+            background: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 38%, rgba(79,124,255,0.08) 100%), rgba(10, 16, 38, 0.92);
+            border: 1px solid rgba(92, 200, 255, 0.22);
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+        }
+
+        /* Неонова рамка: три кільця з різними градієнтами, що плавно змінюють одне одного */
+        .ag-ring {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 0;
+            opacity: 0; animation: agPulse 12s ease-in-out infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+        }
+        .ag-ring-1 { background: linear-gradient(135deg, #5cc8ff, #4f7cff); }
+        .ag-ring-2 { background: linear-gradient(135deg, #4f7cff, #9b7bff); animation-delay: -4s; }
+        .ag-ring-3 { background: linear-gradient(135deg, #9b7bff, #5cc8ff); animation-delay: -8s; }
+
+        /* М'які світлові плями всередині скла */
+        .ag-orb { position: absolute; width: 340px; height: 340px; border-radius: 50%; pointer-events: none; z-index: 0; opacity: 0.5; animation: agOrb 9s ease-in-out infinite alternate; }
+        .ag-orb-a { top: -150px; right: -120px; background: radial-gradient(circle, rgba(92, 200, 255, 0.2) 0%, transparent 68%); }
+        .ag-orb-b { bottom: -160px; left: -130px; background: radial-gradient(circle, rgba(155, 123, 255, 0.22) 0%, transparent 68%); animation-delay: -4.5s; }
+        @keyframes agOrb { from { opacity: 0.3; } to { opacity: 0.85; } }
+
+        .ag-inner { position: relative; z-index: 2; }
+
+        .ag-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(92, 200, 255, 0.1);
+            color: #8fd8ff;
+            border: 1px solid rgba(92, 200, 255, 0.38);
+            padding: 8px 22px; border-radius: 30px;
+            font-weight: 700; font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+            box-shadow: 0 0 16px rgba(92, 200, 255, 0.25);
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .ag-badge i { filter: drop-shadow(0 0 8px rgba(92, 200, 255, 0.8)); }
+
+        .ag-lead {
+            max-width: 620px; margin: 18px auto 24px;
+            color: #cbd5e1; font-weight: 400;
+            font-size: clamp(0.92rem, 1.6vw, 1.02rem); line-height: 1.65;
+        }
+
+        .ag-field { position: relative; max-width: 760px; margin: 0 auto; }
+        .ag-textarea {
+            display: block; width: 100%; max-width: 100%;
+            min-height: clamp(130px, 22vw, 170px);
+            padding: 18px 20px 36px;
+            border-radius: 20px;
+            background: rgba(4, 9, 24, 0.6);
+            border: 1px solid rgba(92, 200, 255, 0.3);
+            box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.35);
+            color: #f1f5f9; font-family: inherit; font-size: 1rem; line-height: 1.6;
+            text-align: left; resize: vertical; outline: none;
+            transition: border-color 0.45s var(--ease), box-shadow 0.45s var(--ease), background-color 0.45s var(--ease);
+        }
+        .ag-textarea::placeholder { color: rgba(148, 163, 184, 0.85); }
+        .ag-textarea:hover { border-color: rgba(124, 150, 255, 0.5); }
+        .ag-textarea:focus {
+            border-color: rgba(124, 140, 255, 0.85);
+            background: rgba(6, 12, 32, 0.75);
+            box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(79, 124, 255, 0.18), 0 0 26px rgba(92, 200, 255, 0.22);
+        }
+        .ag-counter-chars {
+            position: absolute; right: 18px; bottom: 11px;
+            font-size: 0.75rem; color: #64748b; font-variant-numeric: tabular-nums; pointer-events: none;
+        }
+
+        .ag-msg { min-height: 1.4em; margin-top: 10px; font-size: 0.88rem; color: #9db4ff; }
+
+        .ag-btn {
+            position: relative; isolation: isolate; overflow: hidden;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            min-width: min(100%, 280px);
+            margin-top: 8px; padding: 16px 40px;
+            border-radius: 50px; border: 1.5px solid rgba(255, 255, 255, 0.7);
+            color: #ffffff; font-family: inherit; font-weight: 700;
+            font-size: clamp(1rem, 1.6vw, 1.15rem);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            box-shadow: 0 0 22px rgba(92, 200, 255, 0.45), 0 0 46px rgba(139, 107, 255, 0.3);
+            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), opacity 0.4s var(--ease);
+        }
+        /* Переливання блакитний → синій → фіолетовий: рухається широкий шар через transform (на GPU) */
+        .ag-btn::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 200%;
+            z-index: -1; pointer-events: none; will-change: transform;
+            background: linear-gradient(90deg, #4cb8f5 0%, #4f7cff 12.5%, #8b6bff 25%, #4f7cff 37.5%, #4cb8f5 50%, #4f7cff 62.5%, #8b6bff 75%, #4f7cff 87.5%, #4cb8f5 100%);
+            animation: agSlide 9s linear infinite;
+        }
+        .ag-btn::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit; pointer-events: none;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.55);
+        }
+        @keyframes agSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .ag-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 0 30px rgba(92, 200, 255, 0.7), 0 0 62px rgba(139, 107, 255, 0.5); }
+        .ag-btn:active { transform: translateY(-1px) scale(0.98); }
+        .ag-btn:focus-visible { outline: 2px solid #8fd8ff; outline-offset: 3px; }
+        .ag-btn:disabled { opacity: 0.85; cursor: progress; transform: none; }
+
+        /* Результат */
+        .ag-result { margin-top: clamp(24px, 4vw, 34px); }
+        .ag-result[hidden] { display: none; }
+        .ag-result.show { animation: agRise 0.7s var(--ease) both; }
+        @keyframes agRise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+        .ag-note {
+            max-width: 760px; margin: 0 auto 16px;
+            padding: 12px 18px; border-radius: 16px;
+            background: rgba(155, 123, 255, 0.1); border: 1px solid rgba(155, 123, 255, 0.35);
+            color: #d8ccff; font-size: 0.92rem; line-height: 1.6;
+        }
+        .ag-note[hidden] { display: none; }
+
+        .ag-verse {
+            position: relative; overflow: hidden;
+            max-width: 860px; margin: 0 auto;
+            border-radius: 26px;
+            padding: clamp(22px, 4.5vw, 40px) clamp(16px, 4vw, 38px);
+            background: linear-gradient(145deg, rgba(92, 200, 255, 0.1), rgba(79, 124, 255, 0.06) 50%, rgba(155, 123, 255, 0.14)), rgba(8, 13, 32, 0.85);
+            border: 1px solid rgba(124, 140, 255, 0.45);
+            box-shadow: 0 16px 38px rgba(0, 0, 0, 0.5), 0 0 30px rgba(79, 124, 255, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            touch-action: pan-y;
+        }
+        .ag-verse-body { transition: opacity 0.3s var(--ease), transform 0.3s var(--ease); }
+        .ag-verse-body.ag-leave-left { opacity: 0; transform: translateX(-28px); }
+        .ag-verse-body.ag-leave-right { opacity: 0; transform: translateX(28px); }
+        .ag-verse-body.ag-enter-right { opacity: 0; transform: translateX(28px); transition: none; }
+        .ag-verse-body.ag-enter-left { opacity: 0; transform: translateX(-28px); transition: none; }
+
+        .ag-book {
+            display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+            color: #8fd8ff; font-weight: 600; letter-spacing: 0.5px;
+            font-size: clamp(0.88rem, 1.5vw, 1rem);
+            overflow-wrap: anywhere;
+        }
+        .ag-book i { filter: drop-shadow(0 0 7px rgba(92, 200, 255, 0.7)); }
+        .ag-ref {
+            display: inline-block; margin: 4px 0 18px;
+            font-size: clamp(1.5rem, 3.6vw, 2.2rem); font-weight: 800; line-height: 1.2;
+            background: linear-gradient(135deg, #5cc8ff, #4f7cff, #9b7bff);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(79, 124, 255, 0.45));
+        }
+        .ag-text {
+            font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 500; font-style: italic;
+            line-height: 1.7; color: #f1f5f9; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            overflow-wrap: anywhere;
+        }
+        .ag-why {
+            display: flex; align-items: flex-start; gap: 12px; text-align: left;
+            margin: 24px auto 0; max-width: 680px;
+            padding: 14px 18px; border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.09);
+            color: #cbd5e1; font-size: clamp(0.88rem, 1.5vw, 0.97rem); line-height: 1.6;
+        }
+        .ag-why i { color: #9b7bff; margin-top: 4px; filter: drop-shadow(0 0 6px rgba(155, 123, 255, 0.7)); }
+        .ag-why span { min-width: 0; overflow-wrap: anywhere; }
+
+        .ag-nav {
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+            gap: clamp(8px, 2vw, 16px);
+            max-width: 860px; margin: 18px auto 0;
+        }
+        .ag-nav[hidden] { display: none; }
+        .ag-arrow {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            min-width: 0; padding: 12px clamp(12px, 3vw, 22px);
+            border-radius: 50px; cursor: pointer;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(92, 200, 255, 0.4);
+            color: #ffffff; font-family: inherit; font-weight: 600; font-size: 0.92rem;
+            box-shadow: 0 0 14px rgba(92, 200, 255, 0.18);
+            transition: transform 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease), opacity 0.4s var(--ease);
+        }
+        #agPrev { justify-self: start; }
+        #agNext { justify-self: end; }
+        .ag-arrow:hover:not(:disabled) {
+            background: linear-gradient(135deg, rgba(92, 200, 255, 0.35), rgba(139, 107, 255, 0.4));
+            border-color: rgba(155, 123, 255, 0.8);
+            box-shadow: 0 0 22px rgba(124, 140, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        .ag-arrow:active:not(:disabled) { transform: scale(0.96); }
+        .ag-arrow:focus-visible { outline: 2px solid #8fd8ff; outline-offset: 3px; }
+        .ag-arrow:disabled { opacity: 0.32; cursor: not-allowed; box-shadow: none; }
+        .ag-counter {
+            padding: 8px 18px; border-radius: 30px;
+            background: rgba(79, 124, 255, 0.12); border: 1px solid rgba(124, 140, 255, 0.4);
+            color: #dbe4ff; font-weight: 700; font-size: 0.95rem; font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .ag-btn { width: 100%; padding: 15px 24px; }
+        }
+        @media (max-width: 420px) {
+            .ag-arrow span { display: none; }
+            .ag-arrow { padding: 12px 20px; font-size: 1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ag-halo, .ag-ring, .ag-orb, .ag-btn::before { animation: none; }
+            .ag-ring-1 { opacity: 1; }
+            .ag-halo-1 { opacity: 0.7; }
+            .ag-btn::before { transform: translateX(-12%); }
+            .ag-verse-body { transition: none; }
+        }
+        body.optimized-mode .ag-halo, body.optimized-mode .ag-orb, body.optimized-mode .ag-btn::before { animation-duration: 20s; }
+
         /* Сповіщення Toast для копіювання / обраного */
         .toast-notification {
             position: fixed;
@@ -1603,6 +1841,64 @@
                         </div>  
                     </div>  
 
+                    <!-- ЗАПИТАННЯ ДО БОГА: розміщено БЕЗПОСЕРЕДНЬО ПІД карткою «Духовне натхнення» -->
+                    <div class="ask-god-section" id="askGodSection">
+                        <div class="ag-halo ag-halo-1"></div>
+                        <div class="ag-halo ag-halo-2"></div>
+                        <div class="ag-halo ag-halo-3"></div>
+
+                        <div class="ask-god-card">
+                            <span class="ag-ring ag-ring-1"></span>
+                            <span class="ag-ring ag-ring-2"></span>
+                            <span class="ag-ring ag-ring-3"></span>
+                            <span class="ag-orb ag-orb-a"></span>
+                            <span class="ag-orb ag-orb-b"></span>
+
+                            <div class="ag-inner">
+                                <div class="ag-badge">
+                                    <i class="fa-solid fa-hands-praying"></i>
+                                    <span>Запитання до Бога</span>
+                                </div>
+                                <p class="ag-lead">Напиши своїми словами, що тебе зараз турбує або що ти відчуваєш, — і ми підберемо для тебе вірші з Біблії.</p>
+
+                                <div class="ag-field">
+                                    <textarea class="ag-textarea" id="agInput" maxlength="500" rows="4" placeholder="Що зараз у тебе на серці?" aria-label="Що зараз у тебе на серці?"></textarea>
+                                    <span class="ag-counter-chars" id="agChars">0 / 500</span>
+                                </div>
+                                <div class="ag-msg" id="agMsg" role="status" aria-live="polite"></div>
+
+                                <button type="button" class="ag-btn" id="agBtn">
+                                    <span id="agBtnLabel">Знайти слово ✨</span>
+                                </button>
+
+                                <div class="ag-result" id="agResult" hidden aria-live="polite">
+                                    <div class="ag-note" id="agNote" hidden></div>
+                                    <div class="ag-verse" id="agVerse">
+                                        <div class="ag-verse-body" id="agVerseBody">
+                                            <div class="ag-book"><i class="fa-solid fa-book-bible"></i><span id="agBook"></span></div>
+                                            <div></div>
+                                            <div class="ag-ref" id="agRef"></div>
+                                            <p class="ag-text" id="agText"></p>
+                                            <div class="ag-why" id="agWhyBox">
+                                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                                <span id="agWhy"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ag-nav" id="agNav">
+                                        <button type="button" class="ag-arrow" id="agPrev" aria-label="Попередній вірш">
+                                            <i class="fa-solid fa-arrow-left"></i><span>попередній</span>
+                                        </button>
+                                        <div class="ag-counter" id="agCounter">1 / 1</div>
+                                        <button type="button" class="ag-arrow" id="agNext" aria-label="Наступний вірш">
+                                            <span>наступний</span><i class="fa-solid fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>  
             </div>  
 
@@ -2291,6 +2587,416 @@
     </script>  
 
     <!-- ==========================================
+         ЗАПИТАННЯ ДО БОГА: підбір віршів
+         (окремий скрипт, не залежить від решти коду сайту).
+         Працює як ПОШУК по підготовленій базі справжніх віршів —
+         жодних цитат він не генерує і не вигадує.
+         ========================================== -->
+    <script>
+    (function () {
+        var input = document.getElementById('agInput');
+        var chars = document.getElementById('agChars');
+        var msg = document.getElementById('agMsg');
+        var btn = document.getElementById('agBtn');
+        var btnLabel = document.getElementById('agBtnLabel');
+        var result = document.getElementById('agResult');
+        var note = document.getElementById('agNote');
+        var verseBox = document.getElementById('agVerse');
+        var body = document.getElementById('agVerseBody');
+        var elBook = document.getElementById('agBook');
+        var elRef = document.getElementById('agRef');
+        var elText = document.getElementById('agText');
+        var elWhy = document.getElementById('agWhy');
+        var nav = document.getElementById('agNav');
+        var prev = document.getElementById('agPrev');
+        var next = document.getElementById('agNext');
+        var counter = document.getElementById('agCounter');
+        if (!input || !btn || !result || !body || !prev || !next) return;
+
+        // ---------- БАЗА ВІРШІВ (тексти — з бази сайту; нові не вигадуються) ----------
+        // id 1–46 збігаються з блоком «Духовне натхнення». id 101–102 — додаткові вірші про прощення.
+        var VERSES = {
+            1:  { book: 'Ієремія', ref: '29:11', text: 'Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.' },
+            2:  { book: 'До Филип\'ян', ref: '4:13', text: 'Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі.' },
+            3:  { book: 'Псалом', ref: '22:1', text: 'Господь — то мій Пастир, я потреби мати не можу!' },
+            4:  { book: 'До Филип\'ян', ref: '4:6', text: 'Ні про що не турбуйтесь, але в усьому через молитву й прохання з подякою відкривайте свої бажання перед Богом.' },
+            5:  { book: 'Від Івана', ref: '3:16', text: 'Бо так Боже полюбив світ, що дав Сина Свого Однородженого, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.' },
+            6:  { book: 'Ісус Навин', ref: '1:9', text: 'Будь сильний та відважний! Не бійся й не лякайся, бо з тобою Господь, Бог твій, у всьому, де ти ходитимеш.' },
+            7:  { book: 'Приповісті', ref: '3:5', text: 'Надейся на Господа всім своїм серцем, а на розум свій не покладайся!' },
+            8:  { book: 'Від Івана', ref: '1:5', text: 'Світло світить у темряві, і темрява не охопила його.' },
+            9:  { book: 'Ісая', ref: '41:10', text: 'Не бійся, бо Я з тобою; не оглядайся, бо Я Бог твій! Зміцню тебе, і поможу тобі, і підтримаю тебе правицею правди Моєї.' },
+            10: { book: 'Псалом', ref: '26:1', text: 'Господь — світло моє та спасіння моє, кого ж я боятимусь? Господь — твердиня життя мого, кого ж я страхатимусь?' },
+            11: { book: 'Від Матвія', ref: '11:28', text: 'Прийдіть до Мене всі струджені та обтяжені, і Я вас заспокою.' },
+            12: { book: 'Від Івана', ref: '14:27', text: 'Мир залишаю вам, мир Мій даю вам; не так, як світ дає, Я вам даю. Хай не хвилюється серце ваше й не лякається.' },
+            13: { book: 'До Римлян', ref: '8:28', text: 'Ми знаємо, що тим, хто любить Бога, хто покликаний за Його постановою, усе допомагає на добре.' },
+            14: { book: 'До Римлян', ref: '15:13', text: 'А Бог надії хай сповнить вас усякою радістю та миром у вірі, щоб ви збагатились надією силою Духа Святого.' },
+            15: { book: '1 до Коринтян', ref: '13:13', text: 'А тепер зостаються віра, надія, любов, — ці троє, але любов із них більша.' },
+            16: { book: 'До Євреїв', ref: '11:1', text: 'Віра ж — то ґрунт для сподіваного, доказ для небаченого.' },
+            17: { book: 'Якова', ref: '1:5', text: 'А коли кому з вас не стає мудрості, нехай просить від Бога, що всім дає просто та не докоряє, — і буде дана йому.' },
+            18: { book: '1 Петра', ref: '5:7', text: 'Всю турботу вашу складіть на Нього, бо Він піклується про вас.' },
+            19: { book: 'Псалом', ref: '120:1-2', text: 'Підношу очі свої на гори: звідкіля прийде поміч моя? Поміч моя від Господа, що вчинив небо та землю.' },
+            20: { book: 'Ісая', ref: '40:31', text: 'А ті, що надіються на Господа, відновляться в силі, піднімуть крила, мов орли; побіжать — і не потомляться, підуть — і не змучаться.' },
+            21: { book: 'Від Івана', ref: '8:12', text: 'Я — світло для світу. Хто йде за Мною, не буде той ходити в темряві, але матиме світло життя.' },
+            22: { book: 'Від Івана', ref: '15:12', text: 'Оце заповідь Моя, щоб ви любили один одного, як Я вас полюбив.' },
+            23: { book: 'Від Матвія', ref: '6:33', text: 'Шукайте ж найперш Царства Божого та правди Його, а це все вам докладеться.' },
+            25: { book: 'Від Матвія', ref: '28:20', text: 'І ось Я з вами по всі дні до кінця віку.' },
+            26: { book: 'Псалом', ref: '33:9', text: 'Скуштуйте й побачте, який добрий Господь! Блаженна людина, що на Нього покладається.' },
+            27: { book: 'Псалом', ref: '45:2', text: 'Бог нам охорона та сила, скора в недолях поміч.' },
+            28: { book: 'Приповісті', ref: '3:6', text: 'Пізнавай Його на всіх дорогах своїх, і Він вирівняє твої стежки.' },
+            29: { book: 'До Филип\'ян', ref: '4:7', text: 'І мир Божий, що вищий від усякого розуму, збереже серця ваші та думки ваші в Христі Ісусі.' },
+            30: { book: '2 до Коринтян', ref: '12:9', text: 'Досить тобі Моєї благодаті, бо сила Моя в немочі виявляється досконало.' },
+            31: { book: '2 до Тимофія', ref: '1:7', text: 'Бо Бог нам не дав духа страху, але сили, і любові, і здорового розуму.' },
+            32: { book: 'До Ефесян', ref: '2:8', text: 'Бо ви спасені благодаттю через віру, а це не від вас, то Боже дарунок.' },
+            33: { book: '1 до Солунян', ref: '5:16-18', text: 'Радійте завжди! Без угавання моліться! За все дякуйте.' },
+            34: { book: '1 Івана', ref: '4:8', text: 'Хто не любить, той не пізнав Бога, бо Бог є любов.' },
+            35: { book: 'Псалом', ref: '117:24', text: 'Це день, що його Господь учинив, — радіймо й веселімся в ньому!' },
+            36: { book: 'Ісая', ref: '43:1', text: 'Не бійся, бо Я тебе викупив, Я кликнув на ймення твоє: ти Мій!' },
+            37: { book: 'Від Марка', ref: '9:23', text: 'Усе можливе тому, хто вірує.' },
+            38: { book: 'Від Луки', ref: '1:37', text: 'Бо в Бога жодне слово не буде безсилим.' },
+            39: { book: 'Псалом', ref: '36:4', text: 'Майся втішати Господом, і Він сповнить бажання серця твого.' },
+            40: { book: 'Псалом', ref: '36:5', text: 'Звір свою дорогу Господеві, і надійся на Нього, і Він учинить.' },
+            41: { book: 'Приповісті', ref: '17:22', text: 'Радісне серце лікує, як ліки, а смутний дух сушить кості.' },
+            42: { book: 'Приповісті', ref: '18:10', text: 'Ім\'я Господнє — міцна вежа: до неї втече праведний — і буде в безпеці.' },
+            43: { book: 'Екклезіяст', ref: '3:1', text: 'Для всього своя пора, і час для всякої речі під небом.' },
+            44: { book: 'Якова', ref: '4:8', text: 'Наблизьтеся до Бога, і Він наблизиться до вас.' },
+            45: { book: 'Від Івана', ref: '16:33', text: 'Я вам це сказав, щоб мир ви в Мені мали. На світі матимете скорботу; але будьте відважні: Я світ переміг!' },
+            46: { book: 'Псалом', ref: '18:2', text: 'Небеса звіщають Божу славу, а твердь неба сповіщає про діло рук Його.' },
+            101: { book: 'До Ефесян', ref: '4:32', text: 'Будьте ж один до одного добрі, жалісливі, прощаючи один одному, як і Бог у Христі простив вам.' },
+            102: { book: 'Від Матвія', ref: '6:14', text: 'Бо коли ви людям простите їхні провини, то простить і вам Отець ваш Небесний.' }
+        };
+
+        // ---------- ТЕМИ: ключові основи слів + вірші з поясненням ----------
+        var THEMES = [
+            { id: 'crisis', care: true, boost: 100,
+              keys: ['хочу померти', 'не хочу жити', 'не хочу більше жити', 'суїцид', 'самогубств', 'покінчити з собою', 'вбити себе', 'зникнути з цього світу', 'нема сенсу жити', 'немає сенсу жити', 'краще б мене не було'],
+              verses: [
+                { id: 36, why: 'Бог кличе тебе на ім\'я. Для Нього ти не випадкова людина, а дорога й потрібна.' },
+                { id: 11, why: 'Ісус запрошує прийти саме з утомою та тягарем — без жодних умов.' },
+                { id: 25, why: 'Ти не сам(а): Він обіцяє бути поруч у кожен день.' },
+                { id: 9, why: 'Бог обіцяє підтримати тебе, коли немає сил триматися самому.' }
+              ] },
+            { id: 'lonely',
+              keys: ['самотн', 'одинок', 'покинут', 'покинув', 'покинул', 'нікому', 'ніхто', ' сам ', ' сама ', 'порожнеч', 'відкинут', 'ізольован', 'немає друзів', 'нема друзів', 'нема нікого', 'немає нікого', 'нема з ким'],
+              verses: [
+                { id: 25, why: 'Тобі самотньо, а Ісус обіцяє бути з тобою щодня, без винятків.' },
+                { id: 36, why: 'Бог знає тебе на ім\'я і називає Своїм — ти не забутий(а).' },
+                { id: 44, why: 'Коли поруч немає людей, можна зробити крок до Бога — і Він зробить крок назустріч.' },
+                { id: 9, why: 'Бог каже: «Я з тобою», — саме тоді, коли здається, що поруч нікого.' },
+                { id: 6, why: 'Присутність Бога не залежить від обставин — Він із тобою всюди, куди ти йдеш.' }
+              ] },
+            { id: 'fear',
+              keys: ['боюс', 'боїт', 'боятис', 'боятись', 'страх', 'страш', 'лякає', 'лякаю', 'переляк', 'жах', 'паніка', 'панічн', 'майбутн', 'невідом', 'невизначен', 'що буде'],
+              verses: [
+                { id: 9, why: 'Ти боїшся — а Бог відповідає: «Не бійся, Я з тобою». Він обіцяє зміцнити й підтримати.' },
+                { id: 31, why: 'Страх не від Бога. Він дає силу, любов і ясний розум.' },
+                { id: 10, why: 'Коли Господь — твоє світло та опора, страх втрачає свою владу.' },
+                { id: 6, why: 'Бог закликає бути відважним, бо Сам іде поруч на кожному кроці.' },
+                { id: 12, why: 'Христос залишає Свій мир — інший, ніж світ, — для тривожного серця.' }
+              ] },
+            { id: 'future',
+              keys: ['майбутн', 'завтра', 'що далі', 'невідомість', 'що чекає', 'не знаю що буде', 'плани', 'невизначен'],
+              verses: [
+                { id: 1, why: 'Бог має для тебе думки про спокій і майбутнє з надією — навіть коли ти його не бачиш.' },
+                { id: 40, why: 'Ти можеш віддати свою дорогу Господу — і Він сам подбає про наступні кроки.' },
+                { id: 28, why: 'Коли визнаєш Бога на своїх дорогах, Він вирівнює стежки попереду.' },
+                { id: 13, why: 'Навіть те, чого ти не розумієш, Бог може обернути на добро.' }
+              ] },
+            { id: 'tired',
+              keys: ['важко', 'тяжко', 'втом', 'стомив', 'стомл', 'виснаж', 'вигор', 'тягар', 'не можу більше', 'сил немає', 'немає сил', 'нема сил', 'замучив', 'обтяжен', 'перевантаж', 'струджен'],
+              verses: [
+                { id: 11, why: 'Тобі важко — і Ісус кличе саме тебе: «Прийди, і Я заспокою».' },
+                { id: 20, why: 'Ті, хто надіється на Господа, відновлюються в силі — навіть коли здається, що сил немає.' },
+                { id: 18, why: 'Ти можеш покласти свою турботу на Бога: Він піклується про тебе.' },
+                { id: 30, why: 'Божа благодать достатня саме тоді, коли ти відчуваєш слабкість.' },
+                { id: 27, why: 'Бог — опора та швидка допомога в скруті.' }
+              ] },
+            { id: 'unsure',
+              keys: ['не знаю що', 'не знаю, що', 'як бути', 'що робити', 'розгуб', 'вибір', 'обрати', 'вибрати', 'рішення', 'ухвалит', 'перехрест', 'напрям', 'не розумію', 'заплутал', 'куди йти', 'мудрості', 'не бачу виходу'],
+              verses: [
+                { id: 17, why: 'Коли бракує мудрості, можна просто попросити в Бога — Він дає щедро і без докорів.' },
+                { id: 7, why: 'Довірся Господу всім серцем, навіть якщо розум не бачить відповіді.' },
+                { id: 28, why: 'Бог обіцяє вирівняти стежки тому, хто визнає Його на своїх шляхах.' },
+                { id: 40, why: 'Віддай свою дорогу Господу — і Він сам вчинить те, що треба.' },
+                { id: 1, why: 'У Бога є добрий задум для твого життя, навіть коли ти не знаєш наступного кроку.' }
+              ] },
+            { id: 'hope',
+              keys: ['надії', 'надія', 'надію', 'безнадій', 'відчай', 'зневір', 'опустил', 'немає сенсу', 'нема сенсу', 'сенсу', 'темно', 'темряв', 'нічого не виходить', 'вихід'],
+              verses: [
+                { id: 14, why: 'Бог — джерело надії, і Він хоче наповнити тебе радістю та миром.' },
+                { id: 20, why: 'Надія на Господа повертає сили та піднімає, мов на орлиних крилах.' },
+                { id: 1, why: 'Бог обіцяє «майбутнє та надію» — Він не залишає тебе без перспективи.' },
+                { id: 8, why: 'Навіть у найтемніший час темрява не здатна поглинути світло.' },
+                { id: 45, why: 'Скорботи справжні, але Христос уже переміг світ.' }
+              ] },
+            { id: 'forgive',
+              keys: ['пробач', 'простит', 'прощ', 'образ', 'злюсь', 'злість', 'гнів', 'гніваюс', 'зрадив', 'скривдив', 'кривд', 'помст', 'ненавиджу'],
+              verses: [
+                { id: 101, why: 'Бог першим простив нас у Христі — це дає силу пробачити й іншим.' },
+                { id: 102, why: 'Прощення, яке ми дарруємо людям, пов\'язане з прощенням, яке ми отримуємо від Бога.' },
+                { id: 22, why: 'Любов, якою Христос полюбив нас, — приклад для того, як ставитися до інших.' },
+                { id: 34, why: 'Бог є любов, і тому ми вчимося любові й прощенню саме від Нього.' }
+              ] },
+            { id: 'sorrow',
+              keys: ['сумую', ' сум ', 'сумно', 'смутк', 'плач', 'сльоз', 'горе', 'втрат', 'помер', 'смерть', 'болить', 'біль', 'страждан', 'депрес', 'розбите серце', 'розрив', 'розлуч'],
+              verses: [
+                { id: 11, why: 'У болю й утраті Ісус запрошує прийти до Нього та знайти розраду.' },
+                { id: 12, why: 'Христос залишає Свій мир — для серця, яке хвилюється та болить.' },
+                { id: 18, why: 'Можна покласти свій біль на Бога: Він піклується про тебе.' },
+                { id: 45, why: 'Скорботи в цьому світі справжні, але Христос обіцяє мир і перемогу.' },
+                { id: 36, why: 'У болю Бог нагадує: ти Його, і Він не залишить тебе.' }
+              ] },
+            { id: 'anxiety',
+              keys: ['хвилю', 'турбує', 'турбуюс', 'тривог', 'тривож', 'стрес', 'нервую', 'нервів', 'напруг', 'не можу заспокоїтись', 'спокою', 'не сплю', 'безсон'],
+              verses: [
+                { id: 4, why: 'Замість тривоги Бог пропонує розповісти Йому все в молитві з подякою.' },
+                { id: 29, why: 'Мир Божий береже серце та думки — навіть коли розум не може заспокоїтись.' },
+                { id: 18, why: 'Ти можеш віддати всю свою турботу Богові — Він про тебе дбає.' },
+                { id: 12, why: 'Христос залишає Свій мир, щоб серце не хвилювалося й не лякалося.' }
+              ] },
+            { id: 'strength',
+              keys: ['слабк', 'безсил', 'не справляюс', 'не впораюс', 'немічн', 'бракує сил', 'не вистачає сил', 'не маю сил', 'не витримую'],
+              verses: [
+                { id: 30, why: 'Божа сила виявляється досконало саме в нашій слабкості.' },
+                { id: 2, why: 'Силу для справи дає не власна міць, а Христос, Який зміцнює.' },
+                { id: 20, why: 'Хто надіється на Господа, відновлюється в силі.' },
+                { id: 6, why: 'Бог закликає бути сильним і відважним, бо Сам поруч.' }
+              ] },
+            { id: 'doubt',
+              keys: ['сумнів', 'не вірю', 'невіра', 'віри немає', 'бракує віри', 'чи існує', 'чи чує', 'бог мовчить', 'бог не відповідає', 'віри', 'вірити', 'повірити', 'чуда'],
+              verses: [
+                { id: 16, why: 'Віра — це впевненість у тому, чого ми не бачимо; її можна плекати крок за кроком.' },
+                { id: 37, why: 'Ісус каже, що для віруючого все можливе.' },
+                { id: 38, why: 'Для Бога немає безсилих слів і неможливих речей.' },
+                { id: 44, why: 'Зроби крок до Бога — і Він наблизиться до тебе.' }
+              ] },
+            { id: 'worth',
+              keys: ['не люблять', 'ніхто не любить', 'не потрібен', 'не потрібна', 'непотрібн', 'ненавиджу себе', 'нікчем', 'не гідн', 'не вартий', 'не варта', 'гріх', 'провин', 'сором', 'винен', 'винна', 'цінн'],
+              verses: [
+                { id: 5, why: 'Бог настільки полюбив тебе, що віддав найдорожче — Свого Сина.' },
+                { id: 36, why: 'Бог викупив тебе і називає Своїм: ти для Нього цінний(а).' },
+                { id: 32, why: 'Спасіння — це дарунок Божої благодаті, його не треба заслуговувати.' },
+                { id: 30, why: 'Божої благодаті досить, навіть коли ти не почуваєшся достойним(ою).' }
+              ] },
+            { id: 'love',
+              keys: ['любов', 'любити', 'кохан', 'стосунк', 'родин', 'сімя', 'друз', 'конфлікт', 'сварк'],
+              verses: [
+                { id: 22, why: 'Ісус заповідає любити одне одного так, як Він полюбив нас.' },
+                { id: 34, why: 'Бог є любов — і саме від Нього ми вчимося любити.' },
+                { id: 15, why: 'Із трьох головних речей — віри, надії та любові — найбільша любов.' },
+                { id: 5, why: 'Найбільший приклад любові — те, що Бог зробив для нас.' }
+              ] },
+            { id: 'safety',
+              keys: ['війн', 'обстріл', 'ракет', 'вибух', 'небезпек', 'безпек', 'захист', 'ворог', 'загроз', 'сирен', 'укриття', 'фронт', 'мобіліз', 'воюю', 'воює', 'тривога'],
+              verses: [
+                { id: 42, why: 'Ім\'я Господнє — міцна вежа, де можна знайти безпеку.' },
+                { id: 27, why: 'Бог — охорона, сила та швидка допомога в недолях.' },
+                { id: 10, why: 'Коли Господь — твоя твердиня, є підстава не боятися.' },
+                { id: 19, why: 'Допомога приходить від Господа, Який створив небо та землю.' },
+                { id: 9, why: 'Бог обіцяє бути поруч, зміцнювати й підтримувати.' }
+              ] },
+            { id: 'provision',
+              keys: ['гроші', 'грошей', 'фінанс', 'бідніст', 'бідн', 'роботу', 'безробі', 'нестач', 'борг', 'кредит', 'прожит', 'забезпеч', 'потреб'],
+              verses: [
+                { id: 3, why: 'Господь — Пастир, Який дбає про потреби Своїх.' },
+                { id: 23, why: 'Ісус заохочує шукати Царство Боже першим — решта додасться.' },
+                { id: 18, why: 'Свою турботу про майбутнє можна покласти на Бога: Він піклується.' },
+                { id: 38, why: 'Для Бога немає неможливого, навіть коли ресурсів бракує.' }
+              ] },
+            { id: 'health',
+              keys: ['хвор', 'хвороб', 'здоров', 'лікар', 'діагноз', 'операці', 'одужат', 'зцілен', 'лікув', 'онколог'],
+              verses: [
+                { id: 41, why: 'Радісне серце, як ліки, — Біблія нагадує, як важливий внутрішній спокій.' },
+                { id: 19, why: 'Допомога приходить від Господа — Він поруч і в часи хвороби.' },
+                { id: 20, why: 'Ті, хто надіється на Господа, відновляться в силі.' },
+                { id: 38, why: 'У Бога жодне слово не безсиле — є місце для надії.' }
+              ] },
+            { id: 'failure',
+              keys: ['помилк', 'помилив', 'невдач', 'провал', 'програв', 'не вийшло', 'не вдалос', 'розчаруван', 'розчарув', 'зазнав'],
+              verses: [
+                { id: 13, why: 'Бог здатен обернути на добро навіть невдачі та помилки.' },
+                { id: 30, why: 'Благодаті Божої досить — вона достатня й після поразки.' },
+                { id: 20, why: 'Надія на Господа піднімає знову, навіть після падіння.' },
+                { id: 43, why: 'У всьому є своя пора: цей час теж минеться.' }
+              ] },
+            { id: 'joy',
+              keys: ['радість', 'радіс', 'вдячн', 'дякую', 'щасти', 'натхнен', 'прославл', 'хвала', 'слава богу'],
+              verses: [
+                { id: 33, why: 'Радість і подяка — це те, до чого запрошує Біблія в кожен день.' },
+                { id: 35, why: 'Кожен день — дар від Господа, і за нього можна радіти.' },
+                { id: 26, why: 'Бог добрий, і блаженний той, хто на Нього покладається.' },
+                { id: 39, why: 'Знаходь радість у Господі — Він сповнює бажання серця.' }
+              ] },
+            { id: 'seek',
+              keys: ['ближче до бога', 'пізнати бога', 'шукаю бога', 'хочу молит', 'навчитися молитись', 'молитись', 'молитва', 'молитв', 'молюсь'],
+              verses: [
+                { id: 44, why: 'Зроби крок до Бога — і Він зробить крок назустріч.' },
+                { id: 4, why: 'У молитві можна відкрити Богові всі бажання з подякою.' },
+                { id: 33, why: 'Молитва та подяка — постійна розмова з Богом.' },
+                { id: 17, why: 'Бог охоче відповідає тому, хто просить мудрості.' }
+              ] }
+        ];
+
+        // Вірші для випадку, коли збігів не знайдено
+        var FALLBACK = [
+            { id: 1, why: 'Це слово про Божі добрі наміри щодо тебе — воно доречне в будь-якому стані.' },
+            { id: 12, why: 'Мир Христа — подарунок для кожного, хто його потребує.' },
+            { id: 11, why: 'Ісус запрошує прийти до Нього з усім, що на серці.' },
+            { id: 25, why: 'Бог обіцяє бути поруч — щодня, без винятків.' }
+        ];
+
+        var MAX_RESULTS = 5;
+        var results = [];
+        var index = 0;
+        var animating = false;
+
+        function norm(s) {
+            return ' ' + String(s).toLowerCase()
+                .replace(/[’ʼ`´]/g, "'")
+                .replace(/[.,!?;:()"«»—–\-]+/g, ' ')
+                .replace(/\s+/g, ' ').trim() + ' ';
+        }
+
+        // ---------- ПОШУК ----------
+        function findVerses(raw) {
+            var t = norm(raw);
+            var scored = [];
+            THEMES.forEach(function (th) {
+                var score = 0;
+                th.keys.forEach(function (k) {
+                    if (t.indexOf(k) !== -1) score += (k.length >= 6 ? 2 : 1);
+                });
+                if (score > 0) scored.push({ theme: th, score: score + (th.boost || 0) });
+            });
+
+            scored.sort(function (a, b) { return b.score - a.score; });
+
+            var care = scored.some(function (s) { return s.theme.care; });
+            var items = [];
+
+            if (scored.length) {
+                var top = scored[0].score;
+                var chosen = scored.filter(function (s) { return s.score >= top * 0.4 || s.theme.care; }).slice(0, 3);
+                var seen = {};
+                for (var round = 0; round < 5 && items.length < MAX_RESULTS; round++) {
+                    for (var i = 0; i < chosen.length && items.length < MAX_RESULTS; i++) {
+                        var v = chosen[i].theme.verses[round];
+                        if (v && !seen[v.id]) { seen[v.id] = true; items.push(v); }
+                    }
+                }
+            }
+
+            var fallback = false;
+            if (!items.length) { items = FALLBACK.slice(0, 4); fallback = true; }
+
+            return {
+                items: items.map(function (v) {
+                    var base = VERSES[v.id];
+                    return { book: base.book, ref: base.ref, text: base.text, why: v.why };
+                }),
+                care: care,
+                fallback: fallback
+            };
+        }
+
+        // ---------- ВІДОБРАЖЕННЯ ----------
+        function fill(i) {
+            var v = results[i];
+            elBook.textContent = v.book;
+            elRef.textContent = v.ref;
+            elText.textContent = '«' + v.text + '»';
+            elWhy.textContent = v.why;
+            counter.textContent = (i + 1) + ' / ' + results.length;
+            prev.disabled = (i === 0);
+            next.disabled = (i === results.length - 1);
+        }
+
+        function go(newIndex, dir) {
+            if (animating || newIndex < 0 || newIndex >= results.length || newIndex === index) return;
+            animating = true;
+            body.classList.add(dir > 0 ? 'ag-leave-left' : 'ag-leave-right');
+            setTimeout(function () {
+                index = newIndex;
+                fill(index);
+                body.classList.remove('ag-leave-left', 'ag-leave-right');
+                var enter = dir > 0 ? 'ag-enter-right' : 'ag-enter-left';
+                body.classList.add(enter);
+                void body.offsetWidth; // примусовий reflow, щоб плавно повернути у нормальний стан
+                body.classList.remove(enter);
+                setTimeout(function () { animating = false; }, 320);
+            }, 280);
+        }
+
+        function showResults(res) {
+            results = res.items;
+            index = 0;
+            animating = false;
+            body.classList.remove('ag-leave-left', 'ag-leave-right', 'ag-enter-left', 'ag-enter-right');
+            fill(0);
+            nav.hidden = results.length < 2;
+
+            if (res.care) {
+                note.textContent = 'Нам дуже шкода, що тобі зараз так важко. Ти не сам(а). Будь ласка, поговори з близькою людиною або зателефонуй на безкоштовну лінію підтримки Lifeline Ukraine: 7333. Якщо є загроза життю — телефонуй 112. А ці слова — для тебе:';
+                note.hidden = false;
+            } else if (res.fallback) {
+                note.textContent = 'Точного збігу не знайдено, тому ось слова про Божу близькість і надію — вони доречні завжди.';
+                note.hidden = false;
+            } else {
+                note.hidden = true;
+            }
+
+            result.hidden = false;
+            result.classList.remove('show');
+            void result.offsetWidth;
+            result.classList.add('show');
+            try { result.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+        }
+
+        function search() {
+            var raw = input.value.trim();
+            if (raw.length < 3) {
+                msg.textContent = 'Напиши хоча б кілька слів — і ми підберемо для тебе вірші.';
+                input.focus();
+                return;
+            }
+            msg.textContent = '';
+            btn.disabled = true;
+            btnLabel.textContent = 'Шукаю слово…';
+            setTimeout(function () {
+                showResults(findVerses(raw));
+                btn.disabled = false;
+                btnLabel.textContent = 'Знайти слово ✨';
+            }, 800);
+        }
+
+        // ---------- ПОДІЇ ----------
+        btn.addEventListener('click', search);
+        prev.addEventListener('click', function () { go(index - 1, -1); });
+        next.addEventListener('click', function () { go(index + 1, 1); });
+
+        input.addEventListener('input', function () {
+            chars.textContent = input.value.length + ' / ' + input.maxLength;
+            if (msg.textContent) msg.textContent = '';
+        });
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); search(); }
+        });
+
+        // Свайп по картці вірша на телефоні
+        var touchX = null;
+        verseBox.addEventListener('touchstart', function (e) {
+            touchX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        verseBox.addEventListener('touchend', function (e) {
+            if (touchX === null) return;
+            var dx = e.changedTouches[0].clientX - touchX;
+            touchX = null;
+            if (Math.abs(dx) < 50) return;
+            if (dx < 0) go(index + 1, 1); else go(index - 1, -1);
+        }, { passive: true });
+    })();
+    </script>
+
+    <!-- ==========================================
          Telegram: модальне вікно вибору каналу
          (окремий скрипт, не залежить від решти коду сайту)
          ========================================== -->
@@ -2477,4 +3183,4 @@
     })();
     </script>
 </body>  
-    </html>
+                                </html>

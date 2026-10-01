@@ -7,6 +7,9 @@
     <title>ХЄЦУ-«Нове Покоління» — Дніпро | Офіційний сайт</title>
     <link rel="canonical" href="https://aklucik3-del.github.io/NGDnipro/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="https://aklucik3-del.github.io/NGDnipro/sitemap.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,30 +25,40 @@
             --light: #f8fafc;
             --gray: #64748b;
             --white: #ffffff;
-            --transition: all 0.65s cubic-bezier(0.25, 1, 0.35, 1);
+            --ease: cubic-bezier(0.25, 1, 0.35, 1);
+            /* Переходи лише для тих властивостей, які реально змінюються (замість «all») —
+               браузер не стежить за зайвими властивостями і не чіпає layout. */
+            --transition: transform 0.65s var(--ease), opacity 0.65s var(--ease), box-shadow 0.65s var(--ease), border-color 0.65s var(--ease), background-color 0.65s var(--ease), color 0.65s var(--ease), text-shadow 0.65s var(--ease), filter 0.65s var(--ease);
             --container-max: 1200px;
+            /* «Скло» без backdrop-filter: напівпрозорий темний шар + м'який світловий градієнт.
+               Виглядає як матове скло, але не змушує GPU розмивати фон на кожному кадрі. */
+            --glass: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 38%, rgba(0,242,254,0.045) 100%), rgba(12, 19, 40, 0.8);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--primary); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
-        .particle { position: absolute; background: rgba(0, 242, 254, 0.6); border-radius: 50%; animation: floatUp 20s infinite cubic-bezier(0.37, 0, 0.63, 1); filter: blur(2px); box-shadow: 0 0 10px var(--accent); }
-        .particle:nth-child(even) { background: rgba(255, 0, 127, 0.6); box-shadow: 0 0 12px var(--accent-pink); }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: var(--primary); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* ЧАСТИНКИ: прості світні крапки (radial-gradient) замість blur + box-shadow.
+           Рухаються лише через transform/opacity (на GPU, без перерахунку layout). */
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: hidden; }
+        .particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(0,242,254,0.95) 0%, rgba(0,242,254,0.4) 38%, rgba(0,242,254,0) 70%); animation: floatUp 20s infinite cubic-bezier(0.37, 0, 0.63, 1); will-change: transform, opacity; }
+        .particle:nth-child(even) { background: radial-gradient(circle, rgba(255,0,127,0.95) 0%, rgba(255,0,127,0.4) 38%, rgba(255,0,127,0) 70%); }
         @keyframes floatUp {
-            0% { transform: translateY(105vh) scale(0.2) rotate(0deg); opacity: 0; }
-            25% { opacity: 0.7; }
-            75% { opacity: 0.7; }
-            100% { transform: translateY(-10vh) scale(2.2) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(105vh) scale(0.2); opacity: 0; }
+            25% { opacity: 0.55; }
+            75% { opacity: 0.55; }
+            100% { transform: translateY(-10vh) scale(2.2); opacity: 0; }
         }
 
-        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: rgba(10, 15, 29, 0.85); backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); animation: slideDown 1s cubic-bezier(0.25, 1, 0.35, 1); }
-        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: linear-gradient(180deg, rgba(10, 15, 29, 0.98), rgba(10, 15, 29, 0.92)); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); animation: slideDown 1s var(--ease); }
+        header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,242,254,0.75), rgba(255,0,127,0.65), transparent); opacity: 0.7; pointer-events: none; }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
 
         .nav-container { max-width: var(--container-max); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px); position: relative; z-index: 10; gap: 15px; flex-wrap: wrap; }
         .logo { display: flex; align-items: center; gap: clamp(10px, 2vw, 14px); color: var(--white); font-weight: 700; font-size: clamp(0.95rem, 1.5vw, 1.15rem); text-decoration: none; cursor: pointer; transition: var(--transition); }
         .logo:hover { transform: scale(1.04) translateX(4px); }
-        .logo i { color: var(--accent); font-size: clamp(1.4rem, 2.5vw, 1.8rem); filter: drop-shadow(0 0 10px var(--accent)); animation: pulseIcon 3.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
-        @keyframes pulseIcon { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(0,242,254,0.4)); } 50% { transform: scale(1.25); filter: drop-shadow(0 0 18px var(--accent)); } }
+        .logo i { color: var(--accent); font-size: clamp(1.4rem, 2.5vw, 1.8rem); filter: drop-shadow(0 0 9px var(--accent)); animation: pulseIcon 3.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
+        @keyframes pulseIcon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
           
         .social-icons { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 12px); }
         .social-btn { width: clamp(36px, 4vw, 40px); height: clamp(36px, 4vw, 40px); border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: clamp(0.95rem, 1.5vw, 1.1rem); text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
@@ -54,55 +67,53 @@
         .social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: #d6249f; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6); }
         .social-btn.youtube:hover { background: #ff0000; border-color: #ff0000; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6); }
 
-        /* ВИПРАВЛЕННЯ: фон області <main> тепер темний (раніше крізь відступ під шапкою
-           та крізь ще не показані секції просвічував світлий фон body → білі/сірі смуги).
-           Перші 84px (відступ під fixed-шапкою) мають колір шапки, далі — глибокий темний. */
+        /* Фон області <main> темний (перші 84px — колір шапки, далі — глибокий темний). */
         main { flex: 1; padding-top: 84px; position: relative; z-index: 2; background: linear-gradient(to bottom, #0a0f1d 0, #0a0f1d 84px, #05080e 84px, #05080e 100%); }
         .page { display: none; }
-        .page.active { display: block; animation: pageZoomIn 0.8s cubic-bezier(0.25, 1, 0.35, 1) forwards; }
-        @keyframes pageZoomIn { from { opacity: 0; transform: scale(0.96) translateY(15px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        /* Без fill-mode «forwards»: після завершення анімації на сторінці не лишається transform-шару. */
+        .page.active { display: block; animation: pageZoomIn 0.8s var(--ease); }
+        @keyframes pageZoomIn { from { opacity: 0; transform: scale(0.96) translateY(15px); } to { opacity: 1; transform: none; } }
 
-        .hero { min-height: calc(100vh - 84px); background: linear-gradient(135deg, rgba(10, 15, 29, 0.9), rgba(23, 43, 82, 0.88)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover; display: flex; align-items: center; text-align: center; color: var(--white); padding: clamp(40px, 8vh, 80px) clamp(15px, 3vw, 20px); position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,242,254,0.12) 0%, transparent 65%); animation: rotateGlow 35s infinite linear; pointer-events: none; }
-        @keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        /* ВИПРАВЛЕННЯ: нижній перехід Hero раніше танув у білий (var(--light)).
-           Тепер він плавно переходить у темний колір наступної секції з м'яким неоновим сяйвом. */
+        .hero { min-height: calc(100vh - 84px); background: linear-gradient(135deg, rgba(10, 15, 29, 0.9), rgba(23, 43, 82, 0.88)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=70') no-repeat center center/cover; display: flex; align-items: center; text-align: center; color: var(--white); padding: clamp(40px, 8vh, 80px) clamp(15px, 3vw, 20px); position: relative; overflow: hidden; }
+        /* Симетричний радіальний градієнт при обертанні не змінюється візуально — обертання прибрано (це була чиста витрата GPU). */
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,242,254,0.12) 0%, transparent 65%); pointer-events: none; }
         .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 140px; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0, 242, 254, 0.16) 0%, transparent 70%), linear-gradient(to top, #050b18 0%, rgba(5, 11, 24, 0.85) 35%, transparent 100%); pointer-events: none; }
           
-        .hero-content { max-width: clamp(600px, 80vw, 880px); margin: 0 auto; animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.35, 1) 0.2s both; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-content { max-width: clamp(600px, 80vw, 880px); margin: 0 auto; position: relative; z-index: 2; animation: fadeInUp 1.2s var(--ease) 0.2s backwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
           
         .hero h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; margin-bottom: clamp(16px, 3vw, 22px); line-height: 1.2; text-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-        .hero h1 span { background: linear-gradient(135deg, var(--accent), #70e1f5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; animation: textShimmer 5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }
-        @keyframes textShimmer { from { filter: drop-shadow(0 0 3px rgba(0,242,254,0.4)); } to { filter: drop-shadow(0 0 15px rgba(0,242,254,0.9)); } }
+        .hero h1 span { background: linear-gradient(135deg, var(--accent), #70e1f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; filter: drop-shadow(0 0 10px rgba(0,242,254,0.65)); animation: textShimmer 5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }
+        @keyframes textShimmer { from { opacity: 0.88; } to { opacity: 1; } }
           
         .hero p { font-size: clamp(1rem, 2vw, 1.35rem); color: #cbd5e1; margin-bottom: clamp(28px, 5vw, 40px); font-weight: 300; }
           
-        .btn-primary { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 38px); border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: var(--transition); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4); border: none; cursor: pointer; animation: pulseBtn 4s infinite cubic-bezier(0.4, 0, 0.6, 1); font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
-        @keyframes pulseBtn { 0%, 100% { box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4); } 50% { box-shadow: 0 15px 40px rgba(0, 242, 254, 0.75); } }
+        /* Пульсація сяйва кнопки: анімується лише opacity окремого псевдоелемента (замість box-shadow на кожному кадрі). */
+        .btn-primary { position: relative; isolation: isolate; background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 38px); border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: var(--transition); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4); border: none; cursor: pointer; font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
+        .btn-primary::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; box-shadow: 0 15px 40px rgba(0, 242, 254, 0.75); opacity: 0; z-index: -1; pointer-events: none; animation: glowBreath 4s infinite ease-in-out; }
+        @keyframes glowBreath { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
         .btn-primary:hover { transform: translateY(-6px) scale(1.06); box-shadow: 0 18px 45px rgba(0, 242, 254, 0.85); }
           
         section { padding: clamp(60px, 10vh, 100px) clamp(15px, 3vw, 20px); position: relative; }
           
+        /* Поява секції лише через opacity + transform (без filter: blur на величезних блоках — це було найважче). */
         .reveal-left {  
             opacity: 0;  
             transform: translateX(-120px);  
-            filter: blur(10px);  
-            transition: opacity 1.4s cubic-bezier(0.25, 1, 0.35, 1), transform 1.4s cubic-bezier(0.25, 1, 0.35, 1), filter 1.4s cubic-bezier(0.25, 1, 0.35, 1);  
+            transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);  
         }  
-        /* Фінальний стан появи секції: none замість translateX(0)/blur(0), щоб після анімації
-           над скляними картками не лишалися filter/transform предка (чисте завершення анімації). */
+        @media(max-width: 767px) { .reveal-left { transform: translateX(-50px); } }
         .reveal-left.active {
             opacity: 1;
             transform: none;
-            filter: none;
         }
 
         .container { max-width: var(--container-max); margin: 0 auto; width: 100%; }  
         .section-title { text-align: center; margin-bottom: clamp(40px, 7vw, 65px); }  
         .section-title h2 { font-size: clamp(2rem, 4vw, 2.4rem); font-weight: 800; color: var(--primary); margin-bottom: 16px; position: relative; display: inline-block; }  
-        .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 70px; height: 4px; background: var(--accent); border-radius: 2px; animation: expandBar 4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }  
-        @keyframes expandBar { from { width: 50px; } to { width: 110px; background: var(--accent-pink); } }  
+        /* Смужка під заголовком «дихає» через transform: scaleX (замість зміни width + background → без layout). */
+        .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; width: 110px; margin-left: -55px; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 12px rgba(0,242,254,0.55); transform: scaleX(0.5); animation: expandBar 4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }  
+        @keyframes expandBar { from { transform: scaleX(0.45); } to { transform: scaleX(1); } }  
         .section-title p { color: var(--gray); font-size: clamp(0.98rem, 1.8vw, 1.1rem); }  
           
         .rotating-cross-badge {   
@@ -117,7 +128,7 @@
             display: flex;   
             align-items: center;   
             justify-content: center;   
-            box-shadow: 0 15px 35px rgba(0,242,254,0.45), inset 0 2px 6px rgba(255,255,255,0.4);   
+            box-shadow: 0 12px 30px rgba(0,242,254,0.45), inset 0 2px 6px rgba(255,255,255,0.4);   
             border: 2px solid var(--accent);   
             cursor: pointer;   
             transition: var(--transition);   
@@ -129,6 +140,8 @@
             color: var(--accent);   
             transform-style: preserve-3d;  
             animation: spin3DYear 5s infinite linear;   
+            will-change: transform;
+            filter: drop-shadow(0 0 8px rgba(0,242,254,0.5));
             transition: var(--transition);
             text-shadow:   
                 0 1px 0 #0099aa,  
@@ -140,19 +153,20 @@
         }  
 
         @keyframes spin3DYear {  
-            0% { transform: rotateY(0deg) rotateX(10deg); filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); }  
-            50% { transform: rotateY(180deg) rotateX(-10deg); filter: brightness(1.4) drop-shadow(5px 5px 12px rgba(0,242,254,0.9)); }  
-            100% { transform: rotateY(360deg) rotateX(10deg); filter: brightness(1) drop-shadow(-5px 5px 8px rgba(0,0,0,0.7)); }  
+            0% { transform: rotateY(0deg) rotateX(10deg); }  
+            50% { transform: rotateY(180deg) rotateX(-10deg); }  
+            100% { transform: rotateY(360deg) rotateX(10deg); }  
         }  
 
         .rotating-cross-badge.is-on {   
             transform: scale(1.15) translateY(-4px);   
-            box-shadow: 0 20px 50px rgba(255,0,127,0.65), inset 0 2px 8px rgba(255,255,255,0.6);   
+            box-shadow: 0 16px 40px rgba(255,0,127,0.65), inset 0 2px 8px rgba(255,255,255,0.6);   
             border-color: var(--accent-pink);   
         }  
         .rotating-cross-badge.is-on i {   
             color: var(--accent-pink);   
             animation-duration: 2s;  
+            filter: drop-shadow(0 0 8px rgba(255,0,127,0.55));
             text-shadow:   
                 0 1px 0 #aa0055,  
                 0 2px 0 #880044,  
@@ -162,12 +176,15 @@
                 0 0 30px rgba(255,0,127,1);  
         }  
 
+        /* Верхній/нижній «віньєт» секцій зроблено градієнтами у фоні (замість величезного inset box-shadow),
+           а між секціями проходить тонка неонова лінія — плавний, цілісний перехід. */
         #history {  
-            background: linear-gradient(135deg, #050b18 0%, #111d38 50%, #03060c 100%);  
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 14%, transparent 86%, rgba(0,0,0,0.5)), linear-gradient(135deg, #050b18 0%, #111d38 50%, #03060c 100%);  
             color: var(--white);  
             position: relative;  
             overflow: hidden;  
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);  
+            border-top: 1px solid transparent;
+            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1;
         }  
         #history::before {  
             content: '';  
@@ -177,6 +194,7 @@
                         radial-gradient(circle at 70% 80%, rgba(255, 0, 127, 0.18) 0%, transparent 40%),  
                         radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 60%);  
             animation: bgShift 24s infinite alternate ease-in-out;  
+            will-change: transform;
             pointer-events: none;  
         }  
         @keyframes bgShift {  
@@ -187,72 +205,64 @@
         #history .section-title p { color: #cbd5e1; }  
           
         .history-timeline { position: relative; max-width: 900px; margin: 0 auto; z-index: 2; }  
-        .history-timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 4px; background: linear-gradient(to bottom, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 25px var(--accent); }  
+        .history-timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 4px; background: linear-gradient(to bottom, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 22px var(--accent); }  
         @media(min-width: 768px) { .history-timeline::before { left: 50%; transform: translateX(-50%); } }  
-        /* ВИПРАВЛЕННЯ ЗНИКАННЯ ЛАНОК ТАЙМЛАЙНА (проблема композиції, а не JS):
-           кожна ланка (точка + скляна картка з backdrop-filter) тепер від самого початку є власним
-           композитним шаром. Раніше перший клік раптово створював новий шар для натиснутої картки
-           (transform: scale), Chrome перебудовував шари під час живого розмиття фону, і шар сусідньої
-           ланки (разом з її точкою) губився. Тепер клік шарів не створює і не перебудовує.
-           Вигляд, кольори, розміри й анімації не змінюються. */
+        /* Кожна ланка таймлайна від початку є власним композитним шаром (will-change) —
+           це частина виправлення бага зі зникненням карток; не чіпати. */
         .timeline-item { position: relative; margin-bottom: clamp(35px, 5vw, 50px); padding-left: 55px; will-change: transform; }  
         @media(min-width: 768px) { .timeline-item { width: 50%; padding-left: 0; padding-right: 45px; } .timeline-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 45px; } }  
-        .timeline-dot { position: absolute; left: 8px; top: 5px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: 5px solid var(--dark); box-shadow: 0 0 0 5px rgba(0, 242, 254, 0.35), 0 0 25px var(--accent); transition: var(--transition); }  
-        .timeline-item.is-on .timeline-dot { transform: scale(1.45) rotate(180deg); background: var(--accent-pink); box-shadow: 0 0 0 10px rgba(255,0,127,0.3), 0 0 30px var(--accent-pink); }  
+        .timeline-dot { position: absolute; left: 8px; top: 5px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: 5px solid var(--dark); box-shadow: 0 0 0 5px rgba(0, 242, 254, 0.35), 0 0 22px var(--accent); transition: var(--transition); }  
+        .timeline-item.is-on .timeline-dot { transform: scale(1.45) rotate(180deg); background: var(--accent-pink); box-shadow: 0 0 0 10px rgba(255,0,127,0.3), 0 0 28px var(--accent-pink); }  
         @media(min-width: 768px) { .timeline-item:nth-child(odd) .timeline-dot { left: auto; right: -14px; } .timeline-item:nth-child(even) .timeline-dot { left: -14px; } }  
           
         .timeline-content {   
-            background: rgba(255, 255, 255, 0.04);   
-            backdrop-filter: blur(20px);  
-            -webkit-backdrop-filter: blur(20px);  
+            background: var(--glass);   
             padding: clamp(22px, 3.5vw, 32px);   
             border-radius: 24px;   
-            box-shadow: 0 20px 45px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.25);   
+            box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 22px rgba(0,242,254,0.1), inset 0 1px 0 rgba(255,255,255,0.22);   
             transition: var(--transition);   
             border: 1px solid rgba(0, 242, 254, 0.3);   
         }  
         .timeline-item.is-on .timeline-content {   
             transform: translateY(-10px) scale(1.02);   
-            box-shadow: 0 25px 60px rgba(255, 0, 127, 0.35), inset 0 1px 5px rgba(255, 255, 255, 0.5);   
+            box-shadow: 0 20px 48px rgba(255, 0, 127, 0.35), 0 0 26px rgba(255,0,127,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.45);   
             border-color: var(--accent-pink);   
         }  
         .timeline-content h3 { font-size: clamp(1.2rem, 2vw, 1.35rem); font-weight: 700; color: var(--accent); margin-bottom: 12px; text-shadow: 0 0 12px rgba(0,242,254,0.5); }  
         .timeline-content p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); }  
 
         .countdown-section {  
-            background: linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));  
+            background: linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 14%, transparent 86%, rgba(0,0,0,0.35)), linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));  
             padding: clamp(50px, 8vh, 70px) clamp(15px, 3vw, 20px);  
             text-align: center;  
             color: var(--white);  
             position: relative;  
             overflow: hidden;  
-            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);  
+            border-top: 1px solid transparent;
+            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.45), rgba(255,0,127,0.35), transparent) 1;
         }  
+        /* Світні «орби» — звичайні радіальні градієнти (без filter: blur(70px)). */
         .countdown-section::before {  
             content: '';  
             position: absolute;  
-            top: -50px; left: -50px; width: 250px; height: 250px;  
-            background: rgba(0, 242, 254, 0.15);  
-            border-radius: 50%;  
-            filter: blur(70px);  
+            top: -150px; left: -150px; width: 420px; height: 420px;  
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.22) 0%, transparent 68%);  
             pointer-events: none;  
         }  
         .countdown-section::after {  
             content: '';  
             position: absolute;  
-            bottom: -50px; right: -50px; width: 250px; height: 250px;  
-            background: rgba(255, 0, 127, 0.15);  
-            border-radius: 50%;  
-            filter: blur(70px);  
+            bottom: -150px; right: -150px; width: 420px; height: 420px;  
+            background: radial-gradient(circle, rgba(255, 0, 127, 0.22) 0%, transparent 68%);  
             pointer-events: none;  
         }  
         .countdown-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }  
         .countdown-header h3 {  
             font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 8px;  
             background: linear-gradient(135deg, var(--accent), #70e1f5);  
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;  
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;  
             text-transform: uppercase; letter-spacing: 1px;  
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.5));  
+            filter: drop-shadow(0 0 9px rgba(0, 242, 254, 0.5));  
         }  
         .countdown-header p { color: #94a3b8; font-size: clamp(0.95rem, 1.6vw, 1.05rem); margin-bottom: 35px; font-weight: 300; }  
           
@@ -260,19 +270,17 @@
         @media(min-width: 640px) { .countdown-grid { grid-template-columns: repeat(4, 1fr); } }  
           
         .countdown-card {  
-            background: rgba(255, 255, 255, 0.05);  
-            backdrop-filter: blur(16px);  
-            -webkit-backdrop-filter: blur(16px);  
+            background: var(--glass);  
             border: 1px solid rgba(0, 242, 254, 0.3);  
             border-radius: 20px;  
             padding: clamp(18px, 3vw, 24px) clamp(10px, 2vw, 15px);  
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 0 20px rgba(0, 242, 254, 0.15);  
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(0, 242, 254, 0.15);  
             transition: var(--transition);  
         }  
         .countdown-card.is-on {  
             transform: translateY(-5px) scale(1.04);  
             border-color: var(--accent-pink);  
-            box-shadow: 0 20px 45px rgba(255, 0, 127, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 0, 127, 0.4);  
+            box-shadow: 0 16px 38px rgba(255, 0, 127, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 26px rgba(255, 0, 127, 0.4);  
         }  
         .countdown-number {  
             font-size: clamp(2.2rem, 4.5vw, 2.8rem); font-weight: 900; color: var(--white);  
@@ -311,20 +319,18 @@
             display: flex;
             flex-direction: column;
             text-align: left;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: var(--glass);
             border: 1px solid rgba(0, 242, 254, 0.3);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 0 20px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(0, 242, 254, 0.15);
             transition: var(--transition);
-            animation: fadeInUp 0.9s cubic-bezier(0.25, 1, 0.35, 1) both;
+            animation: fadeInUp 0.9s var(--ease) backwards;
         }
         .live-card:hover {
             transform: translateY(-5px) scale(1.02);
             border-color: var(--accent-pink);
-            box-shadow: 0 20px 45px rgba(255, 0, 127, 0.3), inset 0 1px 4px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 0, 127, 0.4);
+            box-shadow: 0 16px 38px rgba(255, 0, 127, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 26px rgba(255, 0, 127, 0.4);
         }
         .live-thumb {
             position: relative;
@@ -356,7 +362,7 @@
             align-items: center;
             justify-content: center;
             font-size: clamp(1.1rem, 2vw, 1.5rem);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+            box-shadow: 0 0 22px rgba(255, 0, 127, 0.6);
             pointer-events: none;
         }
         .live-body {
@@ -370,6 +376,8 @@
             z-index: 2;
         }
         .live-badge {
+            position: relative;
+            isolation: isolate;
             align-self: flex-start;
             display: inline-flex;
             align-items: center;
@@ -383,12 +391,13 @@
             font-size: clamp(0.8rem, 1.4vw, 0.95rem);
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
-            animation: liveBadgePulse 2s infinite alternate ease-in-out;
+            box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
         }
-        @keyframes liveBadgePulse {
-            from { box-shadow: 0 0 10px rgba(255, 0, 127, 0.3); }
-            to { box-shadow: 0 0 26px rgba(255, 0, 127, 0.85); }
+        .live-badge::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit;
+            box-shadow: 0 0 26px rgba(255, 0, 127, 0.85);
+            opacity: 0; z-index: -1; pointer-events: none;
+            animation: glowBreath 2s infinite ease-in-out;
         }
         .live-title {
             font-size: clamp(1.1rem, 2.2vw, 1.5rem);
@@ -407,9 +416,10 @@
         }
 
         .events-section {   
-            background: linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);  
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 14%, transparent 86%, rgba(0,0,0,0.5)), linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);  
             position: relative; overflow: hidden; color: var(--white);  
-            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);  
+            border-top: 1px solid transparent;
+            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1;
         }  
         .events-section::before {  
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;  
@@ -425,11 +435,9 @@
         @media(min-width: 1024px) { .events-grid { grid-template-columns: repeat(3, 1fr); } }  
           
         .event-card {   
-            background: rgba(255, 255, 255, 0.04);   
-            backdrop-filter: blur(20px);  
-            -webkit-backdrop-filter: blur(20px);  
+            background: var(--glass);   
             border-radius: 26px; padding: clamp(28px, 4vw, 38px);   
-            box-shadow: 0 15px 45px rgba(0,0,0,0.55), inset 0 1px 3px rgba(255,255,255,0.25);   
+            box-shadow: 0 14px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22);   
             display: flex; flex-direction: column; justify-content: space-between;   
             border-top: 6px solid var(--accent); transition: var(--transition);   
             position: relative; overflow: hidden;   
@@ -437,24 +445,24 @@
             border-right: 1px solid rgba(0,242,254,0.25);  
         }  
         .event-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,242,254,0.12), transparent); opacity: 0; transition: var(--transition); pointer-events: none; }  
-        .event-card.is-on { transform: translateY(-12px) scale(1.03); box-shadow: 0 30px 65px rgba(255,0,127,0.4), inset 0 1px 5px rgba(255,255,255,0.4); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
+        .event-card.is-on { transform: translateY(-12px) scale(1.03); box-shadow: 0 24px 52px rgba(255,0,127,0.4), inset 0 1px 0 rgba(255,255,255,0.4); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
         .event-card.is-on::before { opacity: 1; }  
           
-        .event-icon { width: clamp(55px, 6vw, 65px); height: clamp(55px, 6vw, 65px); border-radius: 18px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: clamp(1.3rem, 2vw, 1.6rem); margin-bottom: 22px; transition: var(--transition); box-shadow: 0 5px 20px rgba(0,242,254,0.3); }  
-        .event-card.is-on .event-icon { background: linear-gradient(135deg, var(--accent-pink), var(--accent)); color: var(--white); transform: rotate(15deg) scale(1.2); box-shadow: 0 10px 30px rgba(255,0,127,0.6); }  
+        .event-icon { width: clamp(55px, 6vw, 65px); height: clamp(55px, 6vw, 65px); border-radius: 18px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: clamp(1.3rem, 2vw, 1.6rem); margin-bottom: 22px; transition: var(--transition); box-shadow: 0 5px 18px rgba(0,242,254,0.3); }  
+        .event-card.is-on .event-icon { background: linear-gradient(135deg, var(--accent-pink), var(--accent)); color: var(--white); transform: rotate(15deg) scale(1.2); box-shadow: 0 8px 26px rgba(255,0,127,0.6); }  
           
         .event-card h3 { font-size: clamp(1.15rem, 1.8vw, 1.3rem); font-weight: 700; margin-bottom: 12px; color: var(--white); }  
         .event-time { display: inline-block; background: rgba(0, 242, 254, 0.15); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); font-weight: 600; margin-bottom: 16px; transition: var(--transition); border: 1px solid rgba(0,242,254,0.3); }  
         .event-card.is-on .event-time { background: var(--accent-pink); color: var(--white); border-color: var(--accent-pink); box-shadow: 0 4px 15px rgba(255,0,127,0.5); }  
         .event-card p { color: #cbd5e1; font-size: clamp(0.9rem, 1.5vw, 0.96rem); }  
 
-        .contact-section { background: linear-gradient(135deg, #05080e 0%, #0a0f1d 50%, #111b2e 100%); color: var(--white); position: relative; overflow: hidden; }  
+        .contact-section { background: linear-gradient(135deg, #05080e 0%, #0a0f1d 50%, #111b2e 100%); color: var(--white); position: relative; overflow: hidden; border-top: 1px solid transparent; border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1; }  
         .contact-section .section-title h2 { color: var(--white); }  
         .contact-section .section-title h2::after { background: var(--accent); }  
         .contact-grid { display: grid; grid-template-columns: 1fr; gap: clamp(25px, 4vw, 40px); }  
         @media(min-width: 768px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }  
         .contact-info-list { display: flex; flex-direction: column; gap: 20px; }  
-        .contact-info-item { display: flex; align-items: flex-start; gap: 16px; background: rgba(255,255,255,0.03); padding: clamp(18px, 2.5vw, 22px); border-radius: 18px; border: 1px solid rgba(255,255,255,0.06); transition: var(--transition); }  
+        .contact-info-item { display: flex; align-items: flex-start; gap: 16px; background: linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.015)); padding: clamp(18px, 2.5vw, 22px); border-radius: 18px; border: 1px solid rgba(255,255,255,0.08); transition: var(--transition); }  
         .contact-info-item.is-on { border-color: var(--accent); transform: translateX(10px) scale(1.02); background: rgba(255,255,255,0.07); box-shadow: 0 10px 30px rgba(0,242,254,0.15); }  
         .contact-info-item i { font-size: clamp(1.3rem, 2vw, 1.6rem); color: var(--accent); margin-top: 4px; transition: var(--transition); filter: drop-shadow(0 0 8px rgba(0,242,254,0.5)); }  
         .contact-info-item.is-on i { transform: scale(1.35) rotate(-10deg); color: var(--accent-pink); filter: drop-shadow(0 0 10px var(--accent-pink)); }  
@@ -465,55 +473,56 @@
             flex-direction: column;  
             align-items: flex-start;  
             gap: 12px;  
-            background: rgba(0, 255, 136, 0.03);  
-            border: 1px solid rgba(0, 255, 136, 0.25);  
-            backdrop-filter: blur(16px);  
-            -webkit-backdrop-filter: blur(16px);  
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);  
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.08), rgba(0, 255, 136, 0.02)), rgba(9, 24, 28, 0.8);  
+            border: 1px solid rgba(0, 255, 136, 0.28);  
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14);  
         }  
         .contact-info-item.phone-card.is-on {  
             border-color: var(--accent-green);  
-            background: rgba(0, 255, 136, 0.07);  
-            box-shadow: 0 12px 35px rgba(0, 255, 136, 0.25), inset 0 1px 3px rgba(255, 255, 255, 0.2);  
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.14), rgba(0, 255, 136, 0.04)), rgba(9, 24, 28, 0.85);  
+            box-shadow: 0 12px 32px rgba(0, 255, 136, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.24);  
             transform: translateX(10px) scale(1.02);  
         }  
         .contact-info-item.phone-card i.phone-icon {  
             font-size: clamp(1.3rem, 2vw, 1.6rem);  
             color: var(--accent-green);  
-            filter: drop-shadow(0 0 10px var(--accent-green)) drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));  
+            filter: drop-shadow(0 0 10px var(--accent-green)) drop-shadow(0 0 18px rgba(0, 255, 136, 0.6));  
             margin-top: 0;  
             margin-bottom: 4px;  
             animation: pulseGreenPhone 3s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);  
         }  
         @keyframes pulseGreenPhone {  
-            0% { filter: drop-shadow(0 0 6px var(--accent-green)) drop-shadow(0 0 12px rgba(0, 255, 136, 0.4)); transform: scale(1); }  
-            100% { filter: drop-shadow(0 0 14px var(--accent-green)) drop-shadow(0 0 25px rgba(0, 255, 136, 0.9)); transform: scale(1.1); }  
+            0% { transform: scale(1); }  
+            100% { transform: scale(1.1); }  
         }  
         .contact-info-item.phone-card.is-on i.phone-icon {  
             transform: scale(1.25) rotate(-10deg);  
             color: #55ffb0;  
-            filter: drop-shadow(0 0 16px #55ffb0) drop-shadow(0 0 30px rgba(0, 255, 136, 1));  
+            filter: drop-shadow(0 0 16px #55ffb0) drop-shadow(0 0 28px rgba(0, 255, 136, 1));  
         }  
 
-        .map-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: clamp(280px, 35vw, 340px); border-radius: 22px; background: #111b2e; color: #94a3b8; border: 1px solid rgba(255,255,255,0.1); padding: 20px; text-decoration: none; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }  
-        .map-box.is-on { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0, 242, 254, 0.35); }  
-        .map-box i { font-size: clamp(3rem, 5vw, 3.8rem); color: var(--accent); margin-bottom: 18px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.6)); animation: bounceMap 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }  
+        .map-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: clamp(280px, 35vw, 340px); border-radius: 22px; background: radial-gradient(circle at 50% 35%, rgba(0,242,254,0.1), transparent 60%), linear-gradient(145deg, #15223c, #0b1322); color: #94a3b8; border: 1px solid rgba(0,242,254,0.22); box-shadow: 0 12px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08); padding: 20px; text-decoration: none; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }  
+        .map-box.is-on { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0, 242, 254, 0.35); }  
+        .map-box i { font-size: clamp(3rem, 5vw, 3.8rem); color: var(--accent); margin-bottom: 18px; filter: drop-shadow(0 0 14px rgba(0,242,254,0.6)); animation: bounceMap 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }  
         @keyframes bounceMap { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }  
 
-        /* НОВИЙ НЕОНОВИЙ БЛОК БЛАГОСЛОВІННЯ ПІД КОНТАКТАМИ */  
+        /* НЕОНОВИЙ БЛОК БЛАГОСЛОВІННЯ ПІД КОНТАКТАМИ */  
         .blessing-section-bottom {  
             padding: clamp(40px, 6vh, 60px) clamp(15px, 3vw, 20px);  
             background: linear-gradient(135deg, #0a0f1d 0%, #05080e 100%);  
             text-align: center;  
             position: relative;  
             z-index: 5;  
-            border-top: 1px solid rgba(255, 255, 255, 0.08);  
+            border-top: 1px solid transparent;  
+            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.4), rgba(255,0,127,0.35), transparent) 1;
         }  
 
+        /* Переливання градієнта кнопки: рухається широкий псевдоелемент через transform (на GPU),
+           а не background-position (який перемальовує кнопку на кожному кадрі). */
         .btn-neon-blessing {  
-            background: linear-gradient(270deg, #00f2fe, #8a2be2, #ff007f, #00f2fe);  
-            background-size: 400% 400%;  
-            animation: neonAnimatedGradient 8s ease infinite;  
+            position: relative;
+            isolation: isolate;
+            background: linear-gradient(90deg, #00f2fe, #8a2be2, #ff007f);  
             color: #ffffff;  
             padding: clamp(16px, 2.5vw, 20px) clamp(32px, 4vw, 48px);  
             border-radius: 50px;  
@@ -521,22 +530,26 @@
             font-size: clamp(1rem, 1.8vw, 1.25rem);  
             border: 2px solid rgba(255, 255, 255, 0.85);  
             cursor: pointer;  
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.35, 1);  
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), 0 0 50px rgba(138, 43, 226, 0.5), inset 0 2px 6px rgba(255, 255, 255, 0.7);  
+            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);  
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), 0 0 50px rgba(138, 43, 226, 0.5);  
             display: inline-flex;  
             align-items: center;  
             gap: 12px;  
             text-transform: uppercase;  
             letter-spacing: 0.5px;  
-            position: relative;  
             overflow: hidden;  
         }  
-
-        @keyframes neonAnimatedGradient {  
-            0% { background-position: 0% 50%; }  
-            50% { background-position: 100% 50%; }  
-            100% { background-position: 0% 50%; }  
-        }  
+        .btn-neon-blessing::before {
+            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 300%;
+            background: linear-gradient(90deg, #00f2fe, #8a2be2, #ff007f, #00f2fe, #8a2be2, #ff007f, #00f2fe, #8a2be2, #ff007f, #00f2fe);
+            z-index: -1; pointer-events: none; will-change: transform;
+            animation: neonSlide 8s linear infinite;
+        }
+        .btn-neon-blessing::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.7); pointer-events: none;
+        }
+        @keyframes neonSlide { from { transform: translateX(0); } to { transform: translateX(-33.3333%); } }
 
         .btn-neon-blessing:hover {  
             transform: translateY(-6px) scale(1.06);  
@@ -560,11 +573,9 @@
         }  
 
         .blessing-card-msg {  
-            background: rgba(13, 22, 48, 0.9);  
-            backdrop-filter: blur(15px);  
-            -webkit-backdrop-filter: blur(15px);  
+            background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)), rgba(13, 22, 48, 0.94);  
             border: 1px solid rgba(0, 242, 254, 0.5);  
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 25px rgba(0, 242, 254, 0.3);  
+            box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 22px rgba(0, 242, 254, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);  
             padding: 22px 30px;  
             border-radius: 20px;  
             color: #ffffff;  
@@ -584,7 +595,7 @@
             opacity: 0;  
             visibility: hidden;  
             transform: translateY(40px);  
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.5s cubic-bezier(0.25, 1, 0.35, 1), visibility 0.5s;  
+            transition: transform 0.5s var(--ease), opacity 0.5s var(--ease), visibility 0.5s;  
         }  
 
         .blessing-card-msg.active {  
@@ -597,12 +608,11 @@
             opacity: 0;  
             visibility: hidden;  
             transform: translateY(-50px);  
-            filter: blur(4px);  
         }  
 
         .page2-wrapper { padding: clamp(40px, 7vh, 65px) clamp(15px, 3vw, 20px); background: linear-gradient(135deg, #0a0f1d 0%, #172b52 100%); min-height: 80vh; color: var(--white); }  
         .services-header { text-align: center; margin-bottom: clamp(35px, 6vw, 55px); }  
-        .services-header h2 { font-size: clamp(2.1rem, 4vw, 2.8rem); font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 0 15px rgba(0,242,254,0.3)); }  
+        .services-header h2 { font-size: clamp(2.1rem, 4vw, 2.8rem); font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 0 12px rgba(0,242,254,0.3)); }  
         .services-header p { color: #cbd5e1; font-size: clamp(1rem, 1.8vw, 1.15rem); }  
           
         .services-grid { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3.5vw, 35px); max-width: var(--container-max); margin: 0 auto; width: 100%; }  
@@ -610,18 +620,16 @@
         @media(min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }  
           
         .service-card {   
-            background: rgba(255, 255, 255, 0.05);   
-            backdrop-filter: blur(16px);  
-            -webkit-backdrop-filter: blur(16px);  
+            background: var(--glass);   
             border-radius: 26px; padding: clamp(30px, 4.5vw, 42px) clamp(22px, 3.5vw, 32px);   
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);   
+            box-shadow: 0 14px 34px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);   
             transition: var(--transition); position: relative; overflow: hidden;   
-            border-top: 6px solid var(--accent); border: 1px solid rgba(0,242,254,0.2);  
+            border-top: 6px solid var(--accent); border: 1px solid rgba(0,242,254,0.25);  
         }  
-        .service-card.is-on { transform: translateY(-12px) scale(1.02); box-shadow: 0 30px 60px rgba(255,0,127,0.35); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
+        .service-card.is-on { transform: translateY(-12px) scale(1.02); box-shadow: 0 24px 52px rgba(255,0,127,0.35), inset 0 1px 0 rgba(255,255,255,0.35); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
           
         .service-icon-box { width: clamp(60px, 6.5vw, 70px); height: clamp(60px, 6.5vw, 70px); border-radius: 20px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: clamp(1.5rem, 2.2vw, 1.9rem); margin-bottom: 28px; transition: var(--transition); box-shadow: 0 6px 20px rgba(0,242,254,0.2); }  
-        .service-card.is-on .service-icon-box { background: linear-gradient(135deg, var(--accent-pink), var(--secondary)); color: var(--white); transform: rotate(-15deg) scale(1.25); box-shadow: 0 10px 30px rgba(255,0,127,0.5); }  
+        .service-card.is-on .service-icon-box { background: linear-gradient(135deg, var(--accent-pink), var(--secondary)); color: var(--white); transform: rotate(-15deg) scale(1.25); box-shadow: 0 10px 28px rgba(255,0,127,0.5); }  
           
         .service-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 700; color: var(--white); margin-bottom: 14px; }  
         .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }  
@@ -664,7 +672,7 @@
             box-shadow: 0 0 15px var(--accent-pink);  
         }  
 
-        /* ОНОВЛЕНІ СТИЛІ ДЛЯ ДУХОВНОЇ КАРТКИ ВІРШІВ ТА ОБРАНОГО */
+        /* СТИЛІ ДЛЯ ДУХОВНОЇ КАРТКИ ВІРШІВ ТА ОБРАНОГО */
         .spiritual-card-section {  
             max-width: var(--container-max);  
             margin: clamp(40px, 6vh, 60px) auto 0 auto;  
@@ -673,12 +681,10 @@
 
         .spiritual-card {  
             background: linear-gradient(135deg, rgba(10, 15, 29, 0.95) 0%, rgba(23, 43, 82, 0.95) 50%, rgba(138, 43, 226, 0.2) 100%);  
-            backdrop-filter: blur(20px);  
-            -webkit-backdrop-filter: blur(20px);  
             border: 1px solid rgba(0, 242, 254, 0.4);  
             border-radius: 30px;  
             padding: clamp(30px, 5vw, 50px);  
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 35px rgba(0, 242, 254, 0.25), inset 0 1px 3px rgba(255,255,255,0.3);  
+            box-shadow: 0 18px 44px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);  
             position: relative;  
             overflow: hidden;  
             transition: var(--transition);  
@@ -686,7 +692,7 @@
 
         .spiritual-card.is-on {  
             border-color: var(--accent-pink);  
-            box-shadow: 0 25px 70px rgba(255, 0, 127, 0.35), 0 0 45px rgba(0, 242, 254, 0.3);  
+            box-shadow: 0 22px 52px rgba(255, 0, 127, 0.35), 0 0 40px rgba(0, 242, 254, 0.3);  
         }  
 
         .spiritual-card::before {  
@@ -696,6 +702,7 @@
             background: radial-gradient(circle at 70% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 50%),  
                         radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.15) 0%, transparent 50%);  
             pointer-events: none;  
+            will-change: transform;
             animation: spiritualGlowRotate 25s infinite linear;  
         }  
 
@@ -847,9 +854,10 @@
             font-weight: 700;  
             background: linear-gradient(135deg, var(--accent), var(--accent-pink));  
             -webkit-background-clip: text;  
+            background-clip: text;
             -webkit-text-fill-color: transparent;  
             display: inline-block;  
-            filter: drop-shadow(0 0 10px rgba(0,242,254,0.4));  
+            filter: drop-shadow(0 0 9px rgba(0,242,254,0.4));  
         }  
 
         .spiritual-footer {  
@@ -915,7 +923,7 @@
             font-size: 0.95rem;
             z-index: 10000;
             opacity: 0;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
             pointer-events: none;
             display: flex;
             align-items: center;
@@ -936,30 +944,38 @@
 
         body.modal-open { overflow: hidden !important; }  
 
+        /* Поки відкрите модальне вікно, анімації сторінки за ним стоять на паузі —
+           вікно вибору режиму з'являється миттєво, сторінка не «борюкається» під ним. */
+        body.modal-open main *, body.modal-open main *::before, body.modal-open main *::after,
+        body.modal-open header, body.modal-open .particle, body.modal-open .rotating-cross-badge i { animation-play-state: paused !important; }
+
+        /* Секції, яких зараз не видно на екрані, не анімуються (клас ставить IntersectionObserver). */
+        .is-offscreen, .is-offscreen *, .is-offscreen::before, .is-offscreen::after, .is-offscreen *::before, .is-offscreen *::after { animation-play-state: paused !important; }
+
         .opt-modal-overlay {  
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;  
-            background: rgba(3, 6, 15, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);  
+            background: radial-gradient(circle at 50% 30%, rgba(0, 242, 254, 0.14), transparent 55%), radial-gradient(circle at 50% 100%, rgba(255, 0, 127, 0.12), transparent 50%), rgba(3, 6, 15, 0.93);  
             z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px;  
-            opacity: 0; visibility: hidden; transition: opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1), visibility 0.6s cubic-bezier(0.25, 1, 0.35, 1);  
+            opacity: 0; visibility: hidden; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);  
         }  
         .opt-modal-overlay.active { opacity: 1; visibility: visible; }  
 
         .opt-modal-card {  
-            background: linear-gradient(135deg, rgba(13, 22, 48, 0.92) 0%, rgba(35, 18, 64, 0.92) 100%);  
+            background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(35, 18, 64, 0.96) 100%);  
             border: 1px solid rgba(0, 242, 254, 0.5); border-radius: 28px; padding: clamp(28px, 4vw, 38px) clamp(20px, 3vw, 28px);  
             max-width: 440px; width: 100%; text-align: center; color: #ffffff;  
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.35), 0 0 65px rgba(255, 0, 127, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.25);  
-            transform: scale(0.85) translateY(20px); opacity: 0; transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1);  
+            box-shadow: 0 0 32px rgba(0, 242, 254, 0.35), 0 0 60px rgba(255, 0, 127, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25);  
+            transform: scale(0.85) translateY(20px); opacity: 0; transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);  
             position: relative; overflow: hidden;  
         }  
         .opt-modal-overlay.active .opt-modal-card { transform: scale(1) translateY(0); opacity: 1; }  
 
+        /* Центроване радіальне сяйво при обертанні не змінюється — анімацію прибрано. */
         .opt-modal-card::before {  
             content: ''; position: absolute; top: -40%; left: -40%; width: 180%; height: 180%;  
             background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(255,0,127,0.1) 40%, transparent 70%);  
-            animation: modalGlowRotate 15s infinite linear; pointer-events: none;  
+            pointer-events: none;  
         }  
-        @keyframes modalGlowRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }  
 
         .opt-modal-icon {  
             width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 50%;  
@@ -971,7 +987,7 @@
         .opt-modal-title {  
             font-size: clamp(1.4rem, 2.5vw, 1.75rem); font-weight: 800; margin-bottom: 12px;  
             background: linear-gradient(135deg, var(--accent), #70e1f5, var(--accent-pink));  
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2;  
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2;  
         }  
 
         .opt-modal-desc {  
@@ -994,52 +1010,31 @@
         .opt-btn-skip { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }  
         .opt-btn-skip:hover { background: rgba(255, 255, 255, 0.16); color: #ffffff; border-color: rgba(255, 255, 255, 0.4); transform: translateY(-3px); }  
 
-        body.optimized-mode * { animation-duration: 1s !important; }  
-        body.optimized-mode .particle { animation-duration: 26s !important; filter: none !important; }  
-        body.optimized-mode .timeline-content,  
-        body.optimized-mode .countdown-card,  
-        body.optimized-mode .live-card,  
-        body.optimized-mode .event-card,  
-        body.optimized-mode .service-card,  
-        body.optimized-mode .spiritual-card,  
-        body.optimized-mode .contact-info-item.phone-card,  
-        body.optimized-mode header {  
-            backdrop-filter: none !important; -webkit-backdrop-filter: none !important;  
-            background: rgba(13, 21, 41, 0.94) !important; will-change: transform;  
-        }  
-        body.optimized-mode .reveal-left { filter: none !important; transition-duration: 0.8s !important; }  
-        body.optimized-mode .hero::before,  
-        body.optimized-mode #history::before,  
-        body.optimized-mode .events-section::before,  
-        body.optimized-mode .spiritual-card::before { animation-duration: 50s !important; }  
-
         /* ==========================================
            МОДАЛЬНЕ ВІКНО ВИБОРУ TELEGRAM-КАНАЛУ
            ========================================== */
         .tg-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 6, 15, 0.78);
-            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            background: radial-gradient(circle at 50% 25%, rgba(0, 242, 254, 0.13), transparent 55%), rgba(3, 6, 15, 0.9);
             z-index: 999990;
             display: flex; align-items: center; justify-content: center;
             padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch;
             opacity: 0; visibility: hidden;
-            transition: opacity 0.55s cubic-bezier(0.25, 1, 0.35, 1), visibility 0.55s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
         }
         .tg-modal-overlay.active { opacity: 1; visibility: visible; }
 
         .tg-modal-card {
             position: relative; width: 100%; max-width: 440px;
             margin: auto;
-            background: linear-gradient(135deg, rgba(13, 22, 48, 0.82) 0%, rgba(10, 15, 29, 0.88) 100%);
-            backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+            background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(10, 15, 29, 0.97) 100%);
             border: 1px solid rgba(0, 242, 254, 0.45);
             border-radius: 28px;
             padding: clamp(26px, 4vw, 34px) clamp(14px, 3vw, 24px) clamp(18px, 3vw, 26px);
             color: #ffffff;
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.3), 0 0 70px rgba(37, 99, 235, 0.25), 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.22);
+            box-shadow: 0 0 32px rgba(0, 242, 254, 0.3), 0 0 60px rgba(37, 99, 235, 0.22), 0 22px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
             transform: scale(0.88) translateY(26px); opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.35, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
         }
         .tg-modal-overlay.active .tg-modal-card { transform: scale(1) translateY(0); opacity: 1; }
 
@@ -1052,7 +1047,7 @@
             color: #ffffff; font-family: inherit; font-size: 1.6rem; line-height: 1;
             cursor: pointer; padding: 0 0 3px 0;
             box-shadow: 0 0 14px rgba(0, 242, 254, 0.35);
-            transition: transform 0.45s cubic-bezier(0.25, 1, 0.35, 1), background 0.45s cubic-bezier(0.25, 1, 0.35, 1), box-shadow 0.45s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: transform 0.45s var(--ease), background 0.45s var(--ease), box-shadow 0.45s var(--ease);
             z-index: 3;
         }
         .tg-modal-close:hover, .tg-modal-close:focus-visible {
@@ -1067,7 +1062,7 @@
             margin: 0 44px 8px;
             background: linear-gradient(135deg, var(--accent), #70e1f5, #60a5fa);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.35));
+            filter: drop-shadow(0 0 9px rgba(0, 242, 254, 0.35));
             line-height: 1.25;
         }
         .tg-modal-sub {
@@ -1084,12 +1079,13 @@
             text-decoration: none; color: inherit; cursor: pointer;
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 0 16px rgba(0, 242, 254, 0.18), 0 8px 20px rgba(0, 0, 0, 0.35);
-            transition: transform 0.45s cubic-bezier(0.25, 1, 0.35, 1), box-shadow 0.45s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
         }
         .tg-card::before {
             content: ''; position: absolute; top: 50%; left: 50%;
             width: 220%; aspect-ratio: 1 / 1; z-index: 0; pointer-events: none;
             transform: translate(-50%, -50%) rotate(0deg);
+            will-change: transform;
             background: conic-gradient(
                 rgba(0, 160, 255, 0.2) 0deg,
                 rgba(0, 160, 255, 0.2) 215deg,
@@ -1118,7 +1114,7 @@
             min-height: 78px;
             border-radius: 16.5px;
             background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(10, 15, 29, 0.97) 100%);
-            transition: background 0.45s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: background 0.45s var(--ease);
         }
         .tg-card:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(0, 242, 254, 0.5), 0 14px 30px rgba(0, 0, 0, 0.45); }
         .tg-card:hover .tg-card-body, .tg-card:focus-visible .tg-card-body { background: linear-gradient(135deg, rgba(18, 34, 72, 0.97) 0%, rgba(12, 20, 42, 0.98) 100%); }
@@ -1131,7 +1127,7 @@
             font-size: clamp(2.3rem, 9vw, 2.8rem); line-height: 1;
             color: #29b6f6;
             filter: drop-shadow(0 0 6px rgba(41, 182, 246, 0.7)) drop-shadow(0 0 14px rgba(0, 242, 254, 0.35));
-            transition: transform 0.45s cubic-bezier(0.25, 1, 0.35, 1), filter 0.45s cubic-bezier(0.25, 1, 0.35, 1);
+            transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
         }
         .tg-card:hover .tg-card-icon { transform: scale(1.1) rotate(-6deg); filter: drop-shadow(0 0 9px rgba(41, 182, 246, 0.95)) drop-shadow(0 0 20px rgba(0, 242, 254, 0.6)); }
 
@@ -1153,10 +1149,9 @@
             to { color: rgba(186, 240, 252, 0.95); text-shadow: 0 0 9px rgba(0, 242, 254, 0.5); }
         }
 
-        body.optimized-mode .tg-card::before { animation-duration: 8s, 4s !important; }
-        body.optimized-mode .tg-card-desc { animation-duration: 4s !important; }
-        body.optimized-mode .tg-modal-overlay, body.optimized-mode .tg-modal-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-        body.optimized-mode .tg-modal-card { background: rgba(13, 21, 41, 0.97) !important; }
+        /* Закриті модальні вікна не анімуються. */
+        .opt-modal-overlay:not(.active) *, .opt-modal-overlay:not(.active) *::before,
+        .tg-modal-overlay:not(.active) *, .tg-modal-overlay:not(.active) *::before, .tg-modal-overlay:not(.active) *::after { animation-play-state: paused !important; }
 
         @media (max-width: 380px) {
             .tg-modal-card { border-radius: 22px; }
@@ -1167,7 +1162,23 @@
         }
         @media (prefers-reduced-motion: reduce) {
             .tg-card::before { animation-duration: 20s, 8s; }
+            .particles { display: none; }
+            #history::before, .spiritual-card::before, .btn-neon-blessing::before { animation: none; }
         }
+
+        /* ==========================================================
+           РЕЖИМ «ОПТИМІЗУВАТИ»
+           Виглядає ТАК САМО (ті самі кольори, неон, картки, сяйво).
+           Різниця лише у навантаженні: заморожені великі декоративні шари,
+           менше частинок, коротші появи секцій.
+           ========================================================== */
+        body.optimized-mode #history::before,
+        body.optimized-mode .spiritual-card::before { animation: none; }
+        body.optimized-mode .btn-neon-blessing::before { animation: none; transform: translateX(-12%); }
+        body.optimized-mode .particle { animation-duration: 28s !important; }
+        body.optimized-mode .reveal-left { transition-duration: 0.9s; }
+        body.optimized-mode .tg-card::before { animation-duration: 9s, 4s; }
+        body.optimized-mode .tg-card-desc { animation: none; color: rgba(186, 240, 252, 0.9); text-shadow: 0 0 6px rgba(0, 242, 254, 0.35); }
     </style>
 </head>  
 <body>  
@@ -1626,6 +1637,33 @@
             }  
         }  
 
+        // ==========================================
+        // ЧАСТИНКИ: 14 у звичайному режимі, 8 після «Оптимізувати» (зайві вузли DOM видаляються)
+        // ==========================================
+        const PARTICLES_DEFAULT = 14;
+        const PARTICLES_OPTIMIZED = 8;
+        const particlesContainer = document.getElementById('particlesContainer');  
+        if (particlesContainer) {  
+            for (let i = 0; i < PARTICLES_DEFAULT; i++) {  
+                const particle = document.createElement('div');  
+                particle.className = 'particle';  
+                const size = Math.random() * 8 + 6;  
+                particle.style.width = `${size}px`;  
+                particle.style.height = `${size}px`;  
+                particle.style.left = `${Math.random() * 100}%`;  
+                particle.style.animationDelay = `${Math.random() * 10}s`;  
+                particle.style.animationDuration = `${14 + Math.random() * 14}s`;  
+                particlesContainer.appendChild(particle);  
+            }  
+        }  
+
+        function trimParticles() {
+            if (!particlesContainer) return;
+            while (particlesContainer.children.length > PARTICLES_OPTIMIZED) {
+                particlesContainer.removeChild(particlesContainer.lastElementChild);
+            }
+        }
+
         const optModal = document.getElementById('optModalOverlay');  
         const optBtnConfirm = document.getElementById('optBtnConfirm');  
         const optBtnSkip = document.getElementById('optBtnSkip');  
@@ -1634,6 +1672,7 @@
             document.body.classList.add('modal-open');  
             optBtnConfirm.addEventListener('click', () => {  
                 document.body.classList.add('optimized-mode');  
+                trimParticles();
                 optModal.classList.remove('active');  
                 document.body.classList.remove('modal-open');  
             });  
@@ -1643,25 +1682,10 @@
             });  
         }  
 
-        const particlesContainer = document.getElementById('particlesContainer');  
-        if (particlesContainer) {  
-            for (let i = 0; i < 25; i++) {  
-                const particle = document.createElement('div');  
-                particle.className = 'particle';  
-                const size = Math.random() * 6 + 3;  
-                particle.style.width = `${size}px`;  
-                particle.style.height = `${size}px`;  
-                particle.style.left = `${Math.random() * 100}%`;  
-                particle.style.animationDelay = `${Math.random() * 15}s`;  
-                particle.style.animationDuration = `${12 + Math.random() * 15}s`;  
-                particlesContainer.appendChild(particle);  
-            }  
-        }  
-
         // ==========================================
         // ВИПРАВЛЕННЯ БАГА ТАЙМЛАЙНА:
         // кліки, що прийшли під час анімації появи секції (.reveal-left), не чіпають стан карток,
-        // а чекають завершення цієї анімації (opacity/transform/filter предка + backdrop-filter дітей).
+        // а чекають завершення цієї анімації.
         // ==========================================
         const pendingClicks = new WeakMap();
 
@@ -1699,6 +1723,16 @@
 
         document.querySelectorAll('.reveal-left').forEach(el => observer.observe(el));  
 
+        // Секції поза екраном: безкінечні CSS-анімації стоять на паузі (клас .is-offscreen),
+        // самі стають у роботу, щойно секція наближається до екрана.
+        const pauseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('is-offscreen', !entry.isIntersecting);
+            });
+        }, { rootMargin: '120px 0px' });
+
+        document.querySelectorAll('.hero, .reveal-left, .countdown-section, .page2-wrapper').forEach(el => pauseObserver.observe(el));
+
         // ==========================================
         // ПЕРЕМИКАННЯ СТАНУ ІНТЕРАКТИВНИХ КАРТОК (ON ↔ OFF)
         // ==========================================
@@ -1733,19 +1767,20 @@
             });
         });
 
+        // Форматер створюється один раз (раніше створювався двічі на секунду).
+        const kyivFormatter = new Intl.DateTimeFormat('en-US', {  
+            timeZone: 'Europe/Kyiv',  
+            year: 'numeric',  
+            month: 'numeric',  
+            day: 'numeric',  
+            hour: 'numeric',  
+            minute: 'numeric',  
+            second: 'numeric',  
+            hour12: false  
+        });  
+
         function getUkraineTimeComponents(now) {  
-            const formatter = new Intl.DateTimeFormat('en-US', {  
-                timeZone: 'Europe/Kyiv',  
-                year: 'numeric',  
-                month: 'numeric',  
-                day: 'numeric',  
-                hour: 'numeric',  
-                minute: 'numeric',  
-                second: 'numeric',  
-                hour12: false  
-            });  
-              
-            const parts = formatter.formatToParts(now);  
+            const parts = kyivFormatter.formatToParts(now);  
             const comp = {};  
             parts.forEach(p => { if (p.type !== 'literal') comp[p.type] = parseInt(p.value, 10); });  
               
@@ -1823,76 +1858,80 @@
             };  
         }  
 
+        // Елементи таймерів кешуються; заголовки/описи перезаписуються лише при зміні стану,
+        // цифри — лише якщо значення справді змінилося (раніше innerHTML перезаписувався щосекунди).
+        const byId = (id) => document.getElementById(id);
+        const timerViews = [
+            {
+                getTarget: getTimer1Target,
+                title: byId('timerTitle1'),
+                desc: byId('timerDesc1'),
+                cards: ['card1_days', 'card1_hours', 'card1_minutes', 'card1_seconds'].map(byId),
+                nums: ['days', 'hours', 'minutes', 'seconds'].map(byId),
+                activeTitle: `<i class="fa-solid fa-church" style="margin-right: 10px; color: var(--accent-green);"></i> Недільне богослужіння`,
+                activeDesc: `Служіння триває просто зараз! Ласкаво просимо!`,
+                idleTitle: `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння`,
+                idleDesc: `Приєднуйтесь до нас у цю неділю о 10:00`,
+                state: null
+            },
+            {
+                getTarget: getTimer2Target,
+                title: byId('timerTitle2'),
+                desc: byId('timerDesc2'),
+                cards: ['card2_days', 'card2_hours', 'card2_minutes', 'card2_seconds'].map(byId),
+                nums: ['days2', 'hours2', 'minutes2', 'seconds2'].map(byId),
+                activeTitle: `<i class="fa-solid fa-hands-praying" style="margin-right: 10px; color: var(--accent-green);"></i> Молитовне служіння`,
+                activeDesc: `Молитовне служіння триває просто зараз!`,
+                idleTitle: `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння`,
+                idleDesc: `Приєднуйтесь до нас у цю середу о 18:30`,
+                state: null
+            }
+        ];
+
+        function setText(el, value) {
+            if (el.textContent !== value) el.textContent = value;
+        }
+
         function updateTimers() {  
             const now = new Date();  
 
-            const t1 = getTimer1Target();  
-            const title1 = document.getElementById('timerTitle1');  
-            const desc1 = document.getElementById('timerDesc1');  
-            const cards1 = ['card1_days', 'card1_hours', 'card1_minutes', 'card1_seconds'].map(id => document.getElementById(id));  
+            timerViews.forEach(v => {
+                const t = v.getTarget();
 
-            if (t1.status === 'ACTIVE') {  
-                title1.innerHTML = `<i class="fa-solid fa-church" style="margin-right: 10px; color: var(--accent-green);"></i> Недільне богослужіння`;  
-                desc1.innerHTML = `Служіння триває просто зараз! Ласкаво просимо!`;  
-                desc1.className = 'expired-msg';  
-                cards1.forEach(c => c.classList.add('expired'));  
-                document.getElementById('days').textContent = '00';  
-                document.getElementById('hours').textContent = '00';  
-                document.getElementById('minutes').textContent = '00';  
-                document.getElementById('seconds').textContent = '00';  
-            } else {  
-                title1.innerHTML = `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння`;  
-                desc1.innerHTML = `Приєднуйтесь до нас у цю неділю о 10:00`;  
-                desc1.className = '';  
-                cards1.forEach(c => c.classList.remove('expired'));  
+                if (t.status === 'ACTIVE') {
+                    if (v.state !== 'active') {
+                        v.state = 'active';
+                        v.title.innerHTML = v.activeTitle;
+                        v.desc.innerHTML = v.activeDesc;
+                        v.desc.className = 'expired-msg';
+                        v.cards.forEach(c => c.classList.add('expired'));
+                    }
+                    v.nums.forEach(n => setText(n, '00'));
+                } else {
+                    if (v.state !== 'idle') {
+                        v.state = 'idle';
+                        v.title.innerHTML = v.idleTitle;
+                        v.desc.innerHTML = v.idleDesc;
+                        v.desc.className = '';
+                        v.cards.forEach(c => c.classList.remove('expired'));
+                    }
 
-                const diff1 = Math.max(0, t1.targetDate - now);  
-                const d1 = Math.floor(diff1 / (1000 * 60 * 60 * 24));  
-                const h1 = Math.floor((diff1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));  
-                const m1 = Math.floor((diff1 % (1000 * 60 * 60)) / (1000 * 60));  
-                const s1 = Math.floor((diff1 % (1000 * 60)) / 1000);  
+                    const diff = Math.max(0, t.targetDate - now);
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-                document.getElementById('days').textContent = String(d1).padStart(2, '0');  
-                document.getElementById('hours').textContent = String(h1).padStart(2, '0');  
-                document.getElementById('minutes').textContent = String(m1).padStart(2, '0');  
-                document.getElementById('seconds').textContent = String(s1).padStart(2, '0');  
-            }  
-
-            const t2 = getTimer2Target();  
-            const title2 = document.getElementById('timerTitle2');  
-            const desc2 = document.getElementById('timerDesc2');  
-            const cards2 = ['card2_days', 'card2_hours', 'card2_minutes', 'card2_seconds'].map(id => document.getElementById(id));  
-
-            if (t2.status === 'ACTIVE') {  
-                title2.innerHTML = `<i class="fa-solid fa-hands-praying" style="margin-right: 10px; color: var(--accent-green);"></i> Молитовне служіння`;  
-                desc2.innerHTML = `Молитовне служіння триває просто зараз!`;  
-                desc2.className = 'expired-msg';  
-                cards2.forEach(c => c.classList.add('expired'));  
-                document.getElementById('days2').textContent = '00';  
-                document.getElementById('hours2').textContent = '00';  
-                document.getElementById('minutes2').textContent = '00';  
-                document.getElementById('seconds2').textContent = '00';  
-            } else {  
-                title2.innerHTML = `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння`;  
-                desc2.innerHTML = `Приєднуйтесь до нас у цю середу о 18:30`;  
-                desc2.className = '';  
-                cards2.forEach(c => c.classList.remove('expired'));  
-
-                const diff2 = Math.max(0, t2.targetDate - now);  
-                const d2 = Math.floor(diff2 / (1000 * 60 * 60 * 24));  
-                const h2 = Math.floor((diff2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));  
-                const m2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));  
-                const s2 = Math.floor((diff2 % (1000 * 60)) / 1000);  
-
-                document.getElementById('days2').textContent = String(d2).padStart(2, '0');  
-                document.getElementById('hours2').textContent = String(h2).padStart(2, '0');  
-                document.getElementById('minutes2').textContent = String(m2).padStart(2, '0');  
-                document.getElementById('seconds2').textContent = String(s2).padStart(2, '0');  
-            }  
+                    setText(v.nums[0], String(d).padStart(2, '0'));
+                    setText(v.nums[1], String(h).padStart(2, '0'));
+                    setText(v.nums[2], String(m).padStart(2, '0'));
+                    setText(v.nums[3], String(s).padStart(2, '0'));
+                }
+            });
         }  
 
         updateTimers();  
-        setInterval(updateTimers, 1000);  
+        setInterval(() => { if (!document.hidden) updateTimers(); }, 1000);  
 
         document.addEventListener('visibilitychange', () => {  
             if (!document.hidden) {  

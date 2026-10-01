@@ -309,111 +309,114 @@
         }  
 
         /* ==========================================
-           КАРТКА «ГОЛОВНЕ БОГОСЛУЖІННЯ» (YouTube LIVE)
+           КАРТКА YOUTUBE-ЕФІРУ (дані з Cloudflare Worker)
+           Два слоти: під таймером головного богослужіння та під таймером молитовного служіння.
            ========================================== */
         .live-section[hidden] { display: none !important; }
-        .live-section { padding-top: 0; }
-        .live-section .countdown-header h3 { margin-bottom: 22px; }
+        .live-section {
+            background: linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));
+            border-top: 0;
+            border-image: none;
+            padding-top: 0;
+            padding-bottom: clamp(40px, 6vh, 56px);
+        }
+        .live-section::before, .live-section::after { display: none; }
 
         .live-card {
+            position: relative;
             display: flex;
             flex-direction: column;
+            gap: 14px;
+            max-width: 560px;
+            margin: 0 auto;
             text-align: left;
             background: var(--glass);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(0, 242, 254, 0.15);
-            transition: var(--transition);
-            animation: fadeInUp 0.9s var(--ease) backwards;
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            border-radius: 24px;
+            padding: clamp(14px, 3vw, 20px);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 22px rgba(0, 242, 254, 0.18);
+            transition: transform 0.65s var(--ease), border-color 0.65s var(--ease), box-shadow 0.65s var(--ease);
+        }
+        .live-card.live-enter { animation: liveEnter 0.9s var(--ease) both, liveGlowIn 2.2s ease-out both; }
+        @keyframes liveEnter { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+        @keyframes liveGlowIn {
+            0% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 0 rgba(0, 242, 254, 0); }
+            35% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 46px rgba(0, 242, 254, 0.6); }
+            100% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 22px rgba(0, 242, 254, 0.18); }
         }
         .live-card:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-4px);
             border-color: var(--accent-pink);
-            box-shadow: 0 16px 38px rgba(255, 0, 127, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 26px rgba(255, 0, 127, 0.4);
+            box-shadow: 0 18px 40px rgba(255, 0, 127, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 26px rgba(255, 0, 127, 0.35);
         }
+
+        .live-badge {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 0, 127, 0.14);
+            color: var(--white);
+            border: 1px solid rgba(255, 0, 127, 0.55);
+            padding: 6px 16px 6px 12px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+            box-shadow: 0 0 12px rgba(255, 0, 127, 0.3);
+        }
+        .live-dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: #ff2d4d; box-shadow: 0 0 10px #ff2d4d; flex-shrink: 0; }
+        .live-dot::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50%; background: #ff2d4d; opacity: 0; animation: liveDotPulse 2s ease-out infinite; }
+        @keyframes liveDotPulse { 0% { transform: scale(1); opacity: 0.7; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
+
         .live-thumb {
             position: relative;
             display: block;
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: var(--dark);
+            border-radius: 16px;
             overflow: hidden;
-            flex-shrink: 0;
+            background: #0a0f1d;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
         }
-        .live-thumb img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .live-thumb img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s var(--ease); }
+        .live-thumb::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(5, 8, 14, 0.55), transparent 55%); pointer-events: none; }
+        .live-card:hover .live-thumb img { transform: scale(1.05); }
         .live-thumb-play {
             position: absolute;
             top: 50%; left: 50%;
-            width: clamp(52px, 7vw, 68px);
-            height: clamp(52px, 7vw, 68px);
-            margin: calc(clamp(52px, 7vw, 68px) / -2) 0 0 calc(clamp(52px, 7vw, 68px) / -2);
+            z-index: 2;
+            width: clamp(54px, 9vw, 70px);
+            height: clamp(54px, 9vw, 70px);
+            margin: calc(clamp(54px, 9vw, 70px) / -2) 0 0 calc(clamp(54px, 9vw, 70px) / -2);
             border-radius: 50%;
-            background: rgba(10, 15, 29, 0.75);
-            border: 2px solid var(--accent-pink);
+            background: rgba(10, 15, 29, 0.72);
+            border: 2px solid var(--accent);
             color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            box-shadow: 0 0 22px rgba(255, 0, 127, 0.6);
+            font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+            padding-left: 4px;
+            box-shadow: 0 0 22px rgba(0, 242, 254, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
             pointer-events: none;
         }
-        .live-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: stretch;
-            gap: 16px;
-            padding: clamp(20px, 3vw, 30px);
-            position: relative;
-            z-index: 2;
-        }
-        .live-badge {
-            position: relative;
-            isolation: isolate;
-            align-self: flex-start;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 0, 127, 0.15);
-            color: var(--white);
-            border: 1px solid rgba(255, 0, 127, 0.6);
-            padding: 8px 22px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.4vw, 0.95rem);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 12px rgba(255, 0, 127, 0.35);
-        }
-        .live-badge::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit;
-            box-shadow: 0 0 26px rgba(255, 0, 127, 0.85);
-            opacity: 0; z-index: -1; pointer-events: none;
-            animation: glowBreath 2s infinite ease-in-out;
-        }
+        .live-card:hover .live-thumb-play { transform: scale(1.1); border-color: var(--accent-pink); box-shadow: 0 0 28px rgba(255, 0, 127, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+
         .live-title {
-            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-size: clamp(1.05rem, 2.2vw, 1.3rem);
             font-weight: 700;
             line-height: 1.4;
             color: var(--white);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             word-break: break-word;
         }
-        .live-btn { align-self: stretch; justify-content: center; text-align: center; }
-        @media(min-width: 768px) {
-            .live-card { flex-direction: row; align-items: stretch; }
-            .live-thumb { width: 46%; aspect-ratio: auto; min-height: 230px; }
-            .live-body { flex: 1; align-items: flex-start; }
-            .live-btn { align-self: flex-start; }
-        }
+        .live-hint { color: #94a3b8; font-size: clamp(0.82rem, 1.4vw, 0.92rem); margin-top: -6px; }
+        .live-btn { width: 100%; justify-content: center; text-align: center; }
 
         .events-section {   
             background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 14%, transparent 86%, rgba(0,0,0,0.5)), linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);  
@@ -1164,6 +1167,8 @@
             .tg-card::before { animation-duration: 20s, 8s; }
             .particles { display: none; }
             #history::before, .spiritual-card::before, .btn-neon-blessing::before { animation: none; }
+            .live-dot::after { animation: none; }
+            .live-card.live-enter { animation: none; }
         }
 
         /* ==========================================================
@@ -1343,26 +1348,21 @@
                 </div>  
             </section>  
 
-            <!-- Картка «Головне богослужіння»: YouTube LIVE (прихована за замовчуванням, розташована під ПЕРШИМ таймером) -->
-            <section class="countdown-section live-section" id="liveSection" hidden>
+            <!-- СЛОТ 1: картка YouTube-ефіру під таймером ГОЛОВНОГО богослужіння (1-й, 3-й, 5-й… ефір) -->
+            <section class="countdown-section live-section" id="liveSection1" data-slot="1" hidden>
                 <div class="countdown-container">
-                    <div class="countdown-header">
-                        <h3><i class="fa-solid fa-church" style="margin-right: 10px;"></i> Головне богослужіння</h3>
-                    </div>
-                    <div class="live-card">
-                        <a class="live-thumb" id="liveThumbLink" href="#" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
-                            <img id="liveThumbImg" src="" alt="" loading="lazy">
-                            <span class="live-thumb-play"><i class="fa-solid fa-play"></i></span>
+                    <article class="live-card" aria-live="polite">
+                        <div class="live-badge"><span class="live-dot" aria-hidden="true"></span><span>НАЖИВО</span></div>
+                        <a class="live-thumb" data-role="thumbLink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Відкрити трансляцію на YouTube">
+                            <img data-role="thumbImg" src="" alt="" loading="lazy">
+                            <span class="live-thumb-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
                         </a>
-                        <div class="live-body">
-                            <div class="live-badge">🔴 ПРЯМИЙ ЕФІР</div>
-                            <div class="live-title" id="liveTitle"></div>
-                            <a class="btn-primary live-btn" id="liveWatchBtn" href="#" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-youtube"></i>
-                                <span>Дивитися ефір</span>
-                            </a>
-                        </div>
-                    </div>
+                        <div class="live-title" data-role="title">Прямий ефір Нового Покоління</div>
+                        <div class="live-hint">Дивитися трансляцію на YouTube</div>
+                        <a class="btn-primary live-btn" data-role="btn" href="#" target="_blank" rel="noopener noreferrer">
+                            <span>Дивитися ефір ↗</span>
+                        </a>
+                    </article>
                 </div>
             </section>
 
@@ -1393,6 +1393,24 @@
                     </div>  
                 </div>  
             </section>  
+
+            <!-- СЛОТ 2: картка YouTube-ефіру під таймером МОЛИТОВНОГО служіння (2-й, 4-й, 6-й… ефір) -->
+            <section class="countdown-section live-section" id="liveSection2" data-slot="2" hidden>
+                <div class="countdown-container">
+                    <article class="live-card" aria-live="polite">
+                        <div class="live-badge"><span class="live-dot" aria-hidden="true"></span><span>НАЖИВО</span></div>
+                        <a class="live-thumb" data-role="thumbLink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Відкрити трансляцію на YouTube">
+                            <img data-role="thumbImg" src="" alt="" loading="lazy">
+                            <span class="live-thumb-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
+                        </a>
+                        <div class="live-title" data-role="title">Прямий ефір Нового Покоління</div>
+                        <div class="live-hint">Дивитися трансляцію на YouTube</div>
+                        <a class="btn-primary live-btn" data-role="btn" href="#" target="_blank" rel="noopener noreferrer">
+                            <span>Дивитися ефір ↗</span>
+                        </a>
+                    </article>
+                </div>
+            </section>
 
             <section id="events" class="events-section reveal-left">  
                 <div class="container">  
@@ -2351,124 +2369,192 @@
     </script>
 
     <!-- ==========================================
-         YouTube LIVE: автоматичне відображення поточної трансляції
+         YouTube LIVE через Cloudflare Worker.
+         Нові ефіри (новий videoId) по черзі йдуть під таймери:
+         1-й → головне, 2-й → молитовне, 3-й → головне, 4-й → молитовне …
+         Стан зберігається в localStorage, тому оновлення сторінки послідовність не скидає.
          (окремий скрипт, не залежить від решти коду сайту)
          ========================================== -->
     <script>
     (function () {
-        // >>> ВСТАВТЕ СЮДИ СВІЙ YouTube Data API v3 KEY <<<
-        var YT_API_KEY = 'YOUR_YOUTUBE_API_KEY';
-        var YT_CHANNEL_ID = 'UCCZPazgKu02_mFJZa98Am4A';   // @dngVideoChannel
-        var CHECK_INTERVAL_MS = 5 * 60 * 1000;            // перевірка раз на 5 хвилин
+        var WORKER_URL = 'https://ngdnipro-live.aklucik3.workers.dev/';
+        var CHECK_INTERVAL_MS = 30 * 1000;      // перевірка Worker кожні 30 секунд
+        var STORE_KEY = 'ng_live_queue_v1';     // стан черги в localStorage
+        var MAX_REMEMBERED = 60;                // скільки останніх videoId пам'ятати
+        var DEFAULT_TITLE = 'Прямий ефір Нового Покоління';
 
-        // Плейлист «Завантажені» каналу: UC... -> UU...
-        // (playlistItems.list + videos.list коштують по 1 одиниці квоти, а не 100, як search.list)
-        var UPLOADS_PLAYLIST_ID = 'UU' + YT_CHANNEL_ID.substring(2);
+        // Два слоти: 1 = під головним богослужінням, 2 = під молитовним служінням
+        var slots = {};
+        [1, 2].forEach(function (n) {
+            var section = document.getElementById('liveSection' + n);
+            if (!section) return;
+            slots[n] = {
+                section: section,
+                card: section.querySelector('.live-card'),
+                thumbLink: section.querySelector('[data-role="thumbLink"]'),
+                thumbImg: section.querySelector('[data-role="thumbImg"]'),
+                title: section.querySelector('[data-role="title"]'),
+                btn: section.querySelector('[data-role="btn"]'),
+                videoId: null
+            };
+        });
+        if (!slots[1] || !slots[2]) return;
 
-        var section = document.getElementById('liveSection');
-        var titleEl = document.getElementById('liveTitle');
-        var thumbImg = document.getElementById('liveThumbImg');
-        var thumbLink = document.getElementById('liveThumbLink');
-        var watchBtn = document.getElementById('liveWatchBtn');
-        if (!section || !titleEl || !thumbImg || !thumbLink || !watchBtn) return;
-
-        var currentVideoId = null;
-        var lastCheck = 0;
         var busy = false;
+        var lastCheck = 0;
 
-        function hideCard() {
-            section.hidden = true;
-            currentVideoId = null;
+        // ---------- Стан у localStorage ----------
+        // { count: скільки різних ефірів уже було, assignments: { videoId: 1|2 }, order: [videoId, ...] }
+        function loadState() {
+            try {
+                var s = JSON.parse(localStorage.getItem(STORE_KEY));
+                if (s && typeof s.count === 'number' && s.assignments && typeof s.assignments === 'object') {
+                    if (!Array.isArray(s.order)) s.order = Object.keys(s.assignments);
+                    return s;
+                }
+            } catch (e) {}
+            return { count: 0, assignments: {}, order: [] };
         }
 
-        function pickThumb(snippet) {
-            var t = (snippet && snippet.thumbnails) || {};
-            var best = t.maxres || t.standard || t.high || t.medium || t['default'];
-            return best ? best.url : '';
+        function saveState(s) {
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch (e) {}
         }
 
-        function showCard(video) {
-            var id = video.id;
-            var snippet = video.snippet || {};
-            var url = 'https://www.youtube.com/watch?v=' + encodeURIComponent(id);
+        // Повертає слот (1 або 2) для videoId.
+        // Відомий videoId → той самий слот, лічильник НЕ змінюється.
+        // Новий videoId → лічильник +1: непарний → 1 (головне), парний → 2 (молитовне).
+        // Стан щоразу читається заново, тож дві відкриті вкладки не подвоюють лічильник.
+        function resolveSlot(videoId) {
+            var s = loadState();
+            if (Object.prototype.hasOwnProperty.call(s.assignments, videoId)) {
+                return s.assignments[videoId];
+            }
+            s.count += 1;
+            var slot = (s.count % 2 === 1) ? 1 : 2;
+            s.assignments[videoId] = slot;
+            s.order.push(videoId);
+            while (s.order.length > MAX_REMEMBERED) {
+                delete s.assignments[s.order.shift()];
+            }
+            saveState(s);
+            return slot;
+        }
 
-            if (id !== currentVideoId) {
-                titleEl.textContent = snippet.title || 'Пряма трансляція богослужіння';
-                var thumb = pickThumb(snippet);
-                thumbImg.src = thumb;
-                thumbImg.alt = snippet.title || '';
-                thumbLink.href = url;
-                watchBtn.href = url;
-                currentVideoId = id;
+        // ---------- Відображення ----------
+        function isValidVideoId(id) {
+            return typeof id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(id);
+        }
+
+        function buildWatchUrl(data) {
+            if (typeof data.url === 'string' && /^https:\/\//i.test(data.url)) return data.url;
+            return 'https://www.youtube.com/watch?v=' + encodeURIComponent(data.videoId);
+        }
+
+        function setThumb(slot, videoId) {
+            var img = slot.thumbImg;
+            var triedFallback = false;
+            img.onerror = null;
+            img.onload = null;
+
+            function fallback() {
+                if (triedFallback) return;
+                triedFallback = true;
+                img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
+            }
+            // maxresdefault іноді повертає крихітну заглушку — тоді беремо hqdefault
+            img.onload = function () {
+                if (!triedFallback && img.naturalWidth > 0 && img.naturalWidth <= 120) fallback();
+            };
+            img.onerror = fallback;
+            img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
+        }
+
+        function playEnter(slot) {
+            slot.card.classList.remove('live-enter');
+            void slot.card.offsetWidth; // перезапуск анімації появи
+            slot.card.classList.add('live-enter');
+        }
+
+        function hideSlot(slot) {
+            if (!slot.section.hidden) slot.section.hidden = true;
+            slot.card.classList.remove('live-enter');
+            slot.videoId = null;
+        }
+
+        function showInSlot(slotNum, data) {
+            var slot = slots[slotNum];
+            var other = slots[slotNum === 1 ? 2 : 1];
+            hideSlot(other);
+
+            var title = (typeof data.title === 'string' && data.title.trim()) ? data.title.trim() : DEFAULT_TITLE;
+            var url = buildWatchUrl(data);
+            var isNew = slot.videoId !== data.videoId;
+
+            if (isNew) {
+                slot.title.textContent = title;
+                slot.thumbImg.alt = title;
+                slot.thumbLink.href = url;
+                slot.btn.href = url;
+                setThumb(slot, data.videoId);
+                slot.videoId = data.videoId;
+            } else if (slot.title.textContent !== title) {
+                // Той самий ефір: лише оновлюємо назву, якщо вона змінилась
+                slot.title.textContent = title;
+                slot.thumbImg.alt = title;
             }
 
-            if (section.hidden) {
-                section.hidden = false;
+            if (slot.section.hidden) {
+                slot.section.hidden = false;
+                playEnter(slot);
+            } else if (isNew) {
+                playEnter(slot);
             }
         }
 
-        function apiUrl(endpoint, params) {
-            var q = Object.keys(params).map(function (k) {
-                return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-            }).join('&');
-            return 'https://www.googleapis.com/youtube/v3/' + endpoint + '?' + q + '&key=' + encodeURIComponent(YT_API_KEY);
+        function hideAll() {
+            hideSlot(slots[1]);
+            hideSlot(slots[2]);
+        }
+
+        // ---------- Обробка відповіді Worker ----------
+        function handleWorkerData(data) {
+            if (!data || typeof data !== 'object') return;
+
+            if (data.live === true && isValidVideoId(data.videoId)) {
+                showInSlot(resolveSlot(data.videoId), data);
+            } else if (data.live === false) {
+                hideAll();
+            }
+            // Інакше (дивна відповідь) — стан не змінюємо
         }
 
         function checkLive() {
             if (busy) return;
-            if (!YT_API_KEY || YT_API_KEY === 'YOUR_YOUTUBE_API_KEY') return; // ключ ще не вставлено
             busy = true;
             lastCheck = Date.now();
 
-            fetch(apiUrl('playlistItems', {
-                part: 'contentDetails',
-                playlistId: UPLOADS_PLAYLIST_ID,
-                maxResults: 10
-            }))
-            .then(function (r) {
-                if (!r.ok) throw new Error('playlistItems ' + r.status);
-                return r.json();
-            })
-            .then(function (data) {
-                var ids = (data.items || []).map(function (it) {
-                    return it.contentDetails && it.contentDetails.videoId;
-                }).filter(Boolean);
-
-                if (!ids.length) { hideCard(); return null; }
-
-                return fetch(apiUrl('videos', {
-                    part: 'snippet,liveStreamingDetails',
-                    id: ids.join(',')
-                }))
+            fetch(WORKER_URL, { cache: 'no-store' })
                 .then(function (r) {
-                    if (!r.ok) throw new Error('videos ' + r.status);
+                    if (!r.ok) throw new Error('Worker ' + r.status);
                     return r.json();
                 })
-                .then(function (vd) {
-                    var live = (vd.items || []).filter(function (v) {
-                        var lsd = v.liveStreamingDetails || {};
-                        return v.snippet && v.snippet.liveBroadcastContent === 'live' && !lsd.actualEndTime;
-                    })[0];
-
-                    if (live) { showCard(live); } else { hideCard(); }
-                });
-            })
-            .catch(function (err) {
-                // Тимчасова помилка мережі/API: лишаємо поточний стан картки без змін
-                if (window.console && console.warn) console.warn('YouTube LIVE check failed:', err);
-            })
-            .then(function () { busy = false; });
+                .then(handleWorkerData)
+                .catch(function (err) {
+                    // Тимчасова помилка мережі/Worker: лишаємо поточний стан без змін
+                    if (window.console && console.warn) console.warn('Перевірка YouTube LIVE не вдалася:', err);
+                })
+                .then(function () { busy = false; });
         }
 
         // Перша перевірка одразу після завантаження
         checkLive();
 
-        // Періодична перевірка раз на 5 хвилин (у неактивній вкладці запити не робляться)
+        // Далі — кожні 30 секунд (у неактивній вкладці запити не робляться)
         setInterval(function () {
             if (!document.hidden) checkLive();
         }, CHECK_INTERVAL_MS);
 
-        // Якщо вкладка була неактивна довше 5 хвилин — оновити статус при поверненні
+        // Якщо вкладка була неактивна довше 30 секунд — оновити статус при поверненні
         document.addEventListener('visibilitychange', function () {
             if (!document.hidden && Date.now() - lastCheck >= CHECK_INTERVAL_MS) {
                 checkLive();
@@ -2477,4 +2563,4 @@
     })();
     </script>
 </body>  
-    </html>
+                </html>

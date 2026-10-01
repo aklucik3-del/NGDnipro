@@ -1658,9 +1658,40 @@
             }  
         }  
 
+        // ==========================================
+        // ВИПРАВЛЕННЯ БАГА ТАЙМЛАЙНА:
+        // кліки, що прийшли під час анімації появи секції (.reveal-left), не чіпають стан карток,
+        // а чекають завершення цієї анімації (opacity/transform/filter предка + backdrop-filter дітей).
+        // ==========================================
+        const pendingClicks = new WeakMap();
+
+        function markRevealed(sec) {
+            if (sec.dataset.revealed === '1') return;
+            sec.dataset.revealed = '1';
+            const queued = pendingClicks.get(sec) || [];
+            pendingClicks.delete(sec);
+            queued.forEach(el => el.classList.toggle('is-on'));
+        }
+
+        function trackReveal(sec) {
+            let timer = 0;
+            const finish = () => {
+                sec.removeEventListener('transitionend', onEnd);
+                clearTimeout(timer);
+                markRevealed(sec);
+            };
+            const onEnd = (e) => {
+                if (e.target !== sec || e.propertyName !== 'opacity') return;
+                requestAnimationFrame(() => requestAnimationFrame(finish));
+            };
+            sec.addEventListener('transitionend', onEnd);
+            timer = setTimeout(finish, 1600); // страховка, якщо transitionend не спрацює
+        }
+
         const observer = new IntersectionObserver((entries) => {  
             entries.forEach(entry => {  
-                if (entry.isIntersecting) {  
+                if (entry.isIntersecting && !entry.target.classList.contains('active')) {  
+                    trackReveal(entry.target);
                     entry.target.classList.add('active');  
                 }  
             });  
@@ -1687,6 +1718,17 @@
                 // Ігноруємо кліки по внутрішніх кнопках/посиланнях (сердечко, копіювати, вкладки тощо)
                 const inner = e.target.closest('button, a');
                 if (inner && inner !== el && el.contains(inner)) return;
+
+                // Поки секція ще з'являється — не чіпаємо стан, а запам'ятовуємо клік
+                const sec = el.closest('.reveal-left');
+                if (sec && sec.dataset.revealed !== '1') {
+                    if (sec.classList.contains('active')) {
+                        const q = pendingClicks.get(sec) || [];
+                        q.push(el);
+                        pendingClicks.set(sec, q);
+                    }
+                    return; // секція ще невидима (opacity 0) — клік ігноруємо
+                }
                 el.classList.toggle('is-on');
             });
         });
@@ -2396,4 +2438,4 @@
     })();
     </script>
 </body>  
-                </html>
+    </html>

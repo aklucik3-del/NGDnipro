@@ -1,2567 +1,405 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <meta charset="UTF-8">
-    <meta name="google-site-verification" content="cMtJMBX0PDNgitilrx10joX3PjkbL7Un9JiaViBjXRg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ХЄЦУ-«Нове Покоління» — Дніпро | Офіційний сайт</title>
-    <link rel="canonical" href="https://aklucik3-del.github.io/NGDnipro/" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="https://aklucik3-del.github.io/NGDnipro/sitemap.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0a0f1d;
-            --secondary: #172b52;
-            --accent: #00f2fe;
-            --accent-pink: #ff007f;
-            --accent-purple: #8a2be2;
-            --accent-yellow: #ffd166;
-            --accent-green: #00ff88;
-            --dark: #05080e;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --white: #ffffff;
-            --ease: cubic-bezier(0.25, 1, 0.35, 1);
-            /* Переходи лише для тих властивостей, які реально змінюються (замість «all») —
-               браузер не стежить за зайвими властивостями і не чіпає layout. */
-            --transition: transform 0.65s var(--ease), opacity 0.65s var(--ease), box-shadow 0.65s var(--ease), border-color 0.65s var(--ease), background-color 0.65s var(--ease), color 0.65s var(--ease), text-shadow 0.65s var(--ease), filter 0.65s var(--ease);
-            --container-max: 1200px;
-            /* «Скло» без backdrop-filter: напівпрозорий темний шар + м'який світловий градієнт.
-               Виглядає як матове скло, але не змушує GPU розмивати фон на кожному кадрі. */
-            --glass: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.025) 38%, rgba(0,242,254,0.045) 100%), rgba(12, 19, 40, 0.8);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--dark); color: var(--primary); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-
-        /* ЧАСТИНКИ: прості світні крапки (radial-gradient) замість blur + box-shadow.
-           Рухаються лише через transform/opacity (на GPU, без перерахунку layout). */
-        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; overflow: hidden; }
-        .particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(0,242,254,0.95) 0%, rgba(0,242,254,0.4) 38%, rgba(0,242,254,0) 70%); animation: floatUp 20s infinite cubic-bezier(0.37, 0, 0.63, 1); will-change: transform, opacity; }
-        .particle:nth-child(even) { background: radial-gradient(circle, rgba(255,0,127,0.95) 0%, rgba(255,0,127,0.4) 38%, rgba(255,0,127,0) 70%); }
-        @keyframes floatUp {
-            0% { transform: translateY(105vh) scale(0.2); opacity: 0; }
-            25% { opacity: 0.55; }
-            75% { opacity: 0.55; }
-            100% { transform: translateY(-10vh) scale(2.2); opacity: 0; }
-        }
-
-        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: linear-gradient(180deg, rgba(10, 15, 29, 0.98), rgba(10, 15, 29, 0.92)); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); animation: slideDown 1s var(--ease); }
-        header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, rgba(0,242,254,0.75), rgba(255,0,127,0.65), transparent); opacity: 0.7; pointer-events: none; }
-        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
-
-        .nav-container { max-width: var(--container-max); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px); position: relative; z-index: 10; gap: 15px; flex-wrap: wrap; }
-        .logo { display: flex; align-items: center; gap: clamp(10px, 2vw, 14px); color: var(--white); font-weight: 700; font-size: clamp(0.95rem, 1.5vw, 1.15rem); text-decoration: none; cursor: pointer; transition: var(--transition); }
-        .logo:hover { transform: scale(1.04) translateX(4px); }
-        .logo i { color: var(--accent); font-size: clamp(1.4rem, 2.5vw, 1.8rem); filter: drop-shadow(0 0 9px var(--accent)); animation: pulseIcon 3.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }
-        @keyframes pulseIcon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-          
-        .social-icons { display: flex; align-items: center; gap: clamp(8px, 1.5vw, 12px); }
-        .social-btn { width: clamp(36px, 4vw, 40px); height: clamp(36px, 4vw, 40px); border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: clamp(0.95rem, 1.5vw, 1.1rem); text-decoration: none; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .social-btn.facebook:hover { background: #1877f2; border-color: #1877f2; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6); }
-        .social-btn.telegram:hover { background: #0088cc; border-color: #0088cc; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6); }
-        .social-btn.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); border-color: #d6249f; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(214, 36, 159, 0.6); }
-        .social-btn.youtube:hover { background: #ff0000; border-color: #ff0000; color: white; transform: translateY(-3px) scale(1.1); box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6); }
-
-        /* Фон області <main> темний (перші 84px — колір шапки, далі — глибокий темний). */
-        main { flex: 1; padding-top: 84px; position: relative; z-index: 2; background: linear-gradient(to bottom, #0a0f1d 0, #0a0f1d 84px, #05080e 84px, #05080e 100%); }
-        .page { display: none; }
-        /* Без fill-mode «forwards»: після завершення анімації на сторінці не лишається transform-шару. */
-        .page.active { display: block; animation: pageZoomIn 0.8s var(--ease); }
-        @keyframes pageZoomIn { from { opacity: 0; transform: scale(0.96) translateY(15px); } to { opacity: 1; transform: none; } }
-
-        .hero { min-height: calc(100vh - 84px); background: linear-gradient(135deg, rgba(10, 15, 29, 0.9), rgba(23, 43, 82, 0.88)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=70') no-repeat center center/cover; display: flex; align-items: center; text-align: center; color: var(--white); padding: clamp(40px, 8vh, 80px) clamp(15px, 3vw, 20px); position: relative; overflow: hidden; }
-        /* Симетричний радіальний градієнт при обертанні не змінюється візуально — обертання прибрано (це була чиста витрата GPU). */
-        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(0,242,254,0.12) 0%, transparent 65%); pointer-events: none; }
-        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 140px; background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(0, 242, 254, 0.16) 0%, transparent 70%), linear-gradient(to top, #050b18 0%, rgba(5, 11, 24, 0.85) 35%, transparent 100%); pointer-events: none; }
-          
-        .hero-content { max-width: clamp(600px, 80vw, 880px); margin: 0 auto; position: relative; z-index: 2; animation: fadeInUp 1.2s var(--ease) 0.2s backwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
-          
-        .hero h1 { font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; margin-bottom: clamp(16px, 3vw, 22px); line-height: 1.2; text-shadow: 0 15px 35px rgba(0,0,0,0.6); }
-        .hero h1 span { background: linear-gradient(135deg, var(--accent), #70e1f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; filter: drop-shadow(0 0 10px rgba(0,242,254,0.65)); animation: textShimmer 5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }
-        @keyframes textShimmer { from { opacity: 0.88; } to { opacity: 1; } }
-          
-        .hero p { font-size: clamp(1rem, 2vw, 1.35rem); color: #cbd5e1; margin-bottom: clamp(28px, 5vw, 40px); font-weight: 300; }
-          
-        /* Пульсація сяйва кнопки: анімується лише opacity окремого псевдоелемента (замість box-shadow на кожному кадрі). */
-        .btn-primary { position: relative; isolation: isolate; background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 38px); border-radius: 50px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; transition: var(--transition); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4); border: none; cursor: pointer; font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
-        .btn-primary::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; box-shadow: 0 15px 40px rgba(0, 242, 254, 0.75); opacity: 0; z-index: -1; pointer-events: none; animation: glowBreath 4s infinite ease-in-out; }
-        @keyframes glowBreath { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        .btn-primary:hover { transform: translateY(-6px) scale(1.06); box-shadow: 0 18px 45px rgba(0, 242, 254, 0.85); }
-          
-        section { padding: clamp(60px, 10vh, 100px) clamp(15px, 3vw, 20px); position: relative; }
-          
-        /* Поява секції лише через opacity + transform (без filter: blur на величезних блоках — це було найважче). */
-        .reveal-left {  
-            opacity: 0;  
-            transform: translateX(-120px);  
-            transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);  
-        }  
-        @media(max-width: 767px) { .reveal-left { transform: translateX(-50px); } }
-        .reveal-left.active {
-            opacity: 1;
-            transform: none;
-        }
-
-        .container { max-width: var(--container-max); margin: 0 auto; width: 100%; }  
-        .section-title { text-align: center; margin-bottom: clamp(40px, 7vw, 65px); }  
-        .section-title h2 { font-size: clamp(2rem, 4vw, 2.4rem); font-weight: 800; color: var(--primary); margin-bottom: 16px; position: relative; display: inline-block; }  
-        /* Смужка під заголовком «дихає» через transform: scaleX (замість зміни width + background → без layout). */
-        .section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; width: 110px; margin-left: -55px; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 12px rgba(0,242,254,0.55); transform: scaleX(0.5); animation: expandBar 4s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); }  
-        @keyframes expandBar { from { transform: scaleX(0.45); } to { transform: scaleX(1); } }  
-        .section-title p { color: var(--gray); font-size: clamp(0.98rem, 1.8vw, 1.1rem); }  
-          
-        .rotating-cross-badge {   
-            position: fixed;   
-            bottom: clamp(20px, 4vw, 30px);   
-            right: clamp(20px, 4vw, 30px);   
-            z-index: 999;   
-            background: linear-gradient(135deg, rgba(23,43,82,0.9), rgba(10,15,29,0.9));   
-            width: clamp(64px, 7vw, 76px);   
-            height: clamp(64px, 7vw, 76px);   
-            border-radius: 50%;   
-            display: flex;   
-            align-items: center;   
-            justify-content: center;   
-            box-shadow: 0 12px 30px rgba(0,242,254,0.45), inset 0 2px 6px rgba(255,255,255,0.4);   
-            border: 2px solid var(--accent);   
-            cursor: pointer;   
-            transition: var(--transition);   
-            perspective: 1200px;   
-        }  
-          
-        .rotating-cross-badge i {   
-            font-size: clamp(1.7rem, 2.5vw, 2.1rem);   
-            color: var(--accent);   
-            transform-style: preserve-3d;  
-            animation: spin3DYear 5s infinite linear;   
-            will-change: transform;
-            filter: drop-shadow(0 0 8px rgba(0,242,254,0.5));
-            transition: var(--transition);
-            text-shadow:   
-                0 1px 0 #0099aa,  
-                0 2px 0 #007788,  
-                0 3px 0 #005566,  
-                0 4px 0 #003344,  
-                0 5px 15px rgba(0,242,254,0.8),  
-                0 0 25px rgba(0,242,254,0.9);  
-        }  
-
-        @keyframes spin3DYear {  
-            0% { transform: rotateY(0deg) rotateX(10deg); }  
-            50% { transform: rotateY(180deg) rotateX(-10deg); }  
-            100% { transform: rotateY(360deg) rotateX(10deg); }  
-        }  
-
-        .rotating-cross-badge.is-on {   
-            transform: scale(1.15) translateY(-4px);   
-            box-shadow: 0 16px 40px rgba(255,0,127,0.65), inset 0 2px 8px rgba(255,255,255,0.6);   
-            border-color: var(--accent-pink);   
-        }  
-        .rotating-cross-badge.is-on i {   
-            color: var(--accent-pink);   
-            animation-duration: 2s;  
-            filter: drop-shadow(0 0 8px rgba(255,0,127,0.55));
-            text-shadow:   
-                0 1px 0 #aa0055,  
-                0 2px 0 #880044,  
-                0 3px 0 #660033,  
-                0 4px 0 #440022,  
-                0 5px 15px rgba(255,0,127,0.9),  
-                0 0 30px rgba(255,0,127,1);  
-        }  
-
-        /* Верхній/нижній «віньєт» секцій зроблено градієнтами у фоні (замість величезного inset box-shadow),
-           а між секціями проходить тонка неонова лінія — плавний, цілісний перехід. */
-        #history {  
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 14%, transparent 86%, rgba(0,0,0,0.5)), linear-gradient(135deg, #050b18 0%, #111d38 50%, #03060c 100%);  
-            color: var(--white);  
-            position: relative;  
-            overflow: hidden;  
-            border-top: 1px solid transparent;
-            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1;
-        }  
-        #history::before {  
-            content: '';  
-            position: absolute;  
-            top: -50%; left: -50%; width: 200%; height: 200%;  
-            background: radial-gradient(circle at 30% 30%, rgba(0, 242, 254, 0.18) 0%, transparent 40%),  
-                        radial-gradient(circle at 70% 80%, rgba(255, 0, 127, 0.18) 0%, transparent 40%),  
-                        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 60%);  
-            animation: bgShift 24s infinite alternate ease-in-out;  
-            will-change: transform;
-            pointer-events: none;  
-        }  
-        @keyframes bgShift {  
-            0% { transform: scale(1) translate(0, 0); }  
-            100% { transform: scale(1.1) translate(30px, 20px); }  
-        }  
-        #history .section-title h2 { color: var(--white); }  
-        #history .section-title p { color: #cbd5e1; }  
-          
-        .history-timeline { position: relative; max-width: 900px; margin: 0 auto; z-index: 2; }  
-        .history-timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 4px; background: linear-gradient(to bottom, var(--accent), var(--accent-pink)); border-radius: 2px; box-shadow: 0 0 22px var(--accent); }  
-        @media(min-width: 768px) { .history-timeline::before { left: 50%; transform: translateX(-50%); } }  
-        /* Кожна ланка таймлайна від початку є власним композитним шаром (will-change) —
-           це частина виправлення бага зі зникненням карток; не чіпати. */
-        .timeline-item { position: relative; margin-bottom: clamp(35px, 5vw, 50px); padding-left: 55px; will-change: transform; }  
-        @media(min-width: 768px) { .timeline-item { width: 50%; padding-left: 0; padding-right: 45px; } .timeline-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 45px; } }  
-        .timeline-dot { position: absolute; left: 8px; top: 5px; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); border: 5px solid var(--dark); box-shadow: 0 0 0 5px rgba(0, 242, 254, 0.35), 0 0 22px var(--accent); transition: var(--transition); }  
-        .timeline-item.is-on .timeline-dot { transform: scale(1.45) rotate(180deg); background: var(--accent-pink); box-shadow: 0 0 0 10px rgba(255,0,127,0.3), 0 0 28px var(--accent-pink); }  
-        @media(min-width: 768px) { .timeline-item:nth-child(odd) .timeline-dot { left: auto; right: -14px; } .timeline-item:nth-child(even) .timeline-dot { left: -14px; } }  
-          
-        .timeline-content {   
-            background: var(--glass);   
-            padding: clamp(22px, 3.5vw, 32px);   
-            border-radius: 24px;   
-            box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 22px rgba(0,242,254,0.1), inset 0 1px 0 rgba(255,255,255,0.22);   
-            transition: var(--transition);   
-            border: 1px solid rgba(0, 242, 254, 0.3);   
-        }  
-        .timeline-item.is-on .timeline-content {   
-            transform: translateY(-10px) scale(1.02);   
-            box-shadow: 0 20px 48px rgba(255, 0, 127, 0.35), 0 0 26px rgba(255,0,127,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.45);   
-            border-color: var(--accent-pink);   
-        }  
-        .timeline-content h3 { font-size: clamp(1.2rem, 2vw, 1.35rem); font-weight: 700; color: var(--accent); margin-bottom: 12px; text-shadow: 0 0 12px rgba(0,242,254,0.5); }  
-        .timeline-content p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); }  
-
-        .countdown-section {  
-            background: linear-gradient(to bottom, rgba(0,0,0,0.35), transparent 14%, transparent 86%, rgba(0,0,0,0.35)), linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));  
-            padding: clamp(50px, 8vh, 70px) clamp(15px, 3vw, 20px);  
-            text-align: center;  
-            color: var(--white);  
-            position: relative;  
-            overflow: hidden;  
-            border-top: 1px solid transparent;
-            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.45), rgba(255,0,127,0.35), transparent) 1;
-        }  
-        /* Світні «орби» — звичайні радіальні градієнти (без filter: blur(70px)). */
-        .countdown-section::before {  
-            content: '';  
-            position: absolute;  
-            top: -150px; left: -150px; width: 420px; height: 420px;  
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.22) 0%, transparent 68%);  
-            pointer-events: none;  
-        }  
-        .countdown-section::after {  
-            content: '';  
-            position: absolute;  
-            bottom: -150px; right: -150px; width: 420px; height: 420px;  
-            background: radial-gradient(circle, rgba(255, 0, 127, 0.22) 0%, transparent 68%);  
-            pointer-events: none;  
-        }  
-        .countdown-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }  
-        .countdown-header h3 {  
-            font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; margin-bottom: 8px;  
-            background: linear-gradient(135deg, var(--accent), #70e1f5);  
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;  
-            text-transform: uppercase; letter-spacing: 1px;  
-            filter: drop-shadow(0 0 9px rgba(0, 242, 254, 0.5));  
-        }  
-        .countdown-header p { color: #94a3b8; font-size: clamp(0.95rem, 1.6vw, 1.05rem); margin-bottom: 35px; font-weight: 300; }  
-          
-        .countdown-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px, 2vw, 20px); justify-content: center; }  
-        @media(min-width: 640px) { .countdown-grid { grid-template-columns: repeat(4, 1fr); } }  
-          
-        .countdown-card {  
-            background: var(--glass);  
-            border: 1px solid rgba(0, 242, 254, 0.3);  
-            border-radius: 20px;  
-            padding: clamp(18px, 3vw, 24px) clamp(10px, 2vw, 15px);  
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 18px rgba(0, 242, 254, 0.15);  
-            transition: var(--transition);  
-        }  
-        .countdown-card.is-on {  
-            transform: translateY(-5px) scale(1.04);  
-            border-color: var(--accent-pink);  
-            box-shadow: 0 16px 38px rgba(255, 0, 127, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 26px rgba(255, 0, 127, 0.4);  
-        }  
-        .countdown-number {  
-            font-size: clamp(2.2rem, 4.5vw, 2.8rem); font-weight: 900; color: var(--white);  
-            line-height: 1.1; margin-bottom: 6px;  
-            text-shadow: 0 0 15px var(--accent), 0 0 30px rgba(0, 242, 254, 0.6);  
-            font-variant-numeric: tabular-nums;  
-            transition: var(--transition);  
-        }  
-        .countdown-card.is-on .countdown-number { text-shadow: 0 0 15px var(--accent-pink), 0 0 30px rgba(255, 0, 127, 0.7); }  
-        .countdown-label { font-size: clamp(0.78rem, 1.3vw, 0.88rem); font-weight: 600; color: #cbd5e1; text-transform: uppercase; letter-spacing: 1.5px; }  
-
-        .countdown-card.expired .countdown-number {  
-            color: #ff0055 !important;  
-            text-shadow: 0 0 10px #ff0055, 0 0 25px #ff0055, 0 0 40px #ff0055, 0 0 60px #ff0000 !important;  
-        }  
-        .countdown-header p.expired-msg {  
-            color: #ff0055 !important;  
-            font-weight: 800 !important;  
-            font-size: clamp(1.2rem, 2.2vw, 1.5rem) !important;  
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.8) !important;  
-            animation: pulseExpiredMsg 2s infinite alternate ease-in-out;  
-        }  
-        @keyframes pulseExpiredMsg {  
-            from { transform: scale(1); opacity: 0.9; }  
-            to { transform: scale(1.05); opacity: 1; }  
-        }  
-
-        /* ==========================================
-           КАРТКА YOUTUBE-ЕФІРУ (дані з Cloudflare Worker)
-           Два слоти: під таймером головного богослужіння та під таймером молитовного служіння.
-           ========================================== */
-        .live-section[hidden] { display: none !important; }
-        .live-section {
-            background: linear-gradient(135deg, rgba(10, 15, 29, 0.95), rgba(23, 43, 82, 0.95));
-            border-top: 0;
-            border-image: none;
-            padding-top: 0;
-            padding-bottom: clamp(40px, 6vh, 56px);
-        }
-        .live-section::before, .live-section::after { display: none; }
-
-        .live-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            max-width: 560px;
-            margin: 0 auto;
-            text-align: left;
-            background: var(--glass);
-            border: 1px solid rgba(0, 242, 254, 0.35);
-            border-radius: 24px;
-            padding: clamp(14px, 3vw, 20px);
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 22px rgba(0, 242, 254, 0.18);
-            transition: transform 0.65s var(--ease), border-color 0.65s var(--ease), box-shadow 0.65s var(--ease);
-        }
-        .live-card.live-enter { animation: liveEnter 0.9s var(--ease) both, liveGlowIn 2.2s ease-out both; }
-        @keyframes liveEnter { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-        @keyframes liveGlowIn {
-            0% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 0 rgba(0, 242, 254, 0); }
-            35% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 46px rgba(0, 242, 254, 0.6); }
-            100% { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 22px rgba(0, 242, 254, 0.18); }
-        }
-        .live-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-pink);
-            box-shadow: 0 18px 40px rgba(255, 0, 127, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 26px rgba(255, 0, 127, 0.35);
-        }
-
-        .live-badge {
-            align-self: flex-start;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 0, 127, 0.14);
-            color: var(--white);
-            border: 1px solid rgba(255, 0, 127, 0.55);
-            padding: 6px 16px 6px 12px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: clamp(0.75rem, 1.3vw, 0.85rem);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            line-height: 1.4;
-            box-shadow: 0 0 12px rgba(255, 0, 127, 0.3);
-        }
-        .live-dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: #ff2d4d; box-shadow: 0 0 10px #ff2d4d; flex-shrink: 0; }
-        .live-dot::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50%; background: #ff2d4d; opacity: 0; animation: liveDotPulse 2s ease-out infinite; }
-        @keyframes liveDotPulse { 0% { transform: scale(1); opacity: 0.7; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
-
-        .live-thumb {
-            position: relative;
-            display: block;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #0a0f1d;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-        }
-        .live-thumb img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s var(--ease); }
-        .live-thumb::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(5, 8, 14, 0.55), transparent 55%); pointer-events: none; }
-        .live-card:hover .live-thumb img { transform: scale(1.05); }
-        .live-thumb-play {
-            position: absolute;
-            top: 50%; left: 50%;
-            z-index: 2;
-            width: clamp(54px, 9vw, 70px);
-            height: clamp(54px, 9vw, 70px);
-            margin: calc(clamp(54px, 9vw, 70px) / -2) 0 0 calc(clamp(54px, 9vw, 70px) / -2);
-            border-radius: 50%;
-            background: rgba(10, 15, 29, 0.72);
-            border: 2px solid var(--accent);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: clamp(1.1rem, 2.4vw, 1.5rem);
-            padding-left: 4px;
-            box-shadow: 0 0 22px rgba(0, 242, 254, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
-            pointer-events: none;
-        }
-        .live-card:hover .live-thumb-play { transform: scale(1.1); border-color: var(--accent-pink); box-shadow: 0 0 28px rgba(255, 0, 127, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
-
-        .live-title {
-            font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--white);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            word-break: break-word;
-        }
-        .live-hint { color: #94a3b8; font-size: clamp(0.82rem, 1.4vw, 0.92rem); margin-top: -6px; }
-        .live-btn { width: 100%; justify-content: center; text-align: center; }
-
-        .events-section {   
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent 14%, transparent 86%, rgba(0,0,0,0.5)), linear-gradient(135deg, #131c35 0%, #1f1035 50%, #070b16 100%);  
-            position: relative; overflow: hidden; color: var(--white);  
-            border-top: 1px solid transparent;
-            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1;
-        }  
-        .events-section::before {  
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;  
-            background: radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.16) 0%, transparent 45%),  
-                        radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.16) 0%, transparent 45%);  
-            pointer-events: none;  
-        }  
-        .events-section .section-title h2 { color: var(--white); }  
-        .events-section .section-title p { color: #cbd5e1; }  
-
-        .events-grid { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3.5vw, 35px); position: relative; z-index: 2; }  
-        @media(min-width: 768px) { .events-grid { grid-template-columns: repeat(2, 1fr); } }  
-        @media(min-width: 1024px) { .events-grid { grid-template-columns: repeat(3, 1fr); } }  
-          
-        .event-card {   
-            background: var(--glass);   
-            border-radius: 26px; padding: clamp(28px, 4vw, 38px);   
-            box-shadow: 0 14px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.22);   
-            display: flex; flex-direction: column; justify-content: space-between;   
-            border-top: 6px solid var(--accent); transition: var(--transition);   
-            position: relative; overflow: hidden;   
-            border-left: 1px solid rgba(0,242,254,0.25);  
-            border-right: 1px solid rgba(0,242,254,0.25);  
-        }  
-        .event-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0,242,254,0.12), transparent); opacity: 0; transition: var(--transition); pointer-events: none; }  
-        .event-card.is-on { transform: translateY(-12px) scale(1.03); box-shadow: 0 24px 52px rgba(255,0,127,0.4), inset 0 1px 0 rgba(255,255,255,0.4); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
-        .event-card.is-on::before { opacity: 1; }  
-          
-        .event-icon { width: clamp(55px, 6vw, 65px); height: clamp(55px, 6vw, 65px); border-radius: 18px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: clamp(1.3rem, 2vw, 1.6rem); margin-bottom: 22px; transition: var(--transition); box-shadow: 0 5px 18px rgba(0,242,254,0.3); }  
-        .event-card.is-on .event-icon { background: linear-gradient(135deg, var(--accent-pink), var(--accent)); color: var(--white); transform: rotate(15deg) scale(1.2); box-shadow: 0 8px 26px rgba(255,0,127,0.6); }  
-          
-        .event-card h3 { font-size: clamp(1.15rem, 1.8vw, 1.3rem); font-weight: 700; margin-bottom: 12px; color: var(--white); }  
-        .event-time { display: inline-block; background: rgba(0, 242, 254, 0.15); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); font-weight: 600; margin-bottom: 16px; transition: var(--transition); border: 1px solid rgba(0,242,254,0.3); }  
-        .event-card.is-on .event-time { background: var(--accent-pink); color: var(--white); border-color: var(--accent-pink); box-shadow: 0 4px 15px rgba(255,0,127,0.5); }  
-        .event-card p { color: #cbd5e1; font-size: clamp(0.9rem, 1.5vw, 0.96rem); }  
-
-        .contact-section { background: linear-gradient(135deg, #05080e 0%, #0a0f1d 50%, #111b2e 100%); color: var(--white); position: relative; overflow: hidden; border-top: 1px solid transparent; border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.5), rgba(255,0,127,0.4), transparent) 1; }  
-        .contact-section .section-title h2 { color: var(--white); }  
-        .contact-section .section-title h2::after { background: var(--accent); }  
-        .contact-grid { display: grid; grid-template-columns: 1fr; gap: clamp(25px, 4vw, 40px); }  
-        @media(min-width: 768px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }  
-        .contact-info-list { display: flex; flex-direction: column; gap: 20px; }  
-        .contact-info-item { display: flex; align-items: flex-start; gap: 16px; background: linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.015)); padding: clamp(18px, 2.5vw, 22px); border-radius: 18px; border: 1px solid rgba(255,255,255,0.08); transition: var(--transition); }  
-        .contact-info-item.is-on { border-color: var(--accent); transform: translateX(10px) scale(1.02); background: rgba(255,255,255,0.07); box-shadow: 0 10px 30px rgba(0,242,254,0.15); }  
-        .contact-info-item i { font-size: clamp(1.3rem, 2vw, 1.6rem); color: var(--accent); margin-top: 4px; transition: var(--transition); filter: drop-shadow(0 0 8px rgba(0,242,254,0.5)); }  
-        .contact-info-item.is-on i { transform: scale(1.35) rotate(-10deg); color: var(--accent-pink); filter: drop-shadow(0 0 10px var(--accent-pink)); }  
-        .contact-info-item h4 { font-size: clamp(1.02rem, 1.6vw, 1.1rem); font-weight: 600; margin-bottom: 5px; }  
-        .contact-info-item p { color: #cbd5e1; font-size: clamp(0.9rem, 1.4vw, 0.96rem); }  
-          
-        .contact-info-item.phone-card {  
-            flex-direction: column;  
-            align-items: flex-start;  
-            gap: 12px;  
-            background: linear-gradient(145deg, rgba(0, 255, 136, 0.08), rgba(0, 255, 136, 0.02)), rgba(9, 24, 28, 0.8);  
-            border: 1px solid rgba(0, 255, 136, 0.28);  
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14);  
-        }  
-        .contact-info-item.phone-card.is-on {  
-            border-color: var(--accent-green);  
-            background: linear-gradient(145deg, rgba(0, 255, 136, 0.14), rgba(0, 255, 136, 0.04)), rgba(9, 24, 28, 0.85);  
-            box-shadow: 0 12px 32px rgba(0, 255, 136, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.24);  
-            transform: translateX(10px) scale(1.02);  
-        }  
-        .contact-info-item.phone-card i.phone-icon {  
-            font-size: clamp(1.3rem, 2vw, 1.6rem);  
-            color: var(--accent-green);  
-            filter: drop-shadow(0 0 10px var(--accent-green)) drop-shadow(0 0 18px rgba(0, 255, 136, 0.6));  
-            margin-top: 0;  
-            margin-bottom: 4px;  
-            animation: pulseGreenPhone 3s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);  
-        }  
-        @keyframes pulseGreenPhone {  
-            0% { transform: scale(1); }  
-            100% { transform: scale(1.1); }  
-        }  
-        .contact-info-item.phone-card.is-on i.phone-icon {  
-            transform: scale(1.25) rotate(-10deg);  
-            color: #55ffb0;  
-            filter: drop-shadow(0 0 16px #55ffb0) drop-shadow(0 0 28px rgba(0, 255, 136, 1));  
-        }  
-
-        .map-box { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: clamp(280px, 35vw, 340px); border-radius: 22px; background: radial-gradient(circle at 50% 35%, rgba(0,242,254,0.1), transparent 60%), linear-gradient(145deg, #15223c, #0b1322); color: #94a3b8; border: 1px solid rgba(0,242,254,0.22); box-shadow: 0 12px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08); padding: 20px; text-decoration: none; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; }  
-        .map-box.is-on { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 18px 44px rgba(0, 242, 254, 0.35); }  
-        .map-box i { font-size: clamp(3rem, 5vw, 3.8rem); color: var(--accent); margin-bottom: 18px; filter: drop-shadow(0 0 14px rgba(0,242,254,0.6)); animation: bounceMap 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1); }  
-        @keyframes bounceMap { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }  
-
-        /* НЕОНОВИЙ БЛОК БЛАГОСЛОВІННЯ ПІД КОНТАКТАМИ */  
-        .blessing-section-bottom {  
-            padding: clamp(40px, 6vh, 60px) clamp(15px, 3vw, 20px);  
-            background: linear-gradient(135deg, #0a0f1d 0%, #05080e 100%);  
-            text-align: center;  
-            position: relative;  
-            z-index: 5;  
-            border-top: 1px solid transparent;  
-            border-image: linear-gradient(90deg, transparent, rgba(0,242,254,0.4), rgba(255,0,127,0.35), transparent) 1;
-        }  
-
-        /* Переливання градієнта кнопки: рухається широкий псевдоелемент через transform (на GPU),
-           а не background-position (який перемальовує кнопку на кожному кадрі). */
-        .btn-neon-blessing {  
-            position: relative;
-            isolation: isolate;
-            background: linear-gradient(90deg, #00f2fe, #8a2be2, #ff007f);  
-            color: #ffffff;  
-            padding: clamp(16px, 2.5vw, 20px) clamp(32px, 4vw, 48px);  
-            border-radius: 50px;  
-            font-weight: 800;  
-            font-size: clamp(1rem, 1.8vw, 1.25rem);  
-            border: 2px solid rgba(255, 255, 255, 0.85);  
-            cursor: pointer;  
-            transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);  
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6), 0 0 50px rgba(138, 43, 226, 0.5);  
-            display: inline-flex;  
-            align-items: center;  
-            gap: 12px;  
-            text-transform: uppercase;  
-            letter-spacing: 0.5px;  
-            overflow: hidden;  
-        }  
-        .btn-neon-blessing::before {
-            content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 300%;
-            background: linear-gradient(90deg, #00f2fe, #8a2be2, #ff007f, #00f2fe, #8a2be2, #ff007f, #00f2fe, #8a2be2, #ff007f, #00f2fe);
-            z-index: -1; pointer-events: none; will-change: transform;
-            animation: neonSlide 8s linear infinite;
-        }
-        .btn-neon-blessing::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit;
-            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.7); pointer-events: none;
-        }
-        @keyframes neonSlide { from { transform: translateX(0); } to { transform: translateX(-33.3333%); } }
-
-        .btn-neon-blessing:hover {  
-            transform: translateY(-6px) scale(1.06);  
-            box-shadow: 0 0 35px rgba(0, 242, 254, 0.95), 0 0 70px rgba(138, 43, 226, 0.85), 0 0 100px rgba(255, 0, 127, 0.7);  
-            border-color: #ffffff;  
-        }  
-
-        .btn-neon-blessing:active {  
-            transform: translateY(-2px) scale(0.98);  
-        }  
-
-        .blessing-display-box {  
-            max-width: 750px;  
-            margin: 30px auto 0 auto;  
-            min-height: 90px;  
-            position: relative;  
-            display: flex;  
-            align-items: center;  
-            justify-content: center;  
-            perspective: 1000px;  
-        }  
-
-        .blessing-card-msg {  
-            background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)), rgba(13, 22, 48, 0.94);  
-            border: 1px solid rgba(0, 242, 254, 0.5);  
-            box-shadow: 0 14px 34px rgba(0,0,0,0.6), 0 0 22px rgba(0, 242, 254, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);  
-            padding: 22px 30px;  
-            border-radius: 20px;  
-            color: #ffffff;  
-            font-size: clamp(1.05rem, 2vw, 1.3rem);  
-            font-weight: 600;  
-            width: 100%;  
-            position: absolute;  
-            top: 0;  
-            left: 0;  
-            right: 0;  
-            margin: 0 auto;  
-            display: flex;  
-            align-items: center;  
-            justify-content: center;  
-            gap: 12px;  
-            text-align: center;  
-            opacity: 0;  
-            visibility: hidden;  
-            transform: translateY(40px);  
-            transition: transform 0.5s var(--ease), opacity 0.5s var(--ease), visibility 0.5s;  
-        }  
-
-        .blessing-card-msg.active {  
-            opacity: 1;  
-            visibility: visible;  
-            transform: translateY(0);  
-        }  
-
-        .blessing-card-msg.fly-out {  
-            opacity: 0;  
-            visibility: hidden;  
-            transform: translateY(-50px);  
-        }  
-
-        .page2-wrapper { padding: clamp(40px, 7vh, 65px) clamp(15px, 3vw, 20px); background: linear-gradient(135deg, #0a0f1d 0%, #172b52 100%); min-height: 80vh; color: var(--white); }  
-        .services-header { text-align: center; margin-bottom: clamp(35px, 6vw, 55px); }  
-        .services-header h2 { font-size: clamp(2.1rem, 4vw, 2.8rem); font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; filter: drop-shadow(0 0 12px rgba(0,242,254,0.3)); }  
-        .services-header p { color: #cbd5e1; font-size: clamp(1rem, 1.8vw, 1.15rem); }  
-          
-        .services-grid { display: grid; grid-template-columns: 1fr; gap: clamp(24px, 3.5vw, 35px); max-width: var(--container-max); margin: 0 auto; width: 100%; }  
-        @media(min-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }  
-        @media(min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }  
-          
-        .service-card {   
-            background: var(--glass);   
-            border-radius: 26px; padding: clamp(30px, 4.5vw, 42px) clamp(22px, 3.5vw, 32px);   
-            box-shadow: 0 14px 34px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);   
-            transition: var(--transition); position: relative; overflow: hidden;   
-            border-top: 6px solid var(--accent); border: 1px solid rgba(0,242,254,0.25);  
-        }  
-        .service-card.is-on { transform: translateY(-12px) scale(1.02); box-shadow: 0 24px 52px rgba(255,0,127,0.35), inset 0 1px 0 rgba(255,255,255,0.35); border-top-color: var(--accent-pink); border-color: var(--accent-pink); }  
-          
-        .service-icon-box { width: clamp(60px, 6.5vw, 70px); height: clamp(60px, 6.5vw, 70px); border-radius: 20px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: clamp(1.5rem, 2.2vw, 1.9rem); margin-bottom: 28px; transition: var(--transition); box-shadow: 0 6px 20px rgba(0,242,254,0.2); }  
-        .service-card.is-on .service-icon-box { background: linear-gradient(135deg, var(--accent-pink), var(--secondary)); color: var(--white); transform: rotate(-15deg) scale(1.25); box-shadow: 0 10px 28px rgba(255,0,127,0.5); }  
-          
-        .service-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); font-weight: 700; color: var(--white); margin-bottom: 14px; }  
-        .service-card p { color: #cbd5e1; font-size: clamp(0.92rem, 1.5vw, 0.98rem); line-height: 1.65; }  
-
-        /* Кастомні стилі для іконки лампочки з 3 неоновими променями */  
-        .lightbulb-icon-wrapper {  
-            position: relative;  
-            display: inline-flex;  
-            align-items: center;  
-            justify-content: center;  
-        }  
-        .neon-ray {  
-            position: absolute;  
-            background: var(--accent);  
-            box-shadow: 0 0 12px var(--accent);  
-            border-radius: 2px;  
-            transition: var(--transition);  
-        }  
-        .ray-1 {  
-            width: 3px;  
-            height: 14px;  
-            top: -12px;  
-            left: 50%;  
-            transform: translateX(-50%);  
-        }  
-        .ray-2 {  
-            width: 12px;  
-            height: 3px;  
-            top: 25%;  
-            left: -14px;  
-        }  
-        .ray-3 {  
-            width: 12px;  
-            height: 3px;  
-            top: 25%;  
-            right: -14px;  
-        }  
-        .service-card.is-on .lightbulb-icon-wrapper .neon-ray {  
-            background: var(--accent-pink);  
-            box-shadow: 0 0 15px var(--accent-pink);  
-        }  
-
-        /* СТИЛІ ДЛЯ ДУХОВНОЇ КАРТКИ ВІРШІВ ТА ОБРАНОГО */
-        .spiritual-card-section {  
-            max-width: var(--container-max);  
-            margin: clamp(40px, 6vh, 60px) auto 0 auto;  
-            width: 100%;  
-        }  
-
-        .spiritual-card {  
-            background: linear-gradient(135deg, rgba(10, 15, 29, 0.95) 0%, rgba(23, 43, 82, 0.95) 50%, rgba(138, 43, 226, 0.2) 100%);  
-            border: 1px solid rgba(0, 242, 254, 0.4);  
-            border-radius: 30px;  
-            padding: clamp(30px, 5vw, 50px);  
-            box-shadow: 0 18px 44px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);  
-            position: relative;  
-            overflow: hidden;  
-            transition: var(--transition);  
-        }  
-
-        .spiritual-card.is-on {  
-            border-color: var(--accent-pink);  
-            box-shadow: 0 22px 52px rgba(255, 0, 127, 0.35), 0 0 40px rgba(0, 242, 254, 0.3);  
-        }  
-
-        .spiritual-card::before {  
-            content: '';  
-            position: absolute;  
-            top: -50%; left: -50%; width: 200%; height: 200%;  
-            background: radial-gradient(circle at 70% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 50%),  
-                        radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.15) 0%, transparent 50%);  
-            pointer-events: none;  
-            will-change: transform;
-            animation: spiritualGlowRotate 25s infinite linear;  
-        }  
-
-        @keyframes spiritualGlowRotate {  
-            from { transform: rotate(0deg); }  
-            to { transform: rotate(360deg); }  
-        }  
-
-        .spiritual-header {  
-            display: flex;  
-            align-items: center;  
-            justify-content: space-between;  
-            margin-bottom: 25px;  
-            position: relative;  
-            z-index: 2;  
-            flex-wrap: wrap;  
-            gap: 15px;  
-        }  
-
-        .spiritual-badge {  
-            display: inline-flex;  
-            align-items: center;  
-            gap: 10px;  
-            background: rgba(0, 242, 254, 0.12);  
-            color: var(--accent);  
-            border: 1px solid rgba(0, 242, 254, 0.35);  
-            padding: 8px 22px;  
-            border-radius: 30px;  
-            font-weight: 700;  
-            font-size: clamp(0.9rem, 1.5vw, 1.05rem);  
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);  
-            text-transform: uppercase;  
-            letter-spacing: 1px;  
-        }  
-
-        .spiritual-badge i {  
-            filter: drop-shadow(0 0 8px var(--accent));  
-        }  
-
-        .spiritual-actions {  
-            display: flex;  
-            align-items: center;  
-            gap: 12px;  
-        }  
-
-        .spiritual-btn {  
-            background: rgba(255, 255, 255, 0.08);  
-            border: 1px solid rgba(255, 255, 255, 0.2);  
-            color: var(--white);  
-            width: 44px;  
-            height: 44px;  
-            border-radius: 50%;  
-            display: flex;  
-            align-items: center;  
-            justify-content: center;  
-            cursor: pointer;  
-            transition: var(--transition);  
-            font-size: 1.1rem;  
-            position: relative;
-        }  
-
-        .spiritual-btn:hover {  
-            background: var(--accent);  
-            color: var(--dark);  
-            border-color: var(--accent);  
-            transform: scale(1.12) rotate(8deg);  
-            box-shadow: 0 0 20px var(--accent);  
-        }  
-
-        .spiritual-btn.fav-btn.active {
-            color: var(--accent-pink);
-            background: rgba(255, 0, 127, 0.2);
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 20px var(--accent-pink);
-        }
-
-        .spiritual-btn.fav-btn.active i {
-            animation: favPop 0.4s ease-out forwards;
-        }
-
-        @keyframes favPop {
-            0% { transform: scale(0.6); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-
-        .spiritual-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .tab-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #cbd5e1;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
-            color: var(--white);
-            border-color: transparent;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-        }
-
-        .spiritual-content-box {  
-            position: relative;  
-            z-index: 2;  
-            margin-bottom: 20px;  
-            min-height: 140px;  
-            display: flex;  
-            flex-direction: column;  
-            justify-content: center;  
-            background: rgba(0, 0, 0, 0.2);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }  
-
-        .spiritual-text {  
-            font-size: clamp(1.15rem, 2.2vw, 1.5rem);  
-            font-weight: 500;  
-            line-height: 1.7;  
-            color: #f1f5f9;  
-            margin-bottom: 18px;  
-            font-style: italic;  
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);  
-            transition: opacity 0.4s ease, transform 0.4s ease;  
-        }  
-
-        .spiritual-text.fade-anim {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .spiritual-reference {  
-            font-size: clamp(1rem, 1.8vw, 1.2rem);  
-            font-weight: 700;  
-            background: linear-gradient(135deg, var(--accent), var(--accent-pink));  
-            -webkit-background-clip: text;  
-            background-clip: text;
-            -webkit-text-fill-color: transparent;  
-            display: inline-block;  
-            filter: drop-shadow(0 0 9px rgba(0,242,254,0.4));  
-        }  
-
-        .spiritual-footer {  
-            position: relative;  
-            z-index: 2;  
-            display: flex;  
-            align-items: center;  
-            justify-content: space-between;  
-            padding-top: 20px;  
-            border-top: 1px solid rgba(255, 255, 255, 0.1);  
-            flex-wrap: wrap;  
-            gap: 15px;  
-        }  
-
-        .spiritual-tagline {  
-            color: #94a3b8;  
-            font-size: clamp(0.85rem, 1.4vw, 0.95rem);  
-            display: flex;  
-            align-items: center;  
-            gap: 8px;  
-        }  
-
-        .spiritual-tagline i {  
-            color: var(--accent-pink);  
-        }  
-
-        .btn-refresh-quote {  
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(138, 43, 226, 0.2));  
-            border: 1px solid rgba(0, 242, 254, 0.5);  
-            color: var(--white);  
-            padding: 10px 22px;  
-            border-radius: 20px;  
-            font-size: 0.9rem;  
-            font-weight: 600;  
-            cursor: pointer;  
-            transition: var(--transition);  
-            display: inline-flex;  
-            align-items: center;  
-            gap: 8px;  
-        }  
-
-        .btn-refresh-quote:hover {  
-            background: linear-gradient(135deg, var(--accent), var(--accent-pink));  
-            color: var(--white);  
-            border-color: transparent;  
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);  
-            transform: translateY(-2px);  
-        }  
-
-        /* Сповіщення Toast для копіювання / обраного */
-        .toast-notification {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(10, 15, 29, 0.95);
-            border: 1px solid var(--accent);
-            box-shadow: 0 10px 30px rgba(0,242,254,0.4);
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            z-index: 10000;
-            opacity: 0;
-            transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .toast-notification.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .pagination-container { text-align: center; padding: clamp(30px, 6vh, 45px) clamp(15px, 3vw, 20px); background: var(--dark); border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; align-items: center; gap: 22px; position: relative; z-index: 10; box-shadow: 0 -10px 30px rgba(0,0,0,0.3); }  
-          
-        .btn-page { background: linear-gradient(135deg, var(--accent), #2563eb); color: var(--white); border: none; padding: clamp(14px, 2vw, 18px) clamp(28px, 4vw, 42px); border-radius: 50px; font-weight: 700; font-size: clamp(1rem, 1.6vw, 1.15rem); cursor: pointer; transition: var(--transition); box-shadow: 0 8px 30px rgba(0, 242, 254, 0.4); display: inline-flex; align-items: center; gap: 14px; z-index: 10; }  
-        .btn-page:hover { transform: translateY(-5px) scale(1.06); box-shadow: 0 15px 45px rgba(0, 242, 254, 0.7); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }  
-
-        footer { background: #030509; color: #64748b; text-align: center; padding: clamp(30px, 5vh, 40px) 20px; font-size: clamp(0.82rem, 1.3vw, 0.88rem); border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }  
-
-        body.modal-open { overflow: hidden !important; }  
-
-        /* Поки відкрите модальне вікно, анімації сторінки за ним стоять на паузі —
-           вікно вибору режиму з'являється миттєво, сторінка не «борюкається» під ним. */
-        body.modal-open main *, body.modal-open main *::before, body.modal-open main *::after,
-        body.modal-open header, body.modal-open .particle, body.modal-open .rotating-cross-badge i { animation-play-state: paused !important; }
-
-        /* Секції, яких зараз не видно на екрані, не анімуються (клас ставить IntersectionObserver). */
-        .is-offscreen, .is-offscreen *, .is-offscreen::before, .is-offscreen::after, .is-offscreen *::before, .is-offscreen *::after { animation-play-state: paused !important; }
-
-        .opt-modal-overlay {  
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;  
-            background: radial-gradient(circle at 50% 30%, rgba(0, 242, 254, 0.14), transparent 55%), radial-gradient(circle at 50% 100%, rgba(255, 0, 127, 0.12), transparent 50%), rgba(3, 6, 15, 0.93);  
-            z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px;  
-            opacity: 0; visibility: hidden; transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);  
-        }  
-        .opt-modal-overlay.active { opacity: 1; visibility: visible; }  
-
-        .opt-modal-card {  
-            background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(35, 18, 64, 0.96) 100%);  
-            border: 1px solid rgba(0, 242, 254, 0.5); border-radius: 28px; padding: clamp(28px, 4vw, 38px) clamp(20px, 3vw, 28px);  
-            max-width: 440px; width: 100%; text-align: center; color: #ffffff;  
-            box-shadow: 0 0 32px rgba(0, 242, 254, 0.35), 0 0 60px rgba(255, 0, 127, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.25);  
-            transform: scale(0.85) translateY(20px); opacity: 0; transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);  
-            position: relative; overflow: hidden;  
-        }  
-        .opt-modal-overlay.active .opt-modal-card { transform: scale(1) translateY(0); opacity: 1; }  
-
-        /* Центроване радіальне сяйво при обертанні не змінюється — анімацію прибрано. */
-        .opt-modal-card::before {  
-            content: ''; position: absolute; top: -40%; left: -40%; width: 180%; height: 180%;  
-            background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(255,0,127,0.1) 40%, transparent 70%);  
-            pointer-events: none;  
-        }  
-
-        .opt-modal-icon {  
-            width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 50%;  
-            background: rgba(0, 242, 254, 0.12); border: 1px solid rgba(0, 242, 254, 0.4);  
-            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent);  
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5); position: relative; z-index: 2;  
-        }  
-
-        .opt-modal-title {  
-            font-size: clamp(1.4rem, 2.5vw, 1.75rem); font-weight: 800; margin-bottom: 12px;  
-            background: linear-gradient(135deg, var(--accent), #70e1f5, var(--accent-pink));  
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2;  
-        }  
-
-        .opt-modal-desc {  
-            font-size: clamp(0.9rem, 1.5vw, 0.96rem); color: #cbd5e1; margin-bottom: 30px;  
-            font-weight: 400; line-height: 1.55; position: relative; z-index: 2;  
-        }  
-
-        .opt-modal-buttons { display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 2; }  
-        @media(min-width: 480px) { .opt-modal-buttons { flex-direction: row; } }  
-
-        .opt-btn {  
-            flex: 1; padding: 15px 22px; border-radius: 50px; font-weight: 700; font-size: 1rem; cursor: pointer; border: none;  
-            transition: var(--transition); display: inline-flex; align-items: center; justify-content: center; gap: 10px;  
-            text-decoration: none; font-family: inherit;  
-        }  
-
-        .opt-btn-main { background: linear-gradient(135deg, var(--accent), #2563eb); color: #ffffff; box-shadow: 0 8px 25px rgba(0, 242, 254, 0.45); }  
-        .opt-btn-main:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 35px rgba(0, 242, 254, 0.75); background: linear-gradient(135deg, #2563eb, var(--accent-pink)); }  
-
-        .opt-btn-skip { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }  
-        .opt-btn-skip:hover { background: rgba(255, 255, 255, 0.16); color: #ffffff; border-color: rgba(255, 255, 255, 0.4); transform: translateY(-3px); }  
-
-        /* ==========================================
-           МОДАЛЬНЕ ВІКНО ВИБОРУ TELEGRAM-КАНАЛУ
-           ========================================== */
-        .tg-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 25%, rgba(0, 242, 254, 0.13), transparent 55%), rgba(3, 6, 15, 0.9);
-            z-index: 999990;
-            display: flex; align-items: center; justify-content: center;
-            padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
-        }
-        .tg-modal-overlay.active { opacity: 1; visibility: visible; }
-
-        .tg-modal-card {
-            position: relative; width: 100%; max-width: 440px;
-            margin: auto;
-            background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(10, 15, 29, 0.97) 100%);
-            border: 1px solid rgba(0, 242, 254, 0.45);
-            border-radius: 28px;
-            padding: clamp(26px, 4vw, 34px) clamp(14px, 3vw, 24px) clamp(18px, 3vw, 26px);
-            color: #ffffff;
-            box-shadow: 0 0 32px rgba(0, 242, 254, 0.3), 0 0 60px rgba(37, 99, 235, 0.22), 0 22px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
-            transform: scale(0.88) translateY(26px); opacity: 0;
-            transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
-        }
-        .tg-modal-overlay.active .tg-modal-card { transform: scale(1) translateY(0); opacity: 1; }
-
-        .tg-modal-close {
-            position: absolute; top: 12px; right: 12px;
-            width: 38px; height: 38px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(0, 242, 254, 0.1);
-            border: 1px solid rgba(0, 242, 254, 0.5);
-            color: #ffffff; font-family: inherit; font-size: 1.6rem; line-height: 1;
-            cursor: pointer; padding: 0 0 3px 0;
-            box-shadow: 0 0 14px rgba(0, 242, 254, 0.35);
-            transition: transform 0.45s var(--ease), background 0.45s var(--ease), box-shadow 0.45s var(--ease);
-            z-index: 3;
-        }
-        .tg-modal-close:hover, .tg-modal-close:focus-visible {
-            background: linear-gradient(135deg, var(--accent), #2563eb);
-            box-shadow: 0 0 24px rgba(0, 242, 254, 0.8);
-            transform: rotate(90deg) scale(1.08); outline: none;
-        }
-        .tg-modal-close:active { transform: rotate(90deg) scale(0.92); }
-
-        .tg-modal-title {
-            font-size: clamp(1.3rem, 4.6vw, 1.6rem); font-weight: 800; text-align: center;
-            margin: 0 44px 8px;
-            background: linear-gradient(135deg, var(--accent), #70e1f5, #60a5fa);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 9px rgba(0, 242, 254, 0.35));
-            line-height: 1.25;
-        }
-        .tg-modal-sub {
-            text-align: center; color: #94a3b8; font-weight: 400;
-            font-size: clamp(0.85rem, 3.2vw, 0.94rem);
-            margin: 0 0 22px; line-height: 1.5;
-        }
-
-        .tg-list { display: flex; flex-direction: column; gap: 14px; }
-
-        .tg-card {
-            position: relative; display: block; padding: 1.5px;
-            border-radius: 18px; overflow: hidden; isolation: isolate;
-            text-decoration: none; color: inherit; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-            box-shadow: 0 0 16px rgba(0, 242, 254, 0.18), 0 8px 20px rgba(0, 0, 0, 0.35);
-            transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
-        }
-        .tg-card::before {
-            content: ''; position: absolute; top: 50%; left: 50%;
-            width: 220%; aspect-ratio: 1 / 1; z-index: 0; pointer-events: none;
-            transform: translate(-50%, -50%) rotate(0deg);
-            will-change: transform;
-            background: conic-gradient(
-                rgba(0, 160, 255, 0.2) 0deg,
-                rgba(0, 160, 255, 0.2) 215deg,
-                rgba(37, 99, 235, 0.7) 270deg,
-                #00f2fe 325deg,
-                #c4fbff 344deg,
-                rgba(0, 242, 254, 0.2) 360deg
-            );
-            animation: tgBorderSpin 7s linear infinite, tgBorderPulse 3.6s ease-in-out infinite alternate;
-        }
-        .tg-card:nth-child(2)::before { animation-delay: -2.3s, -1.2s; }
-        .tg-card:nth-child(3)::before { animation-delay: -4.6s, -2.4s; }
-        @keyframes tgBorderSpin {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        @keyframes tgBorderPulse {
-            from { opacity: 0.7; }
-            to { opacity: 1; }
-        }
-
-        .tg-card-body {
-            position: relative; z-index: 1;
-            display: flex; align-items: center; gap: clamp(12px, 3.5vw, 16px);
-            padding: clamp(14px, 3.5vw, 18px) clamp(14px, 3.5vw, 18px);
-            min-height: 78px;
-            border-radius: 16.5px;
-            background: linear-gradient(135deg, rgba(13, 22, 48, 0.96) 0%, rgba(10, 15, 29, 0.97) 100%);
-            transition: background 0.45s var(--ease);
-        }
-        .tg-card:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(0, 242, 254, 0.5), 0 14px 30px rgba(0, 0, 0, 0.45); }
-        .tg-card:hover .tg-card-body, .tg-card:focus-visible .tg-card-body { background: linear-gradient(135deg, rgba(18, 34, 72, 0.97) 0%, rgba(12, 20, 42, 0.98) 100%); }
-        .tg-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; transform: translateY(-3px); }
-        .tg-card:active { transform: scale(0.97); box-shadow: 0 0 18px rgba(0, 242, 254, 0.4), 0 4px 12px rgba(0, 0, 0, 0.4); }
-
-        .tg-card-icon {
-            flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
-            align-self: center;
-            font-size: clamp(2.3rem, 9vw, 2.8rem); line-height: 1;
-            color: #29b6f6;
-            filter: drop-shadow(0 0 6px rgba(41, 182, 246, 0.7)) drop-shadow(0 0 14px rgba(0, 242, 254, 0.35));
-            transition: transform 0.45s var(--ease), filter 0.45s var(--ease);
-        }
-        .tg-card:hover .tg-card-icon { transform: scale(1.1) rotate(-6deg); filter: drop-shadow(0 0 9px rgba(41, 182, 246, 0.95)) drop-shadow(0 0 20px rgba(0, 242, 254, 0.6)); }
-
-        .tg-card-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; text-align: left; }
-        .tg-card-name {
-            font-size: clamp(1.02rem, 4.2vw, 1.2rem); font-weight: 700; color: #ffffff;
-            line-height: 1.25; overflow-wrap: anywhere;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
-        }
-        .tg-card-desc {
-            font-size: clamp(0.8rem, 3.2vw, 0.88rem); font-weight: 400; line-height: 1.4;
-            color: rgba(203, 213, 225, 0.82); overflow-wrap: anywhere;
-            animation: tgDescGlow 4s ease-in-out infinite alternate;
-        }
-        .tg-card:nth-child(2) .tg-card-desc { animation-delay: -1.3s; }
-        .tg-card:nth-child(3) .tg-card-desc { animation-delay: -2.6s; }
-        @keyframes tgDescGlow {
-            from { color: rgba(203, 213, 225, 0.74); text-shadow: 0 0 3px rgba(0, 242, 254, 0.1); }
-            to { color: rgba(186, 240, 252, 0.95); text-shadow: 0 0 9px rgba(0, 242, 254, 0.5); }
-        }
-
-        /* Закриті модальні вікна не анімуються. */
-        .opt-modal-overlay:not(.active) *, .opt-modal-overlay:not(.active) *::before,
-        .tg-modal-overlay:not(.active) *, .tg-modal-overlay:not(.active) *::before, .tg-modal-overlay:not(.active) *::after { animation-play-state: paused !important; }
-
-        @media (max-width: 380px) {
-            .tg-modal-card { border-radius: 22px; }
-            .tg-card-body { min-height: 72px; }
-        }
-        @media (max-height: 560px) {
-            .tg-modal-overlay { align-items: flex-start; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .tg-card::before { animation-duration: 20s, 8s; }
-            .particles { display: none; }
-            #history::before, .spiritual-card::before, .btn-neon-blessing::before { animation: none; }
-            .live-dot::after { animation: none; }
-            .live-card.live-enter { animation: none; }
-        }
-
-        /* ==========================================================
-           РЕЖИМ «ОПТИМІЗУВАТИ»
-           Виглядає ТАК САМО (ті самі кольори, неон, картки, сяйво).
-           Різниця лише у навантаженні: заморожені великі декоративні шари,
-           менше частинок, коротші появи секцій.
-           ========================================================== */
-        body.optimized-mode #history::before,
-        body.optimized-mode .spiritual-card::before { animation: none; }
-        body.optimized-mode .btn-neon-blessing::before { animation: none; transform: translateX(-12%); }
-        body.optimized-mode .particle { animation-duration: 28s !important; }
-        body.optimized-mode .reveal-left { transition-duration: 0.9s; }
-        body.optimized-mode .tg-card::before { animation-duration: 9s, 4s; }
-        body.optimized-mode .tg-card-desc { animation: none; color: rgba(186, 240, 252, 0.9); text-shadow: 0 0 6px rgba(0, 242, 254, 0.35); }
-    </style>
-</head>  
-<body>  
-    <div class="opt-modal-overlay active" id="optModalOverlay">  
-        <div class="opt-modal-card" role="dialog" aria-modal="true">  
-            <div class="opt-modal-icon">  
-                <i class="fa-solid fa-bolt"></i>  
-            </div>  
-            <h2 class="opt-modal-title">Оптимізувати сайт?</h2>  
-            <p class="opt-modal-desc">  
-                Увімкніть прискорену роботу анімацій, графіки та плавність інтерфейсу для найкращої продуктивності пристрою.  
-            </p>  
-            <div class="opt-modal-buttons">  
-                <button type="button" class="opt-btn opt-btn-main" id="optBtnConfirm">  
-                    <i class="fa-solid fa-circle-check"></i>  
-                    <span>Оптимізувати</span>  
-                </button>  
-                <button type="button" class="opt-btn opt-btn-skip" id="optBtnSkip">  
-                    <i class="fa-regular fa-circle-xmark"></i>  
-                    <span>Пропустити</span>  
-                </button>  
-            </div>  
-        </div>  
-    </div>
-
-    <!-- Модальне вікно вибору Telegram-каналу -->
-    <div class="tg-modal-overlay" id="tgModalOverlay" aria-hidden="true">
-        <div class="tg-modal-card" role="dialog" aria-modal="true" aria-labelledby="tgModalTitle">
-            <button type="button" class="tg-modal-close" id="tgModalClose" aria-label="Закрити">&times;</button>
-            <h2 class="tg-modal-title" id="tgModalTitle">Обери Telegram-канал</h2>
-            <p class="tg-modal-sub">Обери канал, який хочеш відкрити</p>
-            <div class="tg-list">
-                <a class="tg-card" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer">
-                    <span class="tg-card-body">
-                        <span class="tg-card-icon"><i class="fa-brands fa-telegram"></i></span>
-                        <span class="tg-card-text">
-                            <span class="tg-card-name">Respawn Events</span>
-                            <span class="tg-card-desc">Новини, зустрічі та події для молоді й підлітків.</span>
-                        </span>
-                    </span>
-                </a>
-                <a class="tg-card" href="https://t.me/dng_channel" target="_blank" rel="noopener noreferrer">
-                    <span class="tg-card-body">
-                        <span class="tg-card-icon"><i class="fa-brands fa-telegram"></i></span>
-                        <span class="tg-card-text">
-                            <span class="tg-card-name">Офіційний канал</span>
-                            <span class="tg-card-desc">трансляції, щоденні вірші, та інше.</span>
-                        </span>
-                    </span>
-                </a>
-                <a class="tg-card" href="https://t.me/DNG_Worship" target="_blank" rel="noopener noreferrer">
-                    <span class="tg-card-body">
-                        <span class="tg-card-icon"><i class="fa-brands fa-telegram"></i></span>
-                        <span class="tg-card-text">
-                            <span class="tg-card-name">DNG Worship</span>
-                            <span class="tg-card-desc">пісні у нашому виконанні</span>
-                        </span>
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="particles" id="particlesContainer"></div>  
-
-    <div class="rotating-cross-badge" title="Об'ємний 3D хрест">  
-        <i class="fa-solid fa-cross"></i>  
-    </div>  
-
-    <header>  
-        <div class="nav-container">  
-            <a class="logo" onclick="goToPage(1); return false;" href="#">  
-                <i class="fa-solid fa-church"></i>  
-                <span>Християнська Церква-«Нове Покоління» • Дніпро</span>  
-            </a>  
-            <div class="social-icons">  
-                <a href="https://www.facebook.com/ngdnipro" target="_blank" class="social-btn facebook" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>  
-                <a href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" class="social-btn telegram" title="Telegram"><i class="fa-brands fa-telegram"></i></a>  
-                <a href="https://www.instagram.com/ngdnipro/" target="_blank" class="social-btn instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>  
-                <a href="https://youtube.com/@dngvideochannel?si=CuM-oSQEuHay1iKq" target="_blank" class="social-btn youtube" title="YouTube"><i class="fa-brands fa-youtube"></i></a>  
-            </div>  
-        </div>  
-    </header>  
-
-    <main>  
-        <div id="page1" class="page active">  
-            <section class="hero">  
-                <div class="hero-content">  
-                    <h1>Християнська Церква-<span>«Нове Покоління»</span> Дніпро</h1>  
-                    <p>Сучасний міжконфесійний християнський рух повного Євангелія. Місце сили, безумовної любові, духовного зростання та реальних змін.</p>  
-                    <a href="#events" class="btn-primary">  
-                        <span>Розклад служінь</span>  
-                        <i class="fa-solid fa-chevron-down"></i>  
-                    </a>  
-                </div>  
-            </section>  
-
-            <section id="history" class="reveal-left">  
-                <div class="container">  
-                    <div class="section-title">  
-                        <h2>Історія церкви</h2>  
-                        <p>Як розвивався рух «Нове Покоління» у Дніпрі</p>  
-                    </div>  
-                    <div class="history-timeline">  
-                        <div class="timeline-item">  
-                            <div class="timeline-dot"></div>  
-                            <div class="timeline-content">  
-                                <h3>Заснування руху</h3>  
-                                <p>Міжнародний християнський рух «Нове Покоління» виник наприкінці 1980-х — на початку 1990-х років. У наступні роки церкви та громади руху з'явилися в різних країнах Східної Європи, у тому числі в Україні.</p>  
-                            </div>  
-                        </div>  
-                        <div class="timeline-item">  
-                            <div class="timeline-dot"></div>  
-                            <div class="timeline-content">  
-                                <h3>Поява у Дніпрі</h3>  
-                                <p>У Дніпрі громада почала формуватися в середині 90-х років силами місіонерів та активних віруючих, проводячи перші малі групи та євангелізації.</p>  
-                            </div>  
-                        </div>  
-                        <div class="timeline-item">  
-                            <div class="timeline-dot"></div>  
-                            <div class="timeline-content">  
-                                <h3>Масштабні служіння та зростання</h3>  
-                                <p>Церква зросла у велике об'єднання, яке збирало сотні парафіян на богослужіння у концертних залах та палацах культури міста.</p>  
-                            </div>  
-                        </div>  
-                        <div class="timeline-item">  
-                            <div class="timeline-dot"></div>  
-                            <div class="timeline-content">  
-                                <h3>Сучасний етап</h3>  
-                                <p>Сьогодні громада продовжує активну духовну, соціальну та адаптаційну роботу, проводячи богослужіння, молитовні зустрічі та молодіжні проекти.</p>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </div>  
-            </section>  
-              
-            <!-- Таймер 1: До Недільного богослужіння -->  
-            <section class="countdown-section reveal-left">  
-                <div class="countdown-container">  
-                    <div class="countdown-header">  
-                        <h3 id="timerTitle1"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння</h3>  
-                        <p id="timerDesc1">Приєднуйтесь до нас у цю неділю о 10:00 (GMT+3)</p>  
-                    </div>  
-                    <div class="countdown-grid">  
-                        <div class="countdown-card" id="card1_days">  
-                            <div class="countdown-number" id="days">00</div>  
-                            <div class="countdown-label">Днів</div>  
-                        </div>  
-                        <div class="countdown-card" id="card1_hours">  
-                            <div class="countdown-number" id="hours">00</div>  
-                            <div class="countdown-label">Годин</div>  
-                        </div>  
-                        <div class="countdown-card" id="card1_minutes">  
-                            <div class="countdown-number" id="minutes">00</div>  
-                            <div class="countdown-label">Хвилин</div>  
-                        </div>  
-                        <div class="countdown-card" id="card1_seconds">  
-                            <div class="countdown-number" id="seconds">00</div>  
-                            <div class="countdown-label">Секунд</div>  
-                        </div>  
-                    </div>  
-                </div>  
-            </section>  
-
-            <!-- СЛОТ 1: картка YouTube-ефіру під таймером ГОЛОВНОГО богослужіння (1-й, 3-й, 5-й… ефір) -->
-            <section class="countdown-section live-section" id="liveSection1" data-slot="1" hidden>
-                <div class="countdown-container">
-                    <article class="live-card" aria-live="polite">
-                        <div class="live-badge"><span class="live-dot" aria-hidden="true"></span><span>НАЖИВО</span></div>
-                        <a class="live-thumb" data-role="thumbLink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Відкрити трансляцію на YouTube">
-                            <img data-role="thumbImg" src="" alt="" loading="lazy">
-                            <span class="live-thumb-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
-                        </a>
-                        <div class="live-title" data-role="title">Прямий ефір Нового Покоління</div>
-                        <div class="live-hint">Дивитися трансляцію на YouTube</div>
-                        <a class="btn-primary live-btn" data-role="btn" href="#" target="_blank" rel="noopener noreferrer">
-                            <span>Дивитися ефір ↗</span>
-                        </a>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Таймер 2: До Молитовного служіння -->  
-            <section class="countdown-section reveal-left" style="padding-top: 0;">  
-                <div class="countdown-container">  
-                    <div class="countdown-header">  
-                        <h3 id="timerTitle2"><i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння</h3>  
-                        <p id="timerDesc2">Приєднуйтесь до нас у цю середу о 18:30 (GMT+3)</p>  
-                    </div>  
-                    <div class="countdown-grid">  
-                        <div class="countdown-card" id="card2_days">  
-                            <div class="countdown-number" id="days2">00</div>  
-                            <div class="countdown-label">Днів</div>  
-                        </div>  
-                        <div class="countdown-card" id="card2_hours">  
-                            <div class="countdown-number" id="hours2">00</div>  
-                            <div class="countdown-label">Годин</div>  
-                        </div>  
-                        <div class="countdown-card" id="card2_minutes">  
-                            <div class="countdown-number" id="minutes2">00</div>  
-                            <div class="countdown-label">Хвилин</div>  
-                        </div>  
-                        <div class="countdown-card" id="card2_seconds">  
-                            <div class="countdown-number" id="seconds2">00</div>  
-                            <div class="countdown-label">Секунд</div>  
-                        </div>  
-                    </div>  
-                </div>  
-            </section>  
-
-            <!-- СЛОТ 2: картка YouTube-ефіру під таймером МОЛИТОВНОГО служіння (2-й, 4-й, 6-й… ефір) -->
-            <section class="countdown-section live-section" id="liveSection2" data-slot="2" hidden>
-                <div class="countdown-container">
-                    <article class="live-card" aria-live="polite">
-                        <div class="live-badge"><span class="live-dot" aria-hidden="true"></span><span>НАЖИВО</span></div>
-                        <a class="live-thumb" data-role="thumbLink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Відкрити трансляцію на YouTube">
-                            <img data-role="thumbImg" src="" alt="" loading="lazy">
-                            <span class="live-thumb-play" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
-                        </a>
-                        <div class="live-title" data-role="title">Прямий ефір Нового Покоління</div>
-                        <div class="live-hint">Дивитися трансляцію на YouTube</div>
-                        <a class="btn-primary live-btn" data-role="btn" href="#" target="_blank" rel="noopener noreferrer">
-                            <span>Дивитися ефір ↗</span>
-                        </a>
-                    </article>
-                </div>
-            </section>
-
-            <section id="events" class="events-section reveal-left">  
-                <div class="container">  
-                    <div class="section-title">  
-                        <h2>Діючі події та служіння</h2>  
-                        <p>Оберіть служіння до душі та приєднуйтесь до нас</p>  
-                    </div>  
-                    <div class="events-grid">  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-church"></i></div>  
-                                <h3>Головне Богослужіння</h3>  
-                                <span class="event-time">Неділя • 10:00</span>  
-                                <p>Центральне щотижневе зібрання всієї церкви: потужне прославлення Бога, молитва та практична проповідь слова.</p>  
-                            </div>  
-                        </div>  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-hands-praying"></i></div>  
-                                <h3>Молитовне служіння</h3>  
-                                <span class="event-time">Середа • 18:30</span>  
-                                <p>Спільна молитва за місто, Україну, сім'ї, зцілення та потреби віруючих. Час занурення у Божу присутність.</p>  
-                            </div>  
-                        </div>  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-users-rectangle"></i></div>  
-                                <h3>Домашні зібрання</h3>  
-                                <span class="event-time">Четвер • 18:30</span>  
-                                <p>Затишні зустрічі в різних районах Дніпра для спілкування, вивчення Біблії та взаємної підтримки у невеликому колі.</p>  
-                            </div>  
-                        </div>  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-bolt"></i></div>  
-                                <h3>Молодіжні зібрання</h3>  
-                                <span class="event-time">Субота / за розкладом</span>  
-                                <p>Динамічний простір для молоді: актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p>  
-                            </div>  
-                        </div>  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-child-reaching"></i></div>  
-                                <h3>Підліткові зібрання</h3>  
-                                <span class="event-time">Субота • 12:00</span>  
-                                <p>Спеціальні інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання через призму цінностей.</p>  
-                            </div>  
-                        </div>  
-                        <div class="event-card">  
-                            <div>  
-                                <div class="event-icon"><i class="fa-solid fa-comments"></i></div>  
-                                <h3>Speaking Club</h3>  
-                                <span class="event-time">За розкладом</span>  
-                                <p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </div>  
-            </section>  
-
-            <section id="contacts" class="contact-section reveal-left">  
-                <div class="container">  
-                    <div class="section-title" style="margin-bottom: 35px;">  
-                        <h2 style="color: white;">Контакти</h2>  
-                    </div>  
-                    <div class="contact-grid">  
-                        <div class="contact-info-list">  
-                            <div class="contact-info-item">  
-                                <i class="fa-solid fa-location-dot"></i>  
-                                <div>  
-                                    <h4>Адреса у Дніпрі</h4>  
-                                    <p>вул. Старозаводська, 19а, будова 2<br>(Точні локації залів та домашніх груп уточнюйте за телефоном)</p>  
-                                </div>  
-                            </div>  
-                            <div class="contact-info-item phone-card">  
-                                <i class="fa-solid fa-phone phone-icon"></i>  
-                                <div>  
-                                    <h4>Телефон</h4>  
-                                    <p style="color: #ffffff; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px;">056 747 4737</p>  
-                                </div>  
-                            </div>  
-                        </div>  
-                        <a href="https://maps.google.com/?q=вул.+Старозаводська+19а,+будова+2,+Дніпро" target="_blank" class="map-box">  
-                            <i class="fa-solid fa-map-location-dot"></i>  
-                            <p><strong>вул. Старозаводська, 19а, будова 2</strong><br><small style="color: var(--accent);">Натисніть для відкриття на карті</small></p>  
-                        </a>  
-                    </div>  
-                </div>  
-            </section>  
-
-            <!-- НОВИЙ НЕОНОВИЙ БЛОК БЛАГОСЛОВІННЯ РОЗМІЩЕНИЙ ПІД КОНТАКТАМИ -->  
-            <section class="blessing-section-bottom reveal-left">  
-                <div class="container">  
-                    <button type="button" class="btn-neon-blessing" id="blessingBtn">  
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>  
-                        <span>натисни для посмішки та благословіння🫶</span>  
-                    </button>  
-                    <div class="blessing-display-box" id="blessingBox">  
-                        <div class="blessing-card-msg active" id="blessingCard">  
-                            <i class="fa-solid fa-heart" style="color: #ff007f;"></i>  
-                            <span id="blessingText">Нехай Господь благословить тебе і збереже тебе!</span>  
-                        </div>  
-                    </div>  
-                </div>  
-            </section>  
-
-            <div class="pagination-container">  
-                <button type="button" class="btn-page" onclick="goToPage(2)">  
-                    <span>Наступна сторінка</span>  
-                    <i class="fa-solid fa-arrow-right"></i>  
-                </button>  
-            </div>  
-        </div>  
-
-        <div id="page2" class="page">  
-            <div class="page2-wrapper">  
-                <div class="container">  
-                    <div class="services-header">  
-                        <h2>Наші служіння та напрямки</h2>  
-                        <p>Дізнайтеся більше про те, чим живе наша церква</p>  
-                    </div>  
-                      
-                    <div class="services-grid">  
-                        <div class="service-card">  
-                            <div class="service-icon-box"><i class="fa-solid fa-microphone"></i></div>  
-                            <h3>Група прославлення</h3>  
-                            <p>Це музичне служіння церкви, яке допомагає людям прославляти Бога через спів, музику та поклоніння.</p>  
-                        </div>  
-                        <div class="service-card">  
-                            <div class="service-icon-box"><i class="fa-solid fa-video"></i></div>  
-                            <h3>Оператори</h3>  
-                            <p>Оператори займаються відеозйомкою богослужінь, конференцій та інших церковних подій, а також допомагають із трансляціями та записами.</p>  
-                        </div>  
-                        <div class="service-card">  
-                            <div class="service-icon-box">  
-                                <div class="lightbulb-icon-wrapper">  
-                                    <i class="fa-solid fa-lightbulb"></i>  
-                                    <span class="neon-ray ray-1"></span>  
-                                    <span class="neon-ray ray-2"></span>  
-                                    <span class="neon-ray ray-3"></span>  
-                                </div>  
-                            </div>  
-                            <h3>Світлооператори</h3>  
-                            <p>Світлооператори відповідають за освітлення, кольори та світлові ефекти під час богослужінь і церковних заходів.</p>  
-                        </div>  
-                        <div class="service-card">  
-                            <div class="service-icon-box"><i class="fa-solid fa-desktop"></i></div>  
-                            <h3>Медіа-екран</h3>  
-                            <p>У цьому служінні люди відповідають за візуалізацію церковного екрану під час богослужіння: перемикають слайди, виводять на екран тексти, інформацію про пожертви, оголошення, біблійні вірші та інший необхідний контент. Також медіа допомагає зробити богослужіння зрозумілішим і візуально організованим для людей у залі.</p>  
-                        </div>  
-                        <div class="service-card">  
-                            <div class="service-icon-box"><i class="fa-solid fa-clipboard-user"></i></div>  
-                            <h3>Група порядку</h3>  
-                            <p>Група порядку допомагає підтримувати порядок, організованість, безпеку та комфорт під час богослужінь і церковних заходів.</p>  
-                        </div>  
-                        <div class="service-card">  
-                            <div class="service-icon-box"><i class="fa-solid fa-book-bible"></i></div>  
-                            <h3>Проповідники</h3>  
-                            <p>Проповідники проголошують і пояснюють Боже Слово, навчають біблійних істин та допомагають церкві духовно зростати.</p>  
-                        </div>  
-                    </div>  
-
-                    <!-- ОНОВЛЕНИЙ БЛОК ДУХОВНИХ ВІРШІВ З ФУНКЦІЄЮ ОБРАНОГО -->
-                    <div class="spiritual-card-section">  
-                        <div class="spiritual-card" id="spiritualCard">  
-                            <div class="spiritual-header">  
-                                <div class="spiritual-badge">  
-                                    <i class="fa-solid fa-quote-left"></i>  
-                                    <span id="spiritualBadgeText">Духовне Натхнення</span>  
-                                </div>  
-                                <div class="spiritual-actions">  
-                                    <button class="spiritual-btn fav-btn" id="favQuoteBtn" title="Додати в обране">  
-                                        <i class="fa-regular fa-heart" id="favIcon"></i>  
-                                    </button>  
-                                    <button class="spiritual-btn" id="copyQuoteBtn" title="Копіювати цитату">  
-                                        <i class="fa-regular fa-copy"></i>  
-                                    </button>  
-                                </div>  
-                            </div>  
-
-                            <div class="spiritual-tabs">
-                                <button class="tab-btn active" id="tabAll">
-                                    <i class="fa-solid fa-book-open"></i>
-                                    <span>Усі вірші</span>
-                                </button>
-                                <button class="tab-btn" id="tabFavs">
-                                    <i class="fa-solid fa-heart"></i>
-                                    <span>Обрані (<span id="favCount">0</span>)</span>
-                                </button>
-                            </div>
-
-                            <div class="spiritual-content-box">  
-                                <p class="spiritual-text" id="spiritualQuoteText">  
-                                    «Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.»  
-                                </p>  
-                                <span class="spiritual-reference" id="spiritualQuoteRef">Ієремія 29:11</span>  
-                            </div>  
-                            <div class="spiritual-footer">  
-                                <div class="spiritual-tagline">  
-                                    <i class="fa-solid fa-fire-flame-curved"></i>  
-                                    <span>Слово сили та віри на кожен день</span>  
-                                </div>  
-                                <button class="btn-refresh-quote" id="nextQuoteBtn">  
-                                    <i class="fa-solid fa-rotate-right"></i>  
-                                    <span>Інша цитата</span>  
-                                </button>  
-                            </div>  
-                        </div>  
-                    </div>  
-
-                </div>  
-            </div>  
-
-            <div class="pagination-container">  
-                <button type="button" class="btn-page" onclick="goToPage(1)">  
-                    <i class="fa-solid fa-arrow-left"></i>  
-                    <span>Повернутися на головну</span>  
-                </button>  
-            </div>  
-        </div>  
-    </main>  
-
-    <!-- Сповіщення Toast -->
-    <div class="toast-notification" id="toastNotification">
-        <i class="fa-solid fa-circle-check" style="color: var(--accent-green);"></i>
-        <span id="toastText">Скопійовано в буфер обміну!</span>
-    </div>
-
-    <footer>  
-        <p>© <span id="year"></span> Християнська Церква-«Нове Покоління» м. Дніпро. Всі права захищені.</p>  
-    </footer>  
-
-    <script>  
-        document.getElementById('year').textContent = new Date().getFullYear();  
-
-        function goToPage(pageNum) {  
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));  
-            const targetPage = document.getElementById('page' + pageNum);  
-            if (targetPage) {  
-                targetPage.classList.add('active');  
-                window.scrollTo({ top: 0, behavior: 'smooth' });  
-            }  
-        }  
-
-        // ==========================================
-        // ЧАСТИНКИ: 14 у звичайному режимі, 8 після «Оптимізувати» (зайві вузли DOM видаляються)
-        // ==========================================
-        const PARTICLES_DEFAULT = 14;
-        const PARTICLES_OPTIMIZED = 8;
-        const particlesContainer = document.getElementById('particlesContainer');  
-        if (particlesContainer) {  
-            for (let i = 0; i < PARTICLES_DEFAULT; i++) {  
-                const particle = document.createElement('div');  
-                particle.className = 'particle';  
-                const size = Math.random() * 8 + 6;  
-                particle.style.width = `${size}px`;  
-                particle.style.height = `${size}px`;  
-                particle.style.left = `${Math.random() * 100}%`;  
-                particle.style.animationDelay = `${Math.random() * 10}s`;  
-                particle.style.animationDuration = `${14 + Math.random() * 14}s`;  
-                particlesContainer.appendChild(particle);  
-            }  
-        }  
-
-        function trimParticles() {
-            if (!particlesContainer) return;
-            while (particlesContainer.children.length > PARTICLES_OPTIMIZED) {
-                particlesContainer.removeChild(particlesContainer.lastElementChild);
-            }
-        }
-
-        const optModal = document.getElementById('optModalOverlay');  
-        const optBtnConfirm = document.getElementById('optBtnConfirm');  
-        const optBtnSkip = document.getElementById('optBtnSkip');  
-
-        if (optModal) {  
-            document.body.classList.add('modal-open');  
-            optBtnConfirm.addEventListener('click', () => {  
-                document.body.classList.add('optimized-mode');  
-                trimParticles();
-                optModal.classList.remove('active');  
-                document.body.classList.remove('modal-open');  
-            });  
-            optBtnSkip.addEventListener('click', () => {  
-                optModal.classList.remove('active');  
-                document.body.classList.remove('modal-open');  
-            });  
-        }  
-
-        // ==========================================
-        // ВИПРАВЛЕННЯ БАГА ТАЙМЛАЙНА:
-        // кліки, що прийшли під час анімації появи секції (.reveal-left), не чіпають стан карток,
-        // а чекають завершення цієї анімації.
-        // ==========================================
-        const pendingClicks = new WeakMap();
-
-        function markRevealed(sec) {
-            if (sec.dataset.revealed === '1') return;
-            sec.dataset.revealed = '1';
-            const queued = pendingClicks.get(sec) || [];
-            pendingClicks.delete(sec);
-            queued.forEach(el => el.classList.toggle('is-on'));
-        }
-
-        function trackReveal(sec) {
-            let timer = 0;
-            const finish = () => {
-                sec.removeEventListener('transitionend', onEnd);
-                clearTimeout(timer);
-                markRevealed(sec);
-            };
-            const onEnd = (e) => {
-                if (e.target !== sec || e.propertyName !== 'opacity') return;
-                requestAnimationFrame(() => requestAnimationFrame(finish));
-            };
-            sec.addEventListener('transitionend', onEnd);
-            timer = setTimeout(finish, 1600); // страховка, якщо transitionend не спрацює
-        }
-
-        const observer = new IntersectionObserver((entries) => {  
-            entries.forEach(entry => {  
-                if (entry.isIntersecting && !entry.target.classList.contains('active')) {  
-                    trackReveal(entry.target);
-                    entry.target.classList.add('active');  
-                }  
-            });  
-        }, { threshold: 0.1 });  
-
-        document.querySelectorAll('.reveal-left').forEach(el => observer.observe(el));  
-
-        // Секції поза екраном: безкінечні CSS-анімації стоять на паузі (клас .is-offscreen),
-        // самі стають у роботу, щойно секція наближається до екрана.
-        const pauseObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                entry.target.classList.toggle('is-offscreen', !entry.isIntersecting);
-            });
-        }, { rootMargin: '120px 0px' });
-
-        document.querySelectorAll('.hero, .reveal-left, .countdown-section, .page2-wrapper').forEach(el => pauseObserver.observe(el));
-
-        // ==========================================
-        // ПЕРЕМИКАННЯ СТАНУ ІНТЕРАКТИВНИХ КАРТОК (ON ↔ OFF)
-        // ==========================================
-        const toggleSelectors = [
-            '.rotating-cross-badge',
-            '.timeline-item',
-            '.countdown-card',
-            '.event-card',
-            '.contact-info-item',
-            '.map-box',
-            '.service-card',
-            '.spiritual-card'
-        ].join(', ');
-
-        document.querySelectorAll(toggleSelectors).forEach(el => {
-            el.addEventListener('click', (e) => {
-                // Ігноруємо кліки по внутрішніх кнопках/посиланнях (сердечко, копіювати, вкладки тощо)
-                const inner = e.target.closest('button, a');
-                if (inner && inner !== el && el.contains(inner)) return;
-
-                // Поки секція ще з'являється — не чіпаємо стан, а запам'ятовуємо клік
-                const sec = el.closest('.reveal-left');
-                if (sec && sec.dataset.revealed !== '1') {
-                    if (sec.classList.contains('active')) {
-                        const q = pendingClicks.get(sec) || [];
-                        q.push(el);
-                        pendingClicks.set(sec, q);
-                    }
-                    return; // секція ще невидима (opacity 0) — клік ігноруємо
-                }
-                el.classList.toggle('is-on');
-            });
-        });
-
-        // Форматер створюється один раз (раніше створювався двічі на секунду).
-        const kyivFormatter = new Intl.DateTimeFormat('en-US', {  
-            timeZone: 'Europe/Kyiv',  
-            year: 'numeric',  
-            month: 'numeric',  
-            day: 'numeric',  
-            hour: 'numeric',  
-            minute: 'numeric',  
-            second: 'numeric',  
-            hour12: false  
-        });  
-
-        function getUkraineTimeComponents(now) {  
-            const parts = kyivFormatter.formatToParts(now);  
-            const comp = {};  
-            parts.forEach(p => { if (p.type !== 'literal') comp[p.type] = parseInt(p.value, 10); });  
-              
-            const localDate = new Date(comp.year, comp.month - 1, comp.day, comp.hour % 24, comp.minute, comp.second);  
-            const dayOfWeek = localDate.getDay();   
-              
-            return {  
-                year: comp.year,  
-                month: comp.month - 1,  
-                day: comp.day,  
-                dayOfWeek: dayOfWeek,  
-                hours: comp.hour % 24,  
-                minutes: comp.minute,  
-                seconds: comp.second  
-            };  
-        }  
-
-        function getTimer1Target() {  
-            const now = new Date();  
-            const ukr = getUkraineTimeComponents(now);  
-
-            let targetDay = ukr.day;  
-            let targetMonth = ukr.month;  
-            let targetYear = ukr.year;  
-
-            let daysUntilSunday = (7 - ukr.dayOfWeek) % 7;  
-
-            if (ukr.dayOfWeek === 0) {  
-                const currentMinutes = ukr.hours * 60 + ukr.minutes;  
-                const target10 = 10 * 60;  
-                const target12 = 12 * 60;  
-
-                if (currentMinutes < target10) {  
-                    daysUntilSunday = 0;  
-                } else if (currentMinutes >= target10 && currentMinutes < target12) {  
-                    return { status: 'ACTIVE', targetDate: null };  
-                } else {  
-                    daysUntilSunday = 7;  
-                }  
-            }  
-
-            const targetISO = new Date(targetYear, targetMonth, targetDay + daysUntilSunday, 10, 0, 0);  
-              
-            return {  
-                status: 'COUNTDOWN',  
-                targetDate: targetISO  
-            };  
-        }  
-
-        function getTimer2Target() {  
-            const now = new Date();  
-            const ukr = getUkraineTimeComponents(now);  
-
-            let daysUntilWednesday = (3 - ukr.dayOfWeek + 7) % 7;  
-
-            if (ukr.dayOfWeek === 3) {  
-                const currentMinutes = ukr.hours * 60 + ukr.minutes;  
-                const target1830 = 18 * 60 + 30;  
-                const target2000 = 20 * 60;  
-
-                if (currentMinutes < target1830) {  
-                    daysUntilWednesday = 0;  
-                } else if (currentMinutes >= target1830 && currentMinutes < target2000) {  
-                    return { status: 'ACTIVE', targetDate: null };  
-                } else {  
-                    daysUntilWednesday = 7;  
-                }  
-            }  
-
-            const targetISO = new Date(ukr.year, ukr.month, ukr.day + daysUntilWednesday, 18, 30, 0);  
-
-            return {  
-                status: 'COUNTDOWN',  
-                targetDate: targetISO  
-            };  
-        }  
-
-        // Елементи таймерів кешуються; заголовки/описи перезаписуються лише при зміні стану,
-        // цифри — лише якщо значення справді змінилося (раніше innerHTML перезаписувався щосекунди).
-        const byId = (id) => document.getElementById(id);
-        const timerViews = [
-            {
-                getTarget: getTimer1Target,
-                title: byId('timerTitle1'),
-                desc: byId('timerDesc1'),
-                cards: ['card1_days', 'card1_hours', 'card1_minutes', 'card1_seconds'].map(byId),
-                nums: ['days', 'hours', 'minutes', 'seconds'].map(byId),
-                activeTitle: `<i class="fa-solid fa-church" style="margin-right: 10px; color: var(--accent-green);"></i> Недільне богослужіння`,
-                activeDesc: `Служіння триває просто зараз! Ласкаво просимо!`,
-                idleTitle: `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До недільного богослужіння`,
-                idleDesc: `Приєднуйтесь до нас у цю неділю о 10:00`,
-                state: null
-            },
-            {
-                getTarget: getTimer2Target,
-                title: byId('timerTitle2'),
-                desc: byId('timerDesc2'),
-                cards: ['card2_days', 'card2_hours', 'card2_minutes', 'card2_seconds'].map(byId),
-                nums: ['days2', 'hours2', 'minutes2', 'seconds2'].map(byId),
-                activeTitle: `<i class="fa-solid fa-hands-praying" style="margin-right: 10px; color: var(--accent-green);"></i> Молитовне служіння`,
-                activeDesc: `Молитовне служіння триває просто зараз!`,
-                idleTitle: `<i class="fa-regular fa-clock" style="margin-right: 10px;"></i> До молитовного служіння`,
-                idleDesc: `Приєднуйтесь до нас у цю середу о 18:30`,
-                state: null
-            }
-        ];
-
-        function setText(el, value) {
-            if (el.textContent !== value) el.textContent = value;
-        }
-
-        function updateTimers() {  
-            const now = new Date();  
-
-            timerViews.forEach(v => {
-                const t = v.getTarget();
-
-                if (t.status === 'ACTIVE') {
-                    if (v.state !== 'active') {
-                        v.state = 'active';
-                        v.title.innerHTML = v.activeTitle;
-                        v.desc.innerHTML = v.activeDesc;
-                        v.desc.className = 'expired-msg';
-                        v.cards.forEach(c => c.classList.add('expired'));
-                    }
-                    v.nums.forEach(n => setText(n, '00'));
-                } else {
-                    if (v.state !== 'idle') {
-                        v.state = 'idle';
-                        v.title.innerHTML = v.idleTitle;
-                        v.desc.innerHTML = v.idleDesc;
-                        v.desc.className = '';
-                        v.cards.forEach(c => c.classList.remove('expired'));
-                    }
-
-                    const diff = Math.max(0, t.targetDate - now);
-                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                    setText(v.nums[0], String(d).padStart(2, '0'));
-                    setText(v.nums[1], String(h).padStart(2, '0'));
-                    setText(v.nums[2], String(m).padStart(2, '0'));
-                    setText(v.nums[3], String(s).padStart(2, '0'));
-                }
-            });
-        }  
-
-        updateTimers();  
-        setInterval(() => { if (!document.hidden) updateTimers(); }, 1000);  
-
-        document.addEventListener('visibilitychange', () => {  
-            if (!document.hidden) {  
-                updateTimers();  
-            }  
-        });  
-
-        // ==========================================
-        // ДОПОМІЖНІ ФУНКЦІЇ: перемішування та відсіювання дублікатів
-        // ==========================================
-        function shuffleInPlace(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        function normalizeText(s) {
-            return String(s).toLowerCase().replace(/[«»"'’ʼ.,!?;:—\-\s]+/g, ' ').trim();
-        }
-
-        function uniqueByText(items, getText) {
-            const seen = new Set();
-            return items.filter(item => {
-                const key = normalizeText(getText(item));
-                if (seen.has(key)) return false;
-                seen.add(key);
-                return true;
-            });
-        }
-
-        // ==========================================  
-        // БАЖАННЯ ТА ЛОГІКА БЛАГОСЛОВЕННЯ
-        // ==========================================  
-        const blessingsList = [  
-            "Нехай сьогодні твій день розпочнеться з щирої усмішки та світлого настрою!",  
-            "Бажаю тобі невичерпної енергії, натхнення та чудового самопочуття на весь день!",  
-            "Нехай усі перешкоди сьогодні перетворюються на нові можливості для успіху!",  
-            "Бажаю теплих зустрічей, приємних сюрпризів та яскравих моментів!",  
-            "Нехай кожен крок сьогодні наближає тебе до заповітної мети!",  
-            "Бажаю відчувати радість від кожного прожитого моменту та віри у краще!",  
-            "Нехай у твоєму серці завжди живе спокій, любов та Божий мир!",
-            "Нехай Господь благословить твій дім достатком, злагодою та теплом!",
-            "Пам'ятай: ти здатний подолати будь-які труднощі, бо з тобою віра!"
-        ];  
-
-        // Додаткові побажання (можна дописувати нові партії сюди)
-        const extraBlessings = [
-            "Нехай Господь благословить тебе і збереже тебе!",
-            "Нехай сьогодні Бог пошле тобі причину усміхнутись без жодної причини!",
-            "Бажаю тобі ранку, що пахне надією, і вечора, що пахне спокоєм.",
-            "Нехай Божа любов огортає тебе, як тепла ковдра в холодний день.",
-            "Нехай кожна твоя молитва сьогодні знайде відповідь, а кожна турбота знайде спокій.",
-            "Бажаю тобі друзів, з якими легко мовчати і ще легше сміятися.",
-            "Нехай твоє серце сьогодні буде легким, як осіннє листя на вітрі.",
-            "Бог бачить тебе, любить тебе і тримає твоє завтра у Своїх руках.",
-            "Нехай усмішка, яку ти даруєш іншим, сьогодні повернеться до тебе вдвічі більшою!",
-            "Бажаю тобі тихої радості, яку не можна купити, а можна лише отримати від Бога.",
-            "Нехай сьогодні у твоєму домі буде тепло, смачно й дуже затишно.",
-            "Бажаю тобі відчути, що ти народжений для чогось дуже доброго.",
-            "Нехай у цей день тебе обійме Боже спокійне «усе буде добре».",
-            "Бажаю тобі стільки світла, щоб вистачило і тобі, і всім, хто поруч.",
-            "Нехай сьогодні навіть дрібниці нагадають тобі, що Бог піклується про тебе.",
-            "Нехай твоя віра буде як добра кава зранку: бадьорить і підбадьорює!",
-            "Бажаю тобі зустрічі з людиною, яка скаже саме те, що потрібно почути.",
-            "Нехай небо над тобою буде світлим, а стежка під ногами рівною.",
-            "Бог не забуває жодної твоєї сльози, а сьогодні Він хоче подарувати тобі радість.",
-            "Бажаю тобі сили вчитися, прощати, любити і знову починати.",
-            "Нехай твій день наповниться добрими новинами та теплими обіймами.",
-            "Нехай Господь береже твій сон, твій шлях і твої мрії.",
-            "Бажаю тобі мудрості вчасно промовчати і мужності вчасно сказати добре слово.",
-            "Нехай сьогодні тобі пощастить на добрих людей, гарні думки та смачний обід!",
-            "Нехай Божий мир оселиться в твоїх думках, як пташка на весняній гілці.",
-            "Бажаю тобі вдячного серця: воно бачить благословення навіть у звичайному дні.",
-            "Нехай сьогодні твоя посмішка стане чиїмось променем у похмурий день.",
-            "Нехай усе, що здається тобі неможливим, Бог зробить можливим у свій час.",
-            "Бажаю тобі не поспішати і не хвилюватися, адже Бог іде попереду.",
-            "Нехай кожна хвилина цього дня буде наповнена Його присутністю.",
-            "Бажаю тобі сміху до сліз, але лише від радості!",
-            "Нехай сьогодні твій шлях прикрасять маленькі чудеса.",
-            "Бажаю тобі відчути Божу підтримку саме там, де ти її найбільше потребуєш.",
-            "Нехай твоя надія сьогодні буде сильнішою за будь-який сумнів.",
-            "Бажаю тобі добрих новин, світлих очікувань і спокійного серця.",
-            "Нехай Господь наповнить твій день сенсом, а твій вечір вдячністю.",
-            "Нехай сьогодні тебе оточують ті, хто вірить у тебе так само, як Бог.",
-            "Бажаю тобі стільки радості, щоб її вистачило поділитися з кожним зустрічним.",
-            "Нехай твоє ім'я сьогодні прозвучить у чиїйсь доброї молитві.",
-            "Бажаю тобі відкривати Божі обіцянки не лише в книжках, а й у власному житті.",
-            "Нехай сьогодні кожна твоя справа вдається легше, ніж ти очікував!",
-            "Бажаю тобі тепла в серці, навіть коли за вікном холодно.",
-            "Нехай Бог дарує тобі сили на сьогодні та надію на завтра.",
-            "Нехай твоя вдячність сьогодні стане найкращим настроєм!",
-            "Бажаю тобі відпочинку душі та бадьорості тіла.",
-            "Нехай сьогодні ти почуєш тихий голос Божого заохочення.",
-            "Бажаю тобі подивитися на цей день очима надії й усміхнутися.",
-            "Нехай любов, якою тебе любить Бог, стане твоєю опорою в будь-яку годину.",
-            "Бажаю тобі смачного чаю, щирої розмови і доброго сміху в цей вечір.",
-            "Нехай сьогодні кожна зустріч залишить у тебе світлий слід.",
-            "Бажаю тобі сили йти вперед, навіть якщо кроки невеликі: Бог цінує кожен.",
-            "Нехай твоє серце цього дня співає тиху пісню подяки.",
-            "Бажаю тобі віри, яка рухає гори, і усмішки, яка рухає людські серця.",
-            "Нехай Господь розвіє всі хмари над твоїм настроєм!",
-            "Бажаю тобі сьогодні дізнатися, наскільки ти дорогоцінний для Бога.",
-            "Нехай у твоєму дні буде місце для тиші, молитви і гарного сміху.",
-            "Бажаю тобі міцного здоров'я, світлих думок і добрих друзів поруч.",
-            "Нехай сьогодні Бог покаже тобі новий привід для радості.",
-            "Бажаю тобі спокійної душі, тепла в родині та мирного неба.",
-            "Нехай твій день буде як добра пісня: світлий, теплий і з гарним ритмом.",
-            "Бажаю тобі знайти в цьому дні хоча б п'ять причин подякувати Богові."
-        ];
-
-        // Єдиний унікальний набір побажань (дублікати відсіюються автоматично)
-        const allBlessings = uniqueByText(blessingsList.concat(extraBlessings), s => s);
-
-        const blessingBtn = document.getElementById('blessingBtn');
-        const blessingCard = document.getElementById('blessingCard');
-        const blessingText = document.getElementById('blessingText');
-
-        // «Колода» побажань: кожне показується один раз за цикл
-        let blessingBag = [];
-        let lastBlessingShown = blessingText ? blessingText.textContent.trim() : '';
-
-        function getNextBlessing() {
-            if (blessingBag.length === 0) {
-                blessingBag = shuffleInPlace(allBlessings.slice());
-                // Щоб на межі циклів не повторювалось те саме побажання поспіль
-                if (blessingBag.length > 1 && blessingBag[blessingBag.length - 1] === lastBlessingShown) {
-                    [blessingBag[0], blessingBag[blessingBag.length - 1]] = [blessingBag[blessingBag.length - 1], blessingBag[0]];
-                }
-            }
-            const next = blessingBag.pop();
-            lastBlessingShown = next;
-            return next;
-        }
-
-        if (blessingBtn && blessingCard && blessingText) {
-            blessingBtn.addEventListener('click', () => {
-                blessingCard.classList.remove('active');
-                blessingCard.classList.add('fly-out');
-
-                setTimeout(() => {
-                    blessingText.textContent = getNextBlessing();
-                    blessingCard.classList.remove('fly-out');
-                    blessingCard.classList.add('active');
-                }, 400);
-            });
-        }
-
-        // ==========================================
-        // БАЗА ДУХОВНИХ ВІРШІВ ТА ЛОГІКА ОБРАНОГО
-        // ==========================================
-        let bibleQuotes = [
-            { id: 1, text: "«Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.»", ref: "Ієремія 29:11" },
-            { id: 2, text: "«Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі.»", ref: "До Филип'ян 4:13" },
-            { id: 3, text: "«Господь — то мій Пастир, я потреби мати не можу!»", ref: "Псалом 22:1" },
-            { id: 4, text: "«Ні про що не турбуйтесь, але в усьому через молитву й прохання з подякою відкривайте свої бажання перед Богом.»", ref: "До Филип'ян 4:6" },
-            { id: 5, text: "«Бо так Боже полюбив світ, що дав Сина Свого Однородженого, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.»", ref: "Від Івана 3:16" },
-            { id: 6, text: "«Будь сильний та відважний! Не бійся й не лякайся, бо з тобою Господь, Бог твій, у всьому, де ти ходитимеш.»", ref: "Ісус Навин 1:9" },
-            { id: 7, text: "«Надейся на Господа всім своїм серцем, а на розум свій не покладайся!»", ref: "Приповісті 3:5" },
-            { id: 8, text: "«Світло світить у темряві, і темрява не охопила його.»", ref: "Від Івана 1:5" },
-
-            // Додаткові вірші (можна дописувати нові партії сюди, id мають бути унікальними)
-            { id: 9, text: "«Не бійся, бо Я з тобою; не оглядайся, бо Я Бог твій! Зміцню тебе, і поможу тобі, і підтримаю тебе правицею правди Моєї.»", ref: "Ісая 41:10" },
-            { id: 10, text: "«Господь — світло моє та спасіння моє, кого ж я боятимусь? Господь — твердиня життя мого, кого ж я страхатимусь?»", ref: "Псалом 26:1" },
-            { id: 11, text: "«Прийдіть до Мене всі струджені та обтяжені, і Я вас заспокою.»", ref: "Від Матвія 11:28" },
-            { id: 12, text: "«Мир залишаю вам, мир Мій даю вам; не так, як світ дає, Я вам даю. Хай не хвилюється серце ваше й не лякається.»", ref: "Від Івана 14:27" },
-            { id: 13, text: "«Ми знаємо, що тим, хто любить Бога, хто покликаний за Його постановою, усе допомагає на добре.»", ref: "До Римлян 8:28" },
-            { id: 14, text: "«А Бог надії хай сповнить вас усякою радістю та миром у вірі, щоб ви збагатились надією силою Духа Святого.»", ref: "До Римлян 15:13" },
-            { id: 15, text: "«А тепер зостаються віра, надія, любов, — ці троє, але любов із них більша.»", ref: "1 до Коринтян 13:13" },
-            { id: 16, text: "«Віра ж — то ґрунт для сподіваного, доказ для небаченого.»", ref: "До Євреїв 11:1" },
-            { id: 17, text: "«А коли кому з вас не стає мудрості, нехай просить від Бога, що всім дає просто та не докоряє, — і буде дана йому.»", ref: "Якова 1:5" },
-            { id: 18, text: "«Всю турботу вашу складіть на Нього, бо Він піклується про вас.»", ref: "1 Петра 5:7" },
-            { id: 19, text: "«Підношу очі свої на гори: звідкіля прийде поміч моя? Поміч моя від Господа, що вчинив небо та землю.»", ref: "Псалом 120:1-2" },
-            { id: 20, text: "«А ті, що надіються на Господа, відновляться в силі, піднімуть крила, мов орли; побіжать — і не потомляться, підуть — і не змучаться.»", ref: "Ісая 40:31" },
-            { id: 21, text: "«Я — світло для світу. Хто йде за Мною, не буде той ходити в темряві, але матиме світло життя.»", ref: "Від Івана 8:12" },
-            { id: 22, text: "«Оце заповідь Моя, щоб ви любили один одного, як Я вас полюбив.»", ref: "Від Івана 15:12" },
-            { id: 23, text: "«Шукайте ж найперш Царства Божого та правди Його, а це все вам докладеться.»", ref: "Від Матвія 6:33" },
-            { id: 24, text: "«Ви — світло для світу. Не може сховатись місто, що стоїть на верху гори.»", ref: "Від Матвія 5:14" },
-            { id: 25, text: "«І ось Я з вами по всі дні до кінця віку.»", ref: "Від Матвія 28:20" },
-            { id: 26, text: "«Скуштуйте й побачте, який добрий Господь! Блаженна людина, що на Нього покладається.»", ref: "Псалом 33:9" },
-            { id: 27, text: "«Бог нам охорона та сила, скора в недолях поміч.»", ref: "Псалом 45:2" },
-            { id: 28, text: "«Пізнавай Його на всіх дорогах своїх, і Він вирівняє твої стежки.»", ref: "Приповісті 3:6" },
-            { id: 29, text: "«І мир Божий, що вищий від усякого розуму, збереже серця ваші та думки ваші в Христі Ісусі.»", ref: "До Филип'ян 4:7" },
-            { id: 30, text: "«Досить тобі Моєї благодаті, бо сила Моя в немочі виявляється досконало.»", ref: "2 до Коринтян 12:9" },
-            { id: 31, text: "«Бо Бог нам не дав духа страху, але сили, і любові, і здорового розуму.»", ref: "2 до Тимофія 1:7" },
-            { id: 32, text: "«Бо ви спасені благодаттю через віру, а це не від вас, то Боже дарунок.»", ref: "До Ефесян 2:8" },
-            { id: 33, text: "«Радійте завжди! Без угавання моліться! За все дякуйте.»", ref: "1 до Солунян 5:16-18" },
-            { id: 34, text: "«Хто не любить, той не пізнав Бога, бо Бог є любов.»", ref: "1 Івана 4:8" },
-            { id: 35, text: "«Це день, що його Господь учинив, — радіймо й веселімся в ньому!»", ref: "Псалом 117:24" },
-            { id: 36, text: "«Не бійся, бо Я тебе викупив, Я кликнув на ймення твоє: ти Мій!»", ref: "Ісая 43:1" },
-            { id: 37, text: "«Усе можливе тому, хто вірує.»", ref: "Від Марка 9:23" },
-            { id: 38, text: "«Бо в Бога жодне слово не буде безсилим.»", ref: "Від Луки 1:37" },
-            { id: 39, text: "«Майся втішати Господом, і Він сповнить бажання серця твого.»", ref: "Псалом 36:4" },
-            { id: 40, text: "«Звір свою дорогу Господеві, і надійся на Нього, і Він учинить.»", ref: "Псалом 36:5" },
-            { id: 41, text: "«Радісне серце лікує, як ліки, а смутний дух сушить кості.»", ref: "Приповісті 17:22" },
-            { id: 42, text: "«Ім'я Господнє — міцна вежа: до неї втече праведний — і буде в безпеці.»", ref: "Приповісті 18:10" },
-            { id: 43, text: "«Для всього своя пора, і час для всякої речі під небом.»", ref: "Екклезіяст 3:1" },
-            { id: 44, text: "«Наблизьтеся до Бога, і Він наблизиться до вас.»", ref: "Якова 4:8" },
-            { id: 45, text: "«Я вам це сказав, щоб мир ви в Мені мали. На світі матимете скорботу; але будьте відважні: Я світ переміг!»", ref: "Від Івана 16:33" },
-            { id: 46, text: "«Небеса звіщають Божу славу, а твердь неба сповіщає про діло рук Його.»", ref: "Псалом 18:2" }
-        ];
-
-        // Відсіювання дублікатів за текстом і за id
-        (function dedupeQuotes() {
-            const seenIds = new Set();
-            bibleQuotes = uniqueByText(bibleQuotes, q => q.text).filter(q => {
-                if (seenIds.has(q.id)) return false;
-                seenIds.add(q.id);
-                return true;
-            });
-            // Перший вірш залишається на місці (він уже показаний на сторінці), решта перемішується
-            const first = bibleQuotes[0];
-            const rest = shuffleInPlace(bibleQuotes.slice(1));
-            bibleQuotes = [first].concat(rest);
-        })();
-
-        let currentQuoteIndex = 0;
-        let showFavoritesMode = false;
-        let favorites = JSON.parse(localStorage.getItem('ng_fav_quotes') || '[]');
-
-        const quoteTextEl = document.getElementById('spiritualQuoteText');
-        const quoteRefEl = document.getElementById('spiritualQuoteRef');
-        const nextQuoteBtn = document.getElementById('nextQuoteBtn');
-        const favQuoteBtn = document.getElementById('favQuoteBtn');
-        const favIcon = document.getElementById('favIcon');
-        const copyQuoteBtn = document.getElementById('copyQuoteBtn');
-        const tabAll = document.getElementById('tabAll');
-        const tabFavs = document.getElementById('tabFavs');
-        const favCountEl = document.getElementById('favCount');
-
-        function updateFavCount() {
-            favCountEl.textContent = favorites.length;
-            localStorage.setItem('ng_fav_quotes', JSON.stringify(favorites));
-        }
-
-        function getActiveQuotesList() {
-            if (showFavoritesMode) {
-                return bibleQuotes.filter(q => favorites.includes(q.id));
-            }
-            return bibleQuotes;
-        }
-
-        function renderQuote(quote) {
-            quoteTextEl.classList.add('fade-anim');
-            setTimeout(() => {
-                if (!quote) {
-                    quoteTextEl.textContent = "У вас поки немає збережених віршів у списку обраного. Натисніть на сердечко, щоб додати!";
-                    quoteRefEl.textContent = "";
-                    favQuoteBtn.style.display = 'none';
-                } else {
-                    favQuoteBtn.style.display = 'flex';
-                    quoteTextEl.textContent = quote.text;
-                    quoteRefEl.textContent = quote.ref;
-                    
-                    const isFav = favorites.includes(quote.id);
-                    if (isFav) {
-                        favQuoteBtn.classList.add('active');
-                        favIcon.className = 'fa-solid fa-heart';
-                    } else {
-                        favQuoteBtn.classList.remove('active');
-                        favIcon.className = 'fa-regular fa-heart';
-                    }
-                }
-                quoteTextEl.classList.remove('fade-anim');
-            }, 300);
-        }
-
-        function showNextQuote() {
-            const list = getActiveQuotesList();
-            if (list.length === 0) {
-                renderQuote(null);
-                return;
-            }
-            const prevQuote = list[currentQuoteIndex];
-            let nextIndex = (currentQuoteIndex + 1) % list.length;
-
-            // Набір пройдено повністю: новий цикл з іншим порядком (без повтору поспіль)
-            if (nextIndex === 0 && !showFavoritesMode && bibleQuotes.length > 1) {
-                shuffleInPlace(bibleQuotes);
-                if (prevQuote && bibleQuotes[0].id === prevQuote.id) {
-                    [bibleQuotes[0], bibleQuotes[1]] = [bibleQuotes[1], bibleQuotes[0]];
-                }
-            }
-
-            currentQuoteIndex = nextIndex;
-            renderQuote(getActiveQuotesList()[currentQuoteIndex]);
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toastNotification');
-            const toastText = document.getElementById('toastText');
-            toastText.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2800);
-        }
-
-        // Кнопка переключення вірша
-        nextQuoteBtn.addEventListener('click', showNextQuote);
-
-        // Кнопка Обраного
-        favQuoteBtn.addEventListener('click', () => {
-            const list = getActiveQuotesList();
-            const currentQuote = list[currentQuoteIndex];
-            if (!currentQuote) return;
-
-            const favIdx = favorites.indexOf(currentQuote.id);
-            if (favIdx > -1) {
-                favorites.splice(favIdx, 1);
-                showToast("Видалено з обраного 💔");
-            } else {
-                favorites.push(currentQuote.id);
-                showToast("Додано в обране ❤️");
-            }
-
-            updateFavCount();
-            renderQuote(currentQuote);
-
-            if (showFavoritesMode && favorites.length === 0) {
-                renderQuote(null);
-            }
-        });
-
-        // Кнопка копіювання
-        copyQuoteBtn.addEventListener('click', () => {
-            const list = getActiveQuotesList();
-            const currentQuote = list[currentQuoteIndex];
-            if (!currentQuote) return;
-
-            const fullText = `${currentQuote.text} (${currentQuote.ref})`;
-            navigator.clipboard.writeText(fullText).then(() => {
-                showToast("Цитату скопійовано у буфер!");
-            });
-        });
-
-        // Вкладки
-        tabAll.addEventListener('click', () => {
-            showFavoritesMode = false;
-            tabAll.classList.add('active');
-            tabFavs.classList.remove('active');
-            currentQuoteIndex = 0;
-            renderQuote(bibleQuotes[0]);
-        });
-
-        tabFavs.addEventListener('click', () => {
-            showFavoritesMode = true;
-            tabFavs.classList.add('active');
-            tabAll.classList.remove('active');
-            currentQuoteIndex = 0;
-            const favList = getActiveQuotesList();
-            renderQuote(favList.length > 0 ? favList[0] : null);
-        });
-
-        // Ініціалізація
-        updateFavCount();
-        renderQuote(bibleQuotes[0]);
-    </script>  
-
-    <!-- ==========================================
-         Telegram: модальне вікно вибору каналу
-         (окремий скрипт, не залежить від решти коду сайту)
-         ========================================== -->
-    <script>
-    (function () {
-        var overlay = document.getElementById('tgModalOverlay');
-        var closeBtn = document.getElementById('tgModalClose');
-        var tgBtn = document.querySelector('.social-btn.telegram');
-        if (!overlay || !closeBtn || !tgBtn) return;
-
-        var lastFocus = null;
-
-        function openTgModal() {
-            lastFocus = document.activeElement;
-            overlay.classList.add('active');
-            overlay.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('modal-open');
-            try { closeBtn.focus({ preventScroll: true }); } catch (e) {}
-        }
-
-        function closeTgModal() {
-            if (!overlay.classList.contains('active')) return;
-            overlay.classList.remove('active');
-            overlay.setAttribute('aria-hidden', 'true');
-            var optOverlay = document.getElementById('optModalOverlay');
-            if (!optOverlay || !optOverlay.classList.contains('active')) {
-                document.body.classList.remove('modal-open');
-            }
-            if (lastFocus && lastFocus.focus) {
-                try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
-            }
-        }
-
-        // Існуюча кнопка Telegram: замість переходу відкриваємо вікно вибору каналу
-        tgBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            openTgModal();
-        });
-
-        closeBtn.addEventListener('click', closeTgModal);
-
-        // Закриття по кліку на затемнену область (клік всередині вікна не закриває)
-        overlay.addEventListener('click', function (e) {
-            if (e.target === overlay) closeTgModal();
-        });
-
-        // Після переходу за посиланням канала — повертаємо сайт у звичайний стан
-        overlay.querySelectorAll('.tg-card').forEach(function (card) {
-            card.addEventListener('click', function () {
-                setTimeout(closeTgModal, 200);
-            });
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' || e.key === 'Esc') closeTgModal();
-        });
-    })();
-    </script>
-
-    <!-- ==========================================
-         YouTube LIVE через Cloudflare Worker.
-         Нові ефіри (новий videoId) по черзі йдуть під таймери:
-         1-й → головне, 2-й → молитовне, 3-й → головне, 4-й → молитовне …
-         Стан зберігається в localStorage, тому оновлення сторінки послідовність не скидає.
-         (окремий скрипт, не залежить від решти коду сайту)
-         ========================================== -->
-    <script>
-    (function () {
-        var WORKER_URL = 'https://ngdnipro-live.aklucik3.workers.dev/';
-        var CHECK_INTERVAL_MS = 30 * 1000;      // перевірка Worker кожні 30 секунд
-        var STORE_KEY = 'ng_live_queue_v2';     // стан черги в localStorage
-        var MAX_REMEMBERED = 60;                // скільки останніх videoId пам'ятати
-        var DEFAULT_TITLE = 'Прямий ефір Нового Покоління';
-
-        // Два слоти: 1 = під головним богослужінням, 2 = під молитовним служінням
-        var slots = {};
-        [1, 2].forEach(function (n) {
-            var section = document.getElementById('liveSection' + n);
-            if (!section) return;
-            slots[n] = {
-                section: section,
-                card: section.querySelector('.live-card'),
-                thumbLink: section.querySelector('[data-role="thumbLink"]'),
-                thumbImg: section.querySelector('[data-role="thumbImg"]'),
-                title: section.querySelector('[data-role="title"]'),
-                btn: section.querySelector('[data-role="btn"]'),
-                videoId: null
-            };
-        });
-        if (!slots[1] || !slots[2]) return;
-
-        var busy = false;
-        var lastCheck = 0;
-
-        // ---------- Стан у localStorage ----------
-        // { count: скільки різних ефірів уже було, assignments: { videoId: 1|2 }, order: [videoId, ...] }
-        function loadState() {
-            try {
-                var s = JSON.parse(localStorage.getItem(STORE_KEY));
-                if (s && typeof s.count === 'number' && s.assignments && typeof s.assignments === 'object') {
-                    if (!Array.isArray(s.order)) s.order = Object.keys(s.assignments);
-                    return s;
-                }
-            } catch (e) {}
-            return { count: 0, assignments: {}, order: [] };
-        }
-
-        function saveState(s) {
-            try { localStorage.setItem(STORE_KEY, JSON.stringify(s)); } catch (e) {}
-        }
-
-        // Повертає слот (1 або 2) для videoId.
-        // Відомий videoId → той самий слот, лічильник НЕ змінюється.
-        // Новий videoId → лічильник +1: непарний → 1 (головне), парний → 2 (молитовне).
-        // Стан щоразу читається заново, тож дві відкриті вкладки не подвоюють лічильник.
-        function resolveSlot(videoId) {
-            var s = loadState();
-            if (Object.prototype.hasOwnProperty.call(s.assignments, videoId)) {
-                return s.assignments[videoId];
-            }
-            s.count += 1;
-            var slot = (s.count % 2 === 1) ? 1 : 2;
-            s.assignments[videoId] = slot;
-            s.order.push(videoId);
-            while (s.order.length > MAX_REMEMBERED) {
-                delete s.assignments[s.order.shift()];
-            }
-            saveState(s);
-            return slot;
-        }
-
-        // ---------- Відображення ----------
-        function isValidVideoId(id) {
-            return typeof id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(id);
-        }
-
-        function buildWatchUrl(data) {
-            if (typeof data.url === 'string' && /^https:\/\//i.test(data.url)) return data.url;
-            return 'https://www.youtube.com/watch?v=' + encodeURIComponent(data.videoId);
-        }
-
-        function setThumb(slot, videoId) {
-            var img = slot.thumbImg;
-            var triedFallback = false;
-            img.onerror = null;
-            img.onload = null;
-
-            function fallback() {
-                if (triedFallback) return;
-                triedFallback = true;
-                img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
-            }
-            // maxresdefault іноді повертає крихітну заглушку — тоді беремо hqdefault
-            img.onload = function () {
-                if (!triedFallback && img.naturalWidth > 0 && img.naturalWidth <= 120) fallback();
-            };
-            img.onerror = fallback;
-            img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
-        }
-
-        function playEnter(slot) {
-            slot.card.classList.remove('live-enter');
-            void slot.card.offsetWidth; // перезапуск анімації появи
-            slot.card.classList.add('live-enter');
-        }
-
-        function hideSlot(slot) {
-            if (!slot.section.hidden) slot.section.hidden = true;
-            slot.card.classList.remove('live-enter');
-            slot.videoId = null;
-        }
-
-        function showInSlot(slotNum, data) {
-            var slot = slots[slotNum];
-            var other = slots[slotNum === 1 ? 2 : 1];
-            hideSlot(other);
-
-            var title = (typeof data.title === 'string' && data.title.trim()) ? data.title.trim() : DEFAULT_TITLE;
-            var url = buildWatchUrl(data);
-            var isNew = slot.videoId !== data.videoId;
-
-            if (isNew) {
-                slot.title.textContent = title;
-                slot.thumbImg.alt = title;
-                slot.thumbLink.href = url;
-                slot.btn.href = url;
-                setThumb(slot, data.videoId);
-                slot.videoId = data.videoId;
-            } else if (slot.title.textContent !== title) {
-                // Той самий ефір: лише оновлюємо назву, якщо вона змінилась
-                slot.title.textContent = title;
-                slot.thumbImg.alt = title;
-            }
-
-            if (slot.section.hidden) {
-                slot.section.hidden = false;
-                playEnter(slot);
-            } else if (isNew) {
-                playEnter(slot);
-            }
-        }
-
-        function hideAll() {
-            hideSlot(slots[1]);
-            hideSlot(slots[2]);
-        }
-
-        // ---------- Обробка відповіді Worker ----------
-        function handleWorkerData(data) {
-            if (!data || typeof data !== 'object') return;
-
-            if (data.live === true && isValidVideoId(data.videoId)) {
-                showInSlot(resolveSlot(data.videoId), data);
-            } else if (data.live === false) {
-                hideAll();
-            }
-            // Інакше (дивна відповідь) — стан не змінюємо
-        }
-
-        function checkLive() {
-            if (busy) return;
-            busy = true;
-            lastCheck = Date.now();
-
-            fetch(WORKER_URL, { cache: 'no-store' })
-                .then(function (r) {
-                    if (!r.ok) throw new Error('Worker ' + r.status);
-                    return r.json();
-                })
-                .then(handleWorkerData)
-                .catch(function (err) {
-                    // Тимчасова помилка мережі/Worker: лишаємо поточний стан без змін
-                    if (window.console && console.warn) console.warn('Перевірка YouTube LIVE не вдалася:', err);
-                })
-                .then(function () { busy = false; });
-        }
-
-        // Перша перевірка одразу після завантаження
-        checkLive();
-
-        // Далі — кожні 30 секунд (у неактивній вкладці запити не робляться)
-        setInterval(function () {
-            if (!document.hidden) checkLive();
-        }, CHECK_INTERVAL_MS);
-
-        // Якщо вкладка була неактивна довше 30 секунд — оновити статус при поверненні
-        document.addEventListener('visibilitychange', function () {
-            if (!document.hidden && Date.now() - lastCheck >= CHECK_INTERVAL_MS) {
-                checkLive();
-            }
-        });
-    })();
-    </script>
-</body>  
-                                                                             </html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="cMtJMBX0PDNgitilrx10joX3PjkbL7Un9JiaViBjXRg">
+<title>ХЄЦУ-«Нове Покоління» — Дніпро | Офіційний сайт</title>
+<meta name="description" content="Християнська Церква «Нове Покоління» у Дніпрі: богослужіння щонеділі о 10:00, молитовне служіння щосереди о 18:30, молодіжні та домашні зібрання, онлайн-трансляції.">
+<link rel="canonical" href="https://aklucik3-del.github.io/NGDnipro/">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="https://aklucik3-del.github.io/NGDnipro/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="Християнська Церква «Нове Покоління» — Дніпро">
+<meta property="og:description" content="Місце віри, любові, поклоніння та духовного зростання. Ми відкриті для кожного.">
+<meta property="og:url" content="https://aklucik3-del.github.io/NGDnipro/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=70">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Church","name":"Християнська Церква «Нове Покоління»","url":"https://aklucik3-del.github.io/NGDnipro/","telephone":"+380567474737","address":{"@type":"PostalAddress","streetAddress":"вул. Старозаводська, 19а, будова 2","addressLocality":"Дніпро","addressCountry":"UA"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--bg:#070B14;--bg2:#0B1220;--s1:#101827;--s2:#131D2D;--s3:#182235;--cy:#22D3EE;--vi:#8B7CFF;--gold:#F4C76B;--tx:#F8FAFC;--mu:#94A3B8;--ln:rgba(148,163,184,.17);--e:cubic-bezier(.25,1,.35,1);--serif:Georgia,'Times New Roman',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font:400 16px/1.7 Montserrat,system-ui,sans-serif;background:var(--bg);color:var(--tx);overflow-x:hidden}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+section{padding:clamp(64px,10vw,112px) 0}
+.alt{background:var(--bg2)}
+.ey{color:var(--gold);font-size:.82rem;font-weight:600;letter-spacing:.04em}
+h2{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.2;font-weight:700;margin:.3em 0 .6em}
+.lead{color:var(--mu);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 28px;border-radius:99px;font-weight:600;font-size:.95rem;transition:transform .35s var(--e),box-shadow .35s var(--e),border-color .35s,color .35s}
+.b1{background:var(--cy);color:#04141a}.b1:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(34,211,238,.22)}
+.b2{border:1px solid var(--ln);background:rgba(255,255,255,.03)}.b2:hover{border-color:var(--gold);color:var(--gold)}
+.lnk{color:var(--cy);font-weight:600;display:inline-block;margin-top:22px;min-height:44px}.lnk:hover{text-decoration:underline}
+header{position:fixed;inset:0 0 auto;z-index:50;background:rgba(7,11,20,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--ln)}
+.bar{display:flex;align-items:center;gap:18px;height:68px}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;font-size:.82rem;line-height:1.3;margin-right:auto;min-width:0}
+.logo i{color:var(--gold);font-size:1.4rem}.logo small{display:block;color:var(--mu);font-size:.72rem;font-weight:500}
+nav{display:flex;align-items:center;gap:24px}
+nav>a{font-size:.87rem;color:var(--mu);transition:color .3s}nav>a:hover{color:var(--tx)}
+.soc{display:flex;gap:8px;margin-left:8px}
+.soc a{width:40px;height:40px;border:1px solid var(--ln);border-radius:50%;display:grid;place-items:center;color:var(--mu);transition:color .3s,border-color .3s}
+.soc a:hover{color:var(--cy);border-color:var(--cy)}
+.burger{display:none;width:44px;height:44px;place-items:center;border:1px solid var(--ln);border-radius:12px}
+.burger i{transition:transform .4s var(--e)}
+@media(max-width:980px){.burger{display:grid}
+nav{position:fixed;inset:68px 0 0;flex-direction:column;justify-content:center;gap:6px;background:rgba(7,11,20,.97);opacity:0;visibility:hidden;transform:translateY(-14px);transition:opacity .4s var(--e),transform .4s var(--e),visibility .4s}
+nav.open{opacity:1;visibility:visible;transform:none}
+nav>a{font-size:1.35rem;color:var(--tx);padding:10px 20px;min-height:48px}.soc{margin:22px 0 0}}
+.hero{min-height:100svh;display:flex;align-items:center;padding:110px 0 70px;background:linear-gradient(180deg,rgba(7,11,20,.55) 0%,rgba(7,11,20,.78) 55%,var(--bg) 100%),radial-gradient(60% 50% at 70% 30%,rgba(139,124,255,.16),transparent 70%),url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=70') center/cover}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid rgba(244,199,107,.4);border-radius:99px;color:var(--gold);font-size:.82rem;font-weight:500;background:rgba(244,199,107,.06)}
+.hero h1{font-size:clamp(2.1rem,6vw,4.4rem);line-height:1.12;font-weight:700;margin:22px 0;max-width:15ch}
+.hero h1 span{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--gold)}
+.hero p{color:#cbd5e1;font-size:clamp(1rem,2vw,1.25rem);max-width:46ch;margin-bottom:34px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.sch{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.sc{background:linear-gradient(160deg,var(--s2),var(--s1));border:1px solid var(--ln);border-radius:22px;padding:clamp(24px,4vw,38px)}
+.sc .day{color:var(--gold);font-weight:600;font-size:.9rem}
+.sc .time{display:block;font-size:clamp(2.8rem,7vw,4.4rem);font-weight:700;line-height:1.1;margin:6px 0}
+.sc h3{font-size:1.1rem;font-weight:600}
+.cd{margin-top:16px;color:var(--mu);font-size:.92rem;font-variant-numeric:tabular-nums;padding-top:16px;border-top:1px solid var(--ln)}
+.cd.on{color:var(--cy);font-weight:600}
+.live{margin-top:20px;padding:18px;border-radius:16px;background:rgba(244,63,94,.07);border:1px solid rgba(244,63,94,.35)}
+.lv{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;color:#fb7185;letter-spacing:.08em}
+.lv i{width:8px;height:8px;border-radius:50%;background:#f43f5e;animation:pl 2s ease-out infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(244,63,94,.6)}100%{box-shadow:0 0 0 9px rgba(244,63,94,0)}}
+.live h4{font-size:1.2rem;margin:8px 0 2px}.live p{color:var(--mu);font-size:.9rem;margin-bottom:14px}
+.ab{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,6vw,72px);align-items:center}
+.ph{position:relative;margin:0 0 18px 18px}
+.ph::before{content:'';position:absolute;inset:18px -18px -18px 18px;border:1px solid rgba(244,199,107,.4);border-radius:26px}
+.ph img{position:relative;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:26px}
+.pr{margin-top:28px}.pr div{padding:16px 0;border-top:1px solid var(--ln)}
+.pr b{color:var(--gold);font-size:.9rem;font-weight:600}.pr p{color:var(--mu)}
+.tl{position:relative;margin-top:44px;max-width:780px}
+.tl::before{content:'';position:absolute;left:5px;top:8px;bottom:8px;width:1px;background:var(--ln)}
+.tl div{position:relative;padding:0 0 34px 38px}
+.tl div::before{content:'';position:absolute;left:0;top:8px;width:11px;height:11px;border-radius:50%;background:var(--bg2);border:2px solid var(--gold)}
+.tl h3{font-size:1.1rem;font-weight:600}.tl p{color:var(--mu);max-width:62ch}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:40px}
+.bc{grid-column:span 2;padding:28px;border:1px solid var(--ln);border-radius:22px;background:linear-gradient(155deg,var(--s3),var(--s1));transition:transform .45s var(--e),border-color .45s,box-shadow .45s}
+.bc:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.45);box-shadow:0 14px 40px rgba(34,211,238,.07)}
+.bc:nth-child(1){grid-column:span 4;min-height:230px;background:linear-gradient(135deg,rgba(139,124,255,.18),var(--s1) 70%)}
+.bc:nth-child(5){grid-column:span 4}
+.bc:nth-child(4),.bc:nth-child(6){grid-column:span 3}
+.bc span{font-size:1.8rem;display:block;margin-bottom:12px}.bc h3{font-size:1.15rem}.bc p{color:var(--mu);font-size:.93rem;margin-top:6px}
+.more{margin-top:24px;color:var(--mu);font-size:.9rem}
+.ev{margin-top:36px;border-top:1px solid var(--ln)}
+.er{display:grid;grid-template-columns:200px 1fr auto;gap:24px;align-items:center;padding:24px 8px;border-bottom:1px solid var(--ln);transition:background .4s}
+.er:hover{background:rgba(255,255,255,.025)}
+.er time{color:var(--gold);font-weight:600;font-size:.92rem}.er h3{font-size:1.1rem}.er p{color:var(--mu);font-size:.92rem;max-width:60ch}
+.word{background:radial-gradient(70% 90% at 50% 0,rgba(139,124,255,.14),transparent 70%),var(--bg);text-align:center}
+.q{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3.4vw,2.3rem);line-height:1.5;max-width:26em;margin:30px auto 18px;min-height:6em;display:flex;align-items:center;justify-content:center;transition:opacity .3s,transform .3s}
+.q.f{opacity:0;transform:translateY(8px)}
+.ref{color:var(--gold);font-weight:600}
+.tools{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{min-height:44px;padding:0 20px;border:1px solid var(--ln);border-radius:99px;font-size:.9rem;transition:border-color .3s,color .3s,background .3s}
+.chip:hover,.chip.on{border-color:var(--cy);color:var(--cy)}
+.chip.fv.on{color:#fb7185;border-color:#fb7185}
+.bl{margin-top:54px;padding-top:30px;border-top:1px solid var(--ln)}.bl p{color:var(--mu);min-height:3.4em;max-width:46ch;margin:16px auto 0}
+.ct{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.ci{padding:26px;border:1px solid var(--ln);border-radius:20px;background:var(--s1);margin-bottom:16px}
+.ci b{color:var(--gold);font-size:.9rem;display:block}.ci p{font-size:1.05rem}
+.mp{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;min-height:260px;border:1px solid var(--ln);border-radius:20px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.1),transparent 65%),var(--s1);transition:border-color .4s;padding:20px}
+.mp:hover{border-color:var(--cy)}.mp i{font-size:2.6rem;color:var(--cy)}
+footer{background:#04070d;border-top:1px solid var(--ln);padding:64px 0 28px}
+.fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+.fg h3{font-size:.95rem;margin-bottom:12px}.fg p,.fg a{color:var(--mu);font-size:.9rem;display:block;padding:5px 0}.fg a:hover{color:var(--tx)}
+.cp{margin-top:44px;padding-top:22px;border-top:1px solid var(--ln);color:var(--mu);font-size:.82rem}
+.ov{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;overflow:auto;background:rgba(4,7,14,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .4s var(--e),visibility .4s}
+.ov.on{opacity:1;visibility:visible}
+.md{position:relative;width:100%;max-width:440px;margin:auto;background:rgba(16,24,39,.92);border:1px solid var(--ln);border-radius:24px;padding:32px 22px 22px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:translateY(16px) scale(.97);transition:transform .5s var(--e)}
+.ov.on .md{transform:none}
+.md h2{font-size:1.4rem;margin:0 36px 6px 0}.md>p{color:var(--mu);font-size:.92rem}
+.x{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;font-size:1.6rem;color:var(--mu)}.x:hover{color:var(--tx)}
+.tgc{display:block;padding:16px 18px;margin-top:12px;border:1px solid var(--ln);border-radius:16px;background:var(--s2);transition:transform .3s var(--e),border-color .3s}
+.tgc:hover{border-color:rgba(34,211,238,.5);transform:translateY(-2px)}
+.tgc b{display:flex;align-items:center;gap:10px}.tgc i{color:var(--cy);font-size:1.4rem}.tgc span{display:block;color:var(--mu);font-size:.85rem;margin-top:2px}
+.mb{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}.mb .btn{flex:1 1 140px}
+.toast{position:fixed;left:50%;bottom:26px;z-index:120;transform:translate(-50%,90px);opacity:0;background:var(--s3);border:1px solid var(--ln);padding:12px 24px;border-radius:99px;font-size:.9rem;transition:transform .5s var(--e),opacity .5s;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--e),transform .9s var(--e)}.rv.in{opacity:1;transform:none}
+.lite *,.lite *::before{animation:none!important;transition-duration:.01s!important}
+.lite header,.lite .ov{backdrop-filter:none;-webkit-backdrop-filter:none}
+.lite .rv{opacity:1;transform:none}
+@media(max-width:900px){.ab,.ct,.sch{grid-template-columns:1fr}.fg{grid-template-columns:1fr 1fr}.er{grid-template-columns:1fr;gap:8px}.er .btn{justify-self:start;margin-top:8px}.bento{grid-template-columns:1fr 1fr}.bc,.bc:nth-child(n){grid-column:span 1;min-height:0}.bc:nth-child(1){grid-column:span 2}}
+@media(max-width:560px){.bento,.fg{grid-template-columns:1fr}.bc:nth-child(1){grid-column:span 1}.cta .btn{width:100%}.rv{transform:translateY(12px)}.logo span{font-size:.76rem}}
+@media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition-duration:.01s!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap bar">
+<a class="logo" href="#top" aria-label="Нове Покоління, Дніпро — на початок"><i class="fa-solid fa-church" aria-hidden="true"></i><span>Християнська Церква «Нове Покоління»<small>Дніпро</small></span></a>
+<nav id="nav" aria-label="Головна навігація">
+<a href="#top">Головна</a><a href="#about">Про нас</a><a href="#history">Історія</a><a href="#services">Служіння</a><a href="#events">Події</a><a href="#contacts">Контакти</a>
+<div class="soc">
+<a href="https://www.facebook.com/ngdnipro" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+<a href="https://t.me/rspwn_events" class="tg-open" target="_blank" rel="noopener noreferrer" aria-label="Telegram-канали"><i class="fa-brands fa-telegram"></i></a>
+<a href="https://www.instagram.com/ngdnipro/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+<a href="https://youtube.com/@dngvideochannel?si=CuM-oSQEuHay1iKq" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+</div>
+</nav>
+<button class="burger" id="burger" aria-label="Відкрити меню" aria-expanded="false" aria-controls="nav"><i class="fa-solid fa-bars"></i></button>
+</div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="wrap">
+<span class="badge"><i class="fa-solid fa-cross" aria-hidden="true"></i> Ми відкриті для кожного</span>
+<h1>Християнська Церква <span>«Нове Покоління»</span> Дніпро</h1>
+<p>Місце віри, любові, поклоніння та духовного зростання.</p>
+<div class="cta"><a class="btn b1" href="#contacts">Приєднатися до служіння</a><a class="btn b2" href="#about">Дізнатися більше</a></div>
+</div>
+</section>
+
+<section id="schedule" class="alt">
+<div class="wrap">
+<div class="rv"><span class="ey">Щотижня</span><h2>Богослужіння</h2></div>
+<div class="sch">
+<article class="sc rv"><span class="day">Неділя</span><b class="time">10:00</b><h3>Основне богослужіння</h3><p class="cd" id="cd1">—</p>
+<div class="live" id="live1" hidden><span class="lv"><i></i>LIVE</span><h4>Зараз наживо</h4><p>Прямий ефір «Нового Покоління»</p><a class="btn b1" href="https://www.youtube.com/@dngvideochannel" target="_blank" rel="noopener noreferrer">Дивитися трансляцію →</a></div></article>
+<article class="sc rv"><span class="day">Середа</span><b class="time">18:30</b><h3>Молитовне служіння</h3><p class="cd" id="cd2">—</p>
+<div class="live" id="live2" hidden><span class="lv"><i></i>LIVE</span><h4>Зараз наживо</h4><p>Прямий ефір «Нового Покоління»</p><a class="btn b1" href="https://www.youtube.com/@dngvideochannel" target="_blank" rel="noopener noreferrer">Дивитися трансляцію →</a></div></article>
+</div>
+<p class="rv" style="margin-top:28px"><a class="btn b2" href="#events">Переглянути розклад</a></p>
+</div>
+</section>
+
+<section id="about">
+<div class="wrap ab">
+<figure class="ph rv"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=70" alt="Атмосфера поклоніння під час церковного зібрання" loading="lazy" width="900" height="1125"></figure>
+<div class="rv">
+<span class="ey">Про церкву</span>
+<h2>Ми — «Нове Покоління»</h2>
+<p class="lead">Сучасний міжконфесійний християнський рух повного Євангелія. Місце сили, безумовної любові, духовного зростання та реальних змін.</p>
+<div class="pr">
+<div><b>ВІРА</b><p>Живі стосунки з Богом.</p></div>
+<div><b>ЛЮБОВ</b><p>Прийняття, підтримка та турбота про людей.</p></div>
+<div><b>ПОКЛИКАННЯ</b><p>Жити Євангелієм і служити іншим.</p></div>
+</div>
+<a class="lnk" href="#history">Дізнатися більше про нас →</a>
+</div>
+</div>
+</section>
+
+<section id="history" class="alt">
+<div class="wrap">
+<div class="rv"><span class="ey">Історія</span><h2>Як розвивався рух у Дніпрі</h2></div>
+<div class="tl rv">
+<div><h3>1980–1990</h3><p>Міжнародний християнський рух «Нове Покоління» виник наприкінці 1980-х — на початку 1990-х років. У наступні роки церкви та громади руху з'явилися в різних країнах Східної Європи, у тому числі в Україні.</p></div>
+<div><h3>Дніпро</h3><p>У Дніпрі громада почала формуватися в середині 90-х років силами місіонерів та активних віруючих, проводячи перші малі групи та євангелізації.</p></div>
+<div><h3>Зростання</h3><p>Церква зросла у велике об'єднання, яке збирало сотні парафіян на богослужіння у концертних залах та палацах культури міста.</p></div>
+<div><h3>Сьогодні</h3><p>Громада продовжує активну духовну, соціальну та адаптаційну роботу, проводячи богослужіння, молитовні зустрічі та молодіжні проекти.</p></div>
+</div>
+</div>
+</section>
+
+<section id="services">
+<div class="wrap">
+<div class="rv"><span class="ey">Служіння</span><h2>Наші служіння</h2></div>
+<div class="bento rv">
+<div class="bc"><span>🙏</span><h3>Молитва</h3><p>Спільна молитва за місто, Україну, сім'ї, зцілення та потреби віруючих щосереди.</p></div>
+<div class="bc"><span>🎵</span><h3>Поклоніння</h3><p>Група прославлення допомагає прославляти Бога через спів і музику.</p></div>
+<div class="bc"><span>👥</span><h3>Малі групи</h3><p>Домашні зібрання в різних районах Дніпра.</p></div>
+<div class="bc"><span>❤️</span><h3>Допомога людям</h3><p>Соціальна та адаптаційна робота громади.</p></div>
+<div class="bc"><span>🔥</span><h3>Молодіжне служіння</h3><p>Актуальні теми, творчість, нові знайомства та сучасна музика для молоді й підлітків.</p></div>
+<div class="bc"><span>📖</span><h3>Вивчення Біблії</h3><p>Біблійне навчання та проповідь Божого Слова.</p></div>
+</div>
+<p class="more rv">Також служать: оператори, світлооператори, медіа-екран, група порядку, проповідники.</p>
+</div>
+</section>
+
+<section id="events" class="alt">
+<div class="wrap">
+<div class="rv"><span class="ey">Розклад</span><h2>Найближчі події</h2></div>
+<div class="ev rv">
+<div class="er"><time>Неділя · 10:00</time><div><h3>Головне Богослужіння</h3><p>Центральне щотижневе зібрання всієї церкви: прославлення Бога, молитва та практична проповідь слова.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+<div class="er"><time>Середа · 18:30</time><div><h3>Молитовне служіння</h3><p>Спільна молитва за місто, Україну, сім'ї, зцілення та потреби віруючих.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+<div class="er"><time>Четвер · 18:30</time><div><h3>Домашні зібрання</h3><p>Затишні зустрічі для спілкування, вивчення Біблії та взаємної підтримки у невеликому колі.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+<div class="er"><time>Субота · за розкладом</time><div><h3>Молодіжні зібрання</h3><p>Простір для молоді: актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+<div class="er"><time>Субота · 12:00</time><div><h3>Підліткові зібрання</h3><p>Інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+<div class="er"><time>За розкладом</time><div><h3>Speaking Club</h3><p>Розмовний англійський клуб для практики мови у дружній та відкритій атмосфері.</p></div><a class="btn b2" href="#contacts">Детальніше</a></div>
+</div>
+</div>
+</section>
+
+<section class="word" id="word">
+<div class="wrap">
+<span class="ey">Духовне натхнення</span><h2>Слово на сьогодні</h2>
+<blockquote class="q" id="qt" aria-live="polite"></blockquote>
+<span class="ref" id="qr"></span>
+<div class="tools">
+<button class="chip" id="qn">Отримати інше слово</button>
+<button class="chip fv" id="qf" aria-label="Додати в обране"><i class="fa-regular fa-heart" id="qfi"></i></button>
+<button class="chip" id="qc" aria-label="Копіювати вірш"><i class="fa-regular fa-copy"></i></button>
+<button class="chip on" id="tA">Усі вірші</button>
+<button class="chip" id="tF">Обрані (<span id="fc">0</span>)</button>
+</div>
+<div class="bl"><button class="btn b2" id="bb">Посмішка та благословіння 🫶</button><p id="bt">Нехай Господь благословить тебе і збереже тебе!</p></div>
+</div>
+</section>
+
+<section id="contacts" class="alt">
+<div class="wrap">
+<div class="rv"><span class="ey">Приєднуйся</span><h2>Контакти</h2></div>
+<div class="ct rv">
+<div>
+<div class="ci"><b>Адреса у Дніпрі</b><p>вул. Старозаводська, 19а, будова 2</p><p style="color:var(--mu);font-size:.88rem">Точні локації залів та домашніх груп уточнюйте за телефоном.</p></div>
+<div class="ci"><b>Телефон</b><p><a href="tel:0567474737">056 747 4737</a></p></div>
+</div>
+<a class="mp" href="https://maps.google.com/?q=вул.+Старозаводська+19а,+будова+2,+Дніпро" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><strong>вул. Старозаводська, 19а, будова 2</strong><span style="color:var(--cy);font-size:.9rem">Відкрити на карті</span></a>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<div class="fg">
+<div><h3>Нове Покоління</h3><p>Сучасний міжконфесійний християнський рух повного Євангелія у Дніпрі. Ми відкриті для кожного.</p></div>
+<div><h3>Навігація</h3><a href="#top">Головна</a><a href="#about">Про нас</a><a href="#history">Історія</a><a href="#services">Служіння</a><a href="#events">Події</a></div>
+<div><h3>Служіння</h3><a href="#schedule">Розклад</a><a href="#services">Молодіжне служіння</a><a href="#services">Поклоніння</a></div>
+<div><h3>Ми онлайн</h3><a href="https://t.me/rspwn_events" class="tg-open" target="_blank" rel="noopener noreferrer">Telegram</a><a href="https://www.instagram.com/ngdnipro/" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://youtube.com/@dngvideochannel?si=CuM-oSQEuHay1iKq" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://www.facebook.com/ngdnipro" target="_blank" rel="noopener noreferrer">Facebook</a></div>
+</div>
+<p class="cp">© 2026 Християнська Церква «Нове Покоління» • Дніпро</p>
+</div>
+</footer>
+
+<div class="ov" id="tgOv" aria-hidden="true">
+<div class="md" role="dialog" aria-modal="true" aria-labelledby="tgT">
+<button class="x" id="tgX" aria-label="Закрити">&times;</button>
+<h2 id="tgT">Наші Telegram-канали</h2><p>Обери канал, який тобі цікавий</p>
+<a class="tgc" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer"><b><i class="fa-brands fa-telegram"></i>Respawn Events</b><span>Новини, зустрічі та події для молоді й підлітків.</span></a>
+<a class="tgc" href="https://t.me/dng_channel" target="_blank" rel="noopener noreferrer"><b><i class="fa-brands fa-telegram"></i>Офіційний канал</b><span>Трансляції, щоденні вірші та новини церкви.</span></a>
+<a class="tgc" href="https://t.me/DNG_Worship" target="_blank" rel="noopener noreferrer"><b><i class="fa-brands fa-telegram"></i>DNG Worship</b><span>Пісні у нашому виконанні.</span></a>
+</div>
+</div>
+
+<div class="ov" id="opOv" aria-hidden="true">
+<div class="md" role="dialog" aria-modal="true" aria-labelledby="opT">
+<h2 id="opT">Покращити роботу сайту?</h2>
+<p>Ми можемо вимкнути частину декоративних ефектів для плавнішої роботи на слабкому пристрої.</p>
+<div class="mb"><button class="btn b1" id="opY">Оптимізувати</button><button class="btn b2" id="opN">Залишити як є</button></div>
+</div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var ls={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+/* Меню */
+var nav=$('#nav'),bg=$('#burger');
+function menu(o){nav.classList.toggle('open',o);bg.setAttribute('aria-expanded',o);bg.setAttribute('aria-label',o?'Закрити меню':'Відкрити меню');bg.firstChild.className=o?'fa-solid fa-xmark':'fa-solid fa-bars';document.body.style.overflow=o?'hidden':''}
+bg.addEventListener('click',function(){menu(!nav.classList.contains('open'))});
+$$('nav>a').forEach(function(a){a.addEventListener('click',function(){menu(false)})});
+
+/* Поява секцій */
+var rv=$$('.rv');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});rv.forEach(function(el){io.observe(el)})}else rv.forEach(function(el){el.classList.add('in')});
+
+/* Модальні вікна */
+var last=null;
+function open(ov){last=document.activeElement;ov.classList.add('on');ov.setAttribute('aria-hidden','false');var b=ov.querySelector('button,a');if(b)b.focus({preventScroll:true})}
+function close(ov){ov.classList.remove('on');ov.setAttribute('aria-hidden','true');if(last&&last.focus)last.focus({preventScroll:true})}
+var tg=$('#tgOv'),op=$('#opOv');
+$$('.tg-open').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();menu(false);open(tg)})});
+$('#tgX').addEventListener('click',function(){close(tg)});
+tg.addEventListener('click',function(e){if(e.target===tg)close(tg)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){close(tg);if(op.classList.contains('on'))close(op)}});
+
+/* Оптимізація: вибір зберігається, вікно показується лише один раз */
+function setOpt(v){ls.set('ng_opt',v);document.body.classList.toggle('lite',v==='on')}
+var saved=ls.get('ng_opt');
+if(saved==='on')document.body.classList.add('lite');
+else if(saved===null)setTimeout(function(){open(op)},2500);
+$('#opY').addEventListener('click',function(){setOpt('on');close(op)});
+$('#opN').addEventListener('click',function(){setOpt('off');close(op)});
+
+/* Таймери (київський час) */
+var kf=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Kyiv',hourCycle:'h23',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'});
+function kyiv(){var p={};kf.formatToParts(new Date()).forEach(function(x){p[x.type]=+x.value});return new Date(p.year,p.month-1,p.day,p.hour%24,p.minute,p.second)}
+var T=[{dow:0,h:10,m:0,dur:120,el:$('#cd1'),word:'Служіння триває просто зараз'},{dow:3,h:18,m:30,dur:90,el:$('#cd2'),word:'Служіння триває просто зараз'}];
+function p2(n){return n<10?'0'+n:''+n}
+function tick(){var n=kyiv();T.forEach(function(t){
+var s=new Date(n.getFullYear(),n.getMonth(),n.getDate()+((t.dow-n.getDay()+7)%7),t.h,t.m),d=s-n;
+if(d<0){if(-d<t.dur*6e4){t.el.textContent=t.word;t.el.classList.add('on');return}s.setDate(s.getDate()+7);d=s-n}
+t.el.classList.remove('on');
+var sec=Math.floor(d/1e3),dd=Math.floor(sec/86400),hh=Math.floor(sec%86400/3600),mm=Math.floor(sec%3600/60),ss=sec%60;
+t.el.textContent='Через '+dd+' дн '+p2(hh)+' год '+p2(mm)+' хв '+p2(ss)+' с'})}
+tick();setInterval(function(){if(!document.hidden)tick()},1000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)tick()});
+
+/* Тости */
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2600)}
+
+/* Слово на сьогодні + обране */
+var Q=[[1,"Бо Я знаю ті думки, які думаю про вас, говорить Господь, думки про спокій, а не про зло, щоб дати вам майбутнє та надію.","Ієремія 29:11"],
+[2,"Все можу в Тім, Хто мене зміцнює, — в Ісусі Христі.","До Филип'ян 4:13"],
+[3,"Господь — то мій Пастир, я потреби мати не можу!","Псалом 22:1"],
+[4,"Ні про що не турбуйтесь, але в усьому через молитву й прохання з подякою відкривайте свої бажання перед Богом.","До Филип'ян 4:6"],
+[5,"Бо так Боже полюбив світ, що дав Сина Свого Однородженого, щоб кожен, хто вірує в Нього, не загинув, але мав життя вічне.","Від Івана 3:16"],
+[6,"Будь сильний та відважний! Не бійся й не лякайся, бо з тобою Господь, Бог твій, у всьому, де ти ходитимеш.","Ісус Навин 1:9"],
+[7,"Надейся на Господа всім своїм серцем, а на розум свій не покладайся!","Приповісті 3:5"],
+[8,"Світло світить у темряві, і темрява не охопила його.","Від Івана 1:5"],
+[11,"Прийдіть до Мене всі струджені та обтяжені, і Я вас заспокою.","Від Матвія 11:28"],
+[12,"Мир залишаю вам, мир Мій даю вам; не так, як світ дає, Я вам даю. Хай не хвилюється серце ваше й не лякається.","Від Івана 14:27"],
+[15,"А тепер зостаються віра, надія, любов, — ці троє, але любов із них більша.","1 до Коринтян 13:13"],
+[16,"Віра ж — то ґрунт для сподіваного, доказ для небаченого.","До Євреїв 11:1"],
+[18,"Всю турботу вашу складіть на Нього, бо Він піклується про вас.","1 Петра 5:7"],
+[20,"А ті, що надіються на Господа, відновляться в силі, піднімуть крила, мов орли; побіжать — і не потомляться, підуть — і не змучаться.","Ісая 40:31"],
+[21,"Я — світло для світу. Хто йде за Мною, не буде той ходити в темряві, але матиме світло життя.","Від Івана 8:12"],
+[23,"Шукайте ж найперш Царства Божого та правди Його, а це все вам докладеться.","Від Матвія 6:33"],
+[33,"Радійте завжди! Без угавання моліться! За все дякуйте.","1 до Солунян 5:16-18"],
+[35,"Це день, що його Господь учинив, — радіймо й веселімся в ньому!","Псалом 117:24"]];
+var fav=[];try{fav=JSON.parse(ls.get('ng_fav_quotes')||'[]');if(!Array.isArray(fav))fav=[]}catch(e){fav=[]}
+var qi=0,fm=false;
+function list(){return fm?Q.filter(function(q){return fav.indexOf(q[0])>-1}):Q}
+function saveFav(){ls.set('ng_fav_quotes',JSON.stringify(fav));$('#fc').textContent=fav.length}
+function render(){var q=list()[qi],t=$('#qt');t.classList.add('f');
+setTimeout(function(){
+if(!q){t.textContent='Поки немає обраних віршів. Натисни на сердечко, щоб додати.';$('#qr').textContent='';$('#qf').hidden=true}
+else{$('#qf').hidden=false;t.textContent='«'+q[1]+'»';$('#qr').textContent=q[2];var f=fav.indexOf(q[0])>-1;$('#qf').classList.toggle('on',f);$('#qfi').className=f?'fa-solid fa-heart':'fa-regular fa-heart'}
+t.classList.remove('f')},250)}
+$('#qn').addEventListener('click',function(){var l=list();if(!l.length)return render();qi=(qi+1)%l.length;render()});
+$('#qf').addEventListener('click',function(){var q=list()[qi];if(!q)return;var i=fav.indexOf(q[0]);if(i>-1){fav.splice(i,1);toast('Видалено з обраного')}else{fav.push(q[0]);toast('Додано в обране')}saveFav();if(fm&&!fav.length)qi=0;render()});
+$('#qc').addEventListener('click',function(){var q=list()[qi];if(!q)return;var s='«'+q[1]+'» ('+q[2]+')';if(navigator.clipboard)navigator.clipboard.writeText(s).then(function(){toast('Вірш скопійовано')},function(){toast('Не вдалося скопіювати')})});
+function tab(f){fm=f;qi=0;$('#tA').classList.toggle('on',!f);$('#tF').classList.toggle('on',f);render()}
+$('#tA').addEventListener('click',function(){tab(false)});$('#tF').addEventListener('click',function(){tab(true)});
+saveFav();render();
+
+/* Благословіння */
+var B=["Нехай Господь благословить тебе і збереже тебе!","Нехай у твоєму серці завжди живе спокій, любов та Божий мир!","Бог бачить тебе, любить тебе і тримає твоє завтра у Своїх руках.","Бажаю тобі тихої радості, яку не можна купити, а можна лише отримати від Бога.","Нехай Божа любов огортає тебе, як тепла ковдра в холодний день.","Нехай твоя надія сьогодні буде сильнішою за будь-який сумнів.","Бажаю тобі вдячного серця: воно бачить благословення навіть у звичайному дні.","Нехай Господь береже твій сон, твій шлях і твої мрії.","Нехай Бог дарує тобі сили на сьогодні та надію на завтра.","Нехай твій день наповниться добрими новинами та теплими обіймами."];
+var bi=0;
+$('#bb').addEventListener('click',function(){var p=$('#bt'),n;do{n=Math.floor(Math.random()*B.length)}while(n===bi&&B.length>1);bi=n;p.style.opacity=0;setTimeout(function(){p.textContent=B[n];p.style.opacity=1},250)});
+$('#bt').style.transition='opacity .25s';
+
+/* YouTube LIVE через Cloudflare Worker (логіка збережена) */
+var W='https://ngdnipro-live.aklucik3.workers.dev/',K='ng_live_queue_v2',L=[null,$('#live1'),$('#live2')],busy=false,lastCheck=0;
+function load(){try{var s=JSON.parse(ls.get(K));if(s&&typeof s.count==='number'&&s.assignments&&typeof s.assignments==='object')return{count:s.count,assignments:s.assignments,order:Array.isArray(s.order)?s.order:Object.keys(s.assignments)}}catch(e){}return{count:0,assignments:{},order:[]}}
+function slotOf(id){var s=load();if(Object.prototype.hasOwnProperty.call(s.assignments,id))return s.assignments[id];s.count++;var n=s.count%2===1?1:2;s.assignments[id]=n;s.order.push(id);while(s.order.length>60)delete s.assignments[s.order.shift()];ls.set(K,JSON.stringify(s));return n}
+function show(n,d){L.forEach(function(e,i){if(e)e.hidden=(i!==n)});var a=L[n].querySelector('a');a.href=(typeof d.url==='string'&&/^https:\/\//i.test(d.url))?d.url:'https://www.youtube.com/watch?v='+encodeURIComponent(d.videoId);if(d.title)a.title=String(d.title)}
+function check(){if(busy)return;busy=true;lastCheck=Date.now();
+fetch(W,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('Worker '+r.status);return r.json()}).then(function(d){
+if(!d||typeof d!=='object')return;
+if(d.live===true&&typeof d.videoId==='string'&&/^[A-Za-z0-9_-]{11}$/.test(d.videoId))show(slotOf(d.videoId),d);
+else if(d.live===false)L.forEach(function(e){if(e)e.hidden=true})
+}).catch(function(err){if(window.console&&console.warn)console.warn('Перевірка YouTube LIVE не вдалася:',err)}).then(function(){busy=false})}
+check();setInterval(function(){if(!document.hidden)check()},30000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&Date.now()-lastCheck>=30000)check()});
+})();
+</script>
+</body>
+</html>

@@ -442,6 +442,15 @@ body.lock .rotating-cross-badge i{animation-play-state:paused}
 .low .btn.p::before,.low .btn.k::before{animation:none}
 .ultra .pillar,.ultra .yc,.ultra .sec-head::before,.ultra .waves svg,.ultra .rotating-cross-badge i,.ultra .hero-cross{animation:none}
 .ultra .fog,.ultra .b2,.ultra .b3,.ultra .waves,.ultra .xcross,.ultra .cl::before,.ultra .lf::before,.ultra .particles{display:none}
+
+/* Telegram-значок на молодіжних картках */
+.tgb{position:relative;display:inline-grid;place-items:center;width:48px;height:48px;margin-top:18px;border-radius:50%;color:#fff;font-size:1.55rem;text-decoration:none;background:linear-gradient(135deg,#ffb347,#ff7a2f 55%,#d6285a);box-shadow:0 6px 18px rgba(255,122,47,.5),0 0 0 2px rgba(255,209,102,.35),inset 0 1px 0 rgba(255,255,255,.4);transition:transform .5s var(--ease),box-shadow .5s var(--ease);-webkit-tap-highlight-color:transparent}
+.tgb::after{content:'🍂';position:absolute;top:-10px;right:-8px;font-size:.95rem;line-height:1;pointer-events:none}
+.tgb:hover,.tgb:focus-visible{transform:translateY(-3px) rotate(-8deg) scale(1.08);box-shadow:0 10px 26px rgba(255,90,54,.7),0 0 0 3px rgba(255,209,102,.6)}
+.tgb:active{transform:scale(.94)}
+/* виправлення: іконки не «злітають» — обертання/збільшення навколо власного центру, а не центру блока */
+.dir i.i{display:block;width:fit-content;line-height:1;transform-origin:50% 50%}
+.pillar i{display:inline-block}
 </style>
 </head>
 <body>
@@ -555,9 +564,9 @@ body.lock .rotating-cross-badge i{animation-play-state:paused}
       <div class="glass card rv"><div class="ic"><i class="fa-solid fa-church"></i></div><span class="tm">Неділя • 10:00</span><h3>Головне Богослужіння</h3><p>Центральне щотижневе зібрання всієї церкви: потужне прославлення Бога, молитва та практична проповідь слова.</p></div>
       <div class="glass card rv d1"><div class="ic"><i class="fa-solid fa-hands-praying"></i></div><span class="tm">Середа • 18:30</span><h3>Молитовне служіння</h3><p>Спільна молитва за місто, Україну, сім'ї, зцілення та потреби віруючих. Час занурення у Божу присутність.</p></div>
       <div class="glass card rv d2"><div class="ic"><i class="fa-solid fa-users-rectangle"></i></div><span class="tm">Четвер • 18:30</span><h3>Домашні зібрання</h3><p>Затишні зустрічі в різних районах Дніпра для спілкування, вивчення Біблії та взаємної підтримки у невеликому колі.</p></div>
-      <div class="glass card rv"><div class="ic"><i class="fa-solid fa-bolt"></i></div><span class="tm">Субота / за розкладом</span><h3>Молодіжні зібрання</h3><p>Динамічний простір для молоді: актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p></div>
-      <div class="glass card rv d1"><div class="ic"><i class="fa-solid fa-child-reaching"></i></div><span class="tm">Субота • 12:00</span><h3>Підліткові зібрання</h3><p>Спеціальні інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання через призму цінностей.</p></div>
-      <div class="glass card rv d2"><div class="ic"><i class="fa-solid fa-comments"></i></div><span class="tm">За розкладом</span><h3>Speaking Club</h3><p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p></div>
+      <div class="glass card rv"><div class="ic"><i class="fa-solid fa-bolt"></i></div><span class="tm">Субота / за розкладом</span><h3>Молодіжні зібрання</h3><p>Динамічний простір для молоді: актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
+      <div class="glass card rv d1"><div class="ic"><i class="fa-solid fa-child-reaching"></i></div><span class="tm">Субота / за розкладом</span><h3>Підліткові зібрання</h3><p>Спеціальні інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання через призму цінностей.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
+      <div class="glass card rv d2"><div class="ic"><i class="fa-solid fa-comments"></i></div><span class="tm">Субота / за розкладом</span><h3>Speaking Club</h3><p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
     </div>
   </div>
 </section>
@@ -579,9 +588,9 @@ body.lock .rotating-cross-badge i{animation-play-state:paused}
   <div class="wrap">
     <div class="sec-head rv"><h2>Молодь</h2><p>Динамічний простір для молоді та підлітків</p></div>
     <div class="ycards">
-      <div class="glass yc rv"><div class="ic"><i class="fa-solid fa-bolt"></i></div><span class="tm">Субота / за розкладом</span><h3>Молодіжні зібрання</h3><p>Актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p></div>
-      <div class="glass yc rv d1"><div class="ic"><i class="fa-solid fa-child-reaching"></i></div><span class="tm">Субота • 12:00</span><h3>Підліткові зібрання</h3><p>Інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання.</p></div>
-      <div class="glass yc rv d2"><div class="ic"><i class="fa-solid fa-comments"></i></div><span class="tm">За розкладом</span><h3>Speaking Club</h3><p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p></div>
+      <div class="glass yc rv"><div class="ic"><i class="fa-solid fa-bolt"></i></div><span class="tm">Субота / за розкладом</span><h3>Молодіжні зібрання</h3><p>Актуальні теми, творчість, нові знайомства, сучасна музика та спілкування.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
+      <div class="glass yc rv d1"><div class="ic"><i class="fa-solid fa-child-reaching"></i></div><span class="tm">Субота / за розкладом</span><h3>Підліткові зібрання</h3><p>Інтерактивні програми, які допомагають підліткам знаходити відповіді на життєві питання.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
+      <div class="glass yc rv d2"><div class="ic"><i class="fa-solid fa-comments"></i></div><span class="tm">Субота / за розкладом</span><h3>Speaking Club</h3><p>Розмовний англійський клуб для практики мовних навичок у дружній та відкритій атмосфері.</p><a class="tgb" href="https://t.me/rspwn_events" target="_blank" rel="noopener noreferrer" aria-label="Telegram: Respawn Events" title="Telegram: Respawn Events"><i class="fa-brands fa-telegram"></i></a></div>
     </div>
     <div class="ycta rv"><button type="button" class="btn k" data-tg><i class="fa-brands fa-telegram"></i><span>Новини для молоді в Telegram</span></button></div>
   </div>

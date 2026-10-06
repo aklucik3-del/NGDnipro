@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root{--bg:#0b0610;--cy:#ffb347;--bl:#ff7a2f;--pu:#d6285a;--pk:#ff5a36;--go:#ffd166;--tx:#f6e9dc;--mu:#b9a595;--ease:cubic-bezier(.22,1,.36,1);
@@ -413,6 +413,35 @@ body.lock .bg *,body.lock .leaves *,body.lock .particles *,body.lock main *,body
 .rotating-cross-badge.is-on{transform:scale(1.15) translateY(-4px);border-color:var(--pk);box-shadow:0 16px 40px rgba(255,90,54,.65),inset 0 2px 8px rgba(255,255,255,.5)}
 .rotating-cross-badge.is-on i{color:var(--pk);animation-duration:2s;text-shadow:0 1px 0 #a02a10,0 2px 0 #801f0c,0 3px 0 #5e1608,0 4px 0 #3a0e05,0 5px 14px rgba(255,90,54,.9),0 0 28px rgba(255,90,54,1)}
 body.lock .rotating-cross-badge i{animation-play-state:paused}
+
+/* ===== PERFORMANCE 2 ===== */
+/* gradient borders without masks/pseudo-layers: static, painted once with the card */
+.glass::after,.glass:not(.bless-msg)::after{display:none!important}
+.glass{border:1.5px solid transparent;background:var(--glass) padding-box,linear-gradient(rgba(26,11,19,.94),rgba(26,11,19,.94)) padding-box,var(--flow) border-box;background-size:auto,auto,300% 100%;background-position:0 0,0 0,var(--bp,0%) 0;box-shadow:0 12px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.14)}
+.glass:nth-child(2n){--bp:40%}.glass:nth-child(3n){--bp:80%}
+.map{background:radial-gradient(circle at 50% 35%,rgba(255,179,71,.16),transparent 60%) padding-box,var(--glass) padding-box,linear-gradient(rgba(26,11,19,.94),rgba(26,11,19,.94)) padding-box,var(--flow) border-box;background-size:auto,auto,auto,300% 100%;background-position:0 0,0 0,0 0,50% 0}
+/* no live backdrop blur anywhere (it re-blurs under moving leaves every frame) */
+.nav{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(15,6,12,.72)}
+.nav.scrolled{background:rgba(12,5,10,.92)}
+.btn.g{-webkit-backdrop-filter:none;backdrop-filter:none}
+.tgo{-webkit-backdrop-filter:none;backdrop-filter:none;background:radial-gradient(circle at 50% 25%,rgba(255,179,71,.14),transparent 55%),rgba(10,4,9,.92)}
+/* repaint-heavy animations -> compositor-only (transform) */
+.btn.p,.btn.k{isolation:isolate;animation:none;background:#b4421a}
+.btn.p::before,.btn.k::before{content:'';position:absolute;top:0;bottom:0;left:0;width:300%;z-index:-1;pointer-events:none;will-change:transform;animation:slide 22s linear infinite}
+.btn.p::before{background:linear-gradient(90deg,#ffb347,#ff7a2f,#d6285a,#ff5a36,#ffb347,#ff7a2f,#d6285a,#ff5a36,#ffb347,#ff7a2f,#d6285a,#ff5a36,#ffb347)}
+.btn.k::before{background:linear-gradient(90deg,#ff5a36,#d6285a,#ff7a2f,#ffd166,#ff5a36,#d6285a,#ff7a2f,#ffd166,#ff5a36,#d6285a,#ff7a2f,#ffd166,#ff5a36)}
+.sec-head::after{animation:expandBar 4s ease-in-out infinite alternate}
+.hero h1 .ac{animation:none}
+.sec-head h2,.about-text h2{filter:none}
+.sep{filter:none}
+.hero-cross{font-size:min(62vmin,540px)}
+#hin{will-change:transform,opacity}.hero-glow{will-change:transform}
+@media(max-width:700px){.b3,.b4,.fog.f2,.waves svg+svg,.bg::after{display:none}.blob{opacity:.45}.hero-cross,.xcross{filter:none}}
+.low .cl svg+svg{animation:none}
+.low .lf.g::before,.low .waves svg+svg,.low .bg::after{display:none}
+.low .btn.p::before,.low .btn.k::before{animation:none}
+.ultra .pillar,.ultra .yc,.ultra .sec-head::before,.ultra .waves svg,.ultra .rotating-cross-badge i,.ultra .hero-cross{animation:none}
+.ultra .fog,.ultra .b2,.ultra .b3,.ultra .waves,.ultra .xcross,.ultra .cl::before,.ultra .lf::before,.ultra .particles{display:none}
 </style>
 </head>
 <body>
@@ -652,7 +681,7 @@ $('year').textContent=new Date().getFullYear();
 (function(){var L=$('leaves');if(!L||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 var w=innerWidth,low=(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4;
 if(low)document.body.classList.add('low');
-var m=w<700,n=Math.round((m?9:w<1100?14:20)*(low?.6:1)),r=Math.random,
+var m=w<700,n=Math.round((m?6:w<1100?9:14)*(low?.6:1)),r=Math.random,
 C=['#ffd166','#ffb347','#ff9a2f','#ff7a2f','#e0452b','#b3261e','#ffc247'],
 S=['<path d="M12 1C5 6 3 14 12 23C21 14 19 6 12 1Z"/>','<polygon points="12,1 14.5,7 19,4.5 17.5,10.5 23,10 19,14.5 22,18 15.5,17.5 12,23 8.5,17.5 2,18 5,14.5 1,10 6.5,10.5 5,4.5 9.5,7"/>','<path d="M12 2C21 4 22 14 12 22 2 14 3 4 12 2Z"/>'],
 V='<path d="M12 5V23" stroke="rgba(60,10,0,.3)" stroke-width="1" fill="none"/>',f=document.createDocumentFragment();
@@ -664,7 +693,7 @@ f.appendChild(d)}
 L.appendChild(f)})();
 
 /* Particles */
-var P=$('pts');var PN=innerWidth<700?6:innerWidth<1100?10:14;for(var i=0;i<PN;i++){var d=document.createElement('div'),s=3+Math.random()*7;d.className='pt';d.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;animation-duration:'+(18+Math.random()*22)+'s;animation-delay:-'+Math.random()*30+'s';P.appendChild(d)}
+var P=$('pts');var PN=innerWidth<700?4:innerWidth<1100?7:10;for(var i=0;i<PN;i++){var d=document.createElement('div'),s=3+Math.random()*7;d.className='pt';d.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;animation-duration:'+(18+Math.random()*22)+'s;animation-delay:-'+Math.random()*30+'s';P.appendChild(d)}
 
 /* Nav */
 var nav=$('nav'),mm=$('mmenu'),bg=$('burger');
@@ -681,21 +710,22 @@ var rv=new IntersectionObserver(function(es){es.forEach(function(e){e.target.cla
 document.querySelectorAll('.rv').forEach(function(e){rv.observe(e)});
 
 /* Hero parallax */
-var hin=$('hin'),hg=$('hglow'),tick=false,sT=0,navOn=false,H=innerHeight,bd=document.body;
+var hin=$('hin'),hg=$('hglow'),tick=false,sT=0,navOn=false,H=innerHeight,bd=document.body,PAR=innerWidth>=700;
 addEventListener('resize',function(){H=innerHeight},{passive:true});
 function frame(){tick=false;var y=scrollY,o=y>30;if(o!==navOn){navOn=o;nav.classList.toggle('scrolled',o)}
-if(y<H*1.2){hin.style.transform='translate3d(0,'+y*.15+'px,0)';hin.style.opacity=Math.max(0,1-y/(H*.9));hg.style.translate='0 '+y*.25+'px'}}
-addEventListener('scroll',function(){bd.classList.add('scrolling');clearTimeout(sT);sT=setTimeout(function(){bd.classList.remove('scrolling')},140);if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});frame();
+if(PAR&&y<H*1.2){hin.style.transform='translate3d(0,'+y*.15+'px,0)';hin.style.opacity=Math.max(0,1-y/(H*.9));hg.style.translate='0 '+y*.25+'px'}}
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});frame();
 
 /* Pause animations in sections that are far off-screen */
 var offIO=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('off',!e.isIntersecting)})},{rootMargin:'160px 0px'});
 document.querySelectorAll('section,footer').forEach(function(s){offIO.observe(s)});
 
-/* Auto-lite: if the first seconds run below ~42 fps, thin out decorations */
-(function(){var n=0,t0=0,bad=false;document.addEventListener('visibilitychange',function(){bad=true});
-function f(t){if(bad)return;if(!t0)t0=t;n++;if(t-t0<1800)return requestAnimationFrame(f);
-if(n*1000/(t-t0)<42&&!bd.classList.contains('low')){bd.classList.add('low');[].forEach.call(document.querySelectorAll('.lf,.pt'),function(e,i,a){if(i%2)e.remove()})}}
-addEventListener('load',function(){setTimeout(function(){requestAnimationFrame(f)},2500)})})();
+/* Auto-lite: up to 2 re-checks; every time fps is low the page is thinned further */
+(function(){var lvl=0,bad=false;document.addEventListener('visibilitychange',function(){bad=true});
+function thin(k){[].forEach.call(document.querySelectorAll('.lf,.pt'),function(e,i){if(k===1?i%2:i>2)e.remove()})}
+function test(){var n=0,t0=0;bad=false;function f(t){if(bad)return;if(!t0)t0=t;n++;if(t-t0<1500)return requestAnimationFrame(f);
+if(n*1000/(t-t0)<48&&lvl<2){lvl++;bd.classList.add('low');if(lvl===2)bd.classList.add('ultra');thin(lvl);setTimeout(test,1500)}}requestAnimationFrame(f)}
+addEventListener('load',function(){setTimeout(test,2000)})})();
 
 /* Timers (Kyiv time) */
 var fmt=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Kyiv',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric',hour12:false});
@@ -793,7 +823,7 @@ V='<path d="M12 5V23" stroke="rgba(60,10,0,.3)" stroke-width="1" fill="none"/>',
 function mk(el,bl){var a=P(C),b=P(C),s=P(S),sm=el.classList.contains('pillar'),d=document.createElement('span');d.className='cl'+(bl?' bl':'');
 d.style.cssText='--ls:'+((sm?20:24)+Math.floor(r()*12))+'px;--lr:'+(bl?-140+Math.floor(r()*50):20+Math.floor(r()*60))+'deg;--lc:'+a+';--ld:-'+(r()*7).toFixed(1)+'s';
 d.innerHTML='<svg viewBox="0 0 24 24" fill="'+a+'">'+s+V+'</svg><svg viewBox="0 0 24 24" fill="'+b+'">'+s+V+'</svg>';el.appendChild(d)}
-document.querySelectorAll('.glass:not(.bless-msg):not(.live-idle)').forEach(function(el){mk(el,0);if(el.matches('.about-text,.spirit,.map,.timer,.live-card'))mk(el,1)})})();
+document.querySelectorAll('.glass:not(.bless-msg):not(.live-idle)').forEach(function(el){mk(el,0);if(el.matches('.about-text,.spirit'))mk(el,1)})})();
 
 /* Click toggles, both ways */
 document.querySelectorAll('.rotating-cross-badge,.ti,.cd>div,.card,.ci-i,.map,.dir,.spirit,.pillar,.yc,.timer,.about-text').forEach(function(el){el.addEventListener('click',function(e){var i=e.target.closest('button,a');if(i&&i!==el&&el.contains(i))return;if(el.classList.contains('rv')&&!el.classList.contains('in'))return;el.classList.toggle('is-on')})});

@@ -482,11 +482,33 @@ background:conic-gradient(rgba(255,179,71,.25) 0deg,rgba(255,122,47,.35) 90deg,#
 .tgk:focus-visible{border-color:transparent;background:linear-gradient(rgba(54,22,26,.94),rgba(54,22,26,.94)) padding-box,var(--flow) border-box;background-size:auto,300% 100%;background-position:0 0,var(--bp,0%) 0;box-shadow:0 0 28px rgba(255,150,50,.5)}
 @media(hover:hover) and (pointer:fine){.tgk:hover{border-color:transparent;background:linear-gradient(rgba(54,22,26,.94),rgba(54,22,26,.94)) padding-box,var(--flow) border-box;background-size:auto,300% 100%;background-position:0 0,var(--bp,0%) 0;box-shadow:0 0 28px rgba(255,150,50,.5)}}
 .tgc h2{filter:drop-shadow(0 0 12px rgba(255,150,50,.35))}
+
+/* ===== EXTRA: wind gust, embers on tap, warm cursor glow ===== */
+.wind-btn{position:fixed;left:clamp(16px,3vw,26px);bottom:clamp(20px,4vw,30px);z-index:900;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;border:1.5px solid transparent;color:#ffd9a0;font-size:1.3rem;cursor:pointer;background:linear-gradient(rgba(34,14,22,.92),rgba(34,14,22,.92)) padding-box,var(--flow) border-box;background-size:auto,300% 100%;box-shadow:0 8px 22px rgba(255,122,47,.4);transition:transform .5s var(--ease),box-shadow .5s var(--ease),color .4s;-webkit-tap-highlight-color:transparent}
+.wind-btn i{transition:transform .9s var(--ease)}
+.wind-btn.blow i{transform:translateX(7px) rotate(-14deg)}
+.wind-btn:active{transform:scale(.92)}
+.wind-btn:disabled{cursor:default}
+@media(hover:hover) and (pointer:fine){.wind-btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(255,90,54,.6);color:#fff}}
+.leaves{transition:transform 1.4s var(--ease)}.leaves.gust{transform:translateX(6vw)}
+.wl{position:absolute;left:-8vw;top:var(--y);width:var(--s);height:var(--s);will-change:transform;animation:wfly var(--t) cubic-bezier(.3,.1,.5,1) forwards,wspin var(--t) linear forwards}
+.wl svg{display:block;width:100%;height:100%}
+@keyframes wfly{from{translate:0 0}to{translate:var(--wx) var(--wy)}}
+@keyframes wspin{to{rotate:var(--wr)}}
+.fx{position:fixed;inset:0;z-index:100001;pointer-events:none;overflow:hidden}
+.em{position:absolute;width:var(--es);height:var(--es);margin:calc(var(--es)/-2) 0 0 calc(var(--es)/-2);border-radius:50%;background:radial-gradient(circle,#fff6d0,var(--ec) 45%,transparent 72%);animation:emb var(--et) ease-out forwards}
+@keyframes emb{from{translate:0 0;opacity:1;scale:1}to{translate:var(--dx) var(--dy);opacity:0;scale:.2}}
+.glowcur{position:fixed;left:0;top:0;width:320px;height:320px;margin:-160px 0 0 -160px;border-radius:50%;pointer-events:none;z-index:4;opacity:0;transition:opacity .6s;will-change:transform;background:radial-gradient(circle,rgba(255,170,70,.15),rgba(255,90,54,.06) 45%,transparent 70%)}
+.low .glowcur,.ultra .glowcur,.ultra .wl{display:none}
+@media(prefers-reduced-motion:reduce){.wind-btn,.glowcur,.fx{display:none}}
 </style>
 </head>
 <body>
 <div class="bg"><div class="grid-lines"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="fog"></div><div class="fog f2"></div><div class="xcross"></div></div>
 <div class="leaves" id="leaves" aria-hidden="true"></div>
+<div class="glowcur" id="glowCur" aria-hidden="true"></div>
+<div class="fx" id="fx" aria-hidden="true"></div>
+<button type="button" class="wind-btn" id="windBtn" aria-label="Подув осіннього вітру" title="Подув осіннього вітру"><i class="fa-solid fa-wind"></i></button>
 <div class="particles" id="pts" aria-hidden="true"></div>
 
 <div class="rotating-cross-badge" title="Об'ємний 3D хрест"><i class="fa-solid fa-cross"></i></div>
@@ -876,6 +898,29 @@ d.style.cssText='--x:'+(r()*100).toFixed(1)+'%;--s:'+sz.toFixed(0)+'px;--d:'+(13
 d.innerHTML='<svg viewBox="0 0 24 24" fill="'+c+'">'+S[i%2]+'</svg>';f.appendChild(d)}
 T.appendChild(f)})();
 
+/* Extra: wind gust button, embers on tap, warm cursor glow */
+(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var L=$('leaves'),FX=$('fx'),G=$('glowCur'),W=$('windBtn'),B=document.body,r=Math.random,
+C=['#ffd166','#ffb347','#ff9a2f','#ff7a2f','#e0452b','#d6285a'],
+S=['<path d="M12 1C5 6 3 14 12 23C21 14 19 6 12 1Z"/>','<polygon points="12,1 14.5,7 19,4.5 17.5,10.5 23,10 19,14.5 22,18 15.5,17.5 12,23 8.5,17.5 2,18 5,14.5 1,10 6.5,10.5 5,4.5 9.5,7"/>'],cd=false;
+W.addEventListener('click',function(){if(cd)return;cd=true;W.disabled=true;W.classList.add('blow');L.classList.add('gust');
+setTimeout(function(){L.classList.remove('gust')},1100);toast('Осінній вітер 🍃');
+var n=B.classList.contains('ultra')?4:B.classList.contains('low')?8:innerWidth<700?8:14;
+for(var i=0;i<n;i++){var c=C[Math.floor(r()*C.length)],d=document.createElement('div');d.className='wl';
+d.style.cssText='--y:'+(3+r()*85).toFixed(0)+'vh;--s:'+(16+r()*22).toFixed(0)+'px;--t:'+(2.4+r()*2.2).toFixed(1)+'s;--wx:'+Math.round(innerWidth*1.2)+'px;--wy:'+Math.round(r()*140-40)+'px;--wr:'+Math.round(360+r()*540)+'deg;animation-delay:'+(r()*.5).toFixed(2)+'s';
+d.innerHTML='<svg viewBox="0 0 24 24" fill="'+c+'">'+S[i%2]+'</svg>';
+d.addEventListener('animationend',function(e){if(e.animationName==='wfly')this.remove()});L.appendChild(d)}
+setTimeout(function(){cd=false;W.disabled=false;W.classList.remove('blow')},3200)});
+var ec=['#ffd166','#ffb347','#ff7a2f','#ff5a36'];
+document.addEventListener('click',function(e){if(B.classList.contains('ultra')||FX.childElementCount>36)return;var x=e.clientX,y=e.clientY;if(!x&&!y)return;
+for(var i=0;i<7;i++){var s=document.createElement('span'),a=r()*6.283,k=24+r()*46;s.className='em';
+s.style.cssText='left:'+x+'px;top:'+y+'px;--es:'+(3+r()*5).toFixed(1)+'px;--ec:'+ec[i%4]+';--dx:'+Math.round(Math.cos(a)*k)+'px;--dy:'+Math.round(Math.sin(a)*k-30)+'px;--et:'+(.6+r()*.5).toFixed(2)+'s';
+s.addEventListener('animationend',function(){this.remove()});FX.appendChild(s)}},{passive:true});
+if(G&&matchMedia('(hover:hover) and (pointer:fine)').matches){var gx=0,gy=0,gt=false;
+document.addEventListener('pointermove',function(e){gx=e.clientX;gy=e.clientY;G.style.opacity=1;if(!gt){gt=true;requestAnimationFrame(function(){gt=false;G.style.transform='translate3d('+gx+'px,'+gy+'px,0)'})}},{passive:true});
+document.documentElement.addEventListener('mouseleave',function(){G.style.opacity=0})}
+})();
+
 /* Click toggles, both ways */
 document.querySelectorAll('.rotating-cross-badge,.ti,.cd>div,.card,.ci-i,.map,.dir,.spirit,.pillar,.yc,.timer,.about-text').forEach(function(el){el.addEventListener('mouseleave',function(){el.classList.remove('rest')});el.addEventListener('click',function(e){var i=e.target.closest('button,a');if(i&&i!==el&&el.contains(i))return;if(el.classList.contains('rv')&&!el.classList.contains('in'))return;var on=el.classList.toggle('is-on');el.classList.toggle('rest',!on)})});
 
@@ -1000,4 +1045,4 @@ if(e.key==='Tab'&&ov.classList.contains('open')){var f=ov.querySelectorAll('a,bu
 })();
 </script>
 </body>
-</html>
+  </html>
